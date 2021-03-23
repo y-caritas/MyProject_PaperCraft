@@ -1,5 +1,5 @@
 package dto;
 
-public class EnquiryDto {
+public class InquiryDto {
 
 }

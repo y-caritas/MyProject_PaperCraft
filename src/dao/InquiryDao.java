@@ -1,5 +1,5 @@
 package dao;
 
-public class EnquiryDao {
+public class InquiryDao {
 
 }
