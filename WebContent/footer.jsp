@@ -12,46 +12,36 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <title>PaperCraft</title>
 <style>
-  *{
-  margin:0;
-  padding:0;
-  color: #818181;
-  
-  }
-  a {
+  .ft-top span a {
   color: #818181;
   text-decoration: none; 
   outline: none;
   }
-  a:hover {
+  .ft-top span a:hover {
     color: #e3e3e4;
     text-decoration: none;
   }
-  ul{
-  list-style:none;
-  padding-left:0px;
-  }
-.row {
+  .row {
     color: #818181;
-}
-.footer {
+  }
+  .footer {
   background-color: #f1f3f4;
-}
-.footer > .ft-top {
+  }
+  .footer > .ft-top {
   background-color: white;
   text-align: center;
-}
-.ft-bold {
+  }
+  .ft-bold {
   font-weight: bold;
-}
-#copyright {
+  }
+  #copyright {
   text-align: center;
   background-color: #c7c7c7;
   color: white;
-}
-.ft-section, .ft-section2 {
+  }
+  .ft-section, .ft-section2 {
   margin: 30px auto 30px auto;
-}
+  }
 </style>
 </head>
 <body>
@@ -79,7 +69,6 @@
     <div id="copyright">
       Copyright ⓒPaper Craft Crop. All rights reserved.
   </div>
-    </div>
     </div>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
       <script src="js/bootstrap.min.js"></script>
