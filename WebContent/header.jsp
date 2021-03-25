@@ -70,9 +70,11 @@
       display: block;
       text-align: center;
       z-index: 99;
+      background-color: rgb(255, 255, 255);
+      
     }
     .dropdown_menu a:hover {
-      background-color: #F1F3F4;
+      background-color: #E3E3E4;
     }
     
   </style>
@@ -127,5 +129,6 @@
     </div>
 
   </header>
+  
 </body>
 </html>
