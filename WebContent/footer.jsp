@@ -21,7 +21,7 @@
     color: #e3e3e4;
     text-decoration: none;
   }
-  .row {
+  .ft-section-box {
     color: #818181;
   }
   .footer {
@@ -51,7 +51,7 @@
     <span><a href="#">이용약관</a></span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
     <span><a href="#">고객센터</a></span> <br>
     </div>
-    <div class="row">
+    <div class="row ft-section-box">
       <div class="ft-section">
         <span class="ft-bold"> CS Center </span><br>
           <span>Tel : 02.123.4567</span> <br>
