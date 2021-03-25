@@ -12,7 +12,17 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <title>PaperCraft</title>
 <style>
+<<<<<<< Updated upstream
   .ft-top span a {
+=======
+  *{
+  margin:0;
+  padding:0;
+  
+  
+  }
+  a {
+>>>>>>> Stashed changes
   color: #818181;
   text-decoration: none; 
   outline: none;
@@ -21,13 +31,25 @@
     color: #e3e3e4;
     text-decoration: none;
   }
+<<<<<<< Updated upstream
   .ft-section-box {
+=======
+
+.row {
+>>>>>>> Stashed changes
     color: #818181;
   }
   .footer {
   background-color: #f1f3f4;
+<<<<<<< Updated upstream
   }
   .footer > .ft-top {
+=======
+  display: bolck;
+  margin-top: 100px;
+}
+.footer > .ft-top {
+>>>>>>> Stashed changes
   background-color: white;
   text-align: center;
   }
