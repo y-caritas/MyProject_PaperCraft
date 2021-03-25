@@ -36,7 +36,6 @@
       display : flex;
       display: none;
       position: absolute;
-      margin: 3px 0;
     }
     .submenu {
       display: flex;
@@ -102,7 +101,7 @@
       </div>
     </c:if>
     <div id="logo">
-      <img src="img/로고 후보5(Quicksand).png" alt="로고" style="width:388px; height:102px;">
+      <img src="<%= request.getContextPath() %>/img/로고 후보5(Quicksand).png" alt="로고" style="width:388px; height:102px;">
     </div>
     <div class="navbar">
       <span class="dropdown">Brand
