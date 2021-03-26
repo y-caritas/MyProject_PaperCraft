@@ -2,111 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&family=Open+Sans&display=swap" rel="stylesheet">
-  <title>캐러셀</title>
- 
-  <style>
- 
-    * {
-      margin: 0; padding: 0;
-      
-    }
- 
-    /* carousel 시작 */
-    
-     #demo {
-     width: 1200px;
-     height: 200px;
-      display: block;
-       margin: auto;
-     }
-    .carousel-item {
-      position: relative; 
-      
-      
-    }
-    .carousel-caption {
-      width: 80%; position: absolute; margin: 0 auto;
-      left: 10%; top: 15%;
-    }
-    .carousel-caption h1 {
-      font-family:  'Open Sans', 'Noto Sans KR', sans-serif ;
-      width: 80%; text-align: left; font-size: 45px; padding-bottom: 10px;
-      animation-delay: 0.5s; 
-    }
-    .carousel-caption p {
-      width: 80%; text-align: left; font-size: 14px;
-      color: #f6f6f6; padding-bottom: 10px;
-      animation-delay: 0.4s;
-    }
-    .carousel-caption .learn-btn {
-      position: absolute; left: 0; width: 130px; height: 40px;
-      animation-delay: 1.2s;
-    }
-    .carousel-caption .learn-btn:hover {
-      background-color: ;
-    }
-    /* carousel 애니메이션 효과 - animation-delay는 바로 위쪽에 */
-    .animated {
-      -webkit-animation-duration: 1s;
-      animation-duration: 1s;
-      -webkit-animation-fill-mode: both;
-      animation-fill-mode: both;
-    }
-    .fadeInDown  {
-      animation-name: fadeInDown;
-    }
-    .fadeInUp  {
-      animation-name: fadeInUp;
-    }
-    @keyframes fadeInDown {
-      0% {
-        opacity: 0;
-        -webkit-transform: translateY(-20px);
-        -ms-transform: translateY(-20px);
-        transform: translateY(-20px);
-      }
-      100% {
-        opacity: 1;
-        -webkit-transform: translateY(0);
-        -ms-transform: translateY(0);
-        transform: translateY(0);
-      }
-    }
-    @keyframes fadeInUp {
-      0% {
-        opacity: 0;
-        -webkit-transform: translateY(20px);
-        -ms-transform: translateY(20px);
-        transform: translateY(20px);
-      }
-      100% {
-        opacity: 1;
-        -webkit-transform: translateY(0);
-        -ms-transform: translateY(0);
-        transform: translateY(0);
-      }
-    }
-    
-
-  </style>
+  <c:import url="/header.jsp"></c:import>
   
-
-</head>
-<body>
-
-  <%@ include file="header.jsp" %>
-<!-- 캐러셀 -->
+  <!-- 캐러셀 -->
 <div id="demo" class="carousel slide align-center" data-ride="carousel" > 
   <div class="carousel-inner"> 
    
@@ -156,7 +54,6 @@
     </ul> <!-- 인디케이터 끝 --> 
   </div>
 </div>
-   <%@ include file="footer.jsp" %>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
@@ -172,7 +69,4 @@
  
   </script>
   
-  
-</body>
-
-</html>
+<<c:import url="/footer.jsp"></c:import>

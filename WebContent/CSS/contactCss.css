@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+    #contact-wrap {
+    margin: 50px auto;
+    }
+    span {
+      font-family: 'Open Sans', 'Noto Sans KR', sans-serif;
+    }
+    #map {
+      border: 0.5px solid #818181;
+      margin: 30px auto auto auto;
+    }
+    #con_title {
+      text-align: center;
+      margin: 10px auto auto auto;
+    }
+    #title_name {
+      font-size: 28px;
+    }
+    #con_section {
+      text-align: center;
+      margin-top: 12px;
+    }

@@ -1,0 +1,83 @@
+@charset "UTF-8";
+
+ 
+    /* carousel 시작 */
+    
+     #demo {
+     width: 1200px;
+     height: 900px;
+     display: block;
+     margin: 50px auto 100px auto;
+     }
+    .carousel-item {
+      position: relative; 
+      
+      
+    }
+
+    .carousel-item img {
+      height: 900px;
+    }
+    .carousel-caption {
+      width: 80%; position: absolute; margin: 0 auto;
+      left: 10%; top: 15%;
+    }
+    .carousel-caption h1 {
+      font-family:  'Open Sans', 'Noto Sans KR', sans-serif ;
+      width: 80%; text-align: left; font-size: 45px; padding-bottom: 10px;
+      animation-delay: 0.5s; 
+    }
+    .carousel-caption p {
+      width: 80%; text-align: left; font-size: 14px;
+      color: #f6f6f6; padding-bottom: 10px;
+      animation-delay: 0.4s;
+    }
+    .carousel-caption .learn-btn {
+      position: absolute; left: 0; width: 130px; height: 40px;
+      animation-delay: 1.2s;
+    }
+    .carousel-caption .learn-btn:hover {
+      background-color: ;
+    }
+    /* carousel 애니메이션 효과 - animation-delay는 바로 위쪽에 */
+    .animated {
+      -webkit-animation-duration: 1s;
+      animation-duration: 1s;
+      -webkit-animation-fill-mode: both;
+      animation-fill-mode: both;
+    }
+    .fadeInDown  {
+      animation-name: fadeInDown;
+    }
+    .fadeInUp  {
+      animation-name: fadeInUp;
+    }
+    @keyframes fadeInDown {
+      0% {
+        opacity: 0;
+        -webkit-transform: translateY(-20px);
+        -ms-transform: translateY(-20px);
+        transform: translateY(-20px);
+      }
+      100% {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+        transform: translateY(0);
+      }
+    }
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        -webkit-transform: translateY(20px);
+        -ms-transform: translateY(20px);
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+        transform: translateY(0);
+      }
+    }
+    
