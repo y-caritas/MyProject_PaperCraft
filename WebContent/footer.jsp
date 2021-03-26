@@ -2,8 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-  <div class="footer">
-    <div class="ft-top">
+  <footer>
+  
+  <div class="ft-top">
     <span><a href="#">회사소개</a></span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
     <span><a href="#">이용약관</a></span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
     <span><a href="#">고객센터</a></span> <br>
@@ -25,7 +26,9 @@
     <div id="copyright">
       Copyright ⓒPaper Craft Crop. All rights reserved.
     </div>
-  </div>
+  
+  </footer>
+    
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
       <script src="js/bootstrap.min.js"></script>
 </body>

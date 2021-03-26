@@ -7,12 +7,10 @@
      width: 1200px;
      height: 900px;
      display: block;
-     margin: 50px auto 100px auto;
+     margin: auto;
      }
     .carousel-item {
       position: relative; 
-      
-      
     }
 
     .carousel-item img {
@@ -25,7 +23,7 @@
     .carousel-caption h1 {
       font-family:  'Open Sans', 'Noto Sans KR', sans-serif ;
       width: 80%; text-align: left; font-size: 45px; padding-bottom: 10px;
-      animation-delay: 0.5s; 
+      animation-delay: 0.5s; color: white;
     }
     .carousel-caption p {
       width: 80%; text-align: left; font-size: 14px;

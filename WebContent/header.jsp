@@ -47,17 +47,17 @@
       </div>
     </c:if>
     <div id="logo">
-      <img src="<%= request.getContextPath() %>/img/로고 후보5(Quicksand).png" alt="로고" style="width:388px; height:102px;">
+      <a href="<%= request.getContextPath() %>/main.jsp"><img src="<%= request.getContextPath() %>/img/로고 후보5(Quicksand).png" alt="로고" style="width:388px; height:102px;"></a>
     </div>
     <div class="navbar">
-      <span class="dropdown">Brand
-        <span class="dropdown_menu" style="width:100px;">
+        <span class="dropdown">Brand
+        <span class="dropdown_menu" style="width:170px;">
           <a href="#">회사소개</a>
           <a href="brand/contact_us.jsp">오시는길</a>
         </span>
       </span>
       <span class="dropdown">Product
-        <span class="dropdown_menu" style="width:100px;">
+        <span class="dropdown_menu" style="width:170px;">
           <a href="#">무드등</a>
           <a href="#">유리돔</a>
           <a href="#">카드/액자</a>
@@ -65,8 +65,8 @@
         </span>
       </span>
       <span class="dropdown">Community
-        <span class="dropdown_menu" style="width:100px;">
-          <a href="#">주문제작 및 1:1문의</a>
+        <span class="dropdown_menu" style="width:170px;">
+          <a href="#">주문제작 / 문의</a>
           <a href="#">FAQ</a>
           <a href="#">공지사항</a>
         </span>

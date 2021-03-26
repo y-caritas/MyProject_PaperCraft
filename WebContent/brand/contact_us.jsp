@@ -5,7 +5,9 @@
 
 <c:import url="/header.jsp"></c:import>
 
-  <div id="con_title">
+<div id="contactWrap">
+
+<div id="con_title">
     <span id="title_name">오시는 길</span>
   </div>
 	<div id="map" style="width:600px;height:350px;"></div>
@@ -13,7 +15,11 @@
     <span>주소 : 서울특별시 중구 태평로1가 31</span><br>
     <span>번호 : 02-123-4567</span>
   </div>
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c2a2550d5c82d16efa872e92e859be12"></script>
+
+
+</div>
+
+  	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c2a2550d5c82d16efa872e92e859be12"></script>
 	<script>
 		var container = document.getElementById('map');
 		var options = {

@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+  footer {
+    margin-top: 150px;
+    background-color: #f1f3f4;
+  }
   .ft-top {
   height: 30px;
   font-size: 0.9em;
@@ -11,15 +15,12 @@
   outline: none;
   }
   .ft-top a:hover {
-    color: #e3e3e4;
+    color: #c7c7c7;
     text-decoration: none;
   }
   .ft-section-box {
     color: #818181;
     font-size: 0.8em;
-  }
-  .footer {
-  background-color: #f1f3f4;
   }
   .ft-top {
   background-color: white;
