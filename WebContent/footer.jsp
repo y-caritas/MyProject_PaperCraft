@@ -1,51 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<title>PaperCraft</title>
-<style>
-  .ft-top span a {
-  color: #818181;
-  text-decoration: none; 
-  outline: none;
-  }
-  .ft-top span a:hover {
-    color: #e3e3e4;
-    text-decoration: none;
-  }
-  .ft-section-box {
-    color: #818181;
-  }
-  .footer {
-  background-color: #f1f3f4;
-  }
-  .footer > .ft-top {
-  background-color: white;
-  text-align: center;
-  }
-  .ft-bold {
-  font-weight: bold;
-  }
-  #copyright {
-  text-align: center;
-  background-color: #c7c7c7;
-  color: white;
-  }
-  .ft-section, .ft-section2 {
-  margin: 30px auto 30px auto;
-  }
-</style>
-</head>
-<body>
 	
-  <div class="footer">
+  <footer>
     <div class="ft-top">
     <span><a href="#">회사소개</a></span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
     <span><a href="#">이용약관</a></span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;
@@ -68,7 +25,6 @@
     <div id="copyright">
       Copyright ⓒPaper Craft Crop. All rights reserved.
     </div>
-  
   </footer>
     
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
