@@ -22,6 +22,7 @@
   <link href="<%= request.getContextPath() %>/CSS/contactCss.css?ver=1" rel="stylesheet">
   <link href="<%= request.getContextPath() %>/CSS/footerCss.css?ver=1" rel="stylesheet">
   <link href="<%= request.getContextPath() %>/CSS/mainCss.css?ver=1" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/introductionCss.css?ver=1" rel="stylesheet">
   
 </head>
 <body>

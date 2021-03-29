@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+    .intro_img1 {
+      margin: 0 auto 10px auto;
+      text-align: center;
+    }
+
+    .intro_img1 img {
+      width: 60%;
+    }
+    .intro_text, .intro_img2 {
+      text-align: center;
+    }
+    .intro_img2 img {
+      width: 60%;
+    }
+    .intro_img2 {
+      margin-top: 20px;
+    }
