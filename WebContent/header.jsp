@@ -8,75 +8,21 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&family=Open+Sans&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin : 0;
-    }
-    #logo {
-      margin: 3% auto;
-      display: flex;
-      justify-content: center;
-    }
-    .navbar {
-      display: flex;
-      justify-content: center;
-      color: #818181;
-      height: 50px;
-      font-family: 'Open Sans', 'Noto Sans KR', sans-serif;
-    }
-    .navbar > span {
-      margin : 0 10%;
-    }
-    .dropdown {
-      position: relative;
-    }
-    .dropdown_menu {
-      display : flex;
-      display: none;
-      position: absolute;
-    }
-    .submenu {
-      display: flex;
-      justify-content: flex-end;
-      font-size: 0.5em;
-      margin : 10px 0;
-      height: 20px;
-    }
-    .submenu > span {
-      display: inline-block;
-      width: 60px;
-      text-align: center;
-    }
-    .submenu a {
-      text-decoration: none;
-      color: #222222;
-    }
-    .dropdown_menu a {
-      display: block;
-      text-decoration: none;
-      color: #818181;
-      padding: 5px;
-      font-size: 0.9em;
-    }
-    .navbar > span {
-      display: inline-block;
-      width: 100px;
-      text-align: center;
-    }
-    .dropdown:hover .dropdown_menu {
-      display: block;
-      text-align: center;
-      z-index: 99;
-      background-color: rgb(255, 255, 255);
-      
-    }
-    .dropdown_menu a:hover {
-      background-color: #E3E3E4;
-    }
+  
+  <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     
-  </style>
+  <title>Document</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&family=Open+Sans&display=swap" rel="stylesheet">
+  
+  <link href="<%= request.getContextPath() %>/CSS/headerCss.css?ver=1" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/contactCss.css?ver=1" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/footerCss.css?ver=1" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/mainCss.css?ver=1" rel="stylesheet">
+  
 </head>
 <body>
   <header>
@@ -101,17 +47,17 @@
       </div>
     </c:if>
     <div id="logo">
-      <img src="<%= request.getContextPath() %>/img/로고 후보5(Quicksand).png" alt="로고" style="width:388px; height:102px;">
+      <a href="<%= request.getContextPath() %>/main.jsp"><img src="<%= request.getContextPath() %>/img/로고 후보5(Quicksand).png" alt="로고" style="width:388px; height:102px;"></a>
     </div>
     <div class="navbar">
-      <span class="dropdown">Brand
-        <span class="dropdown_menu" style="width:100px;">
+        <span class="dropdown">Brand
+        <span class="dropdown_menu" style="width:170px;">
           <a href="#">회사소개</a>
-          <a href="#">오시는길</a>
+          <a href="brand/contact_us.jsp">오시는길</a>
         </span>
       </span>
       <span class="dropdown">Product
-        <span class="dropdown_menu" style="width:100px;">
+        <span class="dropdown_menu" style="width:170px;">
           <a href="#">무드등</a>
           <a href="#">유리돔</a>
           <a href="#">카드/액자</a>
@@ -119,15 +65,11 @@
         </span>
       </span>
       <span class="dropdown">Community
-        <span class="dropdown_menu" style="width:100px;">
-          <a href="#">주문제작 및 1:1문의</a>
+        <span class="dropdown_menu" style="width:170px;">
+          <a href="#">주문제작 / 문의</a>
           <a href="#">FAQ</a>
           <a href="#">공지사항</a>
         </span>
       </span>
     </div>
-
   </header>
-  
-</body>
-</html>
