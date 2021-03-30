@@ -5,7 +5,7 @@
     
      #demo {
      width: 1200px;
-     height: 900px;
+     height: 1200px;
      display: block;
      margin: auto;
      }
@@ -14,7 +14,7 @@
     }
 
     .carousel-item img {
-      height: 900px;
+      height: 1200px;
     }
     .carousel-caption {
       width: 80%; position: absolute; margin: 0 auto;
@@ -34,9 +34,7 @@
       position: absolute; left: 0; width: 130px; height: 40px;
       animation-delay: 1.2s;
     }
-    .carousel-caption .learn-btn:hover {
-      background-color: ;
-    }
+ 
     /* carousel 애니메이션 효과 - animation-delay는 바로 위쪽에 */
     .animated {
       -webkit-animation-duration: 1s;

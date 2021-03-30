@@ -23,6 +23,7 @@
   <link href="<%= request.getContextPath() %>/CSS/footerCss.css?ver=1" rel="stylesheet">
   <link href="<%= request.getContextPath() %>/CSS/mainCss.css?ver=1" rel="stylesheet">
   <link href="<%= request.getContextPath() %>/CSS/introductionCss.css?ver=1" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/faqCss.css?ver=1" rel="stylesheet">
   
 </head>
 <body>
@@ -53,8 +54,8 @@
     <div class="navbar">
         <span class="dropdown">Brand
         <span class="dropdown_menu" style="width:170px;">
-          <a href="#">회사소개</a>
-          <a href="brand/contact_us.jsp">오시는길</a>
+          <a href="<%= request.getContextPath() %>/brand/introduction.jsp">회사소개</a>
+          <a href="<%= request.getContextPath() %>/brand/contact_us.jsp">오시는길</a>
         </span>
       </span>
       <span class="dropdown">Product
@@ -68,7 +69,7 @@
       <span class="dropdown">Community
         <span class="dropdown_menu" style="width:170px;">
           <a href="#">주문제작 / 문의</a>
-          <a href="#">FAQ</a>
+          <a href="<%= request.getContextPath() %>/community/faq_list.jsp">FAQ</a>
           <a href="#">공지사항</a>
         </span>
       </span>
