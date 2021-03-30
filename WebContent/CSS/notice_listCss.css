@@ -7,9 +7,9 @@
 	  color: #818181;
    }
    .notice-hr {
-	width :52%;
-	margin: auto;
-	margin-bottom : 10px;
+		width :52%;
+		margin: auto;
+		margin-bottom : 10px;
    }
    #notice_view_table {
      width: 1000px;

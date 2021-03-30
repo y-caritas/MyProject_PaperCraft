@@ -26,7 +26,14 @@
   <link href="<%= request.getContextPath() %>/CSS/faqCss.css?ver=1" rel="stylesheet">
   <link href="<%= request.getContextPath() %>/CSS/inquiryListCss.css?ver=1" rel="stylesheet">
   <link href="<%= request.getContextPath() %>/CSS/notice_listCss.css?ver=1" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/notice_contentCss.css?ver=1" rel="stylesheet">
   <link href="<%= request.getContextPath() %>/CSS/LoginCss.css?ver=1" rel="stylesheet">
+  
+  <script>
+  	function goBack() {
+  		window.history.back();
+  	}
+  </script>
   
 </head>
 <body>
