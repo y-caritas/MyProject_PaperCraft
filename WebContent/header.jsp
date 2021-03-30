@@ -26,14 +26,15 @@
   <link href="<%= request.getContextPath() %>/CSS/faqCss.css?ver=1" rel="stylesheet">
   <link href="<%= request.getContextPath() %>/CSS/inquiryListCss.css?ver=1" rel="stylesheet">
   <link href="<%= request.getContextPath() %>/CSS/notice_listCss.css?ver=1" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/LoginCss.css?ver=1" rel="stylesheet">
   
 </head>
 <body>
   <header>
     <c:if test="${member_id == null}">
       <div class="submenu">
-        <span><a href="#">Home</a></span>
-        <span><a href="#">Login</a></span>
+        <span> <a href="<%= request.getContextPath() %>/main.jsp">Home</a></span>
+        <span> <a href="<%= request.getContextPath() %>/member/login.jsp">Login</a></span>
         <span><a href="#">Join</a></span>
       </div>
     </c:if>
@@ -70,9 +71,9 @@
       </span>
       <span class="dropdown">Community
         <span class="dropdown_menu" style="width:170px;">
-          <a href="#">주문제작 / 문의</a>
+          <a href="<%= request.getContextPath() %>/community/inquiry_list.jsp">주문제작 / 문의</a>
           <a href="<%= request.getContextPath() %>/community/faq_list.jsp">FAQ</a>
-          <a href="#">공지사항</a>
+          <a href="<%= request.getContextPath() %>/community/notice_list.jsp">공지사항</a>
         </span>
       </span>
     </div>

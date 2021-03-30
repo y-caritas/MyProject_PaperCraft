@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+      #btn-Yes{
+        background-color: #818181;
+        border: solid 2px #818181;
+      }
+      #uid, #upw {
+        height: 55px;
+        
+      }
+      .login2 {
+        text-align: right;
+        margin: 5px 0 5px;
+      }
+      .login2 a{
+       
+        text-decoration: none;
+        color: #818181;
+       
+      }
+      .login1{
+        margin: auto;
+      }
+      textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
+    border-color: #818181;
+    box-shadow: 0 1px 1px #818181 inset, 0 0 8px#818181;
+    outline: 0 none;
+}
+.btn-primary:hover,.btn-primary:focus,.btn-primary:active, 
+.btn-primary:active:focus:not(:disabled):not(.disabled),
+.btn:focus, .btn:active, .btn:hover{
+    box-shadow: none!important;
+    outline: 0;
+}
+ 
