@@ -5,6 +5,20 @@
       font-family: 'Open Sans', 'Noto Sans KR', sans-serif;
       color: #818181;
     }
+    .categoryTitle {
+      text-align: center;
+      margin: 5% 0;
+      color: #818181;
+    } 
+    .dividingLine {
+      width: 1000px;
+	  margin: auto;
+	  margin-bottom : 10px;
+    }
+    .background-footer {
+      background-color: #f1f3f4;
+      text-align: center;
+    }
     header {
       margin-bottom: 100px;
     }

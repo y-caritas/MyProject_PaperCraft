@@ -28,6 +28,8 @@
   <link href="<%= request.getContextPath() %>/CSS/notice_listCss.css?ver=1" rel="stylesheet">
   <link href="<%= request.getContextPath() %>/CSS/notice_contentCss.css?ver=1" rel="stylesheet">
   <link href="<%= request.getContextPath() %>/CSS/LoginCss.css?ver=1" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/inquiryWriteCss.css?ver=1" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/inquiryContentCss.css?ver=1" rel="stylesheet">
   
   <script>
   	function goBack() {
@@ -47,7 +49,7 @@
     </c:if>
     <c:if test="${member_id != null}">
       <div class="submenu">
-        <span><a href="#">Home</a></span>
+        <span><a href="<%= request.getContextPath() %>/main.jsp">Home</a></span>
         <span class="dropdown"><a href="#">Account</a>
           <span class="dropdown_menu" style="width:60px;">
             <a href="#">OrderDetail</a>

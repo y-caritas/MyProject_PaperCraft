@@ -5,13 +5,25 @@
 <c:import url="/header.jsp"></c:import>
 
 <section id="inquiryListWrap">
-    <h3 class="categoryTitle">주문제작 / 문의</h3>
+    <div class="categoryTitle">
+      <h2>주문제작 / 문의</h2>
+      <hr class="dividingLine">
+    </div>
     <table id="inquiryListTable">
       <tr class="inquiryTr">
         <th style="width:10%">번호</th>
         <th style="width:70%">제목</th>
         <th style="width:20%">작성자</th>
       </tr>
+      
+      <!-- view용 -->
+      <tr class="inquiryTr">
+        <td>1</td>
+        <td style="text-align: left;"><a href="<%=request.getContextPath()%>/community/inquiry_content.jsp">view용 문의</a></td>
+        <td>hong</td>
+      </tr>
+      
+      <!-- DB 연동용 -->
       <tr class="inquiryTr">
         <c:forEach var="dto" items="${ inquiryList }">
           <td>${dto.inquiryIdx}</td>
@@ -19,6 +31,7 @@
           <td>${dto.inquirywriter}</td>
         </c:forEach>
       </tr>
+      
     </table>
     <div id="inquiryBtn">
       <c:if test="${ session.memberId != null }">
@@ -27,7 +40,7 @@
       <c:if test="${ session.memberId == null }">
         <button onclick="location.href='#'">나의 문의 보기</button>
       </c:if>
-      <button onclick="location.href='#'">문의글 쓰기</button>
+      <button onclick="location.href='<%= request.getContextPath() %>/community/inquiry_write.jsp'">문의글 쓰기</button>
     </div>
   </section>
   
