@@ -35,7 +35,7 @@
     }
     
     #inquiryBtn button {
-      border: none;
+      border: solid 0.5px #e3e3e4;
       font-size: 0.9em;
       padding: 5px;
       cursor: pointer;

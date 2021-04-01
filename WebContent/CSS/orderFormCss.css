@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+    .orderFormTable {
+      width: 1000px;
+      margin: 0 auto 20px auto;
+      border-collapse: collapse;
+      border: solid 1px #c7c7c7;
+      font-size: 0.9em;
+    }
+    .orderFormTable td {
+      border-bottom: solid 1px #c7c7c7;
+    }
+    .orderFormTable input {
+      height: 25px;
+      border: solid 0.5px #c7c7c7;
+      margin-left: 10px;
+    }
+    .orderFormTable input:focus {
+      outline: solid 1px #c7c7c7;
+    }
+    #orderFormWrap p {
+      width: 1000px;
+      margin: 0 auto;
+    }
+    #recipientRequest {
+      width: 97%;
+      height: 60%;
+      margin-left: 10px;
+      border: solid 0.5px #c7c7c7;
+    }
+    #recipientRequest:focus {
+      outline: solid 1px #c7c7c7;
+    }
+    #orderFormBtn {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    #orderFormBtn > imput:focus, #orderFormBtn > button:focus, .deselectBtn:focus {
+      outline: none;
+    }
+    #orderFormBtn > input, #orderFormBtn > button {
+      margin: auto 10px;
+      font-size: 0.9em;
+      padding: 5px;
+      border: solid 0.5px #e3e3e4;
+      cursor: pointer;
+    }
+    .deselectBtn {
+      margin-left: 10px;
+      font-size: 0.9em;
+      padding: 5px;
+      border: solid 0.5px #e3e3e4;
+      cursor: pointer;
+    }
+    

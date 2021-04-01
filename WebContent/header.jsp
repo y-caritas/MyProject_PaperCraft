@@ -31,6 +31,7 @@
   <link href="<%= request.getContextPath() %>/CSS/inquiryWriteCss.css?ver=1" rel="stylesheet">
   <link href="<%= request.getContextPath() %>/CSS/inquiryContentCss.css?ver=1" rel="stylesheet">
   <link href="<%= request.getContextPath() %>/CSS/joinCss.css?ver=1" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/orderFormCss.css?ver=1" rel="stylesheet">
   
   <script>
   	function goBack() {

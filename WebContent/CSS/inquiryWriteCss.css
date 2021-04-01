@@ -16,8 +16,8 @@
       margin-left: 10px;
       border: solid 0.5px #c7c7c7;
     }
-    #inquiry_content:focus {
-      outline: none;
+    #inquiryWriteTable input:focus, #inquiry_content:focus {
+      outline: solid 1px #c7c7c7;
     }
     #inquiryWriteBtn {
       display: flex;
@@ -27,7 +27,7 @@
     #inquiryWriteBtn > input, #inquiryWriteBtn > button {
       font-size: 0.9em;
       padding: 5px;
-      border: none;
+      border: solid 0.5px #e3e3e4;
       cursor: pointer;
     }
     #inquiryWriteBtn > input:focus, #inquiryWriteBtn > button:focus {

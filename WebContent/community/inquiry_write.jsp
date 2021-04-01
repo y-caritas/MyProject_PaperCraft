@@ -52,10 +52,35 @@
         </tr>
       </table>
       <div id="inquiryBtn">
-        <input type="submit" value="제출하기" style="margin: 0 10px;">
+        <input type="submit" onclick="check(); return false;" value="제출하기" style="margin: 0 10px;">
         <button type="button" onclick="location.href='<%= request.getContextPath()%>/main.jsp'" style="margin: 0 10px;">홈으로</button>
       </div>
     </form>
   </section>
+  
+  <script>
+    function check() {
+      var inquiry_title = document.getElementById("inquiry_title").value;
+      var inquiry_writer = document.getElementById("inquiry_writer").value;
+      var inquiry_pw = document.getElementById("inquiry_pw").value;
+      var inquiry_content = document.getElementById("inquiry_content").value;
+
+      if(inquiry_title == null || inquiry_title == "") {
+        alert("제목을 입력해주세요.");
+        return false;
+      } else if (inquiry_writer == null || inquiry_writer == "") {
+        alert("작성자를 입력해주세요.");
+        return false;
+      } else if(inquiry_pw == null || inquiry_pw == "") {
+        alert("비밀번호를 입력해주세요.");
+        return false;
+      } else if(inquiry_content == null || inquiry_content == "") {
+        alert("내용을 입력해주세요.");
+        return false;
+      }
+
+      form.submit();
+     }
+  </script>
   
   <c:import url="/footer.jsp"></c:import>
