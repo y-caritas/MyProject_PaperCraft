@@ -1,16 +1,6 @@
 @charset "UTF-8";
 
 
-   .noticehead {
-	  text-align: center;
-	  margin: 5% 0;
-	  color: #818181;
-   }
-   .notice-hr {
-		width :52%;
-		margin: auto;
-		margin-bottom : 10px;
-   }
    #notice_view_table {
      width: 1000px;
      margin: 0 auto 0 auto;
@@ -22,7 +12,7 @@
      margin: 5px auto 5px auto;
    }
    #notice_view_table2 > tr td {
-   	text-align: center;
+      text-align: center;
    }
    .notice_table_title > a {
     text-decoration: none;

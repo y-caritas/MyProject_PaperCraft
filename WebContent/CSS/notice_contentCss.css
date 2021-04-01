@@ -12,9 +12,10 @@
     .notice_content_table_title th {
       border-bottom: 1px solid #bfbfbf;
       border-top: 2px solid #bebebe;
+      font-weight: normal;
     }
     .notice_content_table_title {
-      background-color: #f1f2f4;
+      background-color: white;
     }
     .notice_content_table_content td {
       height: 300px;
@@ -24,13 +25,22 @@
       border: 1px solid #bfbfbf;
     }
     #notice_content_btn {
-   		text-align: center;
- 	  	margin-top: 15px;
+         text-align: center;
+         margin-top: 15px;
    }
-    #notice_content_btn button {
-   		border: none;
-   		padding: 8px;
+    #notice_content_btn a button {
+         border: none;
+         padding: 8px;
+         width: 100px;
    }
-   	#notice_content_btn button:hover {
-   		background-color: #bfbfbf;
-   	}
+      #notice_content_btn a button:hover {
+         background-color: #bfbfbf;
+      }
+      #notice_content_btn a button {
+         text-decoration: none;
+         color: #818181;
+   }
+   .text_left {
+      text-align: left;
+      padding-left: 12px;
+   }

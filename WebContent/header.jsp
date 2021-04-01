@@ -30,6 +30,7 @@
   <link href="<%= request.getContextPath() %>/CSS/LoginCss.css?ver=1" rel="stylesheet">
   <link href="<%= request.getContextPath() %>/CSS/inquiryWriteCss.css?ver=1" rel="stylesheet">
   <link href="<%= request.getContextPath() %>/CSS/inquiryContentCss.css?ver=1" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/joinCss.css?ver=1" rel="stylesheet">
   
   <script>
   	function goBack() {
@@ -44,7 +45,7 @@
       <div class="submenu">
         <span> <a href="<%= request.getContextPath() %>/main.jsp">Home</a></span>
         <span> <a href="<%= request.getContextPath() %>/member/login.jsp">Login</a></span>
-        <span><a href="#">Join</a></span>
+        <span><a href="<%= request.getContextPath() %>/member/join.jsp">Join</a></span>
       </div>
     </c:if>
     <c:if test="${member_id != null}">

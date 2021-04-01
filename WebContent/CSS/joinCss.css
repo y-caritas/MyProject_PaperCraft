@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+        #join_table {
+            margin: 0 auto 0 auto;
+            width: 750px;
+        } 
+        .join_form_left {
+            width: 30%;
+            text-align: center;
+            border-top: 1px solid #bfbfbf;
+            border-bottom: 1px solid #bfbfbf;
+            background-color: #f1f3f4;
+            padding: 5px 5px;
+        }
+        .join_form_right {
+            width: 70%;
+            padding: 5px 0 5px 20px;
+            
+        }
+        .join_form_border {
+            border-top: 1px solid #bfbfbf;
+            border-bottom: 1px solid #bfbfbf;
+        }
+        #join_submitbtn {
+            margin: 20px auto 0 auto;
+            width: 100px;
+        }
+        .join_inputbox {
+            height: 30px;
+        }
+        .join_inputbox:focus {
+        		box-shadow: none;
+        }
+        #join_submitbtn button {
+              border: none;
+              padding: 8px;
+              width: 100px;
+        }
+        .join_inputbtn {
+              border: none;
+        }
+        .join_label {
+              font-size: 12px;
+              margin-bottom: 0;
+        }
+        #join_submitbtn button:hover, .join_inputbtn:hover, #join_idcheckbtn:hover {
+              background-color: #bfbfbf;
+              border: none;
+        }
+        .join_inputbox:focus {
+              outline: none;
+        }
+        #join_same {
+        		  font-size: 14px;
+        }
+        #join_idcheckbtn {
+        			border: none;
+        }
