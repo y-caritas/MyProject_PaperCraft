@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,11 +13,13 @@
    
   <title>Document</title>
   <style>
-  
+    * { 
+      color: #818181;
+      text-align: center;
+    }
  .idr-wrap{
   margin: 100px ;
-  color: #818181;
-  text-align: center;
+
 
  }
     .idr-body {
@@ -30,22 +32,16 @@
 <div class="idr-wrap">  
   <div class="idr-title">
 
-    <h2>비밀번호 찾기</h2>
+    <h2>아이디 찾기</h2>
     
   </div>
   <div class="idr-body">
-       <%
-		String member_email = (String)session.getAttribute("member_email");		
-	%>
-    
-    회원님께서 가입하신 이메일주소 <%= member_email %> 로 전송해드렸습니다. 
-  
-   
-    
+    입력하신 내용과 일치하는 정보가 없습니다.<br>
+    다시 확인하시고 조회해 주시기 바랍니다.
   </div>
   
   <div class="idr-footer">
-<button class="btn btn-secondary btn-"  onClick='window.close()'>확인</button>
+<button class="btn btn-secondary btn-" onClick='window.close()'>확인</button>
 
 
 

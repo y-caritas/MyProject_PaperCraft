@@ -7,19 +7,26 @@
 
 <c:import url="/header.jsp"></c:import>
 
+
+
     <div class=" login1 align-middle" style="width:500px">
       <div class="card-title" style="margin-top:30px;">
         <h2 class="card-title text-center" style="color:#818181;">로그인</h2>
       </div>
       <div class="card-body">
-        <form class="form-signin" method="POST"  action="LoginAction" name="LoginMember" onSubmit="logincall();return false">      
+        <form class="form-signin" method="POST"  action="Login.do" name="LoginMember" onSubmit="logincall();return false">      
          
-          <input type="text" id="uid" class="form-control input-lg"  placeholder="아이디를 입력하세요." required autofocus><BR>
-          <input type="password" id="upw" class=" form-control input-lg"  placeholder="비밀번호를 입력하세요." required><br>
-          
+          <input type="text" id="uid" name="member_id" class="form-control input-lg login-input"  placeholder="아이디를 입력하세요." required autofocus><BR>
+          <input type="password" id="upw" name="member_pw" class=" form-control input-lg login-input"  placeholder="비밀번호를 입력하세요." required><br>
+     <script>
+     var popupX = (window.screen.width / 2) - (600/ 2);
+     var popupY= (window.screen.height / 2) - (500/ 2);
+     </script>     
           <div class="login2">
             <label>
-               <a href="<%= request.getContextPath() %>/member/login_findID.jsp">아이디 / 비밀번호 찾기</a>  
+              <a href="#" onclick="window.open('login_findID.jsp','name','resizable=no width=600 height=500  left='+ popupX + ', top='+ popupY);return false">아이디 찾기 / </a>
+               <a href="#" onclick="window.open('login_findPW.jsp','name','resizable=no width=600 height=500  left='+ popupX + ', top='+ popupY);return false">비밀번호 찾기</a>  
+                
             </label>
           </div>
           <button id="btn-Yes" class="btn btn-lg btn-primary btn-block" type="submit">LOGIN</button>
@@ -29,7 +36,7 @@
       </form>
 
     </div>
-    </div>
+    </div>	
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
