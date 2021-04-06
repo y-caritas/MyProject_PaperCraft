@@ -10,13 +10,13 @@
     </div>
 
     <div id="join_wrapper">
-        <form action="JoinAction" name="Join_form_submit" method="POST" name="JoinMember">
+        <form action="JoinAction" onSubmit="return false;" name="Join_form_submit" method="POST">
             <table id="join_table" style="border-collapse: collapse;">
                 <!-- 아이디 -->
                 <tr>
                     <td class="join_form_left">아이디</td>
-                    <td class="join_form_right join_form_border"><input class="join_inputbox" type="text" name="member_id" id="join_id" maxlength="20" placeholder="아이디를 입력해주세요.">
-                       <button id="join_idcheckbtn" type="button" onclick="id_check();">중복확인</button>
+                    <td class="join_form_right join_form_border"><input class="join_inputbox" type="text" onclick="idCheck()" name="member_id" id="join_id" maxlength="20" placeholder="아이디를 입력해주세요.">
+                       <button id="join_idcheckbtn" type="button" onclick="idCheck();">중복확인</button>
                     </td>
                 </tr>
                 <!-- 비밀번호 -->
@@ -237,6 +237,11 @@
              document.getElementById( "join_same" ).style.color="red";
           }
        }
+    }
+    
+    /* 아이디 중복확인 창 */
+    function idCheck() {
+    	window.open("/MyProject_PaperCraft/member/idCheck.jsp", "새창", "width=440, height=353, toolbar=no, menubar=no, scrollbars=no, resizable=yes" ); 
     }
     </script>
   
