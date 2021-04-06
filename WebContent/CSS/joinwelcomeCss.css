@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+    #join_welcome_wrap {
+      width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    #join_welcome_content {
+      font-size: 20px;
+    }
+    .join_welcome_btn {
+      width: 20%;
+      height: 40px;
+      border: none;
+    }
+    #join_welcome_section a {
+      text-decoration: none;
+    }
+    .join_welcome_btn:hover {
+      background-color: #bfbfbf;
+      color: white;
+    }
