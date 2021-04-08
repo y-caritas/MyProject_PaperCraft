@@ -9,7 +9,7 @@
     <h2>상품 주문</h2>
     <hr class="dividingLine">
   </div>
-  <form action="#">
+  <form action="#" name="orderForm">
     <div>
       <p>주문자 정보</p>
       <table class="orderFormTable" style="height:70px;">
@@ -79,11 +79,12 @@
         <tr>
           <td class="background-footer">일반 결제</td>
           <td>
-            <input type="radio" name="payment" id="">무통장 입금
-            <input type="radio" name="payment" id="">카드 결제
-            <input type="radio" name="payment" id="">계좌 이체
-            <input type="radio" name="payment" id="">가상 계좌
+            <input type="radio" name="paymentOption" value="1" id="">무통장 입금
+            <input type="radio" name="paymentOption" value="2" id="">카드 결제
+            <input type="radio" name="paymentOption" value="3" id="">계좌 이체
+            <input type="radio" name="paymentOption" value="4" id="">가상 계좌
             <button type="button" class="deselectBtn" onclick="deselect()">선택해제</button>
+            
           </td>
         </tr>
         <tr>
@@ -161,6 +162,7 @@
     var recipientName = document.getElementById('recipientName').value;
     var recipientPhone = document.getElementById('recipientPhone').value;
     var recipientAddress = document.getElementById('recipientAddress').value;
+    var paymentOption = document.getElementsByName('paymentOption');
 
     if(ordererPhone == null || ordererPhone == "") {
       alert("연락처를 입력해주세요.");
@@ -179,10 +181,18 @@
       document.getElementById('recipientPhone').focus();
       return false;
     }
+    
+    for(var i = 0; i < paymentOption.length; i++) {
+    	if(paymentOption[i].checked == true && paymentOption[i].value === "2") {
+    		window.open("/MyProject_PaperCraft/order/card_payment.jsp", "새창", "width=430, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+    		return false;
+    	}
+    }
 
     form.submit();
   }
 
+// 주소창 인풋 박스 focus 시 다음 API 창 띄우기
   recipientAddress.focus = function() {
     DaumPostcode();
   }

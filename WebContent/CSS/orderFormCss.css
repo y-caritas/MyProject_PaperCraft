@@ -36,7 +36,7 @@
       justify-content: center;
       margin-top: 20px;
     }
-    #orderFormBtn > imput:focus, #orderFormBtn > button:focus, .deselectBtn:focus {
+    #orderFormBtn > input:focus, #orderFormBtn > button:focus, .deselectBtn:focus {
       outline: none;
     }
     #orderFormBtn > input, #orderFormBtn > button {
@@ -45,6 +45,7 @@
       padding: 5px;
       border: solid 0.5px #e3e3e4;
       cursor: pointer;
+      outline: none;
     }
     .deselectBtn {
       margin-left: 10px;
