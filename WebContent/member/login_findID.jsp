@@ -31,7 +31,7 @@
       <c:choose> 
       <c:when test = "${member_id != null }"> 
       
-      회원님의 아이디는 "${ member_id }" 입니다.
+      회원님의 아이디는 <%= "${ member_id }"  %>  입니다.
       
       </c:when>      
       

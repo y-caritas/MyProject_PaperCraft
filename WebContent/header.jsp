@@ -32,9 +32,7 @@
   <link href="<%= request.getContextPath() %>/CSS/inquiryContentCss.css?ver=1" rel="stylesheet">
   <link href="<%= request.getContextPath() %>/CSS/joinCss.css?ver=1" rel="stylesheet">
   <link href="<%= request.getContextPath() %>/CSS/orderFormCss.css?ver=1" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/CSS/jointermsCss.css?ver=1" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/CSS/joinwelcomeCss.css?ver=1" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/CSS/orderCompletionCss.css?ver=1" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/MypageCss.css?ver=1" rel="stylesheet">
   
   <script>
   	function goBack() {

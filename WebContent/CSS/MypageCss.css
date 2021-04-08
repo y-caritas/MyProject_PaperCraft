@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+#order-btn{
+ border: none;
+}
+#order-chk{
+margin-top:10px;
+padding-top:10px;
+}
+
+#sidebar{
+float:left;
+
+
+width: 150px;
+height: 500px;
+margin-left: 20px;
+margin-right:80px;
+padding-left: 20px;
+padding-top: 55px;
+border: solid 1px #C7C7C7;
+border-radius:10px;
+position: sticky;
+top:0;
+
+}
+.My-content a {
+
+text-decoration: none;
+color: #818181;
+}
+.My-content a:hover{
+text-decoration: none;
+color: #818181;
+}
+#inquiryListWrap {
+display:flex;
+flex-direction:column;
+flex-wrap:nowrap;
+width: 500px;
+
+}

@@ -142,7 +142,9 @@ CREATE TABLE p_order (
 	order_p_img             VARCHAR2(50),
 	order_p_name            VARCHAR2(50),
 	order_p_price           NUMBER(6),
+	order_p_count            NUMBER(2),
 	order_o_name            VARCHAR2(50),
 	order_o_price           NUMBER(6),
+	
 	member_id               VARCHAR2(20),
 
