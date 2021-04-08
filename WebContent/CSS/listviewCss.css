@@ -1,0 +1,39 @@
+@charset "UTF-8";	  
+	  .orderby {color: #818181; text-decoration: none; outline: none}
+      .orderby:hover, .orderby:active {text-decoration: none;}
+      #ToG {
+        font-size: 12pt;
+        padding-left: 100px;
+        margin: 100px 0px;
+      }
+      #ToG > a{
+		color: #818181; text-decoration: none; outline: none
+      }
+      #ListSelect{
+      	font-size: 12pt;
+       	text-align: right;
+       	padding-right : 100px;
+        margin: 100px 0px;
+      }
+      #ListSelect li{
+        display: inline-block;        
+      }
+      #LoG {
+        margin-left: 80px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      .items {
+      	margin: 30px 15px 80px;      	
+      }
+      .items h5 {
+        text-align: center;
+      }
+      #searchBar{
+        margin-top: 100px;        
+      	padding-left: 100px;      	
+      }
+      #searchBar > form > input{
+      	margin-right: 5px;
+      }
