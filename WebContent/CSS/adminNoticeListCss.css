@@ -1,0 +1,64 @@
+@charset "UTF-8";
+
+#admin_view_table {
+    width: 1000px;
+    margin: 0 auto;
+  }
+  #admin_view_table2 {
+    width: 1000px;
+  }
+  .admin_view_table_title {
+    margin: 5px auto 5px auto;
+  }
+  #admin_view_table2 > tr td {
+      text-align: center;
+  }
+  .admin_table_title > a {
+    text-decoration: none;
+    color: #818181;
+    margin-left: 30px;
+  }
+  .admin_table_title a:hover {
+    color: #c7c7c7;
+    text-decoration: none;
+  }
+  .admin_table_title {
+    text-align: left;
+  }
+  .admin_notice_img {
+    width: 35px;
+    height: 20px;
+    margin: auto;
+  }
+  #admin_noticelist_title {
+  	width: 1000px;
+  }
+	#admin_hr {
+		margin-top: 10px;
+		background-color: #f1f2f4;
+	}
+  #admin_notice_title_container {
+  	display: flex;
+  	width: 1000px;
+  	flex-direction: column;
+  	margin-left: 10px;
+  }
+  #admin_notice_btn {
+  	text-align: right;
+  	margin-top: 20px;
+  	width: 1000px;
+  	height: 50px;
+  }
+  #admin_notice_btn > button {
+  	border: none;
+  	width: 80px;
+  	height: 30px;
+  }
+  #admin_notice_btn > button:hover {
+  	background-color: #bfbfbf;
+  	color: #f1f3f4;
+  	cursor: pointer;
+  }
+  #admin_notice_btn > button:focus {
+  	outline: 0;
+  }
