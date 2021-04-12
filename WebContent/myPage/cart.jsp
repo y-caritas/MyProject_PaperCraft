@@ -8,7 +8,82 @@
 
 
 <c:import url="/header.jsp"></c:import>
+<script>
+  var cartVAR = {
+    product_price : null,
+    total_price : null,
+    total_price_view : null,
 
+    convert : function (arg) {
+      this.product_price = arg + "_product_price";      
+      this.total_price = arg + "_total_price";
+      this.total_price_view = arg + "_total_price_view";
+    },
+    plus : function (arg) {      
+      this.convert(arg);
+      var count = document.getElementById(arg).value;
+      count++;
+      document.getElementById(arg).value = count;
+      document.getElementById(cartVAR.total_price).value = document.getElementById(cartVAR.product_price).value * count;
+      document.getElementById(cartVAR.total_price_view).innerText = document.getElementById(cartVAR.total_price).value;
+      updateCart();
+    },
+    minus : function (arg) {    
+      this.convert(arg);
+      var count = document.getElementById(arg).value;
+      if (count > 1) {
+      count--;
+      document.getElementById(arg).value = count;
+      document.getElementById(cartVAR.total_price).value = document.getElementById(cartVAR.product_price).value * count;
+      document.getElementById(cartVAR.total_price_view).innerText = document.getElementById(cartVAR.total_price).value;
+    }
+      updateCart();
+    }
+  }
+  var cartOptionVAR = {
+    option_price : null,
+    total_price : null,
+    total_price_view : null,
+
+    convert : function (arg) {
+      this.option_price = arg + "_price";      
+      this.total_price = arg + "_total_price";
+      this.total_price_view = arg + "_total_price_view";
+    },
+    plus : function (arg) {      
+      this.convert(arg);
+      var count = document.getElementById(arg).value;
+      count++;
+      document.getElementById(arg).value = count;
+      document.getElementById(cartOptionVAR.total_price).value = document.getElementById(cartOptionVAR.option_price).value * count;
+      document.getElementById(cartOptionVAR.total_price_view).innerText = document.getElementById(cartOptionVAR.total_price).value;
+      updateCart();
+    },
+    minus : function (arg) {    
+      this.convert(arg);
+      var count = document.getElementById(arg).value;
+      if (count > 1) {
+      count--;
+      document.getElementById(arg).value = count;
+      document.getElementById(cartOptionVAR.total_price).value = document.getElementById(cartOptionVAR.option_price).value * count;
+      document.getElementById(cartOptionVAR.total_price_view).innerText = document.getElementById(cartOptionVAR.total_price).value;
+    }
+      updateCart();
+    }
+  }
+
+  function updateCart(){
+    var result = 0;
+    var cartTables = document.getElementsByClassName('total_price');
+    for(var i=0; i<cartTables.length; i++){
+      result += parseInt(cartTables[i].value);
+    }    
+    document.getElementById('result').innerText = "$"+result;
+  }
+  window.onload = () => {
+    updateCart();
+  }
+  </script>
 
 
   <div class="categoryTitle">
