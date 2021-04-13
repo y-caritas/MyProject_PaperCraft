@@ -8,6 +8,65 @@
 
 
 <c:import url="/header.jsp"></c:import>
+<style>
+#order-btn{
+ border: none;}
+#order-chk{
+margin-top:10px;
+padding-top:10px;
+}
+
+.sidebar{
+
+margin-top:100px;
+max-width:200px;
+margin-left:20px;
+border-radius:10px;
+position: sticky;
+top:0;
+
+}
+
+#inquiryListWrap{
+max-width:1200px;
+width:100%;
+margin:0 auto;
+
+}
+.sidebar a {
+
+text-decoration: none;
+color: #818181;
+}
+.sidebar a:hover{
+text-decoration: none;
+color: #818181;
+}
+
+
+.section-wrap {
+margin-left: 30px;
+padding-left: 40px;
+text-align: center;
+
+}
+
+#writeBtn{
+margin: 0 auto;	
+text-align: right;
+width: 1000px;
+
+}
+
+    #writeBtn button {
+      border: solid 0.5px #e3e3e4;
+      font-size: 0.9em;
+      padding: 5px;
+      cursor: pointer;
+    }
+</style>
+
+
 <script>
   var cartVAR = {
     product_price : null,
@@ -84,41 +143,62 @@
     updateCart();
   }
   </script>
+<div class="container-fluid">
+  <div class="row flex-nowrap">
 
+
+<div class="col-md-2 sidebar">
+<!-- 사이드 바 메뉴-->
+  <!-- 패널 타이틀1 -->
+<div class="panel panel-info">
+    <div class="panel-heading">
+     
+    </div>
+    <!-- 사이드바 메뉴목록1 -->
+    <ul class="list-group">
+      <li class="list-group-item"><b>&nbsp&nbsp쇼핑정보</b></br></br>
+      <a href="<%=request.getContextPath()%>/myPage/order_detail.jsp">&nbsp&nbsp  주문내역</a></br>
+       <a href="#">&nbsp&nbsp 장바구니</a></br>
+        </li>
+      
+      
+      <li class="list-group-item"><b>&nbsp&nbsp게시판이용</b></br></br>
+         <a href="<%=request.getContextPath()%>/myPage/one_to_one_inquiryList.jsp">&nbsp&nbsp 1:1문의</a></br>
+         <a href="<%=request.getContextPath()%>/myPage/customize_inquiry.jsp">&nbsp&nbsp 주문제작</a></br>
+      
+      
+      </li>
+      <li class="list-group-item"><b>&nbsp&nbsp계정관리</b></br></br>
+         <a href="<%=request.getContextPath()%>/myPage/info_modify.jsp">&nbsp&nbsp 정보수정</a></br>
+         <p></p>
+          
+       
+      
+      
+      </li>
+    </ul>
+</div>
+</div>
+
+
+
+
+<div class="col-md-8  ">
+
+<div class="section-wrap">
 
   <div class="categoryTitle">
-      <h2>주문내역</h2>
+      <h2>장바구니</h2>
       <hr class="dividingLine">
     </div>
 
-
-<div id="sidebar">
-
-<br>
-<div class="My-content">
-<b>쇼핑정보</b><br><br>
-<a href=""> &nbsp;  주문내역</a><br>
-<a href=""> &nbsp;  장바구니</a><br>
-<br>
-<b>게시판이용</b> <br><br>
-<a href=""> &nbsp;  나의문의</a> <br>
-<br>
-<b>계정관리</b><br><br>
-<a href=""> &nbsp;  개인정보수정</a>
-
-
-</div>
-
-
-
-</div>
 
 
 <section id="inquiryListWrap">
 
 
 <form action="">
-  <table id="inquiryListTable">
+  <table id="inquiryListTable"  style="border-bottom: none;">
     <tr class="inquiryTr">
       <th style="width:10%">번호</th>
       <th style="width:10%"></th>
@@ -260,5 +340,12 @@
     </table>    
     </form>
     </section>
+       </div>
+   
+   <div class="col-md-2">
+   </div>
+   </div>
+   </div>
+   </div>
 
 <c:import url="/footer.jsp"></c:import>
