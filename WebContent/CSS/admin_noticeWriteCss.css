@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+#admin_notice_writeTitle {
+	width: 990px;
+	height: 25px;
+	border: 1px solid #bfbfbf;
+	margin-bottom: 10px;
+}
+#admin_notice_writebtn {
+	width: 1000px;
+	text-align: center;
+	margin-top: 10px;
+}
+#admin_notice_writebtn > button {
+	border: none;
+	width: 100px;
+	height: 40px;
+}
+#admin_notice_writebtn > button:hover {
+  	background-color: #bfbfbf;
+  	color: #f1f3f4;
+  	cursor: pointer;
+}
+#admin_notice_writebtn > button:focus {
+	outline: 0;
+}
+.ck-editor__editable {
+    min-height: 600px;
+}
