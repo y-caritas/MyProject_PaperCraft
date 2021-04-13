@@ -33,13 +33,13 @@
 		      <!-- view용 -->
 		        <tr style="text-align: center; border-bottom: 1px solid #f1f2f4">
 		          <td style="height: 35px;"><img class="admin_notice_img" src="<%= request.getContextPath() %>/img/adminListImportant.png" alt="""></td>
-		          <td class="admin_table_title" style="height: 35px;"><a href="<%= request.getContextPath() %>/community/notice_content.jsp">공지사항 입니다.</a></td>
+		          <td class="admin_table_title" style="height: 35px;"><a href="./admin_noticeContentView.jsp">공지사항 입니다.</a></td>
 		          <td style="height: 35px;">날짜</td>
 		        </tr>
 		      
 		        <tr style="text-align: center; border-bottom: 1px solid #f1f2f4">
 		          <td style="height: 35px;">2</td>
-		          <td class="admin_table_title" style="height: 35px;"><a href="<%= request.getContextPath() %>/community/notice_content.jsp">공지사항2</a></td>
+		          <td class="admin_table_title" style="height: 35px;"><a href="./admin_noticeContentView.jsp">공지사항2</a></td>
 		          <td style="height: 35px;">날짜</td>
 		        </tr>
 		        

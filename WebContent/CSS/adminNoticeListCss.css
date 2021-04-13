@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+#admin_noticelist_title {
+	margin-top: 15px;
+}
 #admin_view_table {
     width: 1000px;
     margin: 0 auto;

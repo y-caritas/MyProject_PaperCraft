@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+#admin_notice_title_container {
+	margin-top: 15px;
+}
 #admin_notice_writeTitle {
 	width: 990px;
 	height: 25px;
@@ -24,6 +27,7 @@
 #admin_notice_writebtn > button:focus {
 	outline: 0;
 }
-.ck-editor__editable {
-    min-height: 600px;
+#smart_editor2_content {
+	width: 1000px;
+	height: 600px;
 }
