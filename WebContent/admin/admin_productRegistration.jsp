@@ -17,13 +17,14 @@
     
   <link href="<%= request.getContextPath() %>/CSS/adminSideBarCss.css?ver=1" rel="stylesheet">  
   <link href="<%= request.getContextPath() %>/CSS/admin_productRegistrationCss.css?ver=1" rel="stylesheet">
+  <script type="text/javascript" src="<%= request.getContextPath() %>/js/admin_product.js"></script>
 
   </head>
 <body>
 	<div id="sideBarContainer">
 		<c:import url="./admin_sideBar.jsp"></c:import>	
 	<div>
-      <form action="" method="POST" >
+      <form name="adminProduct" action="productRegister.do" method="POST" onsubmit="return confirmProduct()">
       <div style="margin: 20px;">상품관리 > 상품등록
       </div>      
       <div>
@@ -48,8 +49,8 @@
         </tr>
         <tr>
           <th style="height: 100px; text-align: center;">옵션<br>
-            <input type="radio" name="option">사용<br>
-            <input type="radio" name="option">미사용
+            <input type="radio" name="option" value="01">사용<br>
+            <input type="radio" name="option" value="02">미사용
           </th>
           <td>
             <table>
@@ -123,7 +124,7 @@
         </table>
       </div>
       <div style="text-align: center; height: 100px; padding-left: 50px;">
-        <button type="button" type="submit" class="btn btn-secondary">확인</button>&emsp;
+        <button type="submit" class="btn btn-secondary">확인</button>&emsp;
         <button type="button" class="btn btn-dark" onclick="history.back()">취소</button>
       </div>
     </form>
