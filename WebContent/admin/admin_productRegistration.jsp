@@ -38,13 +38,13 @@
             <option value="03">카드/액자</option>
             <option value="04">도구</option>
           </select>&emsp;
-        <input name="" type="text" placeholder="상품을 입력하세요" class="form-control" >
+        <input name="product_name" type="text" placeholder="상품을 입력하세요" class="form-control" >
       </div>
 
       <table class="input-group">
         <tr>
           <th style="width: 100px; height: 60px; text-align: center;">판매가격</th>
-          <td style="width: 200px; text-align: center; "><input name="" type="text" name="">&nbsp;원</td>
+          <td style="width: 200px; text-align: center; "><input name="product_price" type="text">&nbsp;원</td>
         </tr>
         <tr>
           <th style="height: 100px; text-align: center;">옵션<br>
@@ -66,7 +66,7 @@
       <div>
         <b>상품소개글</b>
       </div>
-      <input name="" class="form-control input-group"  type="text" placeholder="25자 이내로 소개글을 입력하세요.">
+      <input name="product_note" class="form-control input-group"  type="text" placeholder="25자 이내로 소개글을 입력하세요.">
       <div>
         <b>상품이미지</b>
       </div>
@@ -75,7 +75,7 @@
           <tr>
             <th style="text-align: center;">상품 목록 이미지<br>000*000</th>
             <td>
-              <input type="text" readonly="readonly" title="File Route" id="file_route1">
+              <input name="product_listImg" type="text" readonly="readonly" title="File Route" id="file_route1">
               <label>찾아보기<input type="file" onchange="javascript:document.getElementById('file_route1').value=this.value">
               </label>
             </td>
@@ -83,7 +83,7 @@
           <tr>
             <th style="text-align: center;">상품 대표 이미지<br>000*000</th>
             <td>
-              <input type="text" readonly="readonly" title="File Route" id="file_route2">
+              <input name="product_introImg" type="text" readonly="readonly" title="File Route" id="file_route2">
               <label>찾아보기<input type="file" onchange="javascript:document.getElementById('file_route2').value=this.value">
               </label>
             </td>
@@ -92,19 +92,19 @@
       </div>
       <div>
         <b>상품 상세 설명</b>
-        <textarea name="" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>        
+        <textarea name="product_introduction" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>        
       </div>        
       <div>
         <b>배송 안내</b>&nbsp;
         <input type="radio" name="">공통 배송 안내 노출&nbsp;
         <input type="radio" name="">개별 배송 안내 작성
-        <textarea name="" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>        
+        <textarea name="product_delivery_policy" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>        
       </div>        
       <div>
         <b>교환 및 반품 안내</b>&nbsp;
         <input type="radio" name="">공통 교환 및 반품 안내 노출&nbsp;
         <input type="radio" name="">개별 교환 및 반품 안내 작성
-        <textarea name="" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <textarea name="product_swap_policy" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>
       </div>
       <div style="text-align: center;">
         <table>
@@ -114,10 +114,10 @@
           </tr>
           <tr>
             <td style="width: 350px;">
-              <textarea name="" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>
+              <textarea name="product_record" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>
             </td>
             <td style="width: 350px;">
-              <textarea name="" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>
+              <textarea name="product_memo" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>
             </td>
           </tr>
         </table>
