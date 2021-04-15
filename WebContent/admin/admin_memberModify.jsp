@@ -1,12 +1,227 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+
+  <!-- Required meta tags -->
+    <meta charset="utf-8">
+   
 <title>Insert title here</title>
+    <link href="<%= request.getContextPath() %>/CSS/adminSideBarCss.css?ver=1" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/joinCss.css?ver=3" rel="stylesheet">
+
+   <style>
+ 
+   .join_form_right{
+   width: auto;
+   }
+   .admin_modify {
+   margin: 50px auto;
+  
+   }
+   .categoryTitle{
+   text-align: center;	
+   
+   padding: 15px;
+   }
+   .modify_btn{
+   background-color:#e3e3e4;
+   border: none;
+   width: 60px;
+   height: 30px;
+   }
+   .modify_btn:focus {
+    outline: none; 
+   }
+
+   .modify_btn:hover {	
+   background-color: #c7c7c7;
+   color:white;
+ 	border:1px white;
+  
+   }
+   .modify_btn:active {
+   outline: none;
+
+   
+   }
+   
+   #modify_submitbtn{
+   margin: 30px auto;
+   text-align:center;
+   }
+   
+ 
+   </style>
+
+ 
 </head>
 <body>
 
+<div id="sideBarContainer">
+<!-- 사이드 바  -->
+<c:import url="/admin/admin_sideBar.jsp"></c:import>
+
+<!-- main section -->
+
+<div class = "admin_modify">
+ <div class="categoryTitle">
+      <h2>회원 정보 수정</h2>
+     <br>
+      <hr class="dividingLine">
+    </div>
+    <br>
+    
+	<!-- View + 데이터연동  View용 코드는 차후에 제거할 것 -->
+	
+	   <div id="join_wrapper">
+	   
+        <form action="MemberModifyAction" onSubmit="joinform_check()" name="Join_form_submit" method="POST">
+        
+            <table id="join_table" style="border-collapse: collapse;">
+                <!-- 아이디 -->
+                <tr>
+                    <td class="join_form_left">아이디</td>
+                    <td class="join_form_right join_form_border">kimjwoo123${dto.member_id}
+                       
+                    </td>
+                </tr>
+                <!-- 비밀번호 -->
+                <tr>
+                    <td class="join_form_left">비밀번호</td>
+                    <td class="join_form_right join_form_border"><input class="join_inputbox" type="password" id="join_pw" name="member_pw" maxlength="20" placeholder="비밀번호를 입력해주세요." onchange="isSame()">
+                    <label class="join_label">비밀번호는 영문자+숫자 조합으로 8~25자리를 사용해주세요.</label>
+                    </td>
+                </tr>
+              
+                <!-- 이름 -->
+                <tr>
+                    <td class="join_form_left">이름 </td>
+                    <td class="join_form_right join_form_border"><input class="join_inputbox" type="text" id="join_name" name="member_name" maxlength="20" value="김정우${dto.member_name}"></td>
+                </tr>
+                <!-- 주소 -->
+                <tr>
+                    <td class="join_form_left" >주소</td>
+                    
+               
+               
+                    <td class="join_form_right"><input class="join_inputbox" type="text" id="join_address"  style="width: 300px;"value="서울특별시 노원구 동일로 194길 24 1203호${dto.member_address}" >
+                        
+                        <span id="guide" style="color:#999;display:none"></span><br></td>
+                </tr>
+
+                <!-- 이메일 -->
+                <tr>
+                    <td class="join_form_left">이메일</td>
+                    <td class="join_form_right join_form_border"><input class="join_inputbox" type="text" id="join_email" name="member_email" maxlength="20" style="width: 200px;" value="jeongwoo123@naver.com${dto.member_email}">
+                        
+                   
+                    </td>
+                </tr>
+                <!-- 휴대폰 번호 -->
+                <tr>
+                    <td class="join_form_left">휴대폰 번호</td>
+                    <td class="join_form_right join_form_border">
+         
+                        <input id="join_phone2" class="join_inputbox" type="text" name="member_phone" id="join_phone" maxlength="4" style="width: 200px;" value="010-5253-3523${dto.member_phone}">
+                
+                      
+                    </td>
+                </tr>
+                <!-- 성별 -->
+                <tr>
+                    <td class="join_form_left">성별</td>
+                    <td class="join_form_right join_form_border">
+                        <input type="radio" name="member_gender" value="남성" checked="checked">&nbsp;남성 &nbsp;&nbsp;
+                        <input type="radio" name="member_gender" value="여성">&nbsp;여성
+                    </td>
+                </tr>
+                <!-- 이메일 수신동의 여부(1:동의, 2:미동의) -->
+                <tr>
+                    <td class="join_form_left">이메일 수신동의</td>
+                    <td class="join_form_right join_form_border">
+                        <input type="radio" name="member_email_ad" checked="checked" value="1">&nbsp;동의 &nbsp;&nbsp;
+                        <input type="radio" name="member_email_ad" value="2">&nbsp;미동의
+                    </td>
+                </tr>
+           <tr>
+                    <td class="join_form_left">가입일</td>
+                    <fmt:formatDate value="${dto.member_date}" pattern="yyyy-MM-dd" var="reg" />
+	     
+                    <td class="join_form_right join_form_border">2021-03-15${ reg }
+                       
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="join_form_left">구매금액</td>
+                    <td class="join_form_right join_form_border">125,000${dto.member_purchase}
+                       
+                    </td>
+                </tr>
+            </table>
+            
+            <div id="modify_submitbtn">
+               <button type="button" class="modify_btn" style="visibility:hidden" > </button> 
+               <button type="button" class="modify_btn" onclick="history.back()">목록</button>
+               <button type="submit" class="modify_btn" >수정</button>
+               <button type="button" class="modify_btn" onclick="MemberDelete?member_id=${dto.member_id}" style="float:right">탈퇴</button>
+            </div>
+        </form>
+
+      </div>
+
+</div>
+</div>
+
+ 
+<script>
+/* 유효성 검사 */
+function joinform_check() {
+ 
+ 
+ var join_pw = document.getElementById("join_pw");
+ 
+ var join_name = document.getElementById("join_name");
+ var join_email = document.getElementById("join_email");
+ 
+ var join_phone = document.getElementById("join_phone");
+
+ 
+
+ }
+ if( !/^[a-zA-Z0-9]{8,25}$/.test(join_pw.value) ) {
+    alert("비밀번호는 8자리 이상 25자리 영소,대문자 또는 숫자로 입력해주세요.")
+    join_pw.focus();
+    return false;
+ }
+ if( join_pw !== join_pw2 ) {
+     alert("비밀번호가 서로 다릅니다.");
+     join_pw.focus();
+     return false;
+  }
+ if( join_name == "" ) {
+    alert("이름을 입력해주세요.");
+    join_name.focus();
+    return false;
+ }
+ if( join_email == "" ) {
+    alert("이메일을 입력해주세요.");
+    join_email.focus();
+    return false;
+
+ }
+ if(join_phone == "" ) {
+	   alert("휴대폰 번호를 입력해주세요.")
+	   join_phone2.focus();
+	   return false;
+
+ }
+	alert("회원정보수정 완료되었습니다.")
+}
+</script>
 </body>
 </html>
