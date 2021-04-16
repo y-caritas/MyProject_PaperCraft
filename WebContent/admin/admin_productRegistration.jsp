@@ -23,7 +23,7 @@
 <body>
 	<div id="sideBarContainer">
 		<c:import url="./admin_sideBar.jsp"></c:import>	
-	<div>
+	<div style="margin-left: 30px;">
       <form name="adminProduct" action="productRegister.do" method="POST" onsubmit="return confirmProduct()">
       <div style="margin: 20px;">상품관리 > 상품등록
       </div>      

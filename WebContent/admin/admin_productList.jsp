@@ -22,7 +22,7 @@
 <body>
 	<div id="sideBarContainer">
 		<c:import url="./admin_sideBar.jsp"></c:import>
-	<div>
+	<div style="margin-left: 30px;">
 	    <div>
   <form name="productList" action="productList.do" method="POST">
     <div style="margin: 20px;">상품관리 > 상품목록
