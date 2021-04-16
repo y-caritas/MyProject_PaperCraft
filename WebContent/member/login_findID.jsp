@@ -39,7 +39,7 @@
 
     
       
-      
+      <c:when test = "${member_id == null }">
         <form class="form-signin" method="POST"  action="idFind.do"  name="idFind" onSubmit="logincall();return false">     
 
          
@@ -49,7 +49,7 @@
          
           <button id="btn-Yes" class="btn btn-lg btn-primary btn-block" type="submit" onClick=' ' >확인</button>
         </form>
-        
+        </c:when>
 	       </c:choose>
     </div>
     </div>
