@@ -1,0 +1,19 @@
+@charset "UTF-8";
+b{
+  font-size: 20px;
+  margin: 10px;  
+}
+.input-group{
+  margin: 20px;
+}
+.inquiryTr th {
+      background-color: #e3e3e4;
+      border-bottom: 1px solid #f1f2f4;
+      height: 38px;
+    }
+#inquiryListTable {
+      margin: 0 auto 20px auto;
+      text-align: center; 
+      border-bottom: solid 1px #818181;
+      border-collapse: collapse;
+    }
