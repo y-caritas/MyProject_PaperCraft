@@ -22,7 +22,7 @@
           <a href="">공지사항</a>
           <a href="">자주하는 질문</a>
           <a href="">주문 제작/문의</a>
-          <a href="">상품 문의</a>
+          <a href="<%=request.getContextPath()%>/admin/admin_productInquiryList.jsp">상품 문의</a>
         </div>
     </td>
   </tr>
