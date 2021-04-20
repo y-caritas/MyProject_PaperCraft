@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% request.setCharacterEncoding("UTF-8");%>
-<% String product_name =  request.getParameter("product_name"); %>
-
 
   <c:import url="/header.jsp"></c:import>
   
@@ -53,6 +51,7 @@
   <section>
     <div id="product_detail" class="row">
       <div style="text-align: center;" class="col-7">
+      	<!-- src="${productDto.product_introImg}"  추가 -->
         <img class="" src="http://via.placeholder.com/400?text=Sample" alt="">
       </div>
       <div class="col-5">
@@ -93,7 +92,7 @@
         <summary>상품평</summary>
         <div id="details_2">          
           <table>
-          <!--  	<c:forEach var="productReviewDto" items="${productReviewDto}">  		   
+          <%--  	<c:forEach var="productReviewDto" items="${productReviewDto}">  		   
           <tr>
             <td>{productReviewDto.product_r_idx}</td>
             <td><div><img class="" src="{productReviewDto.product_r_img}" alt=""></div></td>
@@ -104,7 +103,7 @@
             </td>
             <td>{productReviewDto.product_r_grade}</td>
           </tr>			
-   </c:forEach> -->
+   </c:forEach> --%>
             <tr>
               <td>index</td>
               <td><div><img class="" src="http://via.placeholder.com/100?text=Sample" alt=""></div></td>
@@ -132,11 +131,11 @@
             <table>
               <tr>
                 <th style="width: 150px;"><b>평점</b></th>
-                <th><input class="product_grade" type="radio" name="product_grade" id="">&nbsp; 매우 만족 ☆ ☆ ☆ ☆ ☆ &emsp;&emsp;
-                  <input class="product_grade" type="radio" name="product_grade" id="">&nbsp; 만족 ☆ ☆ ☆ ☆ &emsp;&emsp;
-                  <input class="product_grade" type="radio" name="product_grade" id="">&nbsp; 보통 ☆ ☆ ☆ &emsp;&emsp;
-                  <input class="product_grade" type="radio" name="product_grade" id="">&nbsp; 불만 ☆ ☆ &emsp;&emsp;
-                  <input class="product_grade" type="radio" name="product_grade" id="">&nbsp; 매우 불만 ☆
+                <th><input class="product_grade" type="radio" name="product_r_grade" id="" value="">&nbsp; 매우 만족 ☆ ☆ ☆ ☆ ☆ &emsp;&emsp;
+                  <input class="product_grade" type="radio" name="product_r_grade" id="" value="">&nbsp; 만족 ☆ ☆ ☆ ☆ &emsp;&emsp;
+                  <input class="product_grade" type="radio" name="product_r_grade" id="" value="">&nbsp; 보통 ☆ ☆ ☆ &emsp;&emsp;
+                  <input class="product_grade" type="radio" name="product_r_grade" id="" value="">&nbsp; 불만 ☆ ☆ &emsp;&emsp;
+                  <input class="product_grade" type="radio" name="product_r_grade" id="" value="">&nbsp; 매우 불만 ☆
                 </th>
               </tr>
             </table>          
@@ -157,14 +156,14 @@
             <th style="padding-top: 50px; width: 200px;">작성자</th>
             <th style="padding-top: 50px; width: 200px;">작성일</th>
           </tr>
-          <!-- <c:forEach var="productEnquiryDto" items="${productEnquiryDto}">  		   
+          <%-- <c:forEach var="productEnquiryDto" items="${productEnquiryDto}">  		   
           <tr>
           <th style="padding-top: 50px;">{productEnquiryDto.product_i_idx}</th>
           <th style="padding-top: 50px;"> <a href="#"> {productEnquiryDto.product_i_content} 상품문의글 링크코드 및 글자 수 제한 기능 추가</a></th>
           <th style="padding-top: 50px;">{productEnquiryDto.product_i_writer}</th>
           <th style="padding-top: 50px;">{productEnquiryDto.product_i_date}</th>
           </tr>			
-   </c:forEach>  -->
+   </c:forEach>  --%>
           <tr>
             <th style="padding-top: 50px;">2</th>
             <th style="padding-top: 50px;"> <a href="#"> 이용자 문의글 상단 30자씩 1줄 표기</a></th>

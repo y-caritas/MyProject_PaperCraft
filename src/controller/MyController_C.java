@@ -141,7 +141,7 @@ public class MyController_C extends HttpServlet
 		
 		//detail_page.jsp 컨트롤러
 		else if(command.equals("detailview.do")) {
-			String product_idx =  request.getParameter("product_idx");
+			String product_idx = request.getParameter("product_idx");
 			System.out.println(product_idx);
 			
 			ProductDto productDto = ProductDao.detailview(product_idx);
@@ -150,10 +150,10 @@ public class MyController_C extends HttpServlet
 			ProductEnquiryDto productEnquiryDto = ProductDao.enquiry(product_idx);
 			
 			//테스트 필요.
-//	        request.setAttribute("productDto", productDto);
-//	        request.setAttribute("optionDto", optionDto);
-//	        request.setAttribute("productReviewDto", productReviewDto);
-//	        request.setAttribute("productEnquiryDto", productEnquiryDto);
+	        request.setAttribute("productDto", productDto);
+	        request.setAttribute("optionDto", optionDto);
+	        request.setAttribute("productReviewDto", productReviewDto);
+	        request.setAttribute("productEnquiryDto", productEnquiryDto);
 			
 	        
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page.jsp");
