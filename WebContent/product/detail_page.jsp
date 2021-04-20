@@ -56,47 +56,55 @@
         <img class="" src="http://via.placeholder.com/400?text=Sample" alt="">
       </div>
       <div class="col-5">
-          <form action="">
-            <ul>
-                <li class="product_detail">제품명 : <input class="product_detail_text" type="text" disabled value="<%= product_name %>" name=""/></li>
-                <li>가격 : <input class="product_detail_text" type="text" disabled value="abcde" name=""/></li>
-                <li>배송비 : <input class="product_detail_text" type="text" disabled value="abcde" name=""/></li>
-                <li>수량 : &nbsp;<input class="product_detail_btn" type="button" value="-" id="minus" onclick="productVAR.minus('<%= product_name %>')">
-                    <input style="text-align: center; border: none;" type="text" size="1" value="1" id="<%= product_name %>">
-                    <input class="product_detail_btn" type="button" value="+" id="plus" onclick="productVAR.plus('<%= product_name %>')"></li>
-                <li>옵션 : 
-                    <select style="width: 150px; border-radius: 5px;" name="">                      
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </select>
-                </li>                
-                <li>총 금액 : 
-                    <input class="product_detail_text"  id="<%= product_name %>_total_price" style="font-weight: bold; border: none;" type="text" disabled value="$1000" name=""/>
-                    <input type="text" value="1000" id="<%= product_name %>_product_price" hidden="hidden"/>                    
-                </li>
-                <li style="margin-top: 120px;">
-                  <button type="button" formaction="" class="btn btn-secondary">장바구니</button>&emsp;
-                  <button type="button" type="submit" class="btn btn-dark">구매하기</button>
-                </li>
-            </ul>  
-          </form>          
+          <form action="<%= request.getContextPath() %>/purchase.do">
+          <ul>
+              <li class="product_detail">제품명 : <input class="product_detail_text" type="text" disabled value="${productDto.product_name}" name=""/></li>
+              <li>가격 : <input class="product_detail_text" type="text" disabled value="${productDto.product_price}" name=""/></li>
+              <li>배송비 : <input class="product_detail_text" type="text" disabled value="DB에 배송비 칼럼 없음" name=""/></li>
+              <li>수량 : &nbsp;<input class="product_detail_btn" type="button" value="-" id="minus" onclick="productVAR.minus('${productDto.product_name}')">
+                  <input style="text-align: center; border: none;" type="text" size="1" value="1" id="${productDto.product_name}">
+                  <input class="product_detail_btn" type="button" value="+" id="plus" onclick="productVAR.plus('${productDto.product_name}')"></li>
+              <li>옵션 :
+                  <select style="width: 150px; border-radius: 5px;" name="">                      
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+              </li>                
+              <li>총 금액 : 
+                  <input class="product_detail_text"  id="${productDto.product_name}_total_price" style="font-weight: bold; border: none;" type="text" disabled value="${productDto.product_price}" name=""/>
+                  <input type="text" value="${productDto.product_price}" id="${productDto.product_name}_product_price" hidden="hidden"/>                    
+              </li>
+              <li style="margin-top: 120px;">
+                <button type="button" formaction="<%= request.getContextPath() %>/cart.do" class="btn btn-secondary">장바구니</button>&emsp;
+                <button type="submit" class="btn btn-dark">구매하기</button>
+              </li>
+          </ul>  
+        </form>          
       </div>
     </div>
 
     <div style="text-align: center; height: 700px;">
       <details onclick="closeAll(thisindex(this))">
         <summary>상세설명</summary>
-        <div id="details_1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, delectus ipsa! Incidunt impedit magnam ea enim voluptatum sapiente sed tempore magni esse hic eius quae vero, libero placeat voluptates ex.
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque asperiores hic ea, nulla modi optio, veritatis, aspernatur iure beatae libero ut odit itaque perspiciatis excepturi magni esse. Sint, aspernatur ipsa.
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga dicta asperiores inventore. Temporibus, ut! Voluptate tempore rerum tenetur reprehenderit, magnam nisi at dignissimos repellat ea. Ab soluta enim esse ipsum.
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni distinctio repellendus, quasi vero provident magnam velit, corporis animi quisquam expedita, nesciunt qui recusandae omnis corrupti maiores? Nostrum vel sed provident?
-        </div>
+        <div id="details_1">${productDto.product_introduction}</div>
       </details>
       <details onclick="closeAll(thisindex(this))">
         <summary>상품평</summary>
         <div id="details_2">          
           <table>
+          <!--  	<c:forEach var="productReviewDto" items="${productReviewDto}">  		   
+          <tr>
+            <td>{productReviewDto.product_r_idx}</td>
+            <td><div><img class="" src="{productReviewDto.product_r_img}" alt=""></div></td>
+            <td style="width: 500px;">
+              <div>                  
+                <h5>{productReviewDto.product_r_content}</h5>                  
+              </div>
+            </td>
+            <td>{productReviewDto.product_r_grade}</td>
+          </tr>			
+   </c:forEach> -->
             <tr>
               <td>index</td>
               <td><div><img class="" src="http://via.placeholder.com/100?text=Sample" alt=""></div></td>
@@ -119,7 +127,7 @@
             </tr>
           </table>
           <br><hr><br>
-          <form action="">
+          <form action="<%= request.getContextPath() %>/reviewinsert.do">
             <div style="border:solid 1px #818181; margin-top: 80px;">
             <table>
               <tr>
@@ -135,7 +143,7 @@
           </div>
           <input style="margin: 20px; width: 850px; height: 80px;" type="text" name="" id=""
           placeholder="띄어쓰기를 포함하여 최대 000자까지 작성할 수 있습니다. ※ 욕설, 영업에 방해되는 글은 관리자에 의해 삭제됩니다">
-          <button style="width: 100px; height: 60px;" type="button" type="submit" class="btn btn-secondary">등록</button>
+          <button style="width: 100px; height: 60px;" type="submit" class="btn btn-secondary">등록</button>
           </form>        
         </div>
       </details>
@@ -149,6 +157,14 @@
             <th style="padding-top: 50px; width: 200px;">작성자</th>
             <th style="padding-top: 50px; width: 200px;">작성일</th>
           </tr>
+          <!-- <c:forEach var="productEnquiryDto" items="${productEnquiryDto}">  		   
+          <tr>
+          <th style="padding-top: 50px;">{productEnquiryDto.product_i_idx}</th>
+          <th style="padding-top: 50px;"> <a href="#"> {productEnquiryDto.product_i_content} 상품문의글 링크코드 및 글자 수 제한 기능 추가</a></th>
+          <th style="padding-top: 50px;">{productEnquiryDto.product_i_writer}</th>
+          <th style="padding-top: 50px;">{productEnquiryDto.product_i_date}</th>
+          </tr>			
+   </c:forEach>  -->
           <tr>
             <th style="padding-top: 50px;">2</th>
             <th style="padding-top: 50px;"> <a href="#"> 이용자 문의글 상단 30자씩 1줄 표기</a></th>

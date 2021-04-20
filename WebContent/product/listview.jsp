@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% request.setCharacterEncoding("UTF-8");%>
 <% String product_category =  request.getParameter("product_category"); %>
+<% String orderby =  request.getParameter("orderby"); %>
+<% String search_name =  request.getParameter("search_name");%>
+
 
 
   <c:import url="/header.jsp"></c:import>
@@ -12,38 +15,47 @@
 		<c:set var="product_category" value= "<%= product_category %>" />
 		<c:choose>
 		<c:when test="${ product_category eq '01' }">
-		<a href="<%= request.getContextPath() %>/listview.do?product_category=01">무드등</a>  
+		<a href="<%= request.getContextPath() %>/listview.do?product_category=01&orderby=01">무드등</a>  
 		</c:when>
 		<c:when test="${ product_category eq '02' }">
-		<a href="<%= request.getContextPath() %>/listview.do?product_category=02">유리돔</a>
+		<a href="<%= request.getContextPath() %>/listview.do?product_category=02&orderby=01">유리돔</a>
 		</c:when>
 		<c:when test="${ product_category eq '03' }">
-		<a href="<%= request.getContextPath() %>/listview.do?product_category=03">카드/액자</a>
+		<a href="<%= request.getContextPath() %>/listview.do?product_category=03&orderby=01">카드/액자</a>
 		</c:when>
 		<c:when test="${ product_category eq '04' }">
-		<a href="<%= request.getContextPath() %>/listview.do?product_category=04">도구</a>
+		<a href="<%= request.getContextPath() %>/listview.do?product_category=04&orderby=01">도구</a>
 		</c:when>			
 		</c:choose>
 	</div>
       <div id="ListSelect" class="col-4">
       	<ul>
-          <li><a class="orderby" href="#">최신순</a>/</li>
-          <li><a class="orderby" href="#">높은 가격순</a>/</li>
-          <li><a class="orderby" href="#">낮은 가격순</a></li>
+      	<c:choose>
+		<c:when test="${not empty search_name}">
+		  <li><a class="orderby" href="<%= request.getContextPath() %>/listviewsearchDate.do?product_category=<%= product_category %>&search_name=<%= search_name %>">최신순</a>/</li>
+          <li><a class="orderby" href="<%= request.getContextPath() %>/listviewsearchDesc.do?product_category=<%= product_category %>&search_name=<%= search_name %>">높은 가격순</a>/</li>
+          <li><a class="orderby" href="<%= request.getContextPath() %>/listviewsearchAsc.do?product_category=<%= product_category %>&search_name=<%= search_name %>">낮은 가격순</a></li>
+		</c:when>		
+		<c:otherwise>
+		  <li><a class="orderby" href="<%= request.getContextPath() %>/listview.do?product_category=<%= product_category %>&orderby=02">최신순</a>/</li>
+          <li><a class="orderby" href="<%= request.getContextPath() %>/listview.do?product_category=<%= product_category %>&orderby=03">높은 가격순</a>/</li>
+          <li><a class="orderby" href="<%= request.getContextPath() %>/listview.do?product_category=<%= product_category %>&orderby=04">낮은 가격순</a></li>
+		</c:otherwise>
+		</c:choose>          
         </ul>
        </div>
   </section>
   	  <div id="LoG">
-  <!-- <c:forEach var="product" items="${product_list}">  		   
+  		<c:forEach var="product" items="${product_list}">  		   
 		   <div class="items">
 		   <img class="" src="{product.product_name}" alt="" 
 		   onclick="javascript:location.href='
-		   <%= request.getContextPath() %>/?product_idx={product.product_idx}">
+		   <%= request.getContextPath() %>/detailview.do?product_idx={product.product_idx}">
 		   <h5>{product.product_name}</h5>
 		   <h5>{product.product_price}</h5>
 		   <h5>{product.product_note}</h5>
 		   </div>			
-		 </c:forEach> -->
+		 </c:forEach>
 
       <div class="items">
         <img class="" src="http://via.placeholder.com/220?text=Sample" alt="">
@@ -107,9 +119,10 @@
       </div>
     </div>
     <div id="searchBar">
-      <form class="form-inline" action="#">
-        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-        <button type="button" type="submit" class="btn btn-secondary">검색</button>
+      <form class="form-inline" action="listviewsearch.do" method="POST">
+      	<input name="product_category" value="<%= product_category %>" type="hidden">
+        <input name="search_name" class="form-control" type="search" placeholder="Search" aria-label="Search">
+        <button type="submit" class="btn btn-secondary">검색</button>
       </form>
     </div>
   
