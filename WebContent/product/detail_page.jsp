@@ -52,22 +52,24 @@
     <div id="product_detail" class="row">
       <div style="text-align: center;" class="col-7">
       	<!-- src="${productDto.product_introImg}"  추가 -->
-        <img class="" src="http://via.placeholder.com/400?text=Sample" alt="">
+        <img src="http://via.placeholder.com/400?text=Sample" alt="">
       </div>
       <div class="col-5">
           <form action="<%= request.getContextPath() %>/purchase.do">
           <ul>
-              <li class="product_detail">제품명 : <input class="product_detail_text" type="text" disabled value="${productDto.product_name}" name=""/></li>
-              <li>가격 : <input class="product_detail_text" type="text" disabled value="${productDto.product_price}" name=""/></li>
-              <li>배송비 : <input class="product_detail_text" type="text" disabled value="DB에 배송비 칼럼 없음" name=""/></li>
+              <li class="product_detail">제품명 : <input name="cart_p_name" class="product_detail_text" type="text" disabled value="${productDto.product_name}"/></li>
+              <li>가격 : <input name="cart_p_price" class="product_detail_text" type="text" disabled value="${productDto.product_price}"/></li>
+              <li>배송비 : <input name="" class="product_detail_text" type="text" disabled value="DB에 배송비 칼럼 없음"/></li>
               <li>수량 : &nbsp;<input class="product_detail_btn" type="button" value="-" id="minus" onclick="productVAR.minus('${productDto.product_name}')">
-                  <input style="text-align: center; border: none;" type="text" size="1" value="1" id="${productDto.product_name}">
+                  <input name="cart_p_count" style="text-align: center; border: none;" type="text" size="1" value="1" id="${productDto.product_name}">
                   <input class="product_detail_btn" type="button" value="+" id="plus" onclick="productVAR.plus('${productDto.product_name}')"></li>
               <li>옵션 :
-                  <select style="width: 150px; border-radius: 5px;" name="">                      
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+              <!-- p_cart 테이블에 cart_o_price 옵션 존재  
+              	  데이터 뿌려오는 소스수정 필요 가능하면 테이블 삭제요망 너무 복잡해짐.	-->
+                  <select name="" style="width: 150px; border-radius: 5px;">                      
+                    <option name="" value="">One</option>
+                    <option name="" value="">Two</option>
+                    <option name="" value="">Three</option>
                   </select>
               </li>                
               <li>총 금액 : 
@@ -75,6 +77,9 @@
                   <input type="text" value="${productDto.product_price}" id="${productDto.product_name}_product_price" hidden="hidden"/>                    
               </li>
               <li style="margin-top: 120px;">
+              	<input name="cart_p_idx" value="${product_idx}" hidden="hidden">
+              	<input name="cart_p_img" value="${productDto.product_introImg}" hidden="hidden">              	
+              	<input name="member_id" value="#" hidden="hidden">
                 <button type="button" formaction="<%= request.getContextPath() %>/cart.do" class="btn btn-secondary">장바구니</button>&emsp;
                 <button type="submit" class="btn btn-dark">구매하기</button>
               </li>
@@ -131,17 +136,21 @@
             <table>
               <tr>
                 <th style="width: 150px;"><b>평점</b></th>
-                <th><input class="product_grade" type="radio" name="product_r_grade" id="" value="">&nbsp; 매우 만족 ☆ ☆ ☆ ☆ ☆ &emsp;&emsp;
-                  <input class="product_grade" type="radio" name="product_r_grade" id="" value="">&nbsp; 만족 ☆ ☆ ☆ ☆ &emsp;&emsp;
-                  <input class="product_grade" type="radio" name="product_r_grade" id="" value="">&nbsp; 보통 ☆ ☆ ☆ &emsp;&emsp;
-                  <input class="product_grade" type="radio" name="product_r_grade" id="" value="">&nbsp; 불만 ☆ ☆ &emsp;&emsp;
-                  <input class="product_grade" type="radio" name="product_r_grade" id="" value="">&nbsp; 매우 불만 ☆
+                <th><input class="product_grade" type="radio" name="product_r_grade" id="" value="05">&nbsp; 매우 만족 ☆ ☆ ☆ ☆ ☆ &emsp;&emsp;
+                  <input class="product_grade" type="radio" name="product_r_grade" id="" value="04">&nbsp; 만족 ☆ ☆ ☆ ☆ &emsp;&emsp;
+                  <input class="product_grade" type="radio" name="product_r_grade" id="" value="03">&nbsp; 보통 ☆ ☆ ☆ &emsp;&emsp;
+                  <input class="product_grade" type="radio" name="product_r_grade" id="" value="02">&nbsp; 불만 ☆ ☆ &emsp;&emsp;
+                  <input class="product_grade" type="radio" name="product_r_grade" id="" value="01">&nbsp; 매우 불만 ☆
                 </th>
               </tr>
             </table>          
           </div>
-          <input style="margin: 20px; width: 850px; height: 80px;" type="text" name="" id=""
+          <input name="product_r_content" style="margin: 20px; width: 850px; height: 80px;" type="text" id=""
           placeholder="띄어쓰기를 포함하여 최대 000자까지 작성할 수 있습니다. ※ 욕설, 영업에 방해되는 글은 관리자에 의해 삭제됩니다">
+          <input name="product_idx" value="${product_idx}" hidden="hidden">
+          <input name="product_r_img" value="${productDto.product_introImg}" hidden="hidden">
+          <%-- member_id 로그인 한 세션에서 값 가져오기 --%>
+          <input name="member_id" value="#" hidden="hidden">
           <button style="width: 100px; height: 60px;" type="submit" class="btn btn-secondary">등록</button>
           </form>        
         </div>

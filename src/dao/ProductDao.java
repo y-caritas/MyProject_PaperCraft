@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import controller.DBConnection;
 import dto.OptionDto;
 import dto.ProductDto;
@@ -440,5 +442,61 @@ public class ProductDao {
 			System.out.println("review bug");
 		}
 		return productEnquiryDto;
+	}
+
+	public static int reviewInsert(HttpServletRequest request) {		
+		Connection conn = null; 
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try 
+		{
+			conn = DBConnection.getConnection();
+			String query = "INSERT INTO p_product_review values (p_product_review_seq.nextval, ?, ?, ? sysdate, ?, ?)";			
+	        pstmt = conn.prepareStatement(query);
+	        pstmt.setString(1, request.getParameter("product_r_content") );
+	        pstmt.setString(2, request.getParameter("product_r_img") );
+	        pstmt.setString(3, request.getParameter("product_r_grade") );
+	        pstmt.setString(4, request.getParameter("member_id") );
+	        pstmt.setInt(5, Integer.parseInt(request.getParameter("product_idx")));
+	        
+	        
+			result = pstmt.executeUpdate();
+			
+		}
+		catch(Exception e) 
+		{
+			System.out.println("reviewInsert bug");
+		}
+		
+		return result;
+	}
+
+	public static int cart(HttpServletRequest request) {
+		Connection conn = null; 
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try 
+		{
+			conn = DBConnection.getConnection();
+			String query = "INSERT INTO p_cart values (p_cart_seq.nextval, sysdate, ?, ?, ?, ?, ?, ?, ?, ?)";			
+	        pstmt = conn.prepareStatement(query);
+	        pstmt.setInt(1, Integer.parseInt(request.getParameter("cart_p_idx")));
+	        pstmt.setString(2, request.getParameter("cart_p_img") );
+	        pstmt.setString(3, request.getParameter("cart_p_name") );
+	        pstmt.setInt(4, Integer.parseInt(request.getParameter("cart_p_price")));
+	        pstmt.setInt(5, Integer.parseInt(request.getParameter("cart_p_count")));
+	        pstmt.setString(6, request.getParameter("cart_o_name") );
+	        pstmt.setInt(7, Integer.parseInt(request.getParameter("cart_o_price")));
+	        pstmt.setString(8, request.getParameter("member_id") );	        
+	        
+			result = pstmt.executeUpdate();
+			
+		}
+		catch(Exception e) 
+		{
+			System.out.println("reviewInsert bug");
+		}
+		
+		return result;
 	}
 }

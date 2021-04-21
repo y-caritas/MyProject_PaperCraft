@@ -150,15 +150,53 @@ public class MyController_C extends HttpServlet
 			ProductEnquiryDto productEnquiryDto = ProductDao.enquiry(product_idx);
 			
 			//테스트 필요.
+			request.setAttribute("product_idx", product_idx);
 	        request.setAttribute("productDto", productDto);
 	        request.setAttribute("optionDto", optionDto);
 	        request.setAttribute("productReviewDto", productReviewDto);
-	        request.setAttribute("productEnquiryDto", productEnquiryDto);
-			
+	        request.setAttribute("productEnquiryDto", productEnquiryDto);			
 	        
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page.jsp");
 			dispatcher.forward(request, response);			
 		}
+		//상품평 등록
+		else if(command.equals("reviewinsert.do")) {
+			request.setCharacterEncoding("UTF-8");
+			String product_idx = request.getParameter("product_idx");
+			
+			int result = ProductDao.reviewInsert(request);
+			
+			ProductDto productDto = ProductDao.detailview(product_idx);
+			OptionDto optionDto = ProductDao.detailview_option(product_idx);
+			ProductReviewDto productReviewDto = ProductDao.review(product_idx);
+			ProductEnquiryDto productEnquiryDto = ProductDao.enquiry(product_idx);
+			
+			//테스트 필요.
+			request.setAttribute("product_idx", product_idx);
+	        request.setAttribute("productDto", productDto);
+	        request.setAttribute("optionDto", optionDto);
+	        request.setAttribute("productReviewDto", productReviewDto);
+	        request.setAttribute("productEnquiryDto", productEnquiryDto);			
+	        
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page.jsp");
+			dispatcher.forward(request, response);	
+		}
+		else if(command.equals("purchase.do")) {
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page.jsp");
+			dispatcher.forward(request, response);				
+		}
+		else if(command.equals("cart.do")) {
+			
+			request.setCharacterEncoding("UTF-8");
+			String product_idx = request.getParameter("product_idx");
+			
+			int result = ProductDao.cart(request);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/myPage/cart.jsp");
+			dispatcher.forward(request, response);				
+		}
+		
 
 
 }
