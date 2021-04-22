@@ -16,6 +16,7 @@ import dto.ProductDto;
 import dto.ProductEnquiryDto;
 import dto.ProductReviewDto;
 
+
 @WebServlet(urlPatterns= {"/", "*.do"})
 public class MyController_C extends HttpServlet
 {
@@ -147,7 +148,7 @@ public class MyController_C extends HttpServlet
 			ProductDto productDto = ProductDao.detailview(product_idx);
 			OptionDto optionDto = ProductDao.detailview_option(product_idx);
 			ProductReviewDto productReviewDto = ProductDao.review(product_idx);
-			ProductEnquiryDto productEnquiryDto = ProductDao.enquiry(product_idx);
+			ProductEnquiryDto productEnquiryDto = ProductDao.enquiryList(product_idx);
 			
 			//테스트 필요.
 			request.setAttribute("product_idx", product_idx);
@@ -159,6 +160,7 @@ public class MyController_C extends HttpServlet
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page.jsp");
 			dispatcher.forward(request, response);			
 		}
+		
 		//상품평 등록
 		else if(command.equals("reviewinsert.do")) {
 			request.setCharacterEncoding("UTF-8");
@@ -169,7 +171,7 @@ public class MyController_C extends HttpServlet
 			ProductDto productDto = ProductDao.detailview(product_idx);
 			OptionDto optionDto = ProductDao.detailview_option(product_idx);
 			ProductReviewDto productReviewDto = ProductDao.review(product_idx);
-			ProductEnquiryDto productEnquiryDto = ProductDao.enquiry(product_idx);
+			ProductEnquiryDto productEnquiryDto = ProductDao.enquiryList(product_idx);
 			
 			//테스트 필요.
 			request.setAttribute("product_idx", product_idx);
@@ -181,23 +183,85 @@ public class MyController_C extends HttpServlet
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page.jsp");
 			dispatcher.forward(request, response);	
 		}
+		
+		//구매하기
 		else if(command.equals("purchase.do")) {
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page.jsp");
-			dispatcher.forward(request, response);				
+			request.setCharacterEncoding("UTF-8");
+			//상품가격
+			String p_price = request.getParameter("cart_p_price");
+			//상품 개수
+			String p_count = request.getParameter("cart_p_count");
+			//총 가격
+			String p_total_price = request.getParameter("cart_p_total_price");
+			//product 테이블 인덱스
+			String p_idx = request.getParameter("cart_p_idx");
+			//이미지
+			String p_img = request.getParameter("cart_p_img");			
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/order/orderForm.jsp");
+			dispatcher.forward(request, response);
 		}
+		
+		//장바구니
 		else if(command.equals("cart.do")) {
 			
 			request.setCharacterEncoding("UTF-8");
 			String product_idx = request.getParameter("product_idx");
 			
 			int result = ProductDao.cart(request);
-			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/myPage/cart.jsp");
-			dispatcher.forward(request, response);				
+			dispatcher.forward(request, response);
+			
 		}
 		
+		//관리자 상품등록하기
+		else if(command.equals("productRegister.do")) {
+			
+			request.setCharacterEncoding("UTF-8");			
+			int result = ProductDao.productRegister(request);
+			int result_Option = ProductDao.productRegister_option(request);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productRegistration.jsp");
+			dispatcher.forward(request, response);
+		}
+		
+		//Modify view용
+		else if(command.equals("adminProductView.do")) {
+			
+			request.setCharacterEncoding("UTF-8");
 
+			String product_idx = request.getParameter("product_idx");
+			
+			ProductDto productDto = ProductDao.detailview(product_idx);
+			OptionDto optionDto = ProductDao.detailview_option(product_idx);
+			request.setAttribute("product_idx", product_idx);
+	        request.setAttribute("productDto", productDto);
+	        request.setAttribute("optionDto", optionDto);			
 
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productModify.jsp");
+			dispatcher.forward(request, response);
+			
+		}
+		//수정하기
+		else if(command.equals("productModify.do")) {
+			
+			request.setCharacterEncoding("UTF-8");		
+			
+			request.setCharacterEncoding("UTF-8");
+
+			String product_idx = request.getParameter("product_idx");
+			
+			ProductDto productDto = ProductDao.detailview(product_idx);
+			OptionDto optionDto = ProductDao.detailview_option(product_idx);
+			request.setAttribute("product_idx", product_idx);
+	        request.setAttribute("productDto", productDto);
+	        request.setAttribute("optionDto", optionDto);			
+				
+			int result = ProductDao.productModify(request);
+			int result_Option = ProductDao.productModify_option(request);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productModify.jsp");
+			dispatcher.forward(request, response);
+			
+		}
 }
 }

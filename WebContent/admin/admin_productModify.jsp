@@ -32,6 +32,8 @@
       </div>
       
       <div class="input-group">
+      	<%--product_idx hidden --%>
+      	  <input name="product_idx" value="${productDto.product_idx}" hidden="hidden">
           <select name="product_category">
             <option value="" selected disabled>카테고리 선택</option>
             <option value="01">무드등</option>
@@ -39,35 +41,26 @@
             <option value="03">카드/액자</option>
             <option value="04">도구</option>
           </select>&emsp;
-        <input name="product_name" value="${dto.product_name}" type="text" placeholder="상품을 입력하세요" class="form-control" >
+        <input name="product_name" value="${productDto.product_name}" type="text" placeholder="상품을 입력하세요" class="form-control" >
       </div>
 
       <table class="input-group">
         <tr>
-          <th style="width: 100px; height: 60px; text-align: center;">판매가격</th>
-          <td style="width: 200px; text-align: center; "><input name="product_price" value="${dto.product_price}" type="text">&nbsp;원</td>
+          <th style="height: 60px; text-align: center;">판매가격</th>
+          <td style="text-align: center; "><input name="product_price" type="text" placeholder="가격" value="${productDto.product_price}" ></td>
+          <td></td>
         </tr>
         <tr>
-          <th style="height: 100px; text-align: center;">옵션<br>
-            <input type="radio" name="option">사용<br>
-            <input type="radio" name="option">미사용
-          </th>
-          <td>
-            <table>
-              <tr>                
-                <td><input name="" style="width: 150px;" type="text" placeholder="옵션명"></td>
-                <td><input name="" style="width: 150px;" type="text" placeholder="설명"></td>
-                <td><input name="" style="width: 150px;" type="text" placeholder="가격"></td>
-                <td><button style="width: 100px;" type="button" onclick="#" class="btn btn-secondary">항목추가</button></td>
-              </tr>
-            </table>
-          </td>          
-        </tr>
+          <th style="height: 60px; text-align: center;">옵션명</th>
+          <input name="option_idx" value="${optionDto.option_idx}" hidden="hidden">
+          <td style="text-align: center; "><input name="option_detail" type="text" placeholder="옵션명" value="${optionDto.option_detail}"></td>
+          <td style="text-align: center; "><input name="option_price" type="text" placeholder="가격" value="${optionDto.option_price}"></td>          
+        </tr>        
       </table>
       <div>
         <b>상품소개글</b>
       </div>
-      <input name="product_note" value="${dto.product_note}" class="form-control input-group"  type="text" placeholder="25자 이내로 소개글을 입력하세요.">
+      <input name="product_note" value="${productDto.product_note}" class="form-control input-group"  type="text" placeholder="25자 이내로 소개글을 입력하세요.">
       <div>
         <b>상품이미지</b>
       </div>
@@ -76,7 +69,7 @@
           <tr>
             <th style="text-align: center;">상품 목록 이미지<br>000*000</th>
             <td>
-              <input name="product_listImg" value="${dto.product_listImg}" type="text" readonly="readonly" title="File Route" id="file_route1">
+              <input name="product_listImg" value="${productDto.product_listImg}" type="text" readonly="readonly" title="File Route" id="file_route1">
               <label>찾아보기<input type="file" onchange="javascript:document.getElementById('file_route1').value=this.value">
               </label>
             </td>
@@ -84,7 +77,7 @@
           <tr>
             <th style="text-align: center;">상품 대표 이미지<br>000*000</th>
             <td>
-              <input name="product_introImg" value="${dto.product_introImg}" type="text" readonly="readonly" title="File Route" id="file_route2">
+              <input name="product_introImg" value="${productDto.product_introImg}" type="text" readonly="readonly" title="File Route" id="file_route2">
               <label>찾아보기<input type="file" onchange="javascript:document.getElementById('file_route2').value=this.value">
               </label>
             </td>
@@ -93,19 +86,20 @@
       </div>
       <div>
         <b>상품 상세 설명</b>
-        <textarea name="product_introduction" value="${dto.product_introduction}" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>        
+        <textarea name="product_introduction" value="${productDto.product_introduction}" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>        
       </div>        
       <div>
         <b>배송 안내</b>&nbsp;
-        <input type="radio" name="">공통 배송 안내 노출&nbsp;
-        <input type="radio" name="">개별 배송 안내 작성
-        <textarea name="product_delivery_policy" value="${dto.product_delivery_policy}" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>        
+        <%--radio 버튼 논의 필요 --%>
+        <input type="radio" name="product_delivery_policy_category" value="01">공통 배송 안내 노출&nbsp;
+        <input type="radio" name="product_delivery_policy_category" value="02">개별 배송 안내 작성
+        <textarea name="product_delivery_policy" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>        
       </div>        
       <div>
         <b>교환 및 반품 안내</b>&nbsp;
-        <input type="radio" name="">공통 교환 및 반품 안내 노출&nbsp;
-        <input type="radio" name="">개별 교환 및 반품 안내 작성
-        <textarea name="product_swap_policy" value="${dto.product_swap_policy}" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <input type="radio" name="product_swap_policy_category" value="01">공통 교환 및 반품 안내 노출&nbsp;
+        <input type="radio" name="product_swap_policy_category" value="02">개별 교환 및 반품 안내 작성
+        <textarea name="product_swap_policy" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>
       </div>
       <div style="text-align: center;">
         <table>
@@ -115,10 +109,10 @@
           </tr>
           <tr>
             <td style="width: 350px;">
-              <textarea name="product_record" value="${dto.product_record}" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>
+              <textarea name="product_record" value="${productDto.product_record}" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>
             </td>
             <td style="width: 350px;">
-              <textarea name="product_memo" value="${dto.product_memo}"class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>
+              <textarea name="product_memo" value="${productDto.product_memo}"class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>
             </td>
           </tr>
         </table>

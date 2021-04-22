@@ -9,7 +9,9 @@ CREATE TABLE p_product (
 	product_introImg         VARCHAR2(50),
 	product_introduction     CLOB,
 	product_delivery_policy  VARCHAR2(4000),
+	product_delivery_policy_category         NUMBER(2),
 	product_swap_policy      VARCHAR2(4000),
+	product_swap_policy_category         NUMBER(2),
 	product_record           DATE DEFAULT SYSDATE,
 	product_memo             VARCHAR2(4000)
 	)
@@ -17,8 +19,7 @@ CREATE TABLE p_product (
 CREATE SEQUENCE p_product_seq;
 
 CREATE TABLE p_option (
-	option_idx               NUMBER(10) PRIMARY KEY,
-	option_category          VARCHAR2(30),
+	option_idx               NUMBER(10) PRIMARY KEY,	
 	option_detail            VARCHAR2(30),
 	option_price             NUMBER(6),
 	product_idx              NUMBER(10)

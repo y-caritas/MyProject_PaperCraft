@@ -5,8 +5,7 @@ import java.sql.Date;
 public class OptionDto {
 	
 	private int product_idx;
-	private int option_idx;
-	private String option_category;
+	private int option_idx;	
 	private String option_detail;
 	private int option_price;
 	
@@ -25,12 +24,6 @@ public class OptionDto {
 	}
 	public void setOption_idx(int option_idx) {
 		this.option_idx = option_idx;
-	}
-	public String getOption_category() {
-		return option_category;
-	}
-	public void setOption_category(String option_category) {
-		this.option_category = option_category;
 	}
 	public String getOption_detail() {
 		return option_detail;

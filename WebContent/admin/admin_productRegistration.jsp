@@ -23,6 +23,7 @@
 <body>
 	<div id="sideBarContainer">
 		<c:import url="./admin_sideBar.jsp"></c:import>	
+	
 	<div style="margin-left: 30px;">
       <form name="adminProduct" action="productRegister.do" method="POST" onsubmit="return confirmProduct()">
       <div style="margin: 20px;">상품관리 > 상품등록
@@ -44,25 +45,15 @@
 
       <table class="input-group">
         <tr>
-          <th style="width: 100px; height: 60px; text-align: center;">판매가격</th>
-          <td style="width: 200px; text-align: center; "><input name="product_price" type="text">&nbsp;원</td>
+          <th style="height: 60px; text-align: center;">판매가격</th>
+          <td style="text-align: center; "><input name="product_price" type="text" placeholder="가격"></td>
+          <td></td>
         </tr>
         <tr>
-          <th style="height: 100px; text-align: center;">옵션<br>
-            <input type="radio" name="option" value="01">사용<br>
-            <input type="radio" name="option" value="02">미사용
-          </th>
-          <td>
-            <table>
-              <tr>                
-                <td><input name="" style="width: 150px;" type="text" placeholder="옵션명"></td>
-                <td><input name="" style="width: 150px;" type="text" placeholder="설명"></td>
-                <td><input name="" style="width: 150px;" type="text" placeholder="가격"></td>
-                <td><button style="width: 100px;" type="button" onclick="#" class="btn btn-secondary">항목추가</button></td>
-              </tr>
-            </table>
-          </td>          
-        </tr>
+          <th style="height: 60px; text-align: center;">옵션명</th>
+          <td style="text-align: center; "><input name="option_name" type="text" placeholder="옵션명"></td>
+          <td style="text-align: center; "><input name="option_price" type="text" placeholder="가격"></td>          
+        </tr>        
       </table>
       <div>
         <b>상품소개글</b>
@@ -97,14 +88,15 @@
       </div>        
       <div>
         <b>배송 안내</b>&nbsp;
-        <input type="radio" name="">공통 배송 안내 노출&nbsp;
-        <input type="radio" name="">개별 배송 안내 작성
+        <%--radio 버튼 논의 필요 --%>
+        <input type="radio" name="product_delivery_policy_category" value="01">공통 배송 안내 노출&nbsp;
+        <input type="radio" name="product_delivery_policy_category" value="02">개별 배송 안내 작성
         <textarea name="product_delivery_policy" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>        
       </div>        
       <div>
         <b>교환 및 반품 안내</b>&nbsp;
-        <input type="radio" name="">공통 교환 및 반품 안내 노출&nbsp;
-        <input type="radio" name="">개별 교환 및 반품 안내 작성
+        <input type="radio" name="product_swap_policy_category" value="01">공통 교환 및 반품 안내 노출&nbsp;
+        <input type="radio" name="product_swap_policy_category" value="02">개별 교환 및 반품 안내 작성
         <textarea name="product_swap_policy" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>
       </div>
       <div style="text-align: center;">
@@ -128,6 +120,7 @@
         <button type="button" class="btn btn-dark" onclick="history.back()">취소</button>
       </div>
     </form>
+    </div>
     </div>
     
     

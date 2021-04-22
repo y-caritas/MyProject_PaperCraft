@@ -360,11 +360,9 @@ public class ProductDao {
 			rs = pstmt.executeQuery(); 
 			while( rs.next() ) 
 			{				
-				String option_category = rs.getString("option_category");
-	            String option_detail = rs.getString("option_detail");
-	            int option_price = rs.getInt("option_price");
-	            optionDto.setOption_category(option_category);
-	            optionDto.setOption_detail(option_detail);
+				String option_name = rs.getString("option_name");
+	            int option_price = rs.getInt("option_price");	            
+	            optionDto.setOption_detail(option_name);
 	            optionDto.setOption_price(option_price);
 	            
 	        }
@@ -409,8 +407,8 @@ public class ProductDao {
 		return productReviewDto;
 	}
 	
-	//상품 문의
-	public static ProductEnquiryDto enquiry(String product_idx) {
+	//상품 문의 리스트
+	public static ProductEnquiryDto enquiryList(String product_idx) {
 		ProductEnquiryDto productEnquiryDto = new ProductEnquiryDto();
 		Connection conn = null; 
 		PreparedStatement pstmt = null; 
@@ -439,7 +437,7 @@ public class ProductDao {
 		}
 		catch(Exception e) 
 		{
-			System.out.println("review bug");
+			System.out.println("enquiryList bug");
 		}
 		return productEnquiryDto;
 	}
@@ -457,8 +455,7 @@ public class ProductDao {
 	        pstmt.setString(2, request.getParameter("product_r_img") );
 	        pstmt.setString(3, request.getParameter("product_r_grade") );
 	        pstmt.setString(4, request.getParameter("member_id") );
-	        pstmt.setInt(5, Integer.parseInt(request.getParameter("product_idx")));
-	        
+	        pstmt.setInt(5, Integer.parseInt(request.getParameter("product_idx")));        
 	        
 			result = pstmt.executeUpdate();
 			
@@ -494,9 +491,178 @@ public class ProductDao {
 		}
 		catch(Exception e) 
 		{
-			System.out.println("reviewInsert bug");
+			System.out.println("cart bug");
 		}
 		
 		return result;
+	}
+
+	public static int productRegister(HttpServletRequest request) {
+		Connection conn = null; 
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try 
+		{
+			conn = DBConnection.getConnection();
+			String query = "INSERT INTO p_product values (p_product_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate, ?)";			
+	        pstmt = conn.prepareStatement(query);
+	        pstmt.setInt(1, Integer.parseInt(request.getParameter("product_category")));
+	        pstmt.setString(2, request.getParameter("product_name") );
+	        pstmt.setInt(3, Integer.parseInt(request.getParameter("product_price")));
+	        pstmt.setString(4, request.getParameter("product_note") );
+	        pstmt.setString(5, request.getParameter("product_listImg") );
+	        pstmt.setString(6, request.getParameter("product_introImg") );
+	        pstmt.setString(7, request.getParameter("product_introduction") );
+	        pstmt.setString(8, request.getParameter("product_delivery_policy") );
+	        pstmt.setInt(9, Integer.parseInt(request.getParameter("product_delivery_policy_category")));
+	        pstmt.setString(10, request.getParameter("product_swap_policy") );	     
+	        pstmt.setInt(11, Integer.parseInt(request.getParameter("product_swap_policy_category")));
+	        pstmt.setString(12, request.getParameter("product_memo") );
+	        
+			result = pstmt.executeUpdate();
+			
+		}
+		catch(Exception e) 
+		{
+			System.out.println("productRegister bug");
+		}
+		
+		return result;
+	}
+	public static int productRegister_option(HttpServletRequest request) {
+		Connection conn = null; 
+		PreparedStatement pstmt = null;
+		int result_Option = 0;
+		int product_idx = 0;
+		
+		//product_idx 가져오기
+		product_idx = getProduct_idx(request); 
+				
+		try 
+		{
+			conn = DBConnection.getConnection();
+			String query = "INSERT INTO p_option values (p_option_seq.nextval, ?, ?, ?)";			
+	        pstmt = conn.prepareStatement(query);
+	        pstmt.setString(1, request.getParameter("option_name") );
+	        pstmt.setInt(2, Integer.parseInt(request.getParameter("option_price")));
+	        pstmt.setInt(3, product_idx);
+	        
+	        result_Option = pstmt.executeUpdate();
+			
+		}
+		catch(Exception e) 
+		{
+			System.out.println("productRegister_option bug");
+		}
+		
+		return result_Option;
+	}
+	
+	//Product_idx 값 가져오기
+	private static int getProduct_idx(HttpServletRequest request) {
+		Connection conn = null; 
+		PreparedStatement pstmt = null; 
+		ResultSet rs = null;
+		int product_idx = 0;
+		try 
+		{
+			conn = DBConnection.getConnection();
+			String query = "SELECT * FROM p_product WHERE product_category=? and product_name=?";			
+	        pstmt = conn.prepareStatement(query);
+	        pstmt.setInt(1, Integer.parseInt(request.getParameter("product_category")));
+	        pstmt.setString(2, request.getParameter("product_name") );
+			rs = pstmt.executeQuery(); 
+			while( rs.next() ) 
+			{
+	            product_idx = rs.getInt("product_idx");
+	        }
+		}
+		catch(Exception e) 
+		{
+			System.out.println("getProduct_idx bug");
+		}
+		return product_idx;
+	}
+
+
+	public static int productModify(HttpServletRequest request) {
+		Connection conn = null; 
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try 
+		{
+			conn = DBConnection.getConnection();
+			String query = "UPDATE p_product SET ("					
+					+ "product_category = ?, "
+					+ "product_name = ?, "
+					+ "product_price = ?, "
+					+ "product_note = ?, "
+					+ "product_listImg = ?, "
+					+ "product_introImg = ?, "
+					+ "product_introduction = ?, "
+					+ "product_delivery_policy = ?, "
+					+ "product_delivery_policy_category = ?, "
+					+ "product_swap_policy = ?, "
+					+ "product_swap_policy_category = ?, "
+					+ "sysdate,"
+					+ "product_memo = ? "
+					+ "product_idx = WHERE ?)";			
+	        pstmt = conn.prepareStatement(query);
+	        pstmt.setInt(1, Integer.parseInt(request.getParameter("product_category")));
+	        pstmt.setString(2, request.getParameter("product_name") );
+	        pstmt.setInt(3, Integer.parseInt(request.getParameter("product_price")));
+	        pstmt.setString(4, request.getParameter("product_note") );
+	        pstmt.setString(5, request.getParameter("product_listImg") );
+	        pstmt.setString(6, request.getParameter("product_introImg") );
+	        pstmt.setString(7, request.getParameter("product_introduction") );
+	        pstmt.setString(8, request.getParameter("product_delivery_policy") );
+	        pstmt.setInt(9, Integer.parseInt(request.getParameter("product_delivery_policy_category")));
+	        pstmt.setString(10, request.getParameter("product_swap_policy") );	     
+	        pstmt.setInt(11, Integer.parseInt(request.getParameter("product_swap_policy_category")));
+	        pstmt.setString(12, request.getParameter("product_memo") );
+	        pstmt.setString(13, request.getParameter("product_idx") );
+	        
+			result = pstmt.executeUpdate();
+			
+		}
+		catch(Exception e) 
+		{
+			System.out.println("productModify bug");
+		}
+		
+		return result;
+	}
+
+	public static int productModify_option(HttpServletRequest request) {
+		Connection conn = null; 
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try 
+		{
+			conn = DBConnection.getConnection();
+			String query = "UPDATE p_option SET ("					
+					+ "option_detail = ?, "
+					+ "option_price = ?, "
+					+ "option_idx = WHERE ?)";			
+	        pstmt = conn.prepareStatement(query);
+	        pstmt.setString(1, request.getParameter("option_detail") );
+	        pstmt.setInt(2, Integer.parseInt(request.getParameter("option_price")));
+	        pstmt.setInt(3, Integer.parseInt(request.getParameter("option_idx")));
+	        
+			result = pstmt.executeUpdate();
+			
+		}
+			catch(Exception e)
+			
+			{
+				System.out.println("productModify_option bug");
+			}
+			
+			return result;
+	}
+
+	public static int productModifyView(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

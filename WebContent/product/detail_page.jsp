@@ -45,7 +45,16 @@
             document.getElementsByTagName("details")[i].removeAttribute("open");
           }
         }
-      }  
+      }
+      function confirmCart (){
+          var result = confirm("장바구니에 추가하시겠습니까?");
+          if (result){
+            alert("장바구니에 추가되었습니다.");
+          } else {
+            alert("취소하셨습니다.");
+            return false;
+          }
+        }
     </script>
 
   <section>
@@ -63,24 +72,23 @@
               <li>수량 : &nbsp;<input class="product_detail_btn" type="button" value="-" id="minus" onclick="productVAR.minus('${productDto.product_name}')">
                   <input name="cart_p_count" style="text-align: center; border: none;" type="text" size="1" value="1" id="${productDto.product_name}">
                   <input class="product_detail_btn" type="button" value="+" id="plus" onclick="productVAR.plus('${productDto.product_name}')"></li>
-              <li>옵션 :
-              <!-- p_cart 테이블에 cart_o_price 옵션 존재  
-              	  데이터 뿌려오는 소스수정 필요 가능하면 테이블 삭제요망 너무 복잡해짐.	-->
-                  <select name="" style="width: 150px; border-radius: 5px;">                      
-                    <option name="" value="">One</option>
-                    <option name="" value="">Two</option>
-                    <option name="" value="">Three</option>
+              <li>옵션 :              
+                  <select name="" style="width: 150px; border-radius: 5px;">
+			          	<c:forEach var="optionDto" items="${optionDto}">
+			          		<%-- Option DB에 index, detail, price 값중 어떤값을 가져올지 논의필요 --%>				          
+							<option name="" value="">{optionDto.option_datail} - {optionDto.option_price} </option>			
+					    </c:forEach>                    
                   </select>
               </li>                
               <li>총 금액 : 
-                  <input class="product_detail_text"  id="${productDto.product_name}_total_price" style="font-weight: bold; border: none;" type="text" disabled value="${productDto.product_price}" name=""/>
-                  <input type="text" value="${productDto.product_price}" id="${productDto.product_name}_product_price" hidden="hidden"/>                    
+                  <input name="cart_p_total_price" class="product_detail_text"  id="${productDto.product_name}_total_price" style="font-weight: bold; border: none;" type="text" disabled value="${productDto.product_price}" name=""/>
+                  <input type="text" value="${productDto.product_price}" id="${productDto.product_name}_product_price" hidden="hidden"/>
               </li>
               <li style="margin-top: 120px;">
               	<input name="cart_p_idx" value="${product_idx}" hidden="hidden">
-              	<input name="cart_p_img" value="${productDto.product_introImg}" hidden="hidden">              	
+              	<input name="cart_p_img" value="${productDto.product_introImg}" hidden="hidden">
               	<input name="member_id" value="#" hidden="hidden">
-                <button type="button" formaction="<%= request.getContextPath() %>/cart.do" class="btn btn-secondary">장바구니</button>&emsp;
+                <button type="submit" formaction="<%= request.getContextPath() %>/cart.do" onclick="return confirmCart()" class="btn btn-secondary">장바구니</button>&emsp;
                 <button type="submit" class="btn btn-dark">구매하기</button>
               </li>
           </ul>  
@@ -172,7 +180,7 @@
           <th style="padding-top: 50px;">{productEnquiryDto.product_i_writer}</th>
           <th style="padding-top: 50px;">{productEnquiryDto.product_i_date}</th>
           </tr>			
-   </c:forEach>  --%>
+   				</c:forEach>  --%>
           <tr>
             <th style="padding-top: 50px;">2</th>
             <th style="padding-top: 50px;"> <a href="#"> 이용자 문의글 상단 30자씩 1줄 표기</a></th>
@@ -191,6 +199,7 @@
       <details onclick="closeAll(thisindex(this))">
         <summary>배송안내</summary>
         <div id="details_4">
+          ${productDto.product_delivery_policy}
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, delectus ipsa! Incidunt impedit magnam ea enim voluptatum sapiente sed tempore magni esse hic eius quae vero, libero placeat voluptates ex.
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque asperiores hic ea, nulla modi optio, veritatis, aspernatur iure beatae libero ut odit itaque perspiciatis excepturi magni esse. Sint, aspernatur ipsa.
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga dicta asperiores inventore. Temporibus, ut! Voluptate tempore rerum tenetur reprehenderit, magnam nisi at dignissimos repellat ea. Ab soluta enim esse ipsum.
@@ -199,7 +208,9 @@
       </details>
       <details onclick="closeAll(thisindex(this))">
         <summary>교환 및 반품</summary>
-        <div id="details_5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, delectus ipsa! Incidunt impedit magnam ea enim voluptatum sapiente sed tempore magni esse hic eius quae vero, libero placeat voluptates ex.
+        <div id="details_5">
+          ${productDto.product_swap_policy}
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, delectus ipsa! Incidunt impedit magnam ea enim voluptatum sapiente sed tempore magni esse hic eius quae vero, libero placeat voluptates ex.
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque asperiores hic ea, nulla modi optio, veritatis, aspernatur iure beatae libero ut odit itaque perspiciatis excepturi magni esse. Sint, aspernatur ipsa.
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga dicta asperiores inventore. Temporibus, ut! Voluptate tempore rerum tenetur reprehenderit, magnam nisi at dignissimos repellat ea. Ab soluta enim esse ipsum.
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni distinctio repellendus, quasi vero provident magnam velit, corporis animi quisquam expedita, nesciunt qui recusandae omnis corrupti maiores? Nostrum vel sed provident?
