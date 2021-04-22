@@ -606,7 +606,7 @@ public class ProductDao {
 					+ "product_swap_policy_category = ?, "
 					+ "sysdate,"
 					+ "product_memo = ? "
-					+ "product_idx = WHERE ?)";			
+					+ "WHERE product_idx = ?)";			
 	        pstmt = conn.prepareStatement(query);
 	        pstmt.setInt(1, Integer.parseInt(request.getParameter("product_category")));
 	        pstmt.setString(2, request.getParameter("product_name") );
@@ -643,7 +643,7 @@ public class ProductDao {
 			String query = "UPDATE p_option SET ("					
 					+ "option_detail = ?, "
 					+ "option_price = ?, "
-					+ "option_idx = WHERE ?)";			
+					+ "WHERE option_idx = ?)";			
 	        pstmt = conn.prepareStatement(query);
 	        pstmt.setString(1, request.getParameter("option_detail") );
 	        pstmt.setInt(2, Integer.parseInt(request.getParameter("option_price")));
