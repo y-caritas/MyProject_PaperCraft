@@ -21,37 +21,64 @@
 
  }
     .idr-body {
-      margin: 70px 0 70px;
+      margin: 40px 0 40px;
     
     }
   </style>
 </head>
-<body>
+<body onresize="parent.resizeTo(800,600)" onload="parent.resizeTo(800,600)">
+
+
 <div class="idr-wrap">  
   <div class="idr-title">
 
     <h2>비밀번호 찾기</h2>
     
   </div>
-  <div class="idr-body">
+ 
        <%
-		String member_email = (String)session.getAttribute("member_email");		
+		String member_pw = (String)session.getAttribute("member_pw");		
 	%>
     
-    회원님께서 가입하신 이메일주소 <%= member_email %> 로 전송해드렸습니다. 
+    
+  <!-- 성공시 이메일로 전송  -->	
+
+	<c:if test ="${member_pw != null }">
+	
+	 <div class="idr-body">
+    
+    회원님께서 가입하신 이메일로 비밀번호를 전송해드렸습니다.
+    
+    </div>
+    
+      <div class="idr-footer">
+<button class="btn btn-secondary btn-"  onClick='window.close()'>확인</button>
+
+  </div>
+   </c:if> 
+   
+   
+<!-- 실패시 아이디찾기 페이지 이동버튼  --> 
+   
+     
+    <c:if test = "${member_pw == null }">
+    
+     <div class="idr-body">
+    아이디와 이메일을 확인해주세요.
+    </div>
+    
+     <div class="idr-footer">
+<button class="btn btn-secondary btn-"  onClick="location.href='<%= request.getContextPath() %>/member/login_findPW.jsp' ">확인</button>
+
+
+
+  </div>
+    </c:if>
   
    
     
   </div>
   
-  <div class="idr-footer">
-<button class="btn btn-secondary btn-"  onClick='window.close()'>확인</button>
-
-
-
-  </div>
-</div>
-
 
 
 

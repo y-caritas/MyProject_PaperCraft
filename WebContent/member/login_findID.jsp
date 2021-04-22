@@ -27,7 +27,9 @@
     
         
       <div class="card-body">
-     
+      <%
+		String member_id = (String)session.getAttribute("member_id");		
+	%>
       <c:choose> 
       <c:when test = "${member_id != null }"> 
       
@@ -47,7 +49,7 @@
           <input type="password" id="upw" class=" form-control input-lg login-input"  placeholder="이메일을 입력하세요." required><br>
           
          
-          <button id="btn-Yes" class="btn btn-lg btn-primary btn-block" type="submit" onClick=' ' >확인</button>
+          <button id="btn-Yes" class="btn btn-lg btn-primary btn-block" type="submit" onClick="idFind()" >확인</button>
         </form>
         </c:when>
 	       </c:choose>
