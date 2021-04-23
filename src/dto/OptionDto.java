@@ -3,7 +3,7 @@ package dto;
 import java.sql.Date;
 
 public class OptionDto {
-	
+	//push용 업데이트
 	private int product_idx;
 	private int option_idx;	
 	private String option_detail;

@@ -19,7 +19,7 @@ CREATE TABLE p_product (
 CREATE SEQUENCE p_product_seq;
 
 CREATE TABLE p_option (
-	option_idx               NUMBER(10) PRIMARY KEY,	
+	option_idx               NUMBER(10) PRIMARY KEY,
 	option_detail            VARCHAR2(30),
 	option_price             NUMBER(6),
 	product_idx              NUMBER(10)
