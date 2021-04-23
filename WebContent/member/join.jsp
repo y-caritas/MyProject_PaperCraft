@@ -165,6 +165,32 @@
         }).open();
     }
     
+    /* 아이디 중복확인 창 */
+    function idCheck() {
+    	var user_id = $('#join_id').val();
+    	
+    	$.ajax({
+    		url : 'http://localhost:8082/MyProject_PaperCraft/member/idCheckAjax.do?member_id='+ user_id,
+    		type : 'get',
+    		success : function(data) {
+    			console.log("결과값: "+data+" (0: 사용가능, 1:사용불가)");
+    			
+    			if (data == 1) {
+    				$("#id_check").text("사용중인 아이디입니다.");
+    				$("#id_check").css("color", "red");
+    				$("#fin_check").val("no");
+    			} else if(data == 0) {
+    				$("#id_check").text("사용이 가능합니다.");
+    				$("#id_check").css("color", "blue");
+    				$("#fin_check").val("yes");
+    			}
+    		},
+    		error : function() {
+    			console.log("에러발생");
+    		}
+    	});
+    }
+    
     /* 유효성 검사 */
       function joinform_check() {
        
@@ -178,23 +204,38 @@
        var join_phone2 = document.getElementById("join_phone2");
        var join_phone3 = document.getElementById("join_phone3");
        var idchk = document.getElementById("fin_check");
+       var address = document.getElementById("sample4_detailAddress");
        
        if( join_id.value == "" ) {
           alert("아이디를 입력하세요.");
           join_id.focus();
           return false;
        }
+       if(idchk.value == "") {
+    	   alert("아이디 중복확인을 눌러주세요.")
+    	   join_id.focus();
+    	   return false;
+       }
+       if(idchk.value == "no") {
+    	   alert("다른 아이디를 사용해주세요.")
+    	   join_id.focus();
+    	   return false;
+       }
        if( !/^[a-zA-Z0-9]{8,25}$/.test(join_pw.value) ) {
           alert("비밀번호는 8자리 이상 25자리 영소,대문자 또는 숫자로 입력해주세요.")
           join_pw.focus();
           return false;
        }
-       if( join_name == "" ) {
-          alert("이름을 입력하세요.");
-          join_name.focus();
-          return false;
+       if( join_pw.value != join_pw2.value) {
+    	   alert("서로 다른 비밀번호입니다.")
+    	   return false;
        }
-       if( join_email == "" ) {
+       if( join_name.value == "" ) {
+           alert("이름을 입력하세요.");
+           join_name.focus();
+           return false;
+        }
+       if( join_email.value == "" ) {
           alert("이메일을 입력해주세요.");
           join_email.focus();
           return false;
@@ -204,22 +245,22 @@
           join_email2.focus();
           return false;
        }
-       if(join_phone == "" ) {
+       if(join_phone.value == "" ) {
     	   alert("휴대폰 번호 앞자리를 선택해주세요.")
     	   join_phone2.focus();
     	   return false;
        }
-       
-       if(join_phone2 == "" || join_phone3 == "" ) {
+       if(address.value == "") {
+    	   alert("상세주소를 입력해주세요.")
+    	   address.focus();
+    	   return false;
+       }
+       if(join_phone2.value == "" || join_phone3.value == "" ) {
     	   alert("휴대폰 번호를 입력해주세요.")
     	   join_phone2.focus();
     	   return false;
        }
-       if(idchk == "no") {
-    	   alert("아이디 중복확인을 해주세요.")
-    	   join_id.focus();
-    	   return false;
-       }
+       
           document.Join_form_submit.submit();
     }
     
@@ -243,32 +284,7 @@
        }
     }
     
-    /* 아이디 중복확인 창 */
-    function idCheck() {
-    	var user_id = $('#join_id').val();
-    	
-    	$.ajax({
-    		url : 'http://localhost:8082/MyProject_PaperCraft/member/idCheckAjax.do?member_id='+ user_id,
-    		type : 'get',
-    		success : function(data) {
-    			console.log("결과값: "+data+" (0: 사용가능, 1:사용불가)");
-    			
-    			if (data == 1) {
-    				//$("#id_check").text("사용중인 아이디입니다.");
-    				//$("#id_check").css("color", "red");
-    				alert()
-    				$("#fin_check").val("no");
-    			} else if(data == 0) {
-    				$("#id_check").text("사용이 가능합니다.");
-    				$("#id_check").css("color", "blue");
-    				$("#fin_check").val("yes");
-    			}
-    		},
-    		error : function() {
-    			console.log("에러발생");
-    		}
-    	});
-    }
+
     
     
     	
