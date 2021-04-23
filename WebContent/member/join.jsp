@@ -10,13 +10,15 @@
     </div>
 
     <div id="join_wrapper">
-        <form action="JoinAction" onSubmit="return false;" name="Join_form_submit" method="POST">
+        <form action="memberjoin.do" onSubmit="return false;" name="Join_form_submit" method="POST">
             <table id="join_table" style="border-collapse: collapse;">
                 <!-- 아이디 -->
                 <tr>
                     <td class="join_form_left">아이디</td>
-                    <td class="join_form_right join_form_border"><input class="join_inputbox" type="text" onclick="idCheck()" name="member_id" id="join_id" maxlength="20" placeholder="아이디를 입력해주세요.">
-                       <button id="join_idcheckbtn" type="button" onclick="idCheck();">중복확인</button>
+                    <td class="join_form_right join_form_border"><input class="join_inputbox" type="text" name="member_id" id="join_id" maxlength="20" placeholder="아이디를 입력해주세요."><!-- onclick="idCheck()" -->
+                       <button id="join_idcheckbtn" type="button" onclick="idCheck()">중복확인</button>
+                       <div class="check_font" id="id_check"></div>
+                       <input type="hidden" name="checkingId" id="fin_check" value="">
                     </td>
                 </tr>
                 <!-- 비밀번호 -->
@@ -42,20 +44,20 @@
                         <input class="join_inputbox join_inputbtn" type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"></td>
                 </tr>
                 <tr>
-                    <td class="join_form_right"><input class="join_inputbox" type="text" id="sample4_roadAddress" placeholder="도로명주소">
-                        <input class="join_inputbox" type="text" id="sample4_jibunAddress" placeholder="지번주소">
+                    <td class="join_form_right"><input class="join_inputbox" type="text" id="sample4_roadAddress" name="address1" placeholder="도로명주소">
+                        <input class="join_inputbox" type="text" id="sample4_jibunAddress" name="address2" placeholder="지번주소">
                         <span id="guide" style="color:#999;display:none"></span><br></td>
                 </tr>
                 <tr>
-                    <td class="join_form_right"><input class="join_inputbox" type="text" id="sample4_detailAddress" placeholder="상세주소">
-                        <input class="join_inputbox" type="text" id="sample4_extraAddress" placeholder="참고항목"></td>
+                    <td class="join_form_right"><input class="join_inputbox" type="text" id="sample4_detailAddress" name="address3" placeholder="상세주소">
+                        <input class="join_inputbox" type="text" id="sample4_extraAddress" name="address4" placeholder="참고항목"></td>
                 </tr>
                 <!-- 이메일 -->
                 <tr>
                     <td class="join_form_left">이메일</td>
-                    <td class="join_form_right join_form_border"><input class="join_inputbox" type="text" id="join_email" name="member_email" maxlength="20" placeholder="이메일을 입력해주세요">
+                    <td class="join_form_right join_form_border"><input class="join_inputbox" type="text" id="join_email" name="member_email_left" maxlength="20" placeholder="이메일을 입력해주세요">
                         <span>@</span>
-                        <select class="join_inputbox" id="member_email2">
+                        <select class="join_inputbox" id="member_email2" name="member_email_right">
                             <option value="">---이메일---</option>
                             <option value="naver.com">naver.com</option>
                             <option value="daum.net">daum.net</option>
@@ -68,7 +70,7 @@
                 <tr>
                     <td class="join_form_left">휴대폰 번호</td>
                     <td class="join_form_right join_form_border">
-                        <select id="join_phone" class="join_inputbox" name="member_phone" style="width: 80px;">
+                        <select id="join_phone" class="join_inputbox" name="member_phone_first" style="width: 80px;">
                             <option value="">-앞자리-</option>
                             <option value="010">010</option>
                             <option value="070">070</option>
@@ -76,9 +78,9 @@
                             <option value="02">02</option>
                         </select>
                         <span>-</span>
-                        <input id="join_phone2" class="join_inputbox" type="text" name="member_phone2" id="join_phone" maxlength="4" style="width: 80px;">
+                        <input id="join_phone2" class="join_inputbox" type="text" name="member_phone_second" id="join_phone" maxlength="4" style="width: 80px;">
                         <span>-</span>
-                        <input id="join_phone3" class="join_inputbox" type="text" name="member_phone2" id="join_phone2" maxlength="4" style="width: 80px;">
+                        <input id="join_phone3" class="join_inputbox" type="text" name="member_phone_third" id="join_phone2" maxlength="4" style="width: 80px;">
                     </td>
                 </tr>
                 <!-- 성별 -->
@@ -93,8 +95,8 @@
                 <tr>
                     <td class="join_form_left">이메일 수신동의</td>
                     <td class="join_form_right join_form_border">
-                        <input type="radio" name="member_email_ad" checked="checked" value="1">&nbsp;동의 &nbsp;&nbsp;
-                        <input type="radio" name="member_email_ad" value="2">&nbsp;미동의
+                        <input type="radio" name="member_email_receive" checked="checked" value="1">&nbsp;동의 &nbsp;&nbsp;
+                        <input type="radio" name="member_email_receive" value="2">&nbsp;미동의
                     </td>
                 </tr>
                 <input type="hidden" name="member_grade" value="1">
@@ -175,6 +177,7 @@
        var join_phone = document.getElementById("join_phone");
        var join_phone2 = document.getElementById("join_phone2");
        var join_phone3 = document.getElementById("join_phone3");
+       var idchk = document.getElementById("fin_check");
        
        if( join_id.value == "" ) {
           alert("아이디를 입력하세요.");
@@ -186,11 +189,6 @@
           join_pw.focus();
           return false;
        }
-       if( join_pw !== join_pw2 ) {
-           alert("비밀번호가 서로 다릅니다.");
-           join_pw.focus();
-           return false;
-        }
        if( join_name == "" ) {
           alert("이름을 입력하세요.");
           join_name.focus();
@@ -215,6 +213,11 @@
        if(join_phone2 == "" || join_phone3 == "" ) {
     	   alert("휴대폰 번호를 입력해주세요.")
     	   join_phone2.focus();
+    	   return false;
+       }
+       if(idchk == "no") {
+    	   alert("아이디 중복확인을 해주세요.")
+    	   join_id.focus();
     	   return false;
        }
           document.Join_form_submit.submit();
@@ -242,8 +245,34 @@
     
     /* 아이디 중복확인 창 */
     function idCheck() {
-    	window.open("/MyProject_PaperCraft/member/idCheck.jsp", "새창", "width=440, height=353, toolbar=no, menubar=no, scrollbars=no, resizable=yes" ); 
+    	var user_id = $('#join_id').val();
+    	
+    	$.ajax({
+    		url : 'http://localhost:8082/MyProject_PaperCraft/member/idCheckAjax.do?member_id='+ user_id,
+    		type : 'get',
+    		success : function(data) {
+    			console.log("결과값: "+data+" (0: 사용가능, 1:사용불가)");
+    			
+    			if (data == 1) {
+    				//$("#id_check").text("사용중인 아이디입니다.");
+    				//$("#id_check").css("color", "red");
+    				alert()
+    				$("#fin_check").val("no");
+    			} else if(data == 0) {
+    				$("#id_check").text("사용이 가능합니다.");
+    				$("#id_check").css("color", "blue");
+    				$("#fin_check").val("yes");
+    			}
+    		},
+    		error : function() {
+    			console.log("에러발생");
+    		}
+    	});
     }
-    </script>
+    
+    
+    	
+   </script>
+   
   
   <c:import url="/footer.jsp"></c:import>

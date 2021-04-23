@@ -98,10 +98,13 @@ CREATE TABLE p_member (
 	member_phone            VARCHAR2(20),
 	member_gender           VARCHAR2(10),
 	member_email_ad         NUMBER(2),
-	member_grade            NUMBER(2),
+	member_grade            NUMBER(2) default 1,
 	member_date             DATE DEFAULT SYSDATE,
-	member_purchase         NUMBER(10)
-	)
+	member_purchase         NUMBER(10) default 0
+	);
+	
+insert into p_member (member_idx, member_id, member_pw, member_name, member_address, member_email, member_phone, member_gender, member_email_ad, member_date)
+values(p_member_seq.nextval, 'hong', '1234', '홍길동', '서울시', 'abc@def.com', '01012341234', '남성', 1, sysdate);
 	
 CREATE SEQUENCE p_member_seq;
 
@@ -111,6 +114,7 @@ CREATE TABLE p_notice (
 	notice_content          VARCHAR2(4000),
 	notice_date             DATE DEFAULT SYSDATE,
 	notice_hit              NUMBER(6) DEFAULT 0
+	notice_pin							NUMBER(1) NOT NULL default 0;
 	)
 	
 CREATE SEQUENCE p_notice_seq;

@@ -22,26 +22,13 @@
         </tr>
       </thead>
       <tbody>
-      <!-- view용 -->
         <tr style="text-align: center; border-bottom: 1px solid #f1f2f4">
-          <td style="height: 35px;">1</td>
-          <td class="notice_table_title" style="height: 35px;"><a href="<%= request.getContextPath() %>/community/notice_content.jsp">공지사항 입니다.</a></td>
-          <td style="height: 35px;">날짜</td>
-        </tr>
-      
-        <tr style="text-align: center; border-bottom: 1px solid #f1f2f4">
-          <td style="height: 35px;">2</td>
-          <td class="notice_table_title" style="height: 35px;"><a href="<%= request.getContextPath() %>/community/notice_content.jsp">공지사항2</a></td>
-          <td style="height: 35px;">날짜</td>
-        </tr>
-        
-      <!-- 데이터용 -->
-        <tr style="text-align: center; border-bottom: 1px solid #f1f2f4">
-          <c:forEach var="dto" items="${ noticeList }">
+          <c:forEach var="dto" items="${ noticelist }">
             <td style="height: 35px;">${dto.notice_idx}</td>
-            <td class="notice_table_title" style="height: 35px;"><a href="#">${dto.notice_title}</a></td>  <!-- 앵커태그 notice_view.do?notice_idx=${dto.notice_idx} -->
+            <td class="notice_table_title" style="height: 35px;"><a href="notice_view.do?notice_idx=${dto.notice_idx}">${dto.notice_title}</a></td>  <!-- 앵커태그 notice_view.do?notice_idx=${dto.notice_idx} -->
             <td style="height: 35px;">${dto.notice_date}</td>
           </c:forEach>
+        </tr>
       </tbody>
     </table>
   </div>

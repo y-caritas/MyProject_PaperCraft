@@ -35,6 +35,7 @@
    }
       #notice_content_btn a button:hover {
          background-color: #bfbfbf;
+         color: #f1f3f4;
       }
       #notice_content_btn a button {
          text-decoration: none;

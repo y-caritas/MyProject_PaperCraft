@@ -3,6 +3,7 @@ package dto;
 import java.util.Date;
 
 public class MemberDto {
+	
 	private int member_idx;
 	private String member_id;
 	private String member_pw;
@@ -14,19 +15,13 @@ public class MemberDto {
 	private int member_email_ad;
 	private int member_grade;
 	private Date member_date;
-	private String member_purchase;
+	private int member_purchase;
 	
-	//빈 생성자 
-	
-	public MemberDto() {
-		
-	}
-	
-	//필드가 있는 생성자
+	public MemberDto() {}
 
 	public MemberDto(int member_idx, String member_id, String member_pw, String member_name, String member_address,
 			String member_email, String member_phone, String member_gender, int member_email_ad, int member_grade,
-			Date member_date, String member_purchase) {
+			Date member_date, int member_purchase) {
 		super();
 		this.member_idx = member_idx;
 		this.member_id = member_id;
@@ -42,9 +37,6 @@ public class MemberDto {
 		this.member_purchase = member_purchase;
 	}
 
-	
-	//Getter Setter
-	
 	public int getMember_idx() {
 		return member_idx;
 	}
@@ -133,16 +125,13 @@ public class MemberDto {
 		this.member_date = member_date;
 	}
 
-	public String getMember_purchase() {
+	public int getMember_purchase() {
 		return member_purchase;
 	}
 
-	public void setMember_purchase(String member_purchase) {
+	public void setMember_purchase(int member_purchase) {
 		this.member_purchase = member_purchase;
 	}
 	
 	
-	
-	
-
 }

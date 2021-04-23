@@ -18,26 +18,28 @@
   
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&family=Open+Sans&display=swap" rel="stylesheet">
   
-  <link href="<%= request.getContextPath() %>/CSS/headerCss.css?ver=1" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/CSS/contactCss.css?ver=1" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/CSS/footerCss.css?ver=1" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/CSS/mainCss.css?ver=1" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/CSS/introductionCss.css?ver=1" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/CSS/faqCss.css?ver=1" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/CSS/inquiryListCss.css?ver=1" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/CSS/notice_listCss.css?ver=1" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/CSS/notice_contentCss.css?ver=1" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/CSS/LoginCss.css?ver=1" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/CSS/inquiryWriteCss.css?ver=1" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/CSS/inquiryContentCss.css?ver=1" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/CSS/joinCss.css?ver=2" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/CSS/orderFormCss.css?ver=1" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/CSS/orderCompletionCss.css?ver=1" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/CSS/detail_pageCss.css?ver=1" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/CSS/listviewCss.css?ver=1" rel="stylesheet">
-  <link href="<%= request.getContextPath() %>/CSS/product_detailCss.css?ver=1" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/headerCss.css?ver=2" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/jointermsCss.css?ver=2" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/contactCss.css?ver=2" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/footerCss.css?ver=2" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/mainCss.css?ver=2" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/introductionCss.css?ver=2" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/faqCss.css?ver=2" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/inquiryListCss.css?ver=2" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/notice_listCss.css?ver=2" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/notice_contentCss.css?ver=2" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/LoginCss.css?ver=2" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/inquiryWriteCss.css?ver=2" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/inquiryContentCss.css?ver=2" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/joinCss.css?ver=4" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/orderFormCss.css?ver=2" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/orderCompletionCss.css?ver=2" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/detail_pageCss.css?ver=2" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/listviewCss.css?ver=2" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/product_detailCss.css?ver=2" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/joinwelcomeCss.css?ver=2" rel="stylesheet">
  	
-  <link href="<%= request.getContextPath() %>/CSS/adminSideBarCss.css?ver=1" rel="stylesheet">
+  <link href="<%= request.getContextPath() %>/CSS/adminSideBarCss.css?ver=2" rel="stylesheet">
   
   <script>
   	function goBack() {
@@ -90,7 +92,7 @@
         <span class="dropdown_menu" style="width:170px;">
           <a href="<%= request.getContextPath() %>/community/inquiry_list.jsp">주문제작 / 문의</a>
           <a href="<%= request.getContextPath() %>/community/faq_list.jsp">FAQ</a>
-          <a href="<%= request.getContextPath() %>/community/notice_list.jsp">공지사항</a>
+          <a href="noticelist.do">공지사항</a>
         </span>
       </span>
     </div>
