@@ -1,159 +1,251 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<% String product_idx =  request.getParameter("product_idx"); %>
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-  <title>상품 등록</title>
-  
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&family=Open+Sans&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
-    
-  <link href="<%= request.getContextPath() %>/CSS/adminSideBarCss.css?ver=1" rel="stylesheet">  
-  <link href="<%= request.getContextPath() %>/CSS/admin_productListCss.css?ver=1" rel="stylesheet">  
+<head>
 
-  </head>
+<link href="<%= request.getContextPath() %>/CSS/adminSideBarCss.css?ver=1" rel="stylesheet">
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+    #ordersection {
+      width: 1000px;
+      margin-left: 15px;
+      margin-top: 15px;
+    }
+    #ordersearchbox {
+      border: 1px solid #bfbfbf;
+      margin-top: 20px;
+    }
+    #orderlistsection {
+      border-bottom: 1px solid #bfbfbf;
+    }
+    #detsearchflex {
+      display: flex;
+      flex-direction: row;
+    }
+    .detsearch {
+      width: 495px;
+      height: 80px;
+      display: flex;
+      flex-direction: row;
+    }
+    .detsearchBtn {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .detsearchBtn button {
+      width: 100px;
+      height: 30px;
+    }
+    #orderlistTable {
+      border-collapse: collapse;
+      border-spacing: 0;
+      width: 1000px;
+    }
+    .fontRight {
+      text-align: right;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    #order1search {
+      text-align: center;
+    }
+    #order1search button {
+      height: 25px;
+      vertical-align: middle;
+      width: 60px;
+    }
+    .margintop {
+      margin-top: 20px;
+    }
+    #orderlistsection > span {
+      font-size: 14px;
+      font-weight: bold;
+    }
+    button {
+      border: none;
+      background-color: #f1f3f4;
+      outline: 1;
+    }
+    button:hover {
+      background-color: #bfbfbf;
+      color: white;
+    }
+    input[type=text] {
+      width: 80px;
+    }
+    .flexboxtitle {
+      display: flex;
+      flex-direction: column;
+      width: 200px;
+      text-align: center;
+    }
+    .flexboxtitle span {
+      margin-bottom: 5px;
+    }
+    .flexboxContent {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+    .flexboxContent input, .flexboxContent1 input {
+      margin-bottom: 5px;
+    }
+    thead {
+      border-top: 2px solid #bfbfbf;
+      border-bottom: 2px solid #bfbfbf;
+      background-color: #f1f3f4;
+      text-align: center;
+    }
+    thead > tr > td {
+      height: 30px;
+    }
+    .tableContent {
+      border-bottom: 1px solid #cfcfcf;
+      text-align: center;
+    }
+    .tableContent > td {
+      height: 25px;
+    }
+    #orderconfirmBtn {
+      text-align: center;
+      margin-top: 20px;
+    }
+    #orderconfirmBtn button {
+      height: 35px;
+    }
+    a {
+      color: black;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #bfbfbf;
+    }
+
+</style>
+</head>
 <body>
 	<div id="sideBarContainer">
 		<c:import url="./admin_sideBar.jsp"></c:import>
-	<div style="margin-left: 30px;">
-	    <div>
-  <form name="productList" action="productList.do" method="POST">
-    <div style="margin: 20px;">상품관리 > 상품목록
-    </div>  
-    <div >
-      <div style="text-align: center; padding-top: 20px;">
-        <b>상품명</b>
-        <input type="text">
-      </div><hr>
+		
+		  <div id="ordersection">
+    <div id="orderlisthead">
+      <h3>| 상품 검색 및 삭제</h3>
+      <hr>
+    </div>
+    <div id="ordersearchbox">
+      <div id="orderlistsection">        
+        <form action="productNameSearch.do" method="get">
+          <div id="order1search">	      	
+	        <b>상품명</b>
+	        <input name="product_name" type="text">	      	
+            <button type="submit">검색</button>
+          </div>
+        </form>
+        <div class="fontRight margintop">
+          <span>상세검색</span>
+        </div>
+      </div>
+      <!-- 상세검색 -->
       <div>
-        <table>
-          <tr>
-            <th>
-            <b>카테고리</b>
-            <select name="product_category">
+        <div id="detsearchflex">
+          <div class="detsearch">
+            <div class="flexboxtitle">
+              <span>카테고리</span>              
+              <span>상품 등록일</span>
+            </div>
+            <form action="productDetailSearch.do" method="get">
+            <div class="flexboxContent">
+              <select name="product_category">
               <option value="" selected disabled>카테고리 선택</option>
               <option value="01">무드등</option>
               <option value="02">유리돔</option>
               <option value="03">카드/액자</option>
               <option value="04">도구</option>
             </select>
-            </th>
-            <th>
-              <b>판매가격</b>
-              <input name="product_price_01" style="width: 90px; height: 25px;" type="text">~
-              <input name="product_price_02" style="width: 90px; height: 25px;" type="text">
-            </th>            
-          </tr>
-          <tr>
-            <th>
-            <b>상품등록일</b>
-            <input name="product_record_01" style="width: 90px; height: 25px;" type="text">~
-            <input name="product_record_02" style="width: 90px; height: 25px;" type="text">
-            </th>
-          </tr>
-        </table>
-        <div style="text-align: center; margin: 20px;">
-          <button type="submit" class="btn btn-dark">검색</button>
-        </div>
-    </div>
-    </div>
-  </form>
-  <form action="productListDelete.do" method="POST">
-    <table id="inquiryListTable">
-      <tr class="inquiryTr">
-        <th style="width:10%">번호</th>
-        <th style="width:40%">카테고리와 상품명</th>
-        <th style="width:20%">판매가격(적립금)</th>
-        <th style="width:10%">등록일(수정일)</th>        
-        <th style="width:10%">조회수</th>
-        <th style="width:10%">수정</th>
-      </tr>            
-      <!-- <c:forEach var="productList" items="${product_list}" varStatus="status">  		   
-           <tr>
-        <td><input type="checkbox" name="product_idx" value="productList.product_idx" id="">&nbsp;${status.count}</td>
-        <td>
-          <h6>productList.product_category</h6>
-          <h5>productList.product_name</h5>
-        </td>
-        <td>
-          <div>
-            <h6>{적립금}</h6>
-            <h5>productList.product_price</h5>          
+              <div class="flexboxContent1">                
+                <input name="product_record_01" type="date">~<input name="product_record_02" type="date">
+              </div>
+            </div>
+            </div>
+            <div class="detsearch">
+              <div class="flexboxtitle">                
+                <span>판매 금액</span>
+              </div>
+              <div class="flexboxContent1">                
+                <input name="product_price_01" type="text"><span>원 ~ </span><input name="product_price_01" type="text"><span>원</span>
+              </div>              
           </div>
+        </div>
+        <div class="detsearchBtn">
+          <button>상세검색</button>
+        </div>
+        </form>
+      </div>
+    </div>    
+    <br>
+    <div class="fontRight">
+      <span class="tabletitle">총 000건의 검색 결과가 있습니다.</span>
+    </div>
+    <form action="productDelete.do" method="get">
+    <table id="orderlistTable">
+      <thead>
+        <tr>
+          <td>선택</td>
+          <td>번호</td>
+          <td>카테고리와 상품명</td>
+          <td>판매가격 (적립금)</td>
+          <td>등록일 (수정일)</td>          
+          <td>아이디</td>
+          <td>조회수</td>
+          <td>수정</td>          
+        </tr>
+      </thead>
+	  <%-- <c:forEach var="productList" items="${product_list}" varStatus="status">	 
+      <tr class="tableContent">
+        <td><input type="checkbox" name="product_idx" value="productList.product_idx" id=""></td>
+        <td>${status.count}</td>
+        <td>
+        <span>[productList.product_category]</span>
+        <span>productList.product_name</span>
+		</td>
+        <td>
+        <span>productList.product_price</span>
+        <span>[적립금]</span>
         </td>
         <td>productList.product_record</td>
-        <td>{조회수}</td>
-        <td>          
-          <button type="button" onclick="#GET방식 주소/?product_idx=productList.product_idx" class="btn btn-secondary">수정</button>
-        </td>
+        <td>[아이디]</td>
+        <td>[조회수]</td>        
+        <td><button type="button" onclick="productModify.do?product_idx=<%= product_idx= %>" class="btn btn-secondary">수정</button></td>        
       </tr>
-		 </c:forEach> -->
-      <tr>
-        <td><input type="checkbox" name="product_idx" id="">&nbsp;1</td>
+      </c:forEach>--%> 
+        <tr class="tableContent">
+        <td><input type="checkbox" name="product_idx" value="productList.product_idx" id=""></td>
+        <td>${status.count}</td>
         <td>
-          <h6>{카테고리}</h6>
-          <h5>PRODUCT_NAME</h5>
-        </td>
+        <span>[productList.product_category]</span>
+        <span>productList.product_name</span>
+		</td>
         <td>
-          <div>
-            <h6>{적립금}</h6>
-            <h5>$10000</h5>          
-          </div>
+        <span>productList.product_price</span>
+        <h5>[적립금]</h5>
         </td>
-        <td>2021-04-16</td>
-        <td>0</td>
-        <td>          
-          <button type="button" onclick="#" class="btn btn-secondary">수정</button>
-        </td>
+        <td>productList.product_record</td>
+        <td>[아이디]</td>
+        <td>[조회수]</td>        
+        <td><button type="button" onclick="productModify.do?product_idx=<%= product_idx %>" class="btn btn-secondary">수정</button></td>        
       </tr>
-      <tr>
-        <td><input type="checkbox" name="product_idx" id="">&nbsp;2</td>
-        <td>
-          <h6>{카테고리}</h6>
-          <h5>PRODUCT_NAME</h5>
-        </td>
-        <td>
-          <div>
-            <h6>{적립금}</h6>
-            <h5>$10000</h5>          
-          </div>
-        </td>
-        <td>2021-04-16</td>
-        <td>0</td>
-        <td>          
-          <button type="button" onclick="#" class="btn btn-secondary">수정</button>
-        </td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" name="product_idx" id="">&nbsp;3</td>
-        <td>
-          <h6>{카테고리}</h6>
-          <h5>PRODUCT_NAME</h5>
-        </td>
-        <td>
-          <div>
-            <h6>{적립금}</h6>
-            <h5>$10000</h5>          
-          </div>
-        </td>
-        <td>2021-04-16</td>
-        <td>0</td>
-        <td>          
-          <button type="button" onclick="#" class="btn btn-secondary">수정</button>
-        </td>
-      </tr>      
     </table>
-    <button type="submit" onclick="#" class="btn btn-dark">선택삭제</button>
+    <div>
+      <button type="submit">삭제</button>
+    </div>
     </form>
+  </div>		
 </div>
-
-
 </body>
 </html>
