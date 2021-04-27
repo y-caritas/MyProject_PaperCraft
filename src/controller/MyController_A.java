@@ -66,6 +66,76 @@ public class MyController_A extends HttpServlet {
 			jspPage = "/community/notice_content.jsp";
 		}
 		
+		// 관리자화면 공지사항 리스트
+		else if(command.equals("admin_notice_list.do")) {
+			ArrayList<NoticeDto> noticelist = NoticeDao.noticelist();
+			request.setAttribute("noticelist", noticelist);
+			System.out.println("관리자 공지사항리스트");
+			
+			jspPage = "/admin/admin_noticeList.jsp";
+		}
+		
+		// 관리자화면 공지사항 글 보기
+		else if(command.equals("admin_notice_view.do")) {
+			String notice_idx = request.getParameter("notice_idx");
+			
+			// DTO 레코드 정보
+			NoticeDto dto = NoticeDao.contentView( notice_idx );
+			request.setAttribute("dto", dto);
+			
+			jspPage = "/admin/admin_noticeContentView.jsp";
+		}
+		
+		// 관리자화면 공지사항 글 삭제
+		else if(command.equals("admin_notice_delete.do")) {
+			String notice_idx = request.getParameter("notice_idx");
+			
+			NoticeDao.noticedelete(notice_idx);
+			response.sendRedirect("admin_notice_list.do");
+		}
+		
+		// 관리자화면 글 수정화면
+		else if(command.equals("admin_notice_modify.do")) { 
+			String notice_idx = request.getParameter("notice_idx");
+			
+			System.out.println("notice_idx:"+notice_idx);
+			
+			NoticeDto dto = NoticeDao.contentView( notice_idx );
+			request.setAttribute("dto", dto);
+			
+			jspPage = "/admin/admin_noticeModify.jsp";
+		}
+		
+		// 관리자화면 글 수정 버튼 클릭시 행동
+		else if(command.equals("admin_notice_modifyEdit.do")) { 
+			String notice_idx = request.getParameter("notice_idx");
+			String notice_title = request.getParameter("notice_title");
+			String notice_content = request.getParameter("notice_writeEditor");
+			
+			System.out.println("notice_idx:"+notice_idx);
+			System.out.println("notice_title:"+notice_title);
+			System.out.println("notice_content:"+notice_content);
+			
+			NoticeDao.modify( notice_idx, notice_title, notice_content );
+			
+			response.sendRedirect("admin_notice_list.do");
+		}
+		// 관리자화면 글쓰기 버튼 클릭시 행동
+		else if(command.equals("admin_notice_write.do")) {
+			
+			String notice_title = request.getParameter("notice_title");
+			String notice_content = request.getParameter("notice_writeEditor");
+			String notice_pin = request.getParameter("importchk");
+			
+			System.out.println("notice_title:"+notice_title);
+			System.out.println("notice_content:"+notice_content);
+			System.out.println("notice_pin2:"+notice_pin);
+			
+			NoticeDao.write( notice_title, notice_content, notice_pin );
+			
+			response.sendRedirect("admin_notice_list.do");
+		}
+		
 		// 회원가입 액션
 		else if(command.equals("memberjoin.do")) {
 			String member_id = request.getParameter("member_id");
@@ -110,6 +180,7 @@ public class MyController_A extends HttpServlet {
 			dispatcher.forward(request, response);
 			
 		}
+		// id중복확인 ajax
 		else if(command.equals("idCheckAjax.do")) {
 			int result = 0;
 			try {
