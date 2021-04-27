@@ -5,10 +5,12 @@ import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.tomcat.util.http.fileupload.FileUpload;
 
 import dao.ProductDao;
 import dto.OptionDto;
@@ -17,7 +19,10 @@ import dto.ProductEnquiryDto;
 import dto.ProductReviewDto;
 
 
-@WebServlet(urlPatterns= {"/", "*.do"})
+//@WebServlet(urlPatterns= {"*.do"})
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, 
+maxFileSize = 1024 * 1024 * 30, 
+maxRequestSize = 1024 * 1024 * 50)
 public class MyController_C extends HttpServlet
 {
 
@@ -221,6 +226,13 @@ public class MyController_C extends HttpServlet
 			request.setCharacterEncoding("UTF-8");			
 			int result = ProductDao.productRegister(request);
 			int result_Option = ProductDao.productRegister_option(request);
+			
+			ProductDao.upload(request);
+			String filepathlog1 = request.getParameter("product_listImg");
+			String filepathlog2 = request.getParameter("product_introImg");
+			
+			request.setAttribute("message", "파일업로드에 성공 하였습니다.!");
+			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productRegistration.jsp");
 			dispatcher.forward(request, response);
 		}
@@ -245,10 +257,8 @@ public class MyController_C extends HttpServlet
 		//수정하기
 		else if(command.equals("productModify.do")) {
 			
-			request.setCharacterEncoding("UTF-8");		
-			
 			request.setCharacterEncoding("UTF-8");
-
+			
 			String product_idx = request.getParameter("product_idx");
 			
 			ProductDto productDto = ProductDao.detailview(product_idx);

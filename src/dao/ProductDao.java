@@ -1,12 +1,16 @@
 package dao;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 
 import controller.DBConnection;
 import dto.OptionDto;
@@ -17,6 +21,47 @@ import dto.ProductReviewDto;
 
 public class ProductDao {
 
+	private static final String SAVE_DIR = "upload";
+		
+	// 파일 업로드
+public static int upload(HttpServletRequest request) throws IOException, ServletException {
+    	
+    	int result = 0;
+    	            	
+        String appPath  = request.getServletContext().getRealPath("");
+        String savePath = appPath +  SAVE_DIR;        
+
+        File fileSaveDir = new File(savePath);
+        if( !fileSaveDir.exists() ) {
+            fileSaveDir.mkdir();
+        }
+
+        for (Part part : request.getParts()) {
+            String fileName = extractFileName(part.getHeader("Content-Disposition"));
+            System.out.println("fileName:"+fileName);
+            System.out.println("savePath:"+savePath);
+            part.write(savePath + File.separator + fileName);            
+			
+			String ContextPath = request.getServletContext().getContextPath();
+	        System.out.println("ContextPath:"+ContextPath);
+	        //localhost:포트번호 주의
+            request.setAttribute("fileFullPath", "http://localhost:8090" + ContextPath + "/" + SAVE_DIR + "/"+ fileName);            
+        }
+
+        return result;
+    }
+
+    private static String extractFileName(String partHeader) {
+        for (String cd : partHeader.split(";")) {        	
+            if (cd.trim().startsWith("filename")) {
+                String fileName = cd.substring(cd.indexOf("=") +  1).trim().replace("\"", "");;
+                int index = fileName.lastIndexOf(File.separator);
+                return fileName.substring(index + 1);
+            }
+        }
+        return null;
+    }
+	
 	public static ArrayList<ProductDto> listview(String product_category) {
 		ArrayList<ProductDto> product_list = new ArrayList<ProductDto>();
 		Connection conn = null; // 데이터 접근을 위한 객체
@@ -501,6 +546,8 @@ public class ProductDao {
 		Connection conn = null; 
 		PreparedStatement pstmt = null;
 		int result = 0;
+		String appPath  = request.getServletContext().getRealPath("");
+        String savePath = appPath +  "upload";
 		try 
 		{
 			conn = DBConnection.getConnection();
@@ -510,8 +557,10 @@ public class ProductDao {
 	        pstmt.setString(2, request.getParameter("product_name") );
 	        pstmt.setInt(3, Integer.parseInt(request.getParameter("product_price")));
 	        pstmt.setString(4, request.getParameter("product_note") );
-	        pstmt.setString(5, request.getParameter("product_listImg") );
-	        pstmt.setString(6, request.getParameter("product_introImg") );
+	        String product_listImg = savePath + request.getParameter("product_listImg").replace("C:\\fakepath", "");
+	        pstmt.setString(5, savePath + product_listImg );
+	        String product_introImg = savePath + request.getParameter("product_introImg").replace("C:\\fakepath", "");
+	        pstmt.setString(6, savePath + product_introImg );	        
 	        pstmt.setString(7, request.getParameter("product_introduction") );
 	        pstmt.setString(8, request.getParameter("product_delivery_policy") );
 	        pstmt.setInt(9, Integer.parseInt(request.getParameter("product_delivery_policy_category")));
@@ -662,7 +711,7 @@ public class ProductDao {
 	}
 
 	public static int productModifyView(HttpServletRequest request) {
-		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 }
