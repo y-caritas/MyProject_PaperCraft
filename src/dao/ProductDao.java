@@ -355,30 +355,45 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 			conn = DBConnection.getConnection();
 			String query = "SELECT * FROM p_product WHERE product_idx=?";			
 	        pstmt = conn.prepareStatement(query);
-	        pstmt.setInt(1, Integer.parseInt( product_idx ));
-	        
-			rs = pstmt.executeQuery(); 
+	        pstmt.setInt(1, Integer.parseInt( product_idx ));	        
+			rs = pstmt.executeQuery();
+			
 			while( rs.next() ) 
 			{				
-				//DB에 배송비 컬럼이 없음 논의				
+				//DB에 배송비 컬럼이 없음 논의
+				int product_category = rs.getInt("product_category");
 				String product_name = rs.getString("product_name");
 	            int product_price = rs.getInt("product_price");
+	            String product_note = rs.getString("product_note");
+	            String product_listImg = rs.getString("product_listImg");
 	            String product_introImg = rs.getString("product_introImg");
 	            String product_introduction = rs.getString("product_introduction");
 	            String product_delivery_policy = rs.getString("product_delivery_policy");
+	            int product_delivery_policy_category = rs.getInt("product_delivery_policy_category");
 	            String product_swap_policy = rs.getString("product_swap_policy");
+	            int product_swap_policy_category = rs.getInt("product_swap_policy_category");
+	            Date product_record = rs.getDate("product_record");
+	            String product_memo = rs.getString("product_memo");
+	            
 	            System.out.println("product_name"+product_name);
 	            System.out.println("product_price"+product_price);
 	            System.out.println("product_introImg"+product_introImg);
 	            System.out.println("product_introduction"+product_introduction);
 	            System.out.println("product_delivery_policy"+product_delivery_policy);
-	            System.out.println("product_swap_policy"+product_swap_policy);	            
+	            System.out.println("product_swap_policy"+product_swap_policy);	   
+	            
+	            productDto.setProduct_category(product_category);
 	            productDto.setProduct_name(product_name);
 	            productDto.setProduct_price(product_price);
+	            productDto.setProduct_listImg(product_listImg);
 	            productDto.setProduct_introImg(product_introImg);
 	            productDto.setProduct_introduction(product_introduction);
 	            productDto.setProduct_delivery_policy(product_delivery_policy);
-	            productDto.setProduct_swap_policy(product_swap_policy);	            
+	            productDto.setProduct_delivery_policy_category(product_delivery_policy_category);
+	            productDto.setProduct_swap_policy(product_swap_policy);
+	            productDto.setProduct_swap_policy_category(product_swap_policy_category);
+	            productDto.setProduct_record(product_record);
+	            productDto.setProduct_memo(product_memo);
 	            
 	        }
 		}
@@ -487,6 +502,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		return productEnquiryDto;
 	}
 
+	//상품평 등록
 	public static int reviewInsert(HttpServletRequest request) {		
 		Connection conn = null; 
 		PreparedStatement pstmt = null;
@@ -513,6 +529,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		return result;
 	}
 
+	//장바구니 기능
 	public static int cart(HttpServletRequest request) {
 		Connection conn = null; 
 		PreparedStatement pstmt = null;
@@ -542,6 +559,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		return result;
 	}
 
+	//관리자 상품등록 insert 쿼리
 	public static int productRegister(HttpServletRequest request) {
 		Connection conn = null; 
 		PreparedStatement pstmt = null;
@@ -578,6 +596,8 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		
 		return result;
 	}
+	
+//관리자 상품등록 옵션 insert 쿼리
 	public static int productRegister_option(HttpServletRequest request) {
 		Connection conn = null; 
 		PreparedStatement pstmt = null;
@@ -633,7 +653,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		return product_idx;
 	}
 
-
+// 관리자 상품페이지 수정
 	public static int productModify(HttpServletRequest request) {
 		Connection conn = null; 
 		PreparedStatement pstmt = null;
@@ -682,6 +702,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		return result;
 	}
 
+	//옵션 변경
 	public static int productModify_option(HttpServletRequest request) {
 		Connection conn = null; 
 		PreparedStatement pstmt = null;
@@ -710,8 +731,98 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 			return result;
 	}
 
-	public static int productModifyView(HttpServletRequest request) {
-		
+	//관리자 상품리스트 기본	
+	public static ArrayList<ProductDto> adminProductList() {
+		ArrayList<ProductDto> product_list = new ArrayList<ProductDto>();
+		Connection conn = null; 
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try 
+		{
+			conn = DBConnection.getConnection(); //DB커넥션 객체
+			String query = "SELECT * FROM p_product";			
+	        pstmt = conn.prepareStatement(query);	        
+			rs = pstmt.executeQuery(); 
+			
+			while( rs.next() ) 
+			{
+	            int product_idx = rs.getInt("product_name");
+	            int product_category = rs.getInt("product_price");
+	            String product_name = rs.getString("product_note");
+	            int product_price = rs.getInt("product_listImg");
+	            Date product_record = rs.getDate("product_record");
+	            
+	            //아이디 컬럼 가져오기. 미구현
+	            //조회수 기능?
+	            
+	            System.out.println("product_idx"+product_idx);
+	            System.out.println("product_category"+product_category);
+	            System.out.println("product_name"+product_name);
+	            System.out.println("product_price"+product_price);
+	            System.out.println("product_record"+product_record);
+	            
+	            ProductDto dto = new ProductDto(product_idx, product_category, product_name, product_price, product_record);
+	            product_list.add(dto);
+	        }
+		}
+		catch(Exception e) 
+		{
+			System.out.println("adminProductList bug");
+		}
+		return product_list;
+	}
+	
+	//관리자 상품리스트 상품명 검색	
+	public static ArrayList<ProductDto> adminProductNameSearch(String search_product_name) {
+		ArrayList<ProductDto> product_list = new ArrayList<ProductDto>();
+		Connection conn = null; 
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try 
+		{
+			conn = DBConnection.getConnection(); //DB커넥션 객체
+			String query = "SELECT * FROM p_product WHERE product_name LIKE ?";			
+	        pstmt = conn.prepareStatement(query);
+	        pstmt.setString(1, search_product_name );			        
+			rs = pstmt.executeQuery(); 
+			
+			while( rs.next() ) 
+			{
+	            int product_idx = rs.getInt("product_name");
+	            int product_category = rs.getInt("product_price");
+	            String product_name = rs.getString("product_note");
+	            int product_price = rs.getInt("product_listImg");
+	            Date product_record = rs.getDate("product_record");
+	            
+	            //아이디 컬럼 가져오기. 미구현
+	            //조회수 기능?
+	            
+	            System.out.println("product_idx"+product_idx);
+	            System.out.println("product_category"+product_category);
+	            System.out.println("product_name"+product_name);
+	            System.out.println("product_price"+product_price);
+	            System.out.println("product_record"+product_record);
+	            
+	            ProductDto dto = new ProductDto(product_idx, product_category, product_name, product_price, product_record);
+	            product_list.add(dto);
+	        }
+		}
+		catch(Exception e) 
+		{
+			System.out.println("adminProductNameSearch bug");
+		}
+		return product_list;
+	}
+
+	public static ArrayList<ProductDto> adminProductDetailSearch(HttpServletRequest request) {
+		// 상세검색
+		return null;
+	}
+
+	public static int adminProductDelete(HttpServletRequest request) {
+		// 삭제기능
 		return 0;
 	}
+
+
 }

@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-	String fileFullPath = (String)request.getAttribute("fileFullPath");
-%>
+
 
 <!DOCTYPE html>
 <html>
@@ -147,7 +145,7 @@
           </tr>
         </table>
       </div>
-      <div style="text-align: center; height: 100px; padding-left: 50px;">
+      <div style="text-align: center; height: 100px; padding-top: 20px; ">
         <button type="submit" class="btn btn-secondary" onclick="submitContents(this)">확인</button>&emsp;
         <button type="button" class="btn btn-dark" onclick="history.back()">취소</button>
       </div>

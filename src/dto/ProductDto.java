@@ -12,14 +12,37 @@ public class ProductDto {
 	private String product_introImg;
 	private String product_introduction;
 	private String product_delivery_policy;
+	private int product_delivery_policy_category;
 	private String product_swap_policy;
+	private int product_swap_policy_category;
 	private Date product_record;	
 	
+	public int getProduct_delivery_policy_category() {
+		return product_delivery_policy_category;
+	}
+
+	public void setProduct_delivery_policy_category(int product_delivery_policy_category) {
+		this.product_delivery_policy_category = product_delivery_policy_category;
+	}
+
+	public int getProduct_swap_policy_category() {
+		return product_swap_policy_category;
+	}
+
+	public void setProduct_swap_policy_category(int product_swap_policy_category) {
+		this.product_swap_policy_category = product_swap_policy_category;
+	}
+
 	public ProductDto() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	public ProductDto(String product_name2, String product_price2, String product_note2, String product_listImg2) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public ProductDto(int product_idx2, int product_category2, String product_name2, int product_price2,
+			Date product_record2) {
 		// TODO Auto-generated constructor stub
 	}
 

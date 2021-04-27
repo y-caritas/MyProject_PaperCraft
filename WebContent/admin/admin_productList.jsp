@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<% String product_idx =  request.getParameter("product_idx"); %>
 
 <!DOCTYPE html>
 <html>
@@ -140,7 +139,7 @@
     </div>
     <div id="ordersearchbox">
       <div id="orderlistsection">        
-        <form action="productNameSearch.do" method="get">
+        <form action="adminProductNameSearch.do" method="get">
           <div id="order1search">	      	
 	        <b>상품명</b>
 	        <input name="product_name" type="text">	      	
@@ -159,7 +158,7 @@
               <span>카테고리</span>              
               <span>상품 등록일</span>
             </div>
-            <form action="productDetailSearch.do" method="get">
+            <form action="adminProductDetailSearch.do" method="POST">
             <div class="flexboxContent">
               <select name="product_category">
               <option value="" selected disabled>카테고리 선택</option>
@@ -169,7 +168,7 @@
               <option value="04">도구</option>
             </select>
               <div class="flexboxContent1">                
-                <input name="product_record_01" type="date">~<input name="product_record_02" type="date">
+                <input name="product_record[]" type="date">~<input name="product_record[]" type="date">
               </div>
             </div>
             </div>
@@ -178,12 +177,12 @@
                 <span>판매 금액</span>
               </div>
               <div class="flexboxContent1">                
-                <input name="product_price_01" type="text"><span>원 ~ </span><input name="product_price_01" type="text"><span>원</span>
+                <input name="product_price[]" type="text"><span>원 ~ </span><input name="product_price[]" type="text"><span>원</span>
               </div>              
           </div>
         </div>
         <div class="detsearchBtn">
-          <button>상세검색</button>
+          <button type="submit">상세검색</button>
         </div>
         </form>
       </div>
@@ -192,7 +191,7 @@
     <div class="fontRight">
       <span class="tabletitle">총 000건의 검색 결과가 있습니다.</span>
     </div>
-    <form action="productDelete.do" method="get">
+    <form action="adminProductDelete.do" method="get">
     <table id="orderlistTable">
       <thead>
         <tr>
@@ -221,7 +220,7 @@
         <td>productList.product_record</td>
         <td>[아이디]</td>
         <td>[조회수]</td>        
-        <td><button type="button" onclick="productModify.do?product_idx=<%= product_idx= %>" class="btn btn-secondary">수정</button></td>        
+        <td><button type="button" onclick="productModify.do?product_idx=productList.product_idx" class="btn btn-secondary">수정</button></td>        
       </tr>
       </c:forEach>--%> 
         <tr class="tableContent">
@@ -238,7 +237,7 @@
         <td>productList.product_record</td>
         <td>[아이디]</td>
         <td>[조회수]</td>        
-        <td><button type="button" onclick="productModify.do?product_idx=<%= product_idx %>" class="btn btn-secondary">수정</button></td>        
+        <td><button type="button" onclick=" location.href='adminProductView.do?product_idx=productList.product_idx' " class="btn btn-secondary">수정</button></td>        
       </tr>
     </table>
     <div>

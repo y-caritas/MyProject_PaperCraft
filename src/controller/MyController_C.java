@@ -6,11 +6,10 @@ import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.tomcat.util.http.fileupload.FileUpload;
 
 import dao.ProductDao;
 import dto.OptionDto;
@@ -227,10 +226,7 @@ public class MyController_C extends HttpServlet
 			int result = ProductDao.productRegister(request);
 			int result_Option = ProductDao.productRegister_option(request);
 			
-			ProductDao.upload(request);
-			String filepathlog1 = request.getParameter("product_listImg");
-			String filepathlog2 = request.getParameter("product_introImg");
-			
+			ProductDao.upload(request);			
 			request.setAttribute("message", "파일업로드에 성공 하였습니다.!");
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productRegistration.jsp");
@@ -255,7 +251,7 @@ public class MyController_C extends HttpServlet
 			
 		}
 		//수정하기
-		else if(command.equals("productModify.do")) {
+		else if(command.equals("adminProductModify.do")) {
 			
 			request.setCharacterEncoding("UTF-8");
 			
@@ -269,7 +265,68 @@ public class MyController_C extends HttpServlet
 				
 			int result = ProductDao.productModify(request);
 			int result_Option = ProductDao.productModify_option(request);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productModify.jsp");
+			
+			ProductDao.upload(request);			
+			request.setAttribute("message", "파일업로드에 성공 하였습니다.!");
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productlist.jsp");
+			dispatcher.forward(request, response);
+			
+		}
+		//관리자 기본 상품리스트
+		else if(command.equals("adminProductList.do")) {
+			
+			request.setCharacterEncoding("UTF-8");			
+			
+			ArrayList<ProductDto> product_list = ProductDao.adminProductList();
+	        request.setAttribute("product_list", product_list);	        
+	        
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productlist.jsp");
+			dispatcher.forward(request, response);
+			
+		}
+		//관리자 기본 상품리스트 상품명 검색
+		else if(command.equals("adminProductNameSearch.do")) {
+			
+			request.setCharacterEncoding("UTF-8");
+			String search_product_name = request.getParameter("product_name");			
+			
+			ArrayList<ProductDto> product_list = ProductDao.adminProductNameSearch(search_product_name);
+	        request.setAttribute("product_list", product_list);
+	        
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productlist.jsp");
+			dispatcher.forward(request, response);
+			
+		}
+		
+		//관리자 기본 상품리스트 상세검색
+		else if(command.equals("adminProductDetailSearch.do")) {
+			
+			request.setCharacterEncoding("UTF-8");
+			String search_product_name = request.getParameter("product_name");			
+			
+			//미구현
+			ArrayList<ProductDto> product_list = ProductDao.adminProductDetailSearch(request);
+	        request.setAttribute("product_list", product_list);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productlist.jsp");
+			dispatcher.forward(request, response);
+			
+		}
+		
+		//관리자 상품리스트 삭제기능
+		else if(command.equals("adminProductDelete.do")) {
+			
+			request.setCharacterEncoding("UTF-8");
+			String search_product_name = request.getParameter("product_name");			
+			
+			//미구현
+			int result = ProductDao.adminProductDelete(request);
+			
+			ArrayList<ProductDto> product_list = ProductDao.adminProductList();
+	        request.setAttribute("product_list", product_list);	
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productlist.jsp");
 			dispatcher.forward(request, response);
 			
 		}
