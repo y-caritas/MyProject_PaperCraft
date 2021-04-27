@@ -1,5 +1,12 @@
 
 function confirmProduct() {
+		
+	submitContents();
+	//스마트웹에디터 value 값 주고 받기가 안됨.
+	oEditors.getById["product_introduction"].exec("UPDATE_CONTENTS_FIELD", []);
+	oEditors.getById["content"].exec("SET_IR", [""]); 
+	oEditors.getById["content"].exec("PASTE_HTML", ["내용 내용"]);
+	
 	if(document.adminProduct.product_category.value.length == 0) {
 		alert("카테고리를 선택해주세요.");
 		adminProduct.product_category.focus();
@@ -34,21 +41,21 @@ function confirmProduct() {
 		adminProduct.product_introduction.focus();
 		return false;
 	}
-//	if(document.adminProduct.#.value.length == 0) {
-//		alert("배송 안내 방식을 선택해주세요");
-//		adminProduct.#.focus();
-//		return false;
-//	}
+	if(document.adminProduct.product_delivery_policy_category.value.length == 0) {
+		alert("배송 안내 방식을 선택해주세요");
+		adminProduct.product_delivery_policy_category.focus();
+		return false;
+	}
 	if(document.adminProduct.product_delivery_policy.value.length == 0) {
 		alert("배송 안내문을 작성해주세요.");
 		adminProduct.product_delivery_policy.focus();
 		return false;
 	}
-//	if(document.adminProduct.eMail.value.length == 0) {
-//		alert("교환 및 반품 안내 방식을 선택해주세요.");
-//		adminProduct.eMail.focus();
-//		return false;
-//	}
+	if(document.adminProduct.product_swap_policy_category.value.length == 0) {
+		alert("교환 및 반품 안내 방식을 선택해주세요.");
+		adminProduct.eMail.focus();
+		return false;
+	}
 	if(document.adminProduct.product_swap_policy.value.length == 0) {
 		alert("교환 및 반품 안내 방식을 선택해주세요.");
 		adminProduct.product_swap_policy.focus();
@@ -57,3 +64,12 @@ function confirmProduct() {
 	
 	return true;
 }
+
+function submitContents() {
+	
+	//스마트웹에디터 value 값 주고 받기가 안됨.
+	oEditors.getById["product_introduction"].exec("UPDATE_CONTENTS_FIELD", []);
+//	oEditors.getById["content"].exec("SET_IR", [""]); 
+//	oEditors.getById["content"].exec("PASTE_HTML", ["내용 내용"]);
+}
+	

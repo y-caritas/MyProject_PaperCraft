@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	String fileFullPath = (String)request.getAttribute("fileFullPath");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -18,6 +21,7 @@
   <link href="<%= request.getContextPath() %>/CSS/adminSideBarCss.css?ver=1" rel="stylesheet">  
   <link href="<%= request.getContextPath() %>/CSS/admin_productRegistrationCss.css?ver=1" rel="stylesheet">
   <script type="text/javascript" src="<%= request.getContextPath() %>/js/admin_product.js"></script>
+  <script type="text/javascript" src="<%= request.getContextPath() %>/smarteditor2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 
   </head>
 <body>
@@ -25,7 +29,7 @@
 		<c:import url="./admin_sideBar.jsp"></c:import>	
 	
 	<div style="margin-left: 30px;">
-      <form name="adminProduct" action="productRegister.do" method="POST" onsubmit="return confirmProduct()">
+      <form name="adminProduct" action="productRegister.do" method="POST" onsubmit="return confirmProduct()" enctype="multipart/form-data">
       <div style="margin: 20px;">상품관리 > 상품등록
       </div>      
       <div>
@@ -66,38 +70,66 @@
         <table class="input-group">
           <tr>
             <th style="text-align: center;">상품 목록 이미지<br>000*000</th>
-            <td>
-              <input name="product_listImg" type="text" readonly="readonly" title="File Route" id="file_route1">
-              <label>찾아보기<input type="file" onchange="javascript:document.getElementById('file_route1').value=this.value">
+            <td>              
+              <input name="product_listImg" type="text" readonly="readonly" title="File Route" id="file_route1" value="">
+              <label>찾아보기<input type="file" name="imgfile" onchange="javascript:document.getElementById('file_route1').value=this.value">
               </label>
             </td>
           </tr>
           <tr>
             <th style="text-align: center;">상품 대표 이미지<br>000*000</th>
             <td>
-              <input name="product_introImg" type="text" readonly="readonly" title="File Route" id="file_route2">
-              <label>찾아보기<input type="file" onchange="javascript:document.getElementById('file_route2').value=this.value">
+              <input name="product_introImg" type="text" readonly="readonly" title="File Route" id="file_route2" value="">
+              <label>찾아보기<input type="file" name="imgfile" onchange="javascript:document.getElementById('file_route2').value=this.value">
               </label>
             </td>
           </tr>
         </table>        
       </div>
       <div>
-        <b>상품 상세 설명</b>
-        <textarea name="product_introduction" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>        
+        <b>상품 상세 설명</b>         
+        <textarea name="product_introduction" id="product_introduction" cols="126" rows="5"></textarea>
+        <script type="text/javascript">
+		  var oEditors = [];
+		  nhn.husky.EZCreator.createInIFrame({
+		   oAppRef: oEditors,
+		   elPlaceHolder: "product_introduction",
+		   sSkinURI: "../smarteditor2/SmartEditor2Skin.html",
+		   fCreator: "createSEditor2"
+		  });
+		  var inputContent = oEditors.getById["product_introduction"].exec("UPDATE_CONTENTS_FIELD", []);		  
+		</script>       
       </div>        
       <div>
         <b>배송 안내</b>&nbsp;
         <%--radio 버튼 논의 필요 --%>
         <input type="radio" name="product_delivery_policy_category" value="01">공통 배송 안내 노출&nbsp;
-        <input type="radio" name="product_delivery_policy_category" value="02">개별 배송 안내 작성
-        <textarea name="product_delivery_policy" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>        
+        <input type="radio" name="product_delivery_policy_category" value="02">개별 배송 안내 작성        
+        <textarea name="product_delivery_policy" id="product_delivery_policy" cols="126" rows="5"></textarea>
+        <script type="text/javascript">
+		  var oEditors = [];
+		  nhn.husky.EZCreator.createInIFrame({
+		   oAppRef: oEditors,
+		   elPlaceHolder: "product_delivery_policy",
+		   sSkinURI: "../smarteditor2/SmartEditor2Skin.html",
+		   fCreator: "createSEditor2"
+		  });
+		</script>
       </div>        
       <div>
         <b>교환 및 반품 안내</b>&nbsp;
         <input type="radio" name="product_swap_policy_category" value="01">공통 교환 및 반품 안내 노출&nbsp;
-        <input type="radio" name="product_swap_policy_category" value="02">개별 교환 및 반품 안내 작성
-        <textarea name="product_swap_policy" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <input type="radio" name="product_swap_policy_category" value="02">개별 교환 및 반품 안내 작성        
+        <textarea name="product_swap_policy" id="product_swap_policy" cols="126" rows="5"></textarea>
+        <script type="text/javascript">
+		  var oEditors = [];
+		  nhn.husky.EZCreator.createInIFrame({
+		   oAppRef: oEditors,
+		   elPlaceHolder: "product_swap_policy",
+		   sSkinURI: "../smarteditor2/SmartEditor2Skin.html",
+		   fCreator: "createSEditor2"
+		  });
+		</script>
       </div>
       <div style="text-align: center;">
         <table>
@@ -106,17 +138,17 @@
             <th style="text-align: center;"><b>상품 메모</b></th>
           </tr>
           <tr>
-            <td style="width: 350px;">
+            <td style="width: 450px;">
               <textarea name="product_record" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>
             </td>
-            <td style="width: 350px;">
+            <td style="width: 450px;">
               <textarea name="product_memo" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>
             </td>
           </tr>
         </table>
       </div>
       <div style="text-align: center; height: 100px; padding-left: 50px;">
-        <button type="submit" class="btn btn-secondary">확인</button>&emsp;
+        <button type="submit" class="btn btn-secondary" onclick="submitContents(this)">확인</button>&emsp;
         <button type="button" class="btn btn-dark" onclick="history.back()">취소</button>
       </div>
     </form>
