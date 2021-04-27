@@ -89,7 +89,7 @@
 		  oEditors.getById["notice_writeEditor"].exec("UPDATE_CONTENTS_FIELD", []);
 		  $("#fromsubmit").submit();
 		  });
-
+	// 수정
 </script> 
 </body>
 </html>

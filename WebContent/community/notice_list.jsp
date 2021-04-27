@@ -22,13 +22,13 @@
         </tr>
       </thead>
       <tbody>
+      <c:forEach var="dto" items="${ noticelist }">
         <tr style="text-align: center; border-bottom: 1px solid #f1f2f4">
-          <c:forEach var="dto" items="${ noticelist }">
             <td style="height: 35px;">${dto.notice_idx}</td>
             <td class="notice_table_title" style="height: 35px;"><a href="notice_view.do?notice_idx=${dto.notice_idx}">${dto.notice_title}</a></td>  <!-- 앵커태그 notice_view.do?notice_idx=${dto.notice_idx} -->
             <td style="height: 35px;">${dto.notice_date}</td>
-          </c:forEach>
         </tr>
+        </c:forEach>
       </tbody>
     </table>
   </div>

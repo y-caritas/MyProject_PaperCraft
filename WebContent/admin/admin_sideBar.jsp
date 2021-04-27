@@ -19,7 +19,7 @@
         </div>
         <button class="sideBarDropBtn">게시판 관리</button>
         <div class="sideBarDropdownContainer">
-          <a href="">공지사항</a>
+          <a href="admin_notice_list.do">공지사항</a>
           <a href="">자주하는 질문</a>
           <a href="">주문 제작/문의</a>
           <a href="<%=request.getContextPath()%>/admin/admin_productInquiryList.jsp">상품 문의</a>

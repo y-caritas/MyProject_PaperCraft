@@ -25,13 +25,14 @@
 	      	<thead>
 		        <tr id="admin_view_title" style="background-color: #e3e3e4; text-align: center; ">
 		        <th style="height: 38px; width: 20%;">번호</th>
-		        <th style="height: 38px; width: 60%;">제목</th>
+		        <th style="height: 38px; width: 40%;">제목</th>
+		        <th style="height: 38px; width: 20%;">조회수</th>
 		        <th style="height: 38px; width: 20%;">게시일</th>
 		        </tr>
 		      </thead>
 		      <tbody>
 		      <!-- view용 -->
-		        <tr style="text-align: center; border-bottom: 1px solid #f1f2f4">
+		      <%--   <tr style="text-align: center; border-bottom: 1px solid #f1f2f4">
 		          <td style="height: 35px;"><img class="admin_notice_img" src="<%= request.getContextPath() %>/img/adminListImportant.png" alt="""></td>
 		          <td class="admin_table_title" style="height: 35px;"><a href="./admin_noticeContentView.jsp">공지사항 입니다.</a></td>
 		          <td style="height: 35px;">날짜</td>
@@ -41,20 +42,21 @@
 		          <td style="height: 35px;">2</td>
 		          <td class="admin_table_title" style="height: 35px;"><a href="./admin_noticeContentView.jsp">공지사항2</a></td>
 		          <td style="height: 35px;">날짜</td>
-		        </tr>
+		        </tr> --%>
 		        
 		        <!-- 데이터용 -->
+		   <c:forEach var="dto" items="${ noticelist }">
 		    <tr style="text-align: center; border-bottom: 1px solid #f1f2f4">
-          <c:forEach var="dto" items="${ noticeList }">
             <td style="height: 35px;">${dto.notice_idx}</td>
-            <td class="admin_table_title" style="height: 35px;"><a href="#">${dto.notice_title}</a></td>  <!-- 앵커태그 notice_view.do?notice_idx=${dto.notice_idx} -->
+            <td class="admin_table_title" style="height: 35px;"><a href="admin_notice_view.do?notice_idx=${dto.notice_idx}">${dto.notice_title}</a></td>  <!-- 앵커태그 admin_notice_view.do?notice_idx=${dto.notice_idx} -->
+            <td style="height: 35px;">${dto.notice_hit}</td>
             <td style="height: 35px;">${dto.notice_date}</td>
-          </c:forEach>
         </tr>
+       </c:forEach>
 		      </tbody>
 		    </table>
 		    <div id="admin_notice_btn">
-		    	<button>글쓰기</button>
+		    	<button onclick="location.href='./admin_noticeWrite.jsp'">글쓰기</button>
 		    </div>
 	    </div>
   	</div>
