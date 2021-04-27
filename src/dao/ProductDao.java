@@ -658,6 +658,8 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		Connection conn = null; 
 		PreparedStatement pstmt = null;
 		int result = 0;
+		String appPath  = request.getServletContext().getRealPath("");
+        String savePath = appPath +  "upload";
 		try 
 		{
 			conn = DBConnection.getConnection();
@@ -681,8 +683,10 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 	        pstmt.setString(2, request.getParameter("product_name") );
 	        pstmt.setInt(3, Integer.parseInt(request.getParameter("product_price")));
 	        pstmt.setString(4, request.getParameter("product_note") );
-	        pstmt.setString(5, request.getParameter("product_listImg") );
-	        pstmt.setString(6, request.getParameter("product_introImg") );
+	        String product_listImg = savePath + request.getParameter("product_listImg").replace("C:\\fakepath", "");
+	        pstmt.setString(5, savePath + product_listImg );
+	        String product_introImg = savePath + request.getParameter("product_introImg").replace("C:\\fakepath", "");
+	        pstmt.setString(6, savePath + product_introImg );	        
 	        pstmt.setString(7, request.getParameter("product_introduction") );
 	        pstmt.setString(8, request.getParameter("product_delivery_policy") );
 	        pstmt.setInt(9, Integer.parseInt(request.getParameter("product_delivery_policy_category")));
