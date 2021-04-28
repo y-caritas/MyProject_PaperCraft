@@ -134,7 +134,7 @@
 		
 		  <div id="ordersection">
     <div id="orderlisthead">
-      <h3>| 상품 검색 및 삭제</h3>
+      <h3>| 상품 검색 및 삭제 </h3>
       <hr>
     </div>
     <div id="ordersearchbox">

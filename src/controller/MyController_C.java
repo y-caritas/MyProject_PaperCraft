@@ -299,7 +299,7 @@ public class MyController_C extends HttpServlet
 			
 		}
 		
-		//관리자 기본 상품리스트 상세검색
+		//관리자 기본 상품리스트 상세검색 
 		else if(command.equals("adminProductDetailSearch.do")) {
 			
 			request.setCharacterEncoding("UTF-8");

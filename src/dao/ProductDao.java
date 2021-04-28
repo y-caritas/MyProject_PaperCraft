@@ -817,7 +817,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		}
 		return product_list;
 	}
-
+	//상세검색
 	public static ArrayList<ProductDto> adminProductDetailSearch(HttpServletRequest request) {
 		ArrayList<ProductDto> product_list = new ArrayList<ProductDto>();
 		Connection conn = null; 
@@ -904,7 +904,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 	            Date product_record = rs.getDate("product_record");
 	            
 	            //아이디 컬럼 가져오기. 미구현
-	            //조회수 기능?
+	            //조회수 기능??
 	            
 	            System.out.println("product_idx"+product_idx);
 	            System.out.println("product_category"+product_category);
