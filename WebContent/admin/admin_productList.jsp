@@ -207,7 +207,7 @@
       </thead>
 	  <%-- <c:forEach var="productList" items="${product_list}" varStatus="status">	 
       <tr class="tableContent">
-        <td><input type="checkbox" name="product_idx" value="productList.product_idx" id=""></td>
+        <td><input type="checkbox" name="product_idx[]" value="productList.product_idx" id=""></td>
         <td>${status.count}</td>
         <td>
         <span>[productList.product_category]</span>
@@ -224,7 +224,7 @@
       </tr>
       </c:forEach>--%> 
         <tr class="tableContent">
-        <td><input type="checkbox" name="product_idx" value="productList.product_idx" id=""></td>
+        <td><input type="checkbox" name="product_idx[]" value="productList.product_idx" id=""></td>
         <td>${status.count}</td>
         <td>
         <span>[productList.product_category]</span>

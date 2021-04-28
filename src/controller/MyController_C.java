@@ -305,7 +305,6 @@ public class MyController_C extends HttpServlet
 			request.setCharacterEncoding("UTF-8");
 			String search_product_name = request.getParameter("product_name");			
 			
-			//미구현
 			ArrayList<ProductDto> product_list = ProductDao.adminProductDetailSearch(request);
 	        request.setAttribute("product_list", product_list);
 			
@@ -319,8 +318,7 @@ public class MyController_C extends HttpServlet
 			
 			request.setCharacterEncoding("UTF-8");
 			String search_product_name = request.getParameter("product_name");			
-			
-			//미구현
+
 			int result = ProductDao.adminProductDelete(request);
 			
 			ArrayList<ProductDto> product_list = ProductDao.adminProductList();

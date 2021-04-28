@@ -819,13 +819,139 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 	}
 
 	public static ArrayList<ProductDto> adminProductDetailSearch(HttpServletRequest request) {
-		// 상세검색
-		return null;
+		ArrayList<ProductDto> product_list = new ArrayList<ProductDto>();
+		Connection conn = null; 
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try 
+		{	
+			String query = "SELECT * FROM p_product WHERE product_idx is not null ";
+			
+			//쿼리질문 if or switch 효율적으로 하는거 질문하기.
+			
+			int product_category_search = Integer.parseInt(request.getParameter("product_category"));
+			String[] product_records =  request.getParameterValues("product_record[]");
+			String[] product_prices =  request.getParameterValues("product_price[]");
+			
+			int totalLength = product_records.length + product_prices.length;			
+			
+			if(product_category_search != 0) {
+				totalLength += 1;
+				query = query + "AND product_category = ?";
+			}
+			if(product_records != null) {
+				query = query + "AND product_record >= ? AND product_record <= ?";
+			}
+			if(product_prices != null) {
+				query = query + "AND product_price >= ? AND product_price <= ?";
+			}
+			
+			//위에 if절 boolean 값이 null 일 경우 prestatement 쿼리 인덱스 개수가 바뀌는게 문제.
+			
+			conn = DBConnection.getConnection();
+	        pstmt = conn.prepareStatement(query);
+	        
+	        switch(totalLength) {
+	        case 1 : 
+	        	pstmt.setInt(1, product_category_search);
+	        	break;	        
+			case 2 : 
+				if(product_records != null) {
+		        	pstmt.setInt(1, Integer.parseInt(product_records[0]));
+			        pstmt.setInt(2, Integer.parseInt(product_records[1]));
+	        	}
+	        	if(product_records != null) {
+		        	pstmt.setInt(1, Integer.parseInt(product_prices[0]));
+			        pstmt.setInt(2, Integer.parseInt(product_prices[1]));
+	        	}
+	        	break;
+			case 3 :
+				pstmt.setInt(1, product_category_search);
+	        	if(product_records != null) {
+		        	pstmt.setInt(2, Integer.parseInt(product_records[0]));
+			        pstmt.setInt(3, Integer.parseInt(product_records[1]));
+	        	}
+	        	if(product_prices != null) {
+		        	pstmt.setInt(2, Integer.parseInt(product_prices[0]));
+			        pstmt.setInt(3, Integer.parseInt(product_prices[1]));
+	        	}
+	        	break;
+			case 4 :
+		        pstmt.setInt(1, Integer.parseInt(product_records[0]));
+		        pstmt.setInt(2, Integer.parseInt(product_records[1]));
+		        pstmt.setInt(3, Integer.parseInt(product_prices[0]));
+		        pstmt.setInt(4, Integer.parseInt(product_prices[1]));
+		        break;				
+			case 5 : 
+	        	pstmt.setInt(1, product_category_search);
+		        pstmt.setInt(2, Integer.parseInt(product_records[0]));
+		        pstmt.setInt(3, Integer.parseInt(product_records[1]));
+		        pstmt.setInt(4, Integer.parseInt(product_prices[0]));
+		        pstmt.setInt(5, Integer.parseInt(product_prices[1]));
+		        break;
+			default:
+				System.out.println("query error");
+	        }
+	        
+			rs = pstmt.executeQuery(); 
+			
+			while( rs.next() ) 
+			{
+	            int product_idx = rs.getInt("product_name");
+	            int product_category = rs.getInt("product_category");
+	            String product_name = rs.getString("product_note");
+	            int product_price = rs.getInt("product_listImg");
+	            Date product_record = rs.getDate("product_record");
+	            
+	            //아이디 컬럼 가져오기. 미구현
+	            //조회수 기능?
+	            
+	            System.out.println("product_idx"+product_idx);
+	            System.out.println("product_category"+product_category);
+	            System.out.println("product_name"+product_name);
+	            System.out.println("product_price"+product_price);
+	            System.out.println("product_record"+product_record);
+	            
+	            ProductDto dto = new ProductDto(product_idx, product_category, product_name, product_price, product_record);
+	            product_list.add(dto);
+	        }
+		}
+		catch(Exception e) 
+		{
+			System.out.println("adminProductDetailSearch bug");
+		}
+		return product_list;
 	}
 
+	//관리자 상품리스트 선택삭제 기능
 	public static int adminProductDelete(HttpServletRequest request) {
-		// 삭제기능
-		return 0;
+		Connection conn = null; 
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String[] product_idxs =  request.getParameterValues("product_idx[]");
+		String query = "DELETE FROM p_product WHERE ";
+		for(int i = 1; i <= product_idxs.length; i++) {
+			query = query + "product_idx = ?";
+		}
+		
+		try 
+		{
+			conn = DBConnection.getConnection();
+	        pstmt = conn.prepareStatement(query);
+	        for(int i = 1; i <= product_idxs.length; i++ ) {
+		        pstmt.setInt(i, Integer.parseInt( product_idxs[(i-1)] ));
+	        }	        
+			result = pstmt.executeUpdate();
+			
+		}
+			catch(Exception e)
+			
+			{
+				System.out.println("adminProductDelete bug");
+			}
+			
+			return result;
 	}
 
 
