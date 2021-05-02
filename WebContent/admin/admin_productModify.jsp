@@ -20,9 +20,116 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
     
   <link href="<%= request.getContextPath() %>/CSS/adminSideBarCss.css?ver=1" rel="stylesheet">  
-  <link href="<%= request.getContextPath() %>/CSS/admin_productRegistrationCss.css?ver=1" rel="stylesheet">
-  <script type="text/javascript" src="<%= request.getContextPath() %>/js/admin_product.js"></script>
+  <link href="<%= request.getContextPath() %>/CSS/admin_productRegistrationCss.css?ver=1" rel="stylesheet">  
   <script type="text/javascript" src="<%= request.getContextPath() %>/smarteditor2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+  <script type="text/javascript"> 
+ 
+var oEditors = [];
+var oEditors2 = [];
+var oEditors3 = [];
+ 
+$(function(){
+      nhn.husky.EZCreator.createInIFrame({
+          oAppRef: oEditors,
+          elPlaceHolder: "product_introduction",          
+          sSkinURI: "../smarteditor2/SmartEditor2Skin.html",  
+          htParams : {
+              bUseToolbar : true,              
+              bUseVerticalResizer : true,              
+              bUseModeChanger : true,         
+              fOnBeforeUnload : function(){
+                   
+              }
+          }, 
+          fOnAppLoad : function(){              
+              oEditors.getById["product_introduction"].exec("PASTE_HTML", [""]);
+          },
+          fCreator: "createSEditor2"
+      });      
+  
+      nhn.husky.EZCreator.createInIFrame({
+          oAppRef: oEditors2,
+          elPlaceHolder: "product_delivery_policy", 
+          sSkinURI: "../smarteditor2/SmartEditor2Skin.html",  
+          htParams : {
+              bUseToolbar : true,              
+              bUseVerticalResizer : true,              
+              bUseModeChanger : true,         
+              fOnBeforeUnload : function(){
+                   
+              }
+          }, 
+          fOnAppLoad : function(){
+              //기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
+              oEditors2.getById["product_delivery_policy"].exec("PASTE_HTML", [""]);
+          },
+          fCreator: "createSEditor2"
+      });
+  
+      nhn.husky.EZCreator.createInIFrame({
+          oAppRef: oEditors3,
+          elPlaceHolder: "product_swap_policy", 
+          sSkinURI: "../smarteditor2/SmartEditor2Skin.html",  
+          htParams : {
+              bUseToolbar : true,              
+              bUseVerticalResizer : true,              
+              bUseModeChanger : true,         
+              fOnBeforeUnload : function(){
+                   
+              }
+          }, 
+          fOnAppLoad : function(){              
+              oEditors3.getById["product_swap_policy"].exec("PASTE_HTML", [""]);
+          },
+          fCreator: "createSEditor2"
+      });
+ 
+      
+      //저장버튼 클릭시 form 전송
+      $("#modifybtn").click(function(){
+    	  
+          oEditors.getById["product_introduction"].exec("UPDATE_CONTENTS_FIELD", []);          
+          oEditors2.getById["product_delivery_policy"].exec("UPDATE_CONTENTS_FIELD", []);          
+          oEditors3.getById["product_swap_policy"].exec("UPDATE_CONTENTS_FIELD", []); 
+    	  
+    	  if(document.adminProduct.product_category.value.length == 0) {
+    			alert("카테고리를 선택해주세요.");
+    			adminProduct.product_category.focus();
+    			return false;
+    		}
+    		
+    		if(document.adminProduct.product_name.value.length == 0) {
+    			alert("상품명을 작성해주세요");
+    			adminProduct.product_name.focus();
+    			return false;
+    		}
+    		
+    		if(document.adminProduct.product_price.value.length == 0) {
+    			alert("판매 가격을 작성해주세요.");
+    			adminProduct.product_price.focus();
+    			return false;
+    		}    		
+    		if(document.adminProduct.product_note.value.length == 0) {
+    			alert("상품 소개글을 작성해주세요.");
+    			adminProduct.product_note.focus();
+    			return false;
+    		}
+    		if(document.adminProduct.product_listImg.value.length == 0) {
+    			alert("상품 이미지를 등록해주세요.");
+    			adminProduct.product_listImg.focus();
+    			return false;
+    		}
+    		if(document.adminProduct.product_introImg.value.length == 0) {
+    			alert("상품 이미지를 등록해주세요.");
+    			adminProduct.product_introImg.focus();
+    			return false;
+    		}
+    		
+          $("#fromsubmit").submit();
+      });    
+});
+</script>
 
   </head>
 <body>
@@ -30,7 +137,7 @@
 		<c:import url="./admin_sideBar.jsp"></c:import>	
 	
 	<div style="margin-left: 30px;">
-	  <form name="adminProduct" action="adminProductModify.do" method="POST" onsubmit="return confirmProduct()" enctype="multipart/form-data">      
+	  <form id="fromsubmit" name="adminProduct" action="productRegister.do" method="POST" enctype="multipart/form-data">      
       <div style="margin: 20px;">상품관리 > 상품수정
       </div>      
       <div>
@@ -92,48 +199,20 @@
       </div>
       <div>
         <b>상품 상세 설명</b>         
-        <textarea name="product_delivery_policy" id="product_introduction" value="${productDto.product_introduction}" cols="126" rows="5"></textarea>
-        <script type="text/javascript">
-		  var oEditors = [];
-		  nhn.husky.EZCreator.createInIFrame({
-		   oAppRef: oEditors,
-		   elPlaceHolder: "product_introduction",
-		   sSkinURI: "../smarteditor2/SmartEditor2Skin.html",
-		   fCreator: "createSEditor2"
-		  });
-		  var inputContent = oEditors.getById["product_introduction"].exec("UPDATE_CONTENTS_FIELD", []);		  
-		</script>       
+        <textarea name="product_delivery_policy" id="product_introduction" value="${productDto.product_introduction}" cols="126" rows="5"></textarea>    
       </div>        
       <div>
         <b>배송 안내</b>&nbsp;
         <%--radio 버튼 논의 필요 --%>
         <input type="radio" name="product_delivery_policy_category" value="01">공통 배송 안내 노출&nbsp;
         <input type="radio" name="product_delivery_policy_category" value="02">개별 배송 안내 작성        
-        <textarea name="product_delivery_policy" id="product_delivery_policy" value="${productDto.product_delivery_policy}" cols="126" rows="5"></textarea>
-        <script type="text/javascript">
-		  var oEditors = [];
-		  nhn.husky.EZCreator.createInIFrame({
-		   oAppRef: oEditors,
-		   elPlaceHolder: "product_delivery_policy",
-		   sSkinURI: "../smarteditor2/SmartEditor2Skin.html",
-		   fCreator: "createSEditor2"
-		  });
-		</script>
+        <textarea name="product_delivery_policy" id="product_delivery_policy" value="${productDto.product_delivery_policy}" cols="126" rows="5"></textarea>        
       </div>        
       <div>
         <b>교환 및 반품 안내</b>&nbsp;
         <input type="radio" name="product_swap_policy_category" value="01">공통 교환 및 반품 안내 노출&nbsp;
         <input type="radio" name="product_swap_policy_category" value="02">개별 교환 및 반품 안내 작성        
-        <textarea name="product_swap_policy" id="product_swap_policy" value="${productDto.product_swap_policy}" cols="126" rows="5"></textarea>
-        <script type="text/javascript">
-		  var oEditors = [];
-		  nhn.husky.EZCreator.createInIFrame({
-		   oAppRef: oEditors,
-		   elPlaceHolder: "product_swap_policy",
-		   sSkinURI: "../smarteditor2/SmartEditor2Skin.html",
-		   fCreator: "createSEditor2"
-		  });
-		</script>
+        <textarea name="product_swap_policy" id="product_swap_policy" value="${productDto.product_swap_policy}" cols="126" rows="5"></textarea>        
       </div>
       <div style="text-align: center;">
         <table>
@@ -152,7 +231,7 @@
         </table>
       </div>
       <div style="text-align: center; height: 100px; padding-top: 20px">
-        <button type="submit" class="btn btn-secondary" onclick="submitContents(this)">확인</button>&emsp;
+        <button id="modifybtn" type="submit" class="btn btn-secondary">확인</button>&emsp;
         <button type="button" class="btn btn-dark" onclick="history.back()">취소</button>
       </div>
     </form>

@@ -18,7 +18,7 @@ import dto.ProductEnquiryDto;
 import dto.ProductReviewDto;
 
 
-//@WebServlet(urlPatterns= {"*.do"})
+@WebServlet(urlPatterns= {"*.do"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, 
 maxFileSize = 1024 * 1024 * 30, 
 maxRequestSize = 1024 * 1024 * 50)
@@ -226,9 +226,10 @@ public class MyController_C extends HttpServlet
 			int result = ProductDao.productRegister(request);
 			int result_Option = ProductDao.productRegister_option(request);
 			
-			ProductDao.upload(request);			
+			if(result == 1) {			
+			ProductDao.upload(request);
 			request.setAttribute("message", "파일업로드에 성공 하였습니다.!");
-			
+			}
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productRegistration.jsp");
 			dispatcher.forward(request, response);
 		}
@@ -257,14 +258,18 @@ public class MyController_C extends HttpServlet
 			
 			String product_idx = request.getParameter("product_idx");
 			
+			int result = ProductDao.productModify(request);
+			if(request.getParameter("option_idx") != null || request.getParameter("option_detail") != null) {				
+				int result_Option = ProductDao.productModify_option(request);
+			}
+			
+			
 			ProductDto productDto = ProductDao.detailview(product_idx);
 			OptionDto optionDto = ProductDao.detailview_option(product_idx);
 			request.setAttribute("product_idx", product_idx);
 	        request.setAttribute("productDto", productDto);
 	        request.setAttribute("optionDto", optionDto);			
 				
-			int result = ProductDao.productModify(request);
-			int result_Option = ProductDao.productModify_option(request);
 			
 			ProductDao.upload(request);			
 			request.setAttribute("message", "파일업로드에 성공 하였습니다.!");
