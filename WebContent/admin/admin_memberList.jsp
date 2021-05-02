@@ -24,9 +24,6 @@
    .dividingLine {
    margin: 30px auto;
    }
-   #sideBar {
-   margin-top: 74px;
-   }
    </style>
 </head>
 <body>

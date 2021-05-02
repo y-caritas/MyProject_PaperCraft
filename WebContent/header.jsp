@@ -90,7 +90,7 @@
       </span>
       <span class="dropdown">Community
         <span class="dropdown_menu" style="width:170px;">
-          <a href="<%= request.getContextPath() %>/community/inquiry_list.jsp">주문제작 / 문의</a>
+          <a href="inquiryList.do">주문제작 / 문의</a>
           <a href="<%= request.getContextPath() %>/community/faq_list.jsp">FAQ</a>
           <a href="noticelist.do">공지사항</a>
         </span>

@@ -15,29 +15,26 @@
       margin: 0;
       color: #818181;
     }
-    #faqWriteWrap {
+    #inquiryAnswerWrap {
       width: 730px;
       margin: 0 auto;
     }
-    #faqWriteInputbox {
+    #inquiryAnswerInputbox {
       display: flex;
       flex-direction: column;
       width: 700px;
       margin: 0 auto;
     }
-    #faqWriteInputbox > input:focus, #faqWriteInputbox > textarea:focus {
-      outline: none;
-    }
-    #faqWriteCategoryTitle {
+    #inquiryAnswerCategoryTitle {
       margin: 10px auto;
       width: 700px;
     }
-    #faqWriteBtnWrap {
+    #inquiryAnswerBtnWrap {
       display: flex;
       justify-content: center;
       margin: 20px auto;
     }
-    .faqWriteBtn {
+    .inquiryAnswerBtn {
       margin: 0 5px;
       outline: none;
       font-size: 0.7em;
@@ -45,39 +42,29 @@
       border: solid 0.5px #e3e3e4;
       cursor: pointer;
     }
-    #faq_category {
-    margin-left: 15px;
-    margin-bottom: 10px;
-    }
   </style>
 </head>
 <body>
-  <div id="faqWriteWrap">
-    <div id="faqWriteCategoryTitle">
-      <h5>|자주하는 질문/답변 등록</h5>
+  <div id="inquiryAnswerWrap">
+    <div id="inquiryAnswerCategoryTitle">
+      <h5>|주문제작/문의 답변 수정</h5>
       <hr>
     </div>
     <%
-      if(request.getAttribute("faqResult") != null) {
-    	  %><script>
-    	  opener.location.reload();
-    	  self.close();
-    	  </script><%      }
+      if(request.getParameter("answerModifyResult") != null) {
+    	  %><script>window.opener.location.href="adminInquiryContent.do?inquiry_idx="+${ param.answerIdx }; self.close();</script><%
+      }
     %>
-    <form action="adminFaqWrite.do">
-      <select name="faq_category" id="faq_category">
-        <option value="faqProduct">상품</option>
-        <option value="faqSwap">반품/교환</option>
-        <option value="faqDelivery">배송</option>
-      </select>
-      <div id="faqWriteInputbox">
-        <input type="text" name="faq_title" placeholder="제목을 입력하세요.">
-        <textarea name="faq_content" id="faq_content" cols="100" rows="10" style="width:100%;"></textarea>
+    <form id="adminInquiryModifyForm" action="adminInquiryAnswerModify.do" method="post">
+      <input type="hidden" name="inquiry_idx" id="inquiry_idx" value="">
+      <div id="inquiryAnswerInputbox">
+        <span style="margin-bottom:5px; font-size:0.7em;">작성자 아이디 : ${ session.memberId }</span>
+        <textarea name="inquiry_a_content" id="inquiry_a_content" cols="100" rows="10" style="width:100%;"></textarea>
         <script type="text/javascript">
 		  var oEditors = [];
 		  nhn.husky.EZCreator.createInIFrame({
 		   oAppRef: oEditors,
-		   elPlaceHolder: "faq_content",
+		   elPlaceHolder: "inquiry_a_content",
 		   sSkinURI: "../smarteditor2/SmartEditor2Skin.html",
 		   htParams : {
 			   fOnBeforeUnload : function(){
@@ -85,29 +72,32 @@
 			   }
 		   },
 		   fOnAppLoad : function(){
-			   oEditors.getById["faq_content"].exec("lOAD_CONTENTS_FIELD", []);
+			   oEditors.getById["inquiry_a_content"].exec("lOAD_CONTENTS_FIELD", []);
 		   },
 		   fCreator: "createSEditor2"
 		  });
+
 		</script>
       </div>
-      <div id="faqWriteBtnWrap">
-        <input class="faqWriteBtn" type="submit" onclick="faqWrite(); return false;" value="완료">
-        <button type="button" onclick="faqConfirm()" class="faqWriteBtn">취소</button>
+      <input type="text" id="test1">
+      <div id="inquiryAnswerBtnWrap">
+        <input class="inquiryAnswerBtn" type="submit" value="완료" onclick="answerTitle(); return false;">
+        <button type="button" onclick="inquiryAnswerConfirm()" class="inquiryAnswerBtn">취소</button>
       </div>
-      <script>
-        function faqConfirm() {
+    </form>
+    <script>
+        function inquiryAnswerConfirm() {
           if(confirm("작성을 취소하시겠습니까?") == true) {
             self.close();
           }
         }
         
-        function faqWrite() {
-        	oEditors.getById["faq_content"].exec("UPDATE_CONTENTS_FIELD", []);
+        function answerTitle() {
+        	oEditors.getById["inquiry_a_content"].exec("UPDATE_CONTENTS_FIELD", []);
+
         	form.submit();
         }
       </script>
-    </form>
   </div>
 </body>
 </html>

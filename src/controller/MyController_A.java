@@ -14,7 +14,7 @@ import dao.MemberDao;
 import dao.NoticeDao;
 import dto.NoticeDto;
 
-@WebServlet(urlPatterns= {"*.do"})
+//@WebServlet(urlPatterns= {"*.do"})
 public class MyController_A extends HttpServlet {
 
 	@Override

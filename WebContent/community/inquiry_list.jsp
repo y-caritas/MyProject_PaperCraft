@@ -15,29 +15,29 @@
         <th style="width:70%">제목</th>
         <th style="width:20%">작성자</th>
       </tr>
-      
-      <!-- view용 -->
+      <c:forEach var="dto" items="${ inquiryList }">
       <tr class="inquiryTr">
-        <td>1</td>
-        <td style="text-align: left;"><a href="<%=request.getContextPath()%>/community/inquiry_content.jsp">view용 문의</a></td>
-        <td>hong</td>
+        <td>${dto.inquiry_idx}</td>
+        <td style="text-align: left; cursor: pointer;"><a onclick="comparePW(${ dto.inquiry_idx })">${dto.inquiry_title}</a></td>
+        <td>${dto.inquiry_writer}</td>
       </tr>
-      
-      <!-- DB 연동용 -->
-      <tr class="inquiryTr">
-        <c:forEach var="dto" items="${ inquiryList }">
-          <td>${dto.inquiryIdx}</td>
-          <td style="text-align: left;"><a href="#">${dto.inquiryTitle}</a></td>
-          <td>${dto.inquirywriter}</td>
-        </c:forEach>
-      </tr>
-      
+      </c:forEach>
     </table>
-    <div id="inquiryBtn">
-      <c:if test="${ session.memberId != null }">
+    <script>
+      var popupWidth = 500;
+      var popupHeight = 210;
+      var popupX = (window.screen.width / 2) - (popupWidth / 2);
+      var popupY = (window.screen.height / 2) - (popupHeight / 2);
+      
+      function comparePW( num ) {
+      	window.open("<%= request.getContextPath()%>/community/inquiryComparePW.jsp?inquiry_idx="+num, "새창", "width=500, height=210, left=" + popupX + ", top=" + popupY + ", toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+      }
+    </script>
+    <div id="inquiryBtn" style="width:1000px;">
+      <c:if test="${ session.member_id != null }">
         <button onclick="location.href='#'">나의 문의 보기</button>
       </c:if>
-      <c:if test="${ session.memberId == null }">
+      <c:if test="${ session.member_id == null }">
         <button onclick="location.href='#'">나의 문의 보기</button>
       </c:if>
       <button onclick="location.href='<%= request.getContextPath() %>/community/inquiry_write.jsp'">문의글 쓰기</button>

@@ -31,7 +31,7 @@
 
     #inquiryBtn {
       text-align: right;
-      margin-right: 17%;
+      margin: 0 auto;
     }
     
     #inquiryBtn button {

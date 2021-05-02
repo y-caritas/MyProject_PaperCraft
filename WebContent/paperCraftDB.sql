@@ -69,18 +69,18 @@ CREATE TABLE p_inquiry (
 	inquiry_category        NUMBER(2),
 	inquiry_title           VARCHAR2(100),
 	inquiry_content         VARCHAR2(4000),
-	inquiry_img             VARCHAR2(50),
-	inquiry_writer          VARCHAR2(20),
-	inquiry_pw              NUMBER(5),
+	inquiry_img             VARCHAR2(1000),
+	inquiry_writer          VARCHAR2(50),
+	inquiry_pw              NUMBER(10),
 	inquiry_date            DATE DEFAULT SYSDATE,
-	member_id               VARCHARR2(20)
+	member_id               VARCHAR2(50)
 	)
 	
 CREATE SEQUENCE p_inquiry_seq;
 
 CREATE TABLE p_inquiry_answer (
 	inquiry_a_idx           NUMBER(10) PRIMARY KEY,
-	inquiry_a_title         VARCHAR2(100),
+	inquiry_a_title         VARCHAR2(30),
 	inquiry_a_content       VARCHAR2(4000),
 	inquiry_a_date          DATE DEFAULT SYSDATE,
 	inquiry_idx             NUMBER(10)
@@ -123,6 +123,7 @@ CREATE TABLE p_faq (
 	faq_idx                 NUMBER(10) PRIMARY KEY,
 	faq_title               VARCHAR2(100),
 	faq_content             VARCHAR2(4000),
+	faq_category            VARCHAR2(20),
 	faq_date                DATE DEFAULT SYSDATE
 	)
 	

@@ -13,10 +13,6 @@
     #adminFaqListMain {
       margin: 0 auto;
     }
-    .adminCategoryTitle h4 {
-      width: 1000px;
-      margin: 10px auto;
-    }
     #faqNavbar {
       text-align: center;
       margin: 30px auto;
@@ -87,63 +83,93 @@
         <hr>
       </div>
       <div id="faqNavbar">
-        <a href="#" name="faqBest" id="faqBest">자주하는 질문 BEST</a>
+        <a href="adminFaqList.do" name="faqAll" id="faqAll">전체</a>
         |
-        <a href="#" name="faqSwqp" id="faqSwap">반품/교환</a>
+        <a href="adminFaqList.do?category=faqProduct" name="faqProduct" id="faqProduct">상품</a>
         |
-        <a href="#" name="faqDelivery" id="faqDelivery">배송</a>
+        <a href="adminFaqList.do?category=faqSwap" name="faqSwap" id="faqSwap">반품/교환</a>
+        |
+        <a href="adminFaqList.do?category=faqDelivery" name="faqDelivery" id="faqDelivery">배송</a>
       </div>
-      <p id="faqCategoryName">자주하는 질문</p>
+      <p id="faqCategoryName">${ category }</p>
       <script>
-        var faqBest = document.getElementById('faqBest');
+        var faqAll = document.getElementById('faqAll');
+        var faqProduct = document.getElementById('faqProduct');
         var faqSwap = document.getElementById('faqSwap');
         var faqDelivery = document.getElementById('faqDelivery');
-        var faqCategoryName = document.getElementById('faqCategoryName');
-
-        faqBest.addEventListener('click', function() {
-          this.classList.toggle('bold');
-          faqCategoryName.innerText = this.innerText;
-          if( faqSwap.classList.contains('bold') ) {
-            faqSwap.classList.toggle('bold');
-          } else if( faqDelivery.classList.contains('bold') ) {
-            faqDelivery.classList.toggle('bold');
-          }
-        })
-        faqSwap.addEventListener('click', function() {
-          this.classList.toggle('bold');
-          faqCategoryName.innerText = this.innerText;
-          if( faqBest.classList.contains('bold') ) {
-            faqBest.classList.toggle('bold');
-          } else if( faqDelivery.classList.contains('bold') ) {
-            faqDelivery.classList.toggle('bold');
-          }
-        })
-        faqDelivery.addEventListener('click', function() {
-          this.classList.toggle('bold');
-          faqCategoryName.innerText = this.innerText;
-          if( faqBest.classList.contains('bold') ) {
-            faqBest.classList.toggle('bold');
-          } else if( faqSwap.classList.contains('bold') ) {
-            faqSwap.classList.toggle('bold');
-          }
-        })
       </script>
+      <%
+        if(request.getAttribute("category").equals("상품")) {
+        	%><script>
+        	faqProduct.classList.toggle('bold');
+        	if( faqSwap.classList.contains('bold') ) {
+                faqSwap.classList.toggle('bold');
+            } else if( faqDelivery.classList.contains('bold') ) {
+                faqDelivery.classList.toggle('bold');
+            } else if( faqAll.classList.contains('bold') ) {
+            	faqAll.classList.toggle('bold');
+            }
+        	</script><%
+        } else if(request.getAttribute("category").equals("반품/교환")) {
+        	%><script>
+        	faqSwap.classList.toggle('bold');
+        	if( faqProduct.classList.contains('bold') ) {
+        		faqProduct.classList.toggle('bold');
+            } else if( faqDelivery.classList.contains('bold') ) {
+            	faqDelivery.classList.toggle('bold');
+            } else if( faqAll.classList.contains('bold') ) {
+            	faqAll.classList.toggle('bold');
+            }
+        	</script><%
+        } else if(request.getAttribute("category").equals("배송")) {
+        	%><script>
+        	faqDelivery.classList.toggle('bold');
+        	if( faqProduct.classList.contains('bold') ) {
+        		faqProduct.classList.toggle('bold');
+            } else if( faqSwap.classList.contains('bold') ) {
+            	faqSwap.classList.toggle('bold');
+            } else if( faqAll.classList.contains('bold') ) {
+            	faqAll.classList.toggle('bold');
+            }
+        	</script><%
+        } else if(request.getAttribute("category").equals("전체")) {
+        	%><script>
+        	faqAll.classList.toggle('bold');
+        	if( faqProduct.classList.contains('bold') ) {
+        		faqProduct.classList.toggle('bold');
+            } else if( faqSwap.classList.contains('bold') ) {
+            	faqSwap.classList.toggle('bold');
+            } else if( faqDelivery.classList.contains('bold') ) {
+            	faqDelivery.classList.toggle('bold');
+            }
+        	</script><%
+        }
+      %>
+        
+        <!-- faqProduct.addEventListener('click', function() {
+        this.classList.toggle('bold');
+        faqCategoryName.innerText = this.innerText;
+        if( faqSwap.classList.contains('bold') ) {
+          faqSwap.classList.toggle('bold');
+        } else if( faqDelivery.classList.contains('bold') ) {
+          faqDelivery.classList.toggle('bold');
+        }
+      })-->
 
-      <c:if test="${ faqList } != null">
+      <c:if test="${ faqList != null }">
         <c:forEach var="dto" items="${ faqList }">
-          <c:set var="i" value="${ i+1 }" />
           <table id="adminFaqTable">
             <tr>
-              <td style="width:10%;">${ i }</td>
+              <td style="width:10%;">${ dto.faq_idx }</td>
               <td>${ dto.faq_title }</td>
-              <td style="width:10%;"><button type="button" onclick="show(${ i })" class="adminFaqBtn" id="faqContentBtn${ i }">보기▼</button></td>
+              <td style="width:10%;"><button type="button" onclick="show(${ dto.faq_idx })" class="adminFaqBtn" id="faqContentBtn${ dto.faq_idx }">보기▼</button></td>
             </tr>
-            <tr class="faqContentContainer" id="faqContainer${ i }">
+            <tr class="faqContentContainer" id="faqContainer${ dto.faq_idx }">
               <td colspan="3" style="background-color: #f1f3f4;">
                 ${ dto.faq_content }
                 <div class="adminFaqBtnWrap">
-                  <button class="adminFaqContentBtn">수정</button>
-                  <button class="adminFaqContentBtn" style="margin: auto 10px;">삭제</button>
+                  <!-- <button class="adminFaqContentBtn">수정</button> -->
+                  <button class="adminFaqContentBtn" onclick="location.href='adminFaqDelete.do?faq_idx=${ dto.faq_idx }'" style="margin: auto 10px;">삭제</button>
                 </div>
               </td>
             </tr>
@@ -173,7 +199,7 @@
         var popupY = (window.screen.height / 2) - (popupHeight / 2);
         
         function faqWriteOpen() {
-          window.open("../admin/admin_faqWrite.jsp", "새창", "width=750, height=380, left="+ popupX +", top="+ popupY +",toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+          window.open("../admin/admin_faqWrite.jsp", "새창", "width=750, height=430, left="+ popupX +", top="+ popupY +",toolbar=no, menubar=no, scrollbars=no, resizable=yes");
         }
       </script>
     </div>
