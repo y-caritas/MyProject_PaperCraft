@@ -95,6 +95,42 @@ public class FaqDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	}
+	
+	// 이용자 화면 faq
+
+	public static ArrayList<FaqDto> faq_list() 
+	{
+		ArrayList<FaqDto> list = new ArrayList<FaqDto>();
+		Connection conn = null; // 데이터 접근을 위한 객체
+		PreparedStatement pstmt = null; //매개변수 입력을 고려한 State클래스
+		ResultSet rs = null; // 데이터를 가져와 결과값을 얻기 위한 객체
+		try 
+		{
+			conn = DBConnection.getConnection(); //DB커넥션 객체
+			String query = "select * from p_faq  order by faq_idx desc";
+	        pstmt = conn.prepareStatement(query);
+			rs = pstmt.executeQuery(); //쿼리문 실행
+			while( rs.next() ) 
+			{
+	            int faq_idx = rs.getInt("faq_idx");
+	            String faq_title = rs.getString("faq_title");
+	            String faq_content = rs.getString("faq_content");
+	            String faq_category = rs.getString("faq_category");
+				Date faq_date = rs.getTimestamp("faq_date");
+	     
+	            FaqDto dto = new FaqDto(faq_idx, faq_title, faq_content, faq_category, faq_date);
+	            list.add(dto);
+	        }
+		}
+		catch(Exception e) 
+		{
+			System.out.println("FAQ bug");
+		}
+		return list;
 
 }
+}
+ 
+

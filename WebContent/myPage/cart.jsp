@@ -157,13 +157,13 @@ width: 1000px;
     <!-- 사이드바 메뉴목록1 -->
     <ul class="list-group">
       <li class="list-group-item"><b>&nbsp&nbsp쇼핑정보</b></br></br>
-      <a href="<%=request.getContextPath()%>/myPage/order_detail.jsp">&nbsp&nbsp  주문내역</a></br>
+      <a href="order_detail.do">&nbsp&nbsp  주문내역</a></br>
        <a href="#">&nbsp&nbsp 장바구니</a></br>
         </li>
       
       
       <li class="list-group-item"><b>&nbsp&nbsp게시판이용</b></br></br>
-         <a href="<%=request.getContextPath()%>/myPage/one_to_one_inquiryList.jsp">&nbsp&nbsp 1:1문의</a></br>
+         <a href="one_to_one_inquiry.do">&nbsp&nbsp 1:1문의</a></br>
          <a href="<%=request.getContextPath()%>/myPage/customize_inquiry.jsp">&nbsp&nbsp 주문제작</a></br>
       
       
