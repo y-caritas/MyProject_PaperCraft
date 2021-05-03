@@ -58,7 +58,7 @@ width: 1000px;
 
 }
 
-    #writeBtn button {
+    #writeBtn > button {
       border: solid 0.5px #e3e3e4;
       font-size: 0.9em;
       padding: 5px;
@@ -94,7 +94,7 @@ width: 1000px;
       
       </li>
       <li class="list-group-item"><b>&nbsp&nbsp계정관리</b></br></br>
-         <a href="check_pw.do">&nbsp&nbsp 정보수정</a></br>
+         <a href="<%= request.getContextPath() %>/myPage/check_pw.jsp">&nbsp&nbsp 정보수정</a></br>
          <p></p>
           
        
@@ -150,7 +150,7 @@ width: 1000px;
     </table>
 
  <div id="writeBtn">
-  <button onclick="location.href='<%= request.getContextPath() %>/community/inquiry_write.jsp'">문의글 쓰기</button>
+  <button type="button" onclick="location.href='<%= request.getContextPath() %>/community/inquiry_write.jsp'">문의글 쓰기</button>
  </div>
       
 

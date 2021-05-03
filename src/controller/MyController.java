@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -10,13 +11,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.FaqDao;
 import dao.InquiryAnswerDao;
 import dao.InquiryDao;
+import dao.MemberDao;
+import dao.NoticeDao;
+import dao.ProductDao;
+import dao.myPageDao;
 import dto.FaqDto;
 import dto.InquiryAnswerDto;
 import dto.InquiryDto;
+import dto.MemberDto;
+import dto.NoticeDto;
+import dto.OptionDto;
+import dto.OrderDto;
+import dto.ProductDto;
+import dto.ProductEnquiryDto;
+import dto.ProductReviewDto;
 
 @WebServlet(urlPatterns= {"*.do"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, 
@@ -158,7 +171,712 @@ public class MyController extends HttpServlet {
 		}
 		
 		
+		// 공지사항 리스트
+		else if(command.equals("noticelist.do")) { 
+			ArrayList<NoticeDto> noticelist = NoticeDao.noticelist();
+			request.setAttribute("noticelist", noticelist);
+			System.out.println("공지사항홈페이지");
+			
+			jspPage = "/community/notice_list.jsp";
+		}
+		
+		// 공지사항 글 보기
+		else if(command.equals("notice_view.do")) {
+			String notice_idx = request.getParameter("notice_idx");
+			
+			// 조회수 증가
+			NoticeDao.hit( notice_idx );
+			
+			// DTO 레코드 정보
+			NoticeDto dto = NoticeDao.contentView( notice_idx );
+			request.setAttribute("dto", dto);
+			
+			jspPage = "/community/notice_content.jsp";
+		}
+		
+		// 관리자화면 공지사항 리스트
+		else if(command.equals("admin_notice_list.do")) {
+			ArrayList<NoticeDto> noticelist = NoticeDao.noticelist();
+			request.setAttribute("noticelist", noticelist);
+			System.out.println("관리자 공지사항리스트");
+			
+			jspPage = "/admin/admin_noticeList.jsp";
+		}
+		
+		// 관리자화면 공지사항 글 보기
+		else if(command.equals("admin_notice_view.do")) {
+			String notice_idx = request.getParameter("notice_idx");
+			
+			// DTO 레코드 정보
+			NoticeDto dto = NoticeDao.contentView( notice_idx );
+			request.setAttribute("dto", dto);
+			
+			jspPage = "/admin/admin_noticeContentView.jsp";
+		}
+		
+		// 관리자화면 공지사항 글 삭제
+		else if(command.equals("admin_notice_delete.do")) {
+			String notice_idx = request.getParameter("notice_idx");
+			
+			NoticeDao.noticedelete(notice_idx);
+			response.sendRedirect("admin_notice_list.do");
+		}
+		
+		// 관리자화면 글 수정화면
+		else if(command.equals("admin_notice_modify.do")) { 
+			String notice_idx = request.getParameter("notice_idx");
+			
+			System.out.println("notice_idx:"+notice_idx);
+			
+			NoticeDto dto = NoticeDao.contentView( notice_idx );
+			request.setAttribute("dto", dto);
+			
+			jspPage = "/admin/admin_noticeModify.jsp";
+		}
+		
+		// 관리자화면 글 수정 버튼 클릭시 행동
+		else if(command.equals("admin_notice_modifyEdit.do")) { 
+			String notice_idx = request.getParameter("notice_idx");
+			String notice_title = request.getParameter("notice_title");
+			String notice_content = request.getParameter("notice_writeEditor");
+			
+			System.out.println("notice_idx:"+notice_idx);
+			System.out.println("notice_title:"+notice_title);
+			System.out.println("notice_content:"+notice_content);
+			
+			NoticeDao.modify( notice_idx, notice_title, notice_content );
+			
+			response.sendRedirect("admin_notice_list.do");
+		}
+		// 관리자화면 글쓰기 버튼 클릭시 행동
+		else if(command.equals("admin_notice_write.do")) {
+			
+			String notice_title = request.getParameter("notice_title");
+			String notice_content = request.getParameter("notice_writeEditor");
+			String notice_pin = request.getParameter("importchk");
+			
+			System.out.println("notice_title:"+notice_title);
+			System.out.println("notice_content:"+notice_content);
+			System.out.println("notice_pin2:"+notice_pin);
+			
+			NoticeDao.write( notice_title, notice_content, notice_pin );
+			
+			response.sendRedirect("admin_notice_list.do");
+		}
+		
+		// 회원가입 액션
+		else if(command.equals("memberjoin.do")) {
+			String member_id = request.getParameter("member_id");
+			String member_pw = request.getParameter("member_pw");
+			String member_name = request.getParameter("member_name");
+			String member_email_left = request.getParameter("member_email_left");
+			String member_email_right = request.getParameter("member_email_right");
+			String member_email_receive = request.getParameter("member_email_receive");
+			String member_phone_first = request.getParameter("member_phone_first");
+			String member_phone_second = request.getParameter("member_phone_second");
+			String member_phone_third = request.getParameter("member_phone_third");
+			String member_gender = request.getParameter("member_gender");
+			String member_purchase = request.getParameter("member_purchase");
+			String member_grade = request.getParameter("member_grade");
+			String address1 = request.getParameter("address1");
+			String address2 = request.getParameter("address2");
+			String address3 = request.getParameter("address3");
+			String address4 = request.getParameter("address4");
+			
+			System.out.println("id:"+member_id);
+			System.out.println("pw:"+member_pw);
+			System.out.println("name:"+member_name);
+			System.out.println("mail:"+member_email_left);
+			System.out.println("mail:"+member_email_right);
+			System.out.println("email_ad:"+member_email_receive);
+			System.out.println("phone:"+member_phone_first);
+			System.out.println("phone:"+member_phone_second);
+			System.out.println("phone:"+member_phone_third);
+			System.out.println("gender:"+member_gender);
+			System.out.println("purchase:"+member_purchase);
+			System.out.println("grade:"+member_grade);
+			System.out.println("address1: "+address1);
+			System.out.println("address2: "+address2);
+			System.out.println("address3: "+address3);
+			System.out.println("address4: "+address4);
+			
+			MemberDao.member_join(member_id, member_pw, member_name, member_email_left, member_email_right,
+					member_email_receive, member_phone_first, member_phone_second, member_phone_third,
+					member_gender, member_purchase, member_grade, address1, address2, address3, address4);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("./join_welcome.jsp");
+			dispatcher.forward(request, response);
+			
+		}
+		// id중복확인 ajax
+		else if(command.equals("idCheckAjax.do")) {
+			int result = 0;
+			try {
+				String member_id = request.getParameter("member_id");
+				System.out.println("insert id : "+member_id);
+				
+				request.setAttribute("check_id", member_id);
+				
+				result = MemberDao.idCheck(request);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			if(result == 1) { // 아이디 중복
+				response.getWriter().print("1");
+			} else { // 중복x(사용가능)
+				response.getWriter().print("0");
+			}
+		}
+		
+		// 로그인 
+		else if(command.equals("Login.do"))
+		{
+			String member_id = request.getParameter("member_id");
+			String member_pw = request.getParameter("member_pw");
+			
+			System.out.println("id:"+member_id);
+			System.out.println("pw:"+member_pw);
+			
+			try 
+			{
+				String result = MemberDao.Login(request);
+				if(result.equals("admin")) {
+					response.sendRedirect(request.getContextPath()+"/admin/adminFaqList.do");
+					jspPage = "";
+					return;
+				} else {
+					jspPage = "/main.jsp";
+				}
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+
+		}
+		
+		// 아이디 찾기
+		
+		else if(command.equals("idFind.do"))
+		{
+			try 
+			{
+				String member_name = request.getParameter("member_name");
+				String member_email = request.getParameter("member_email");
+				System.out.println("name : "+member_name);
+				System.out.println("email : "+member_email);
+				
+				MemberDao.idFind(request);
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/member/findID_result.jsp");
+			dispatcher.forward(request, response);
+		}
+		// 비밀번호 찾기
+		else if(command.equals("pwFind.do"))
+		{
+			try 
+			{
+				String member_id = request.getParameter("member_id");
+				String member_email = request.getParameter("member_email");
+				
+				MemberDao.pwFind(request);
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
+			}
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/member/findPW_result.jsp");
+			dispatcher.forward(request, response);
+		}
+		//FAQ 리스트
+		else if(command.equals("faq_list.do")) 
+		{
+			ArrayList<FaqDto> faq_list = FaqDao.faq_list();
+			request.setAttribute("faq_list", faq_list);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/community/faq_list.jsp");
+			dispatcher.forward(request, response);
+		}
+		//주문 목록
+		else if(command.equals("order_detail.do")) 
+		{
+			ArrayList<OrderDto> order_detail = null;
+			try {
+				order_detail = myPageDao.order_detail(request);
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+			request.setAttribute("order_detail", order_detail);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/myPage/order_detail.jsp");
+			dispatcher.forward(request, response);
+		}
+        // 1:1 문의 목록 ( inquiry_category = 0 )
+		else if(command.equals("one_to_one_inquiry.do")) 
+		{
+			ArrayList<InquiryDto> myInquiryList = null;
+			try {
+				myInquiryList = myPageDao.myInquiryList(request);
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+			request.setAttribute("myInquiryList", myInquiryList);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/myPage/one_to_one_inquiryList.jsp");
+			dispatcher.forward(request, response);
+         }
+        // 1 : 1 문의 내용 
+		else if(command.equals("myInquiryContent.do")) 
+		{
+			request.setCharacterEncoding("UTF-8");
+			
+			String inquiryTitle = request.getParameter("inquiryTitle");
+			InquiryDto dto = myPageDao.inquiryContent( inquiryTitle );
+			request.setAttribute("dto", dto);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/myPage/myInquiryContent.jsp");
+			dispatcher.forward(request, response);
+        }
+        //  주문 제작 목록  ( inquiry_category = 1 )
+		else if(command.equals("customizeList.do")) 
+		{
+			ArrayList<InquiryDto> customizeList = null;
+			try {
+				customizeList = myPageDao.myInquiryList(request);
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+			request.setAttribute("customizeList", customizeList);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/myPage/customize_inquiry.jsp");
+			dispatcher.forward(request, response);
+        }
+        // 주문 제작 문의 내용 
+		else if(command.equals("customizeContent.do")) 
+		{
+			request.setCharacterEncoding("UTF-8");
+			
+			String inquiryTitle = request.getParameter("inquiryTitle");
+			InquiryDto dto = myPageDao.inquiryContent( inquiryTitle );
+			request.setAttribute("dto", dto);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/myPage/myInquiryContent.jsp");
+			dispatcher.forward(request, response);
+        }
+		// 비밀번호 확인 
+		else if (command.equals("check_pw.do")) {
+			request.setCharacterEncoding("UTF-8");
+			
+			String check_pw = request.getParameter("check_pw");	
+			int result = 0;
+			
+			try {
+			result = myPageDao.check_pw(request);
+			
+				
+			
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			if( result == 1) {
+				
+				RequestDispatcher dispatcher = request.getRequestDispatcher("modifyForm.do");
+				dispatcher.forward(request, response);
+			}else if(result == 2 || result == 0 ) {
+	
+			}
+		}
+			//회원정보 수정 화면
+			
+			else if(command.equals("modifyForm.do")) { //회원정보수정 화면
+					MemberDto dto = null;
+					try {
+				
+						dto = myPageDao.memberInfo(request.getParameter("member_id"));
+					} catch (Exception e) {
+						
+						e.printStackTrace();
+					}
+					request.setAttribute("dto", dto);
+					
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/myPage/info_modify.jsp");
+					dispatcher.forward(request, response);
+			}
+			// 정보 수정 액션 
+			else if(command.equals("modifyAction.do")) { //회원정보수정액션
+				request.setCharacterEncoding("UTF-8");
+			
+				myPageDao.updateMember(request);
+
+				response.sendRedirect("MemberListForm"); //URI 리다이렉트
+			}
+	
+			// < -- 관리자 -- > 
+			// 회원 목록 조회
+			else if(command.equals("adminMemberList.do")) { //회원목록
+				ArrayList<MemberDto> memberList = null;
+				try {
+					memberList = myPageDao.memberList();
+					
+					request.setAttribute("memberList", memberList);
+				} catch (Exception e) {
+	
+					e.printStackTrace();
+				}
+				
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_memberList.jsp");
+				dispatcher.forward(request, response);
+			}
+			// 회원 정보 조회	
+				else if(command.equals("adminMemberInfo.do")) { //회원정보수정 화면
+						MemberDto dto = null;
+						try {
+					
+							dto = myPageDao.memberInfo(request.getParameter("member_id"));
+						} catch (Exception e) {
+							
+							e.printStackTrace();
+						}
+						request.setAttribute("dto", dto);
+						
+						RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_memberModify.jsp");
+						dispatcher.forward(request, response);
+				}
+			// 회원 정보 수정
+				else if(command.equals("adminMemberModify.do")) { //회원정보수정액션
+					request.setCharacterEncoding("UTF-8");
+				
+					myPageDao.updateMember(request);
+					
+					response.sendRedirect("adminMemberInfo.do"); //URI 리다이렉0트
+				}
+			//회원 탈퇴 액션 
+				else if(command.equals("deleteMember.do")) { //회원삭제
+					MemberDto dto = null;
+					try {
+				
+						dto = myPageDao.memberInfo(request.getParameter("member_id"));
+					} catch (Exception e) {
+				
+						e.printStackTrace();
+					}
+					request.setAttribute("dto", dto);
+					
+					myPageDao.deleteMember(dto.getMember_id());
+					
+					response.sendRedirect("adminMemberList.do"); //URI 리다이렉트
+				}
+
+		
+		
+		
+		
+		//상품리스트
+		else if(command.equals("listview.do"))
+		{		
+		String product_category =  request.getParameter("product_category");
+		String orderby =  request.getParameter("orderby");
+		System.out.println(product_category);
+		System.out.println(orderby);
+				
+			// 기본 상품 리스트
+			if(orderby.equals("01")) {
+			ArrayList<ProductDto> product_list = ProductDao.listview(product_category);
+	        request.setAttribute("product_list", product_list);
+	        for(int i = 0; i < product_list.size(); i++) {
+	        	System.out.println("product(" + i + ") : " + product_list.get(i).toString());
+	        }
+			}
+			
+			// 최신순
+			if(orderby.equals("02")) {
+			ArrayList<ProductDto> product_list = ProductDao.listview_date(product_category);
+	        request.setAttribute("product_list", product_list);
+	        
+			}
+			
+			// 높은 가격순
+			if(orderby.equals("03")) {
+			ArrayList<ProductDto> product_list = ProductDao.listview_desc(product_category);
+	        request.setAttribute("product_list", product_list);		    	
+			}
+			
+			// 낮은 가격순
+			if(orderby.equals("04")) {
+			ArrayList<ProductDto> product_list = ProductDao.listview_asc(product_category);
+	        request.setAttribute("product_list", product_list);		    	
+			}
+		
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/product/listview.jsp");
+			dispatcher.forward(request, response);
+			
+		}
+				
+		//검색 페이지
+		else if(command.equals("listviewsearch.do")) {
+			String product_category =  request.getParameter("product_category");
+			String search_name =  request.getParameter("search_name");
+			System.out.println(product_category);
+			System.out.println(search_name);
+			
+			ArrayList<ProductDto> product_list = ProductDao.listview_search(product_category, search_name);
+	        request.setAttribute("product_list", product_list);
+	        request.setAttribute("product_category", product_category);
+	        request.setAttribute("search_name", search_name);
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/listview.jsp");
+			dispatcher.forward(request, response);
+			
+		}
+		
+		//검색 최신순
+		else if(command.equals("listviewsearchDate.do")) {
+			String product_category =  request.getParameter("product_category");
+			String search_name =  request.getParameter("search_name");
+			System.out.println(product_category);
+			System.out.println(search_name);
+			
+			ArrayList<ProductDto> product_list = ProductDao.listview_search_date(product_category, search_name);
+	        request.setAttribute("product_list", product_list);
+	        request.setAttribute("search_name", search_name);
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/listview.jsp");
+			dispatcher.forward(request, response);			
+		}
+		
+		//검색 높은가격순
+		else if(command.equals("listviewsearchDesc.do")) {
+			String product_category =  request.getParameter("product_category");
+			String search_name =  request.getParameter("search_name");
+			System.out.println(product_category);
+			System.out.println(search_name);
+			
+			ArrayList<ProductDto> product_list = ProductDao.listview_search_desc(product_category, search_name);
+	        request.setAttribute("product_list", product_list);
+	        request.setAttribute("search_name", search_name);
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/listview.jsp");
+			dispatcher.forward(request, response);			
+		}
+		
+		//검색 낮은가격순
+		else if(command.equals("listviewsearchAsc.do")) {
+			String product_category =  request.getParameter("product_category");
+			String search_name =  request.getParameter("search_name");
+			System.out.println(product_category);
+			System.out.println(search_name);
+			
+			ArrayList<ProductDto> product_list = ProductDao.listview_search_asc(product_category, search_name);
+	        request.setAttribute("product_list", product_list);
+	        request.setAttribute("search_name", search_name);
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/listview.jsp");
+			dispatcher.forward(request, response);			
+		}
+		
+		//detail_page.jsp 컨트롤러
+		else if(command.equals("detailview.do")) {
+			String product_idx = request.getParameter("product_idx");
+			System.out.println(product_idx);
+			
+			ProductDto productDto = ProductDao.detailview(product_idx);
+			OptionDto optionDto = ProductDao.detailview_option(product_idx);
+			ProductReviewDto productReviewDto = ProductDao.review(product_idx);
+			ProductEnquiryDto productEnquiryDto = ProductDao.enquiryList(product_idx);
+			
+			//테스트 필요.
+			request.setAttribute("product_idx", product_idx);
+	        request.setAttribute("productDto", productDto);
+	        request.setAttribute("optionDto", optionDto);
+	        request.setAttribute("productReviewDto", productReviewDto);
+	        request.setAttribute("productEnquiryDto", productEnquiryDto);			
+	        
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page.jsp");
+			dispatcher.forward(request, response);			
+		}
+		
+		//상품평 등록
+		else if(command.equals("reviewinsert.do")) {
+			request.setCharacterEncoding("UTF-8");
+			String product_idx = request.getParameter("product_idx");
+			
+			int result = ProductDao.reviewInsert(request);
+			
+			ProductDto productDto = ProductDao.detailview(product_idx);
+			OptionDto optionDto = ProductDao.detailview_option(product_idx);
+			ProductReviewDto productReviewDto = ProductDao.review(product_idx);
+			ProductEnquiryDto productEnquiryDto = ProductDao.enquiryList(product_idx);
+			
+			//테스트 필요.
+			request.setAttribute("product_idx", product_idx);
+	        request.setAttribute("productDto", productDto);
+	        request.setAttribute("optionDto", optionDto);
+	        request.setAttribute("productReviewDto", productReviewDto);
+	        request.setAttribute("productEnquiryDto", productEnquiryDto);			
+	        
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page.jsp");
+			dispatcher.forward(request, response);	
+		}
+		
+		//구매하기
+		else if(command.equals("purchase.do")) {
+			
+			request.setCharacterEncoding("UTF-8");
+			//상품가격
+			String p_price = request.getParameter("cart_p_price");
+			//상품 개수
+			String p_count = request.getParameter("cart_p_count");
+			//총 가격
+			String p_total_price = request.getParameter("cart_p_total_price");
+			//product 테이블 인덱스
+			String p_idx = request.getParameter("cart_p_idx");
+			//이미지
+			String p_img = request.getParameter("cart_p_img");			
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/order/orderForm.jsp");
+			dispatcher.forward(request, response);
+		}
+		
+		//장바구니
+		else if(command.equals("cart.do")) {
+			
+			request.setCharacterEncoding("UTF-8");
+			String product_idx = request.getParameter("product_idx");
+			
+			int result = ProductDao.cart(request);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/myPage/cart.jsp");
+			dispatcher.forward(request, response);
+			
+		}
+		
+		//관리자 상품등록하기
+		else if(command.equals("productRegister.do")) {
+			
+			request.setCharacterEncoding("UTF-8");			
+			int result = ProductDao.productRegister(request);
+			int result_Option = ProductDao.productRegister_option(request);
+			
+			if(result == 1) {			
+			ProductDao.upload(request);
+			request.setAttribute("message", "파일업로드에 성공 하였습니다.!");
+			}
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productRegistration.jsp");
+			dispatcher.forward(request, response);
+		}
+		
+		//Modify view용
+		else if(command.equals("adminProductView.do")) {
+			
+			request.setCharacterEncoding("UTF-8");
+
+			String product_idx = request.getParameter("product_idx");
+			
+			ProductDto productDto = ProductDao.detailview(product_idx);
+			OptionDto optionDto = ProductDao.detailview_option(product_idx);
+			request.setAttribute("product_idx", product_idx);
+	        request.setAttribute("productDto", productDto);
+	        request.setAttribute("optionDto", optionDto);			
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productModify.jsp");
+			dispatcher.forward(request, response);
+			
+		}
+		//수정하기
+		else if(command.equals("adminProductModify.do")) {
+			
+			request.setCharacterEncoding("UTF-8");
+			
+			String product_idx = request.getParameter("product_idx");
+			
+			int result = ProductDao.productModify(request);
+			if(request.getParameter("option_idx") != null || request.getParameter("option_detail") != null) {				
+				int result_Option = ProductDao.productModify_option(request);
+			}
+			
+			
+			ProductDto productDto = ProductDao.detailview(product_idx);
+			OptionDto optionDto = ProductDao.detailview_option(product_idx);
+			request.setAttribute("product_idx", product_idx);
+	        request.setAttribute("productDto", productDto);
+	        request.setAttribute("optionDto", optionDto);			
+				
+			
+			ProductDao.upload(request);			
+			request.setAttribute("message", "파일업로드에 성공 하였습니다.!");
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productlist.jsp");
+			dispatcher.forward(request, response);
+			
+		}
+		//관리자 기본 상품리스트
+		else if(command.equals("adminProductList.do")) {
+			
+			request.setCharacterEncoding("UTF-8");			
+			
+			ArrayList<ProductDto> product_list = ProductDao.adminProductList();
+	        request.setAttribute("product_list", product_list);	        
+	        
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productlist.jsp");
+			dispatcher.forward(request, response);
+			
+		}
+		//관리자 기본 상품리스트 상품명 검색
+		else if(command.equals("adminProductNameSearch.do")) {
+			
+			request.setCharacterEncoding("UTF-8");
+			String search_product_name = request.getParameter("product_name");			
+			
+			ArrayList<ProductDto> product_list = ProductDao.adminProductNameSearch(search_product_name);
+	        request.setAttribute("product_list", product_list);
+	        
+			jspPage = "admin_productList.jsp";
+			
+		}
+		
+		//관리자 기본 상품리스트 상세검색 
+		else if(command.equals("adminProductDetailSearch.do")) {
+			
+			request.setCharacterEncoding("UTF-8");
+			String search_product_name = request.getParameter("product_name");			
+			
+			ArrayList<ProductDto> product_list = ProductDao.adminProductDetailSearch(request);
+	        request.setAttribute("product_list", product_list);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productlist.jsp");
+			dispatcher.forward(request, response);
+			
+		}
+		
+		//관리자 상품리스트 삭제기능
+		else if(command.equals("adminProductDelete.do")) {
+			
+			request.setCharacterEncoding("UTF-8");
+			String search_product_name = request.getParameter("product_name");			
+
+			int result = ProductDao.adminProductDelete(request);
+			
+			ArrayList<ProductDto> product_list = ProductDao.adminProductList();
+	        request.setAttribute("product_list", product_list);	
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productlist.jsp");
+			dispatcher.forward(request, response);
+			
+		}
+		// 로그아웃
+		else if(command.equals("logout.do")) {
+			HttpSession session = request.getSession();
+			session.invalidate();
+			response.sendRedirect(request.getContextPath()+"/main.jsp");
+		}
+		
+		
+		
 		if(jspPage != "" ) {
+			System.out.println("jsp 호출됨:"+jspPage);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(jspPage);
 			dispatcher.forward(request, response);
 		}

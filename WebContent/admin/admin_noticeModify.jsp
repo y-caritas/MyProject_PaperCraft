@@ -18,8 +18,7 @@
   </head>
 <body>
 	<div id="sideBarContainer">
-		<c:import url="./admin_sideBar.jsp"></c:import>
-		
+<c:import url="/admin/admin_sideBar.jsp"></c:import>		
 		<div id="admin_notice_title_container">
 			<div id="admin_noticelist_title" style="width: 1000px;">
 				<h3>| 공지사항 수정하기</h3>

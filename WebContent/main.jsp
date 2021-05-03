@@ -10,7 +10,7 @@
    
     <!-- 슬라이드 쇼 --> 
     <div class="carousel-item active"> <!--가로--> 
-      <img class="d-block w-100" src= "img/mood.jpg" alt="First slide"> 
+      <img class="d-block w-100" src= "<%= request.getContextPath() %>/img/mood.jpg" alt="First slide"> 
       <div class="carousel-caption d-none d-md-block">
         <h1 class="fadeInDown animated">당신의 밤이 가치 있기를</h1>
         <p class="fadeInDown animated"></p>
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="carousel-item"> 
-      <img class="d-block w-100" src="img/glass.jpg" alt="Second slide"> 
+      <img class="d-block w-100" src="<%= request.getContextPath() %>/img/glass.jpg" alt="Second slide"> 
       <div class="carousel-caption d-none d-md-block">
         <h1 class="fadeInDown animated">늘 당신의 곁에 함께하기를</h1>
         <p class="fadeInDown animated"></p>
@@ -28,7 +28,7 @@
       </div>
     </div> 
     <div class="carousel-item"> 
-      <img class="d-block w-100" src="img/card.jpg" alt="Third slide"> 
+      <img class="d-block w-100" src="<%= request.getContextPath() %>/img/card.jpg" alt="Third slide"> 
       <div class="carousel-caption d-none d-md-block">
         <h1 class="fadeInDown animated">소중한 마음이 전해지기를</h1>
         <p class="fadeInDown animated"></p>

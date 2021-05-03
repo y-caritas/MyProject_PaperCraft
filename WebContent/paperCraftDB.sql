@@ -1,20 +1,20 @@
 
 CREATE TABLE p_product (
-	product_idx              NUMBER(10) PRIMARY KEY,
-	product_category         NUMBER(2),
+	product_idx              NUMBER PRIMARY KEY,
+	product_category         NUMBER,
 	product_name             VARCHAR2(50),
-	product_price            NUMBER(6),
-	product_note             VARCHAR2(100),
-	product_listImg          VARCHAR2(50),
-	product_introImg         VARCHAR2(50),
+	product_price            NUMBER,
+	product_note             VARCHAR2(1000),
+	product_listImg          VARCHAR2(1000),
+	product_introImg         VARCHAR2(1000),
 	product_introduction     CLOB,
 	product_delivery_policy  VARCHAR2(4000),
-	product_delivery_policy_category         NUMBER(2),
+	delivery_policy_category         NUMBER,
 	product_swap_policy      VARCHAR2(4000),
-	product_swap_policy_category         NUMBER(2),
+	swap_policy_category         NUMBER,
 	product_record           DATE DEFAULT SYSDATE,
 	product_memo             VARCHAR2(4000)
-	)
+	);
 	
 CREATE SEQUENCE p_product_seq;
 

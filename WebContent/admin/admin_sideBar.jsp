@@ -7,6 +7,11 @@
   </tr>
   <tr>
     <td>
+        <button class="sideBarDropBtn">Account</button>
+        <div class="sideBarDropdownContainer">
+        <a href="<%=request.getContextPath()%>/main.jsp">Home</a>
+          <a href="logout.do">로그아웃</a>
+        </div>
         <button class="sideBarDropBtn">회원 관리</button>
         <div class="sideBarDropdownContainer">
           <a href="<%=request.getContextPath()%>/admin/admin_memberList.jsp">회원 목록</a>
@@ -14,8 +19,8 @@
         </div>
         <button class="sideBarDropBtn">상품 관리</button>
         <div class="sideBarDropdownContainer">
-          <a href="">상품 등록</a>
-          <a href="">상품 목록</a>
+          <a href="<%=request.getContextPath()%>/admin/admin_productRegistration.jsp">상품 등록</a>
+          <a href="adminProductNameSearch.do">상품 목록</a>
         </div>
         <button class="sideBarDropBtn">게시판 관리</button>
         <div class="sideBarDropdownContainer">

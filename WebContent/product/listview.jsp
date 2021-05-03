@@ -48,75 +48,16 @@
   	  <div id="LoG">
   		<c:forEach var="product" items="${product_list}">  		   
 		   <div class="items">
-		   <img class="" src="{product.product_name}" alt="" 
+		   <img class="" src="${product.product_listImg}" alt="" 
 		   onclick="javascript:location.href='
 		   <%= request.getContextPath() %>/detailview.do?product_idx={product.product_idx}">
-		   <h5>{product.product_name}</h5>
-		   <h5>{product.product_price}</h5>
-		   <h5>{product.product_note}</h5>
+		   <h5>${product.product_name}</h5>
+		   <h5>${product.product_price}</h5>
+		   <h5>${product.product_note}</h5>
 		   </div>			
 		 </c:forEach>
 
-      <div class="items">
-        <img class="" src="http://via.placeholder.com/220?text=Sample" alt="">
-        <h5>product_title</h5>
-        <h5>product_price</h5>
-        <h5>product_note</h5>
-      </div>
-      <div class="items">
-        <img class="" src="http://via.placeholder.com/220?text=Sample" alt="">
-        <h5>product_title</h5>
-        <h5>product_price</h5>
-        <h5>product_note</h5>
-      </div>
-      <div class="items">
-        <img class="" src="http://via.placeholder.com/220?text=Sample" alt="">
-        <h5>product_title</h5>
-        <h5>product_price</h5>
-        <h5>product_note</h5>
-      </div>
-      <div class="items">
-        <img class="" src="http://via.placeholder.com/220?text=Sample" alt="">
-        <h5>product_title</h5>
-        <h5>product_price</h5>
-        <h5>product_note</h5>
-      </div>
-      <div class="items">
-        <img class="" src="http://via.placeholder.com/220?text=Sample" alt="">
-        <h5>product_title</h5>
-        <h5>product_price</h5>
-        <h5>product_note</h5>
-      </div>
-      <div class="items">
-        <img class="" src="http://via.placeholder.com/220?text=Sample" alt="">
-        <h5>product_title</h5>
-        <h5>product_price</h5>
-        <h5>product_note</h5>
-      </div>
-      <div class="items">
-        <img class="" src="http://via.placeholder.com/220?text=Sample" alt="">
-        <h5>product_title</h5>
-        <h5>product_price</h5>
-        <h5>product_note</h5>
-      </div>
-      <div class="items">
-        <img class="" src="http://via.placeholder.com/220?text=Sample" alt="">
-        <h5>product_title</h5>
-        <h5>product_price</h5>
-        <h5>product_note</h5>
-      </div>
-      <div class="items">
-        <img class="" src="http://via.placeholder.com/220?text=Sample" alt="">
-        <h5>product_title</h5>
-        <h5>product_price</h5>
-        <h5>product_note</h5>
-      </div>
-        <div class="items">
-        <img class="" src="http://via.placeholder.com/220?text=Sample" alt="">
-        <h5>product_title</h5>
-        <h5>product_price</h5>
-        <h5>product_note</h5>
-      </div>
+      
     </div>
     <div id="searchBar">
       <form class="form-inline" action="listviewsearch.do" method="POST">

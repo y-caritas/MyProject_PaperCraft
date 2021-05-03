@@ -87,6 +87,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 	            
 	            ProductDto dto = new ProductDto(product_name, product_price, product_note, product_listImg);
 	            product_list.add(dto);
+	            System.out.println("get : "+product_list.get(0).getProduct_name());
 	        }
 		}
 		catch(Exception e) 
