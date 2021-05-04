@@ -156,10 +156,7 @@
             <col width="90%" />
 					</colgroup>
 				
-				<tr class="dropTr" > 
-				<td> <b>Q.</b></td>
-				<td> 질문 내용 </td>
-				</tr>
+	
 				
 				<tr class="dropTr" style="background-color:#f1f3f4;" > 
 				<td> <b>A.</b></td>
@@ -201,7 +198,7 @@
         <th style="width:10%">답변보기</th>
       </tr>   -->
       
-     <c:forEach var="dto" items="${p_product_inquiry}"> 
+     <c:forEach var="dto" items="${pEnquiry_list}">  
 	<tr class="inquiryTr">     
           <td>${dto.product_i_idx}</td>
           <td>${dto.product_i_img}</td>         
@@ -210,29 +207,26 @@
         <b> ${dto.product_i_title}</b></td>
           <td>${dto.product_i_writer}</td>
           <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${dto.product_i_date}"/></td>
-          <td><div id="dropDown"><span class="ico_ar">▼</span></div></td>
+          <td><div id="dropDown"  onclick="location.href='pInquiryAnswer.do?dto.product_i_idx=${dto.product_i_idx }';" ><span class="ico_ar">▼</span></div></td>
       </tr>
-      	</c:forEach>
-				
+      
+		 </c:forEach>		
       </table>					
   
 				<div id="dropContent">
 				<table id ="InqDropTab">
+				
+				
 				  <colgroup>
             <col width="10%" />
             <col width="90%" />
 					</colgroup>
 				
-				<tr class="dropTr" > 
-				<td> <b>Q.</b> </td>
-				<td> ${dto.product_i_content}</td>
-				</tr>
-			
-				<c:choose>
+						<c:choose>
 				
 				<c:when test="${dto.inquiry_a_content != null }" >
 											
-				<c:forEach var="dto" items="${p_inquiry_answer}"> 
+			
 				<tr class="dropTr" style="background-color:#f1f3f4;" > 
 				<td>  <b>A.</b></td>
 				<td> ${dto.inquiry_a_content}</td>
@@ -242,13 +236,13 @@
 				<td>
 				<div id ="ProWriteBtn">
 				<button class ="goProBtn"  onclick="ProdInqWrite()" >답변하기</button>
-				<button class ="goProBtn"  onclick="location.href='admin_productInquiryModify.jsp?idx=${dto.product_i_a_idx}'">수정</button>
+				<button class ="goProBtn"  onclick="location.href='pInquiryModify.do?dto.product_i_idx=${dto.inquiry_a_idx}';" >수정</button>
 				<button class ="goProBtn"  onclick="del(${dto.inquiry_a_idx})" >삭제 </button>
 				
 				</div>
 				</td>
 				</tr>
-				</c:forEach>
+				
 				</c:when>	
 				
 				<c:otherwise> 등록된 답변이 없습니다. </c:otherwise>

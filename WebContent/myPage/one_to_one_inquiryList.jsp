@@ -147,17 +147,19 @@ width: 1000px;
       
       <!-- EL 표현식 -->
       <tr class="inquiryTr">
-        <c:forEach var="dto" items="${ inquiryList }">
+        <c:forEach var="dto" items="${ myInquiryList }">
+        <c:if test="${dto.inquiryCategory == 1 }"> 
           <td>${dto.inquiryIdx}</td>
           <td style="text-align: left;"><a href="myInquiryContent.do">${dto.inquiryTitle}</a></td>
           <td>${dto.inquiry_date}</td>
+          </c:if>
         </c:forEach>
       </tr>
       
     </table>
 
  <div id="writeBtn">
-  <button onclick="location.href='<%= request.getContextPath() %>/community/inquiry_write.jsp'">문의글 쓰기</button>
+  <button onclick="location.href='<%= request.getContextPath() %>/myPage/myInquiry_write.jsp'">문의글 쓰기</button>
  </div>
       
 

@@ -17,7 +17,7 @@ public class OrderDto {
 	private int order_o_price;          
 	private String member_id ;       
 	
-	private OrderDto() {
+	public OrderDto() {
 	
 	}
 
