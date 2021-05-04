@@ -34,7 +34,7 @@ CREATE TABLE p_product_review (
 	product_r_grade          VARCHAR2(50),
 	product_r_date           DATE DEFAULT SYSDATE,
 	member_id                VARCHAR2(20),
-	poduct_idx               NUMBER(10)
+	product_idx               NUMBER(10)
 	)
 	
 CREATE SEQUENCE p_produc_review_seq;
@@ -136,9 +136,9 @@ CREATE TABLE p_cart (
 	cart_p_img              VARCHAR2(50),
 	cart_p_name             VARCHAR2(50),
 	cart_p_price            NUMBER(6),
-	cart_p_count            NUMBER(2),
-	cart_o_name             VARCHAR2(50),
-	cart_o_price            NUMBER(6),
+	cart_p_total_price      NUMBER(6),
+	cart_p_count            NUMBER(2),	
+	cart_o_idx            	NUMBER(6),
 	member_id               VARCHAR2(20)
 	)
 	

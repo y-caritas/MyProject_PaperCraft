@@ -15,6 +15,13 @@ public class ProductEnquiryDto {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public ProductEnquiryDto(int product_i_idx2, String product_i_content2, Date product_i_date2, String product_i_writer2) {
+		this.product_i_idx = product_i_idx2;
+		this.product_i_content = product_i_content2;
+		this.product_i_date = product_i_date2;
+		this.product_i_writer = product_i_writer2;
+	}
+
 	public int getProduct_i_idx() {
 		return product_i_idx;
 	}

@@ -20,6 +20,7 @@ import dao.MemberDao;
 import dao.NoticeDao;
 import dao.ProductDao;
 import dao.myPageDao;
+import dto.CartDto;
 import dto.FaqDto;
 import dto.InquiryAnswerDto;
 import dto.InquiryDto;
@@ -686,8 +687,8 @@ public class MyController extends HttpServlet {
 			ProductDto productDto = ProductDao.detailview(product_idx);
 			OptionDto optionDto = ProductDao.detailview_option(product_idx);
 			
-			ProductReviewDto productReviewDto = ProductDao.review(product_idx);
-			ProductEnquiryDto productEnquiryDto = ProductDao.enquiryList(product_idx);
+			ArrayList<ProductReviewDto> productReviewDto = ProductDao.review(product_idx);
+			ArrayList<ProductEnquiryDto> productEnquiryDto = ProductDao.enquiryList(product_idx);
 			
 			//테스트 필요.
 			request.setAttribute("product_idx", product_idx);
@@ -709,15 +710,15 @@ public class MyController extends HttpServlet {
 			
 			ProductDto productDto = ProductDao.detailview(product_idx);
 			OptionDto optionDto = ProductDao.detailview_option(product_idx);
-			ProductReviewDto productReviewDto = ProductDao.review(product_idx);
-			ProductEnquiryDto productEnquiryDto = ProductDao.enquiryList(product_idx);
+			ArrayList<ProductReviewDto> productReviewDto = ProductDao.review(product_idx);
+			ArrayList<ProductEnquiryDto> productEnquiryDto = ProductDao.enquiryList(product_idx);
 			
 			//테스트 필요.
 			request.setAttribute("product_idx", product_idx);
 	        request.setAttribute("productDto", productDto);
 	        request.setAttribute("optionDto", optionDto);
 	        request.setAttribute("productReviewDto", productReviewDto);
-	        request.setAttribute("productEnquiryDto", productEnquiryDto);			
+	        request.setAttribute("productEnquiryDto", productEnquiryDto);
 	        
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page.jsp");
 			dispatcher.forward(request, response);	
@@ -742,13 +743,26 @@ public class MyController extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 		
-		//장바구니
-		else if(command.equals("cart.do")) {
+		//장바구니 추가
+		else if(command.equals("cartInsert.do")) {
 			
 			request.setCharacterEncoding("UTF-8");
 			String product_idx = request.getParameter("product_idx");
 			
-			int result = ProductDao.cart(request);
+			int result = ProductDao.cartInsert(request);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("cart.do");
+			dispatcher.forward(request, response);
+			
+		}
+		//장바구니 보기
+		else if(command.equals("cart.do")) {
+			
+			request.setCharacterEncoding("UTF-8");
+			//세선에서 member_id 값 가져오기
+			String member_id = "abcde";		
+			ArrayList<CartDto> cartList = ProductDao.cart(member_id);
+			
+			request.setAttribute("cartList", cartList);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/myPage/cart.jsp");
 			dispatcher.forward(request, response);
 			

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
 import controller.DBConnection;
+import dto.CartDto;
 import dto.OptionDto;
 import dto.ProductDto;
 import dto.ProductEnquiryDto;
@@ -407,8 +408,8 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		return optionDto;
 }
 	//상품평
-	public static ProductReviewDto review(String product_idx) {
-		ProductReviewDto productReviewDto = new ProductReviewDto();
+	public static ArrayList<ProductReviewDto> review(String product_idx) {
+		ArrayList<ProductReviewDto> review_list = new ArrayList<ProductReviewDto>();
 		Connection conn = null; 
 		PreparedStatement pstmt = null; 
 		ResultSet rs = null; 
@@ -426,23 +427,21 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 				String product_r_content = rs.getString("product_r_content");
 				String product_r_img = rs.getString("product_r_img");
 	            String product_r_grade = rs.getString("product_r_grade");
-	            productReviewDto.setProduct_r_idx(product_r_idx);
-	            productReviewDto.setProduct_r_content(product_r_content);
-	            productReviewDto.setProduct_r_img(product_r_img);
-	            productReviewDto.setProduct_r_grade(product_r_grade);
 	            
+	            ProductReviewDto dto = new ProductReviewDto(product_r_idx, product_r_content, product_r_img, product_r_grade);
+	            review_list.add(dto);	            
 	        }
 		}
 		catch(Exception e) 
 		{
-			System.out.println("review bug");
+			e.printStackTrace();
 		}
-		return productReviewDto;
+		return review_list;
 	}
 	
 	//상품 문의 리스트
-	public static ProductEnquiryDto enquiryList(String product_idx) {
-		ProductEnquiryDto productEnquiryDto = new ProductEnquiryDto();
+	public static ArrayList<ProductEnquiryDto> enquiryList(String product_idx) {		
+		ArrayList<ProductEnquiryDto> enquiry_list = new ArrayList<ProductEnquiryDto>();
 		Connection conn = null; 
 		PreparedStatement pstmt = null; 
 		ResultSet rs = null; 
@@ -461,18 +460,16 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 				String product_i_content = rs.getString("product_i_content");
 				Date product_i_date = rs.getDate("product_i_date");
 	            String product_i_writer = rs.getString("product_i_writer");
-	            productEnquiryDto.setProduct_i_idx(product_i_idx);
-	            productEnquiryDto.setProduct_i_content(product_i_content);
-	            productEnquiryDto.setProduct_i_date(product_i_date);
-	            productEnquiryDto.setProduct_i_writer(product_i_writer);
 	            
+	            ProductEnquiryDto dto = new ProductEnquiryDto(product_i_idx, product_i_content, product_i_date, product_i_writer);
+	            enquiry_list.add(dto);
 	        }
 		}
 		catch(Exception e) 
 		{
-			System.out.println("enquiryList bug");
+			e.printStackTrace();
 		}
-		return productEnquiryDto;
+		return enquiry_list;
 	}
 
 	//상품평 등록
@@ -483,7 +480,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		try 
 		{
 			conn = DBConnection.getConnection();
-			String query = "INSERT INTO p_product_review values (p_product_review_seq.nextval, ?, ?, ? sysdate, ?, ?)";			
+			String query = "INSERT INTO p_product_review values (p_product_review_seq.nextval, ?, ?, ?, sysdate, ?, ?)";			
 	        pstmt = conn.prepareStatement(query);
 	        pstmt.setString(1, request.getParameter("product_r_content") );
 	        pstmt.setString(2, request.getParameter("product_r_img") );
@@ -496,14 +493,14 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		}
 		catch(Exception e) 
 		{
-			System.out.println("reviewInsert bug");
+			e.printStackTrace();
 		}
 		
 		return result;
 	}
 
 	//장바구니 기능
-	public static int cart(HttpServletRequest request) {
+	public static int cartInsert(HttpServletRequest request) {
 		Connection conn = null; 
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -512,13 +509,22 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 			conn = DBConnection.getConnection();
 			String query = "INSERT INTO p_cart values (p_cart_seq.nextval, sysdate, ?, ?, ?, ?, ?, ?, ?, ?)";			
 	        pstmt = conn.prepareStatement(query);
+	        System.out.println(request.getParameter("cart_p_idx"));
+	        System.out.println(request.getParameter("cart_p_img"));
+	        System.out.println(request.getParameter("cart_p_name"));
+	        System.out.println(request.getParameter("cart_p_price"));
+	        System.out.println(request.getParameter("cart_p_count"));
+	        System.out.println(request.getParameter("cart_o_idx"));
+	        System.out.println(request.getParameter("member_id"));
+	        
+	        
 	        pstmt.setInt(1, Integer.parseInt(request.getParameter("cart_p_idx")));
 	        pstmt.setString(2, request.getParameter("cart_p_img") );
 	        pstmt.setString(3, request.getParameter("cart_p_name") );
 	        pstmt.setInt(4, Integer.parseInt(request.getParameter("cart_p_price")));
-	        pstmt.setInt(5, Integer.parseInt(request.getParameter("cart_p_count")));
-	        pstmt.setString(6, request.getParameter("cart_o_name") );
-	        pstmt.setInt(7, Integer.parseInt(request.getParameter("cart_o_price")));
+	        pstmt.setInt(5, Integer.parseInt(request.getParameter("cart_p_total_price")));
+	        pstmt.setInt(6, Integer.parseInt(request.getParameter("cart_p_count")));	        
+	        pstmt.setInt(7, Integer.parseInt(request.getParameter("cart_o_idx")));
 	        pstmt.setString(8, request.getParameter("member_id") );	        
 	        
 			result = pstmt.executeUpdate();
@@ -526,7 +532,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		}
 		catch(Exception e) 
 		{
-			System.out.println("cart bug");
+			e.printStackTrace();
 		}
 		
 		return result;
@@ -892,6 +898,55 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 			}
 			
 			return result;
+	}
+	//장바구니 보기
+	public static ArrayList<CartDto> cart(String member_id) {
+		ArrayList<CartDto> cart_list = new ArrayList<CartDto>();
+		Connection conn = null; // 데이터 접근을 위한 객체
+		PreparedStatement pstmt = null; //매개변수 입력을 고려한 State클래스
+		ResultSet rs = null; // 데이터를 가져와 결과값을 얻기 위한 객체
+		try 
+		{
+			conn = DBConnection.getConnection(); //DB커넥션 객체
+			String query = "SELECT * FROM p_cart WHERE member_id=?";			
+	        pstmt = conn.prepareStatement(query);
+	        pstmt.setString(1, member_id);
+			rs = pstmt.executeQuery(); 
+			while( rs.next() ) 
+			{
+				int cart_idx = rs.getInt("cart_idx");
+				Date cart_date = rs.getDate("cart_date");
+				int cart_p_idx = rs.getInt("cart_p_idx");
+				String cart_p_img = rs.getString("cart_p_img");
+				String cart_p_name = rs.getString("cart_p_name");
+				int cart_p_price = rs.getInt("cart_p_price");
+				int cart_p_total_price = rs.getInt("cart_p_total_price");
+				int cart_p_count = rs.getInt("cart_p_count");
+				int cart_o_idx = rs.getInt("cart_o_idx");
+				String member_id2 = rs.getString("member_id");
+				
+				if(cart_o_idx != 0) {
+					OptionDto optionDto = detailview_option(Integer.toString(cart_p_idx));
+					String cart_o_name = optionDto.getOption_detail();
+					int cart_o_price = optionDto.getOption_price();
+					
+				CartDto dto = new CartDto( cart_idx,  cart_date,  cart_p_idx,  cart_p_img,  cart_p_name,
+						 cart_p_price,  cart_p_total_price,  cart_p_count,  cart_o_idx,  cart_o_name,
+						 cart_o_price,  member_id2);
+				cart_list.add(dto);
+				}
+				else {
+	           	            
+	            CartDto dto = new CartDto(cart_idx, cart_date, cart_p_idx, cart_p_img, cart_p_name, cart_p_price, cart_p_total_price, cart_p_count, cart_o_idx, member_id2);
+				cart_list.add(dto);
+				}	            
+	        }
+		}
+		catch(Exception e) 
+		{
+			System.out.println("listview bug");
+		}
+		return cart_list;
 	}
 
 

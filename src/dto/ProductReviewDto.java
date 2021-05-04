@@ -16,6 +16,13 @@ public class ProductReviewDto {
 	
 	}
 
+	public ProductReviewDto(int product_r_idx2, String product_r_content2, String product_r_img2,String product_r_grade2) {
+		this.product_r_idx = product_r_idx2;
+		this.product_r_content = product_r_content2;
+		this.product_r_img = product_r_img2;
+		this.product_r_grade = product_r_grade2;
+	}
+
 	public int getProduct_idx() {
 		return product_idx;
 	}
