@@ -685,6 +685,7 @@ public class MyController extends HttpServlet {
 			
 			ProductDto productDto = ProductDao.detailview(product_idx);
 			OptionDto optionDto = ProductDao.detailview_option(product_idx);
+			
 			ProductReviewDto productReviewDto = ProductDao.review(product_idx);
 			ProductEnquiryDto productEnquiryDto = ProductDao.enquiryList(product_idx);
 			
@@ -757,10 +758,9 @@ public class MyController extends HttpServlet {
 		else if(command.equals("productRegister.do")) {
 			
 			request.setCharacterEncoding("UTF-8");			
-			int result = ProductDao.productRegister(request);
-			int result_Option = ProductDao.productRegister_option(request);
-			
-			if(result == 1) {			
+			int result = ProductDao.productRegister(request);			
+			System.out.println("관리자 상품 등록하기 = " + result );
+			if(result == 1) {
 			ProductDao.upload(request);
 			request.setAttribute("message", "파일업로드에 성공 하였습니다.!");
 			}
@@ -793,6 +793,9 @@ public class MyController extends HttpServlet {
 			String product_idx = request.getParameter("product_idx");
 			
 			int result = ProductDao.productModify(request);
+			if(result == 1) {
+				ProductDao.upload(request);
+			}
 			if(request.getParameter("option_idx") != null || request.getParameter("option_detail") != null) {				
 				int result_Option = ProductDao.productModify_option(request);
 			}
