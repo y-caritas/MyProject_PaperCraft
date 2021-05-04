@@ -6,20 +6,28 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <title>상품 등록</title>
-  
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&family=Open+Sans&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
-    
   <link href="<%= request.getContextPath() %>/CSS/adminSideBarCss.css?ver=1" rel="stylesheet">  
   <link href="<%= request.getContextPath() %>/CSS/admin_productRegistrationCss.css?ver=1" rel="stylesheet">  
   <script type="text/javascript" src="<%= request.getContextPath() %>/smarteditor2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+  <style>
+  .button {
+
+    width:70px;
+    background-color: #818181;
+    border: none;
+    color:#fff;
+    padding: 15px 0;
+    text-align: center;
+    text-decoration: none;
+    font-size: 15px;
+    cursor: pointer;
+	border-radius:10px; 
+}
+  </style>
   <script type="text/javascript"> 
  
 var oEditors = [];
@@ -167,7 +175,7 @@ $(function(){
       <div>
         <b>상품소개글</b>
       </div>
-      <input name="product_note" class="form-control input-group"  type="text" placeholder="25자 이내로 소개글을 입력하세요.">
+      <input style="width:850px; " name="product_note" class="form-control input-group"  type="text" placeholder="25자 이내로 소개글을 입력하세요.">
       <div>
         <b>상품이미지</b>
       </div>
@@ -215,23 +223,21 @@ $(function(){
             <th style="text-align: center;"><b>상품 메모</b></th>
           </tr>
           <tr>
-            <td style="width: 450px;">
-              <textarea name="product_record" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <td>
+              <textarea name="product_record" cols="60" rows="4"></textarea>
             </td>
-            <td style="width: 450px;">
-              <textarea name="product_memo" class="form-control input-group" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <td>
+              <textarea name="product_memo"  cols="60" rows="4"></textarea>
             </td>
           </tr>
         </table>
       </div>
-      <div style="text-align: center; height: 100px; padding-top: 20px; ">
-        <button id="modifybtn" type="submit" class="btn btn-secondary">확인</button>&emsp;
-        <button type="button" class="btn btn-dark" onclick="history.back()">취소</button>
+      <div style="text-align: center; height: 100px; padding-top: 20px; padding-right: 40px; ">
+        <button class="button" id="modifybtn" type="submit" class="btn btn-secondary">확인</button>&emsp;
+        <button class="button" type="button" class="btn btn-dark" onclick="history.back()">취소</button>
       </div>
     </form>
     </div>
     </div>    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
     </body>
 </html>
