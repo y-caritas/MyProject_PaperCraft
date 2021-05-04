@@ -91,7 +91,9 @@
         |
         <a href="adminFaqList.do?category=faqDelivery" name="faqDelivery" id="faqDelivery">배송</a>
       </div>
-      <p id="faqCategoryName">${ category }</p>
+      <c:if test="${ category != null }">
+      <p id="faqCategoryName"></p>
+      </c:if>
       <script>
         var faqAll = document.getElementById('faqAll');
         var faqProduct = document.getElementById('faqProduct');
@@ -99,50 +101,52 @@
         var faqDelivery = document.getElementById('faqDelivery');
       </script>
       <%
-        if(request.getAttribute("category").equals("상품")) {
-        	%><script>
-        	faqProduct.classList.toggle('bold');
-        	if( faqSwap.classList.contains('bold') ) {
-                faqSwap.classList.toggle('bold');
-            } else if( faqDelivery.classList.contains('bold') ) {
-                faqDelivery.classList.toggle('bold');
-            } else if( faqAll.classList.contains('bold') ) {
-            	faqAll.classList.toggle('bold');
-            }
-        	</script><%
-        } else if(request.getAttribute("category").equals("반품/교환")) {
-        	%><script>
-        	faqSwap.classList.toggle('bold');
-        	if( faqProduct.classList.contains('bold') ) {
-        		faqProduct.classList.toggle('bold');
-            } else if( faqDelivery.classList.contains('bold') ) {
-            	faqDelivery.classList.toggle('bold');
-            } else if( faqAll.classList.contains('bold') ) {
-            	faqAll.classList.toggle('bold');
-            }
-        	</script><%
-        } else if(request.getAttribute("category").equals("배송")) {
-        	%><script>
-        	faqDelivery.classList.toggle('bold');
-        	if( faqProduct.classList.contains('bold') ) {
-        		faqProduct.classList.toggle('bold');
-            } else if( faqSwap.classList.contains('bold') ) {
+        if(request.getAttribute("category") != null) {
+        	if(request.getAttribute("category").equals("상품")) {
+            	%><script>
+            	faqProduct.classList.toggle('bold');
+            	if( faqSwap.classList.contains('bold') ) {
+                    faqSwap.classList.toggle('bold');
+                } else if( faqDelivery.classList.contains('bold') ) {
+                    faqDelivery.classList.toggle('bold');
+                } else if( faqAll.classList.contains('bold') ) {
+                	faqAll.classList.toggle('bold');
+                }
+            	</script><%
+            } else if(request.getAttribute("category").equals("반품/교환")) {
+            	%><script>
             	faqSwap.classList.toggle('bold');
-            } else if( faqAll.classList.contains('bold') ) {
-            	faqAll.classList.toggle('bold');
-            }
-        	</script><%
-        } else if(request.getAttribute("category").equals("전체")) {
-        	%><script>
-        	faqAll.classList.toggle('bold');
-        	if( faqProduct.classList.contains('bold') ) {
-        		faqProduct.classList.toggle('bold');
-            } else if( faqSwap.classList.contains('bold') ) {
-            	faqSwap.classList.toggle('bold');
-            } else if( faqDelivery.classList.contains('bold') ) {
+            	if( faqProduct.classList.contains('bold') ) {
+            		faqProduct.classList.toggle('bold');
+                } else if( faqDelivery.classList.contains('bold') ) {
+                	faqDelivery.classList.toggle('bold');
+                } else if( faqAll.classList.contains('bold') ) {
+                	faqAll.classList.toggle('bold');
+                }
+            	</script><%
+            } else if(request.getAttribute("category").equals("배송")) {
+            	%><script>
             	faqDelivery.classList.toggle('bold');
+            	if( faqProduct.classList.contains('bold') ) {
+            		faqProduct.classList.toggle('bold');
+                } else if( faqSwap.classList.contains('bold') ) {
+                	faqSwap.classList.toggle('bold');
+                } else if( faqAll.classList.contains('bold') ) {
+                	faqAll.classList.toggle('bold');
+                }
+            	</script><%
+            } else if(request.getAttribute("category").equals("전체")) {
+            	%><script>
+            	faqAll.classList.toggle('bold');
+            	if( faqProduct.classList.contains('bold') ) {
+            		faqProduct.classList.toggle('bold');
+                } else if( faqSwap.classList.contains('bold') ) {
+                	faqSwap.classList.toggle('bold');
+                } else if( faqDelivery.classList.contains('bold') ) {
+                	faqDelivery.classList.toggle('bold');
+                }
+            	</script><%
             }
-        	</script><%
         }
       %>
         

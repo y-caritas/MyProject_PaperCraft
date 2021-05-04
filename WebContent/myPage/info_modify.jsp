@@ -101,7 +101,7 @@ width: 1000px;
       
       </li>
       <li class="list-group-item"><b>&nbsp&nbsp계정관리</b></br></br>
-         <a href="check_pw.do">&nbsp&nbsp 정보수정</a></br>
+         <a href="<%= request.getContextPath() %>/myPage/check_pw.jsp">&nbsp&nbsp 정보수정</a></br>
          <p></p>
           
        

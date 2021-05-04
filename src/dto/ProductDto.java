@@ -12,39 +12,33 @@ public class ProductDto {
 	private String product_introImg;
 	private String product_introduction;
 	private String product_delivery_policy;
-	private int product_delivery_policy_category;
+	private int delivery_policy_category;
 	private String product_swap_policy;
-	private int product_swap_policy_category;
-	private Date product_record;	
+	private int swap_policy_category;
+	private Date product_record;
+	private String product_memo;
 	
-	public int getProduct_delivery_policy_category() {
-		return product_delivery_policy_category;
-	}
-
-	public void setProduct_delivery_policy_category(int product_delivery_policy_category) {
-		this.product_delivery_policy_category = product_delivery_policy_category;
-	}
-
-	public int getProduct_swap_policy_category() {
-		return product_swap_policy_category;
-	}
-
-	public void setProduct_swap_policy_category(int product_swap_policy_category) {
-		this.product_swap_policy_category = product_swap_policy_category;
-	}
-
 	public ProductDto() {
 		// TODO Auto-generated constructor stub
-	}
-	
-	public ProductDto(String product_name2, String product_price2, String product_note2, String product_listImg2) {
-		// TODO Auto-generated constructor stub
+	}	
+
+
+	public ProductDto(int product_idx2, int product_category2, String product_name2, int product_price2, Date product_record2) {
+		this.product_idx = product_idx2;
+		this.product_category = product_category2;
+		this.product_name = product_name2;
+		this.product_price = product_price2;
+		this.product_record = product_record2;
 	}
 
-	public ProductDto(int product_idx2, int product_category2, String product_name2, int product_price2,
-			Date product_record2) {
-		// TODO Auto-generated constructor stub
+	public ProductDto(String product_idx2, String product_name2, String product_price2, String product_note2, String product_listImg2) {
+		this.product_idx = Integer.parseInt(product_idx2) ;
+		this.product_name = product_name2;
+		this.product_price = Integer.parseInt(product_price2);
+		this.product_note = product_note2;
+		this.product_listImg = product_listImg2;
 	}
+
 
 	public int getProduct_idx() {
 		return product_idx;
@@ -118,5 +112,24 @@ public class ProductDto {
 	public void setProduct_memo(String product_memo) {
 		this.product_memo = product_memo;
 	}
-	private String product_memo;
+	public int getDelivery_policy_category() {
+		return delivery_policy_category;
+	}
+
+
+	public void setDelivery_policy_category(int delivery_policy_category) {
+		this.delivery_policy_category = delivery_policy_category;
+	}
+
+
+	public int getSwap_policy_category() {
+		return swap_policy_category;
+	}
+
+
+	public void setSwap_policy_category(int swap_policy_category) {
+		this.swap_policy_category = swap_policy_category;
+	}
+
+	
 }

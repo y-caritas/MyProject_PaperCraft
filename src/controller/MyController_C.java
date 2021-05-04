@@ -18,7 +18,7 @@ import dto.ProductEnquiryDto;
 import dto.ProductReviewDto;
 
 
-@WebServlet(urlPatterns= {"*.do"})
+//@WebServlet(urlPatterns= {"*.do"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, 
 maxFileSize = 1024 * 1024 * 30, 
 maxRequestSize = 1024 * 1024 * 50)

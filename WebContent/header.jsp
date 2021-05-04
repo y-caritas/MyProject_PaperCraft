@@ -60,11 +60,14 @@
     <c:if test="${member_id != null}">
       <div class="submenu">
         <span><a href="<%= request.getContextPath() %>/main.jsp">Home</a></span>
-        <span class="dropdown"><a href="#">Account</a>
-          <span class="dropdown_menu" style="width:60px;">
+        <span class="dropdown"><a>Account</a>
+          <span class="dropdown_menu" style="width:60px; margin: 0;">
+            <c:if test="${ member_id == 'admin' }">
+            <a href="<%= request.getContextPath() %>/admin/adminFaqList.do">AdminPage</a>
+            </c:if>
             <a href="#">OrderDetail</a>
-            <a href="#">MyPage</a>
-            <a href="#">Logout</a>
+            <a href="<%= request.getContextPath() %>/myPage/customize_inquiry.jsp">MyPage</a>
+            <a href="logout.do">Logout</a>
           </span>
         </span>
         <span><a href="#">Cart</a></span>
@@ -82,10 +85,10 @@
       </span>
       <span class="dropdown">Product
         <span class="dropdown_menu" style="width:170px;">
-          <a href="#">무드등</a>
-          <a href="#">유리돔</a>
-          <a href="#">카드/액자</a>
-          <a href="#">도구</a>
+          <a href="<%= request.getContextPath() %>/product/listview.do?product_category=01&orderby=01">무드등</a>
+          <a href="<%= request.getContextPath() %>/product/listview.jsp?product_category=02&orderby=01">유리돔</a>
+          <a href="<%= request.getContextPath() %>/product/listview.jsp?product_category=03&orderby=01">카드/액자</a>
+          <a href="<%= request.getContextPath() %>/product/listview.jsp?product_category=04&orderby=01">도구</a>
         </span>
       </span>
       <span class="dropdown">Community

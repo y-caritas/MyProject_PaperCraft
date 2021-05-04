@@ -49,7 +49,7 @@
       </tr>
     </table>
       <div id="inquiryContentBtn">
-        <button onclick="location.href='<%=request.getContextPath()%>/community/inquiry_list.jsp'">목록</button>
+        <button onclick="location.href='<%=request.getContextPath()%>/myPage/customize_inquiry.jsp'">목록</button>
         <button onclick="location.href='<%=request.getContextPath()%>/main.jsp'">홈으로</button>
       </div>
   </section>

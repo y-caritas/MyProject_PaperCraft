@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -76,17 +77,15 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 			rs = pstmt.executeQuery(); 
 			while( rs.next() ) 
 			{
+				String product_idx = rs.getString("product_idx");
 	            String product_name = rs.getString("product_name");
 	            String product_price = rs.getString("product_price");
 	            String product_note = rs.getString("product_note");
 	            String product_listImg = rs.getString("product_listImg");
-	            System.out.println("product_name"+product_name);
-	            System.out.println("product_price"+product_price);
-	            System.out.println("product_note"+product_note);
-	            System.out.println("product_listImg"+product_listImg);
-	            
-	            ProductDto dto = new ProductDto(product_name, product_price, product_note, product_listImg);
+	           	            
+	            ProductDto dto = new ProductDto(product_idx, product_name, product_price, product_note, product_listImg);
 	            product_list.add(dto);
+	            System.out.println("get : "+product_list.get(0).getProduct_name());
 	        }
 		}
 		catch(Exception e) 
@@ -111,16 +110,13 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 			rs = pstmt.executeQuery();
 			while( rs.next() ) 
 			{
+				String product_idx = rs.getString("product_idx");
 	            String product_name = rs.getString("product_name");
 	            String product_price = rs.getString("product_price");
 	            String product_note = rs.getString("product_note");
 	            String product_listImg = rs.getString("product_listImg");
-	            System.out.println("product_name"+product_name);
-	            System.out.println("product_price"+product_price);
-	            System.out.println("product_note"+product_note);
-	            System.out.println("product_listImg"+product_listImg);
 	            
-	            ProductDto dto = new ProductDto(product_name, product_price, product_note, product_listImg);
+	            ProductDto dto = new ProductDto(product_idx, product_name, product_price, product_note, product_listImg);
 	            product_list.add(dto);
 	        }
 		}
@@ -146,16 +142,13 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 			rs = pstmt.executeQuery();
 			while( rs.next() ) 
 			{
+				String product_idx = rs.getString("product_idx");
 	            String product_name = rs.getString("product_name");
 	            String product_price = rs.getString("product_price");
 	            String product_note = rs.getString("product_note");
 	            String product_listImg = rs.getString("product_listImg");
-	            System.out.println("product_name"+product_name);
-	            System.out.println("product_price"+product_price);
-	            System.out.println("product_note"+product_note);
-	            System.out.println("product_listImg"+product_listImg);
 	            
-	            ProductDto dto = new ProductDto(product_name, product_price, product_note, product_listImg);
+	            ProductDto dto = new ProductDto(product_idx, product_name, product_price, product_note, product_listImg);
 	            product_list.add(dto);
 	        }
 		}
@@ -181,16 +174,13 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 			rs = pstmt.executeQuery();
 			while( rs.next() ) 
 			{
+				String product_idx = rs.getString("product_idx");
 	            String product_name = rs.getString("product_name");
 	            String product_price = rs.getString("product_price");
 	            String product_note = rs.getString("product_note");
 	            String product_listImg = rs.getString("product_listImg");
-	            System.out.println("product_name"+product_name);
-	            System.out.println("product_price"+product_price);
-	            System.out.println("product_note"+product_note);
-	            System.out.println("product_listImg"+product_listImg);
 	            
-	            ProductDto dto = new ProductDto(product_name, product_price, product_note, product_listImg);
+	            ProductDto dto = new ProductDto(product_idx, product_name, product_price, product_note, product_listImg);
 	            product_list.add(dto);
 	        }
 		}
@@ -216,16 +206,13 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 			rs = pstmt.executeQuery(); 
 			while( rs.next() ) 
 			{
+				String product_idx = rs.getString("product_idx");
 	            String product_name = rs.getString("product_name");
 	            String product_price = rs.getString("product_price");
 	            String product_note = rs.getString("product_note");
 	            String product_listImg = rs.getString("product_listImg");
-	            System.out.println("product_name"+product_name);
-	            System.out.println("product_price"+product_price);
-	            System.out.println("product_note"+product_note);
-	            System.out.println("product_listImg"+product_listImg);
 	            
-	            ProductDto dto = new ProductDto(product_name, product_price, product_note, product_listImg);
+	            ProductDto dto = new ProductDto(product_idx, product_name, product_price, product_note, product_listImg);
 	            product_list.add(dto);
 	        }
 		}
@@ -252,16 +239,13 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 			rs = pstmt.executeQuery(); 
 			while( rs.next() ) 
 			{
+				String product_idx = rs.getString("product_idx");
 	            String product_name = rs.getString("product_name");
 	            String product_price = rs.getString("product_price");
 	            String product_note = rs.getString("product_note");
 	            String product_listImg = rs.getString("product_listImg");
-	            System.out.println("product_name"+product_name);
-	            System.out.println("product_price"+product_price);
-	            System.out.println("product_note"+product_note);
-	            System.out.println("product_listImg"+product_listImg);
 	            
-	            ProductDto dto = new ProductDto(product_name, product_price, product_note, product_listImg);
+	            ProductDto dto = new ProductDto(product_idx, product_name, product_price, product_note, product_listImg);
 	            product_list.add(dto);
 	        }
 		}
@@ -288,16 +272,13 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 			rs = pstmt.executeQuery(); 
 			while( rs.next() ) 
 			{
+				String product_idx = rs.getString("product_idx");
 	            String product_name = rs.getString("product_name");
 	            String product_price = rs.getString("product_price");
 	            String product_note = rs.getString("product_note");
 	            String product_listImg = rs.getString("product_listImg");
-	            System.out.println("product_name"+product_name);
-	            System.out.println("product_price"+product_price);
-	            System.out.println("product_note"+product_note);
-	            System.out.println("product_listImg"+product_listImg);
 	            
-	            ProductDto dto = new ProductDto(product_name, product_price, product_note, product_listImg);
+	            ProductDto dto = new ProductDto(product_idx, product_name, product_price, product_note, product_listImg);
 	            product_list.add(dto);
 	        }
 		}
@@ -324,16 +305,13 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 			rs = pstmt.executeQuery(); 
 			while( rs.next() ) 
 			{
+				String product_idx = rs.getString("product_idx");
 	            String product_name = rs.getString("product_name");
 	            String product_price = rs.getString("product_price");
 	            String product_note = rs.getString("product_note");
 	            String product_listImg = rs.getString("product_listImg");
-	            System.out.println("product_name"+product_name);
-	            System.out.println("product_price"+product_price);
-	            System.out.println("product_note"+product_note);
-	            System.out.println("product_listImg"+product_listImg);
 	            
-	            ProductDto dto = new ProductDto(product_name, product_price, product_note, product_listImg);
+	            ProductDto dto = new ProductDto(product_idx, product_name, product_price, product_note, product_listImg);
 	            product_list.add(dto);
 	        }
 		}
@@ -369,9 +347,9 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 	            String product_introImg = rs.getString("product_introImg");
 	            String product_introduction = rs.getString("product_introduction");
 	            String product_delivery_policy = rs.getString("product_delivery_policy");
-	            int product_delivery_policy_category = rs.getInt("product_delivery_policy_category");
+	            int delivery_policy_category = rs.getInt("delivery_policy_category");
 	            String product_swap_policy = rs.getString("product_swap_policy");
-	            int product_swap_policy_category = rs.getInt("product_swap_policy_category");
+	            int swap_policy_category = rs.getInt("swap_policy_category");
 	            Date product_record = rs.getDate("product_record");
 	            String product_memo = rs.getString("product_memo");
 	            
@@ -382,9 +360,9 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 	            productDto.setProduct_introImg(product_introImg);
 	            productDto.setProduct_introduction(product_introduction);
 	            productDto.setProduct_delivery_policy(product_delivery_policy);
-	            productDto.setProduct_delivery_policy_category(product_delivery_policy_category);
+	            productDto.setDelivery_policy_category(delivery_policy_category);
 	            productDto.setProduct_swap_policy(product_swap_policy);
-	            productDto.setProduct_swap_policy_category(product_swap_policy_category);
+	            productDto.setSwap_policy_category(swap_policy_category);
 	            productDto.setProduct_record(product_record);
 	            productDto.setProduct_memo(product_memo);
 	            
@@ -558,25 +536,14 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 	public static int productRegister(HttpServletRequest request) {
 		Connection conn = null; 
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		int result = 0;
-		String appPath  = request.getServletContext().getRealPath("");
-        String savePath = appPath +  "upload";
-        
-//       System.out.println(request.getParameter("product_category"));
-//       System.out.println(request.getParameter("product_name"));
-//       System.out.println(request.getParameter("product_price"));
-//       System.out.println(request.getParameter("product_note"));
-//       System.out.println(request.getParameter("product_listImg"));
-//       System.out.println(request.getParameter("product_introImg"));
-//       System.out.println(request.getParameter("product_introduction"));
-//       System.out.println(request.getParameter("product_delivery_policy"));
-//       System.out.println(request.getParameter("delivery_policy_category"));
-//       System.out.println(request.getParameter("product_swap_policy"));
-//       System.out.println(request.getParameter("swap_policy_category"));
-//       System.out.println(request.getParameter("product_memo"));
+		int product_idx = 0;
+		String ContextPath = request.getServletContext().getContextPath();
+        String savePath = ContextPath +  "/upload";                
        
 		try 
-		{
+		{						
 			conn = DBConnection.getConnection();
 			String query = "INSERT INTO p_product values (p_product_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate, ?)";			
 	        pstmt = conn.prepareStatement(query);
@@ -584,12 +551,10 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 	        pstmt.setString(2, request.getParameter("product_name") );
 	        pstmt.setInt(3, Integer.parseInt(request.getParameter("product_price")));
 	        pstmt.setString(4, request.getParameter("product_note") );
-	        String product_listImg = savePath + request.getParameter("product_listImg").replace("C:\\fakepath", "");
-	        System.out.println(product_listImg);
-	        pstmt.setString(5, savePath + product_listImg );
-	        String product_introImg = savePath + request.getParameter("product_introImg").replace("C:\\fakepath", "");
-	        System.out.println(product_introImg);
-	        pstmt.setString(6, savePath + product_introImg );	        
+	        String product_listImg = savePath + request.getParameter("product_listImg").replace("C:\\fakepath\\", "/");
+	        pstmt.setString(5, product_listImg );
+	        String product_introImg = savePath + request.getParameter("product_introImg").replace("C:\\fakepath\\", "/");
+	        pstmt.setString(6, product_introImg );	        
 	        pstmt.setString(7, request.getParameter("product_introduction") );
 	        pstmt.setString(8, request.getParameter("product_delivery_policy") );
 	        pstmt.setInt(9, Integer.parseInt(request.getParameter("delivery_policy_category")));
@@ -600,6 +565,27 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 			result = pstmt.executeUpdate();
 			System.out.println(result);
 			
+			String query2 = "SELECT * FROM p_product WHERE product_introImg = ?";			
+	        pstmt = conn.prepareStatement(query2);
+	        System.out.println("product_introImg = "+product_introImg);
+	        pstmt.setString(1, product_introImg );
+			rs = pstmt.executeQuery(); 
+			while( rs.next() ) 
+			{
+	            product_idx = rs.getInt("product_idx");
+	        }
+			System.out.println("product_idx = " +product_idx);
+			
+			String query3 = "INSERT INTO p_option values (p_option_seq.nextval, ?, ?, ?)";			
+	        pstmt = conn.prepareStatement(query3);
+	        pstmt.setString(1, request.getParameter("option_detail") );
+	        pstmt.setInt(2, Integer.parseInt(request.getParameter("option_price")));
+	        pstmt.setInt(3, product_idx);
+	        
+	        pstmt.executeUpdate();
+			
+			
+			
 		}
 		catch(Exception e) 
 		{
@@ -608,70 +594,15 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		
 		return result;
 	}
-	
-//관리자 상품등록 옵션 insert 쿼리
-	public static int productRegister_option(HttpServletRequest request) {
-		Connection conn = null; 
-		PreparedStatement pstmt = null;
-		int result_Option = 0;
-		int product_idx = 0;
-		
-		//product_idx 가져오기
-		product_idx = getProduct_idx(request); 
-				
-		try 
-		{
-			conn = DBConnection.getConnection();
-			String query = "INSERT INTO p_option values (p_option_seq.nextval, ?, ?, ?)";			
-	        pstmt = conn.prepareStatement(query);
-	        pstmt.setString(1, request.getParameter("option_name") );
-	        pstmt.setInt(2, Integer.parseInt(request.getParameter("option_price")));
-	        pstmt.setInt(3, product_idx);
-	        
-	        result_Option = pstmt.executeUpdate();
-			
-		}
-		catch(Exception e) 
-		{
-			System.out.println("productRegister_option bug");
-		}
-		
-		return result_Option;
-	}
-	
-	//Product_idx 값 가져오기
-	private static int getProduct_idx(HttpServletRequest request) {
-		Connection conn = null; 
-		PreparedStatement pstmt = null; 
-		ResultSet rs = null;
-		int product_idx = 0;
-		try 
-		{
-			conn = DBConnection.getConnection();
-			String query = "SELECT * FROM p_product WHERE product_category=? and product_name=?";			
-	        pstmt = conn.prepareStatement(query);
-	        pstmt.setInt(1, Integer.parseInt(request.getParameter("product_category")));
-	        pstmt.setString(2, request.getParameter("product_name") );
-			rs = pstmt.executeQuery(); 
-			while( rs.next() ) 
-			{
-	            product_idx = rs.getInt("product_idx");
-	        }
-		}
-		catch(Exception e) 
-		{
-			System.out.println("getProduct_idx bug");
-		}
-		return product_idx;
-	}
+
 
 // 관리자 상품페이지 수정
 	public static int productModify(HttpServletRequest request) {
 		Connection conn = null; 
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String appPath  = request.getServletContext().getRealPath("");
-        String savePath = appPath +  "upload";
+		String ContextPath = request.getServletContext().getContextPath();
+        String savePath = ContextPath +  "/upload";
 		try 
 		{
 			conn = DBConnection.getConnection();
@@ -695,10 +626,10 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 	        pstmt.setString(2, request.getParameter("product_name") );
 	        pstmt.setInt(3, Integer.parseInt(request.getParameter("product_price")));
 	        pstmt.setString(4, request.getParameter("product_note") );
-	        String product_listImg = savePath + request.getParameter("product_listImg").replace("C:\\fakepath", "");
-	        pstmt.setString(5, savePath + product_listImg );
-	        String product_introImg = savePath + request.getParameter("product_introImg").replace("C:\\fakepath", "");
-	        pstmt.setString(6, savePath + product_introImg );	        
+	        String product_listImg = savePath + request.getParameter("product_listImg").replace("C:\\fakepath\\", "/");
+	        pstmt.setString(5, product_listImg );
+	        String product_introImg = savePath + request.getParameter("product_introImg").replace("C:\\fakepath\\", "/");
+	        pstmt.setString(6, product_introImg );	        
 	        pstmt.setString(7, request.getParameter("product_introduction") );
 	        pstmt.setString(8, request.getParameter("product_delivery_policy") );
 	        pstmt.setInt(9, Integer.parseInt(request.getParameter("product_delivery_policy_category")));
