@@ -51,7 +51,7 @@ $(function(){
               }
           }, 
           fOnAppLoad : function(){              
-              oEditors.getById["product_introduction"].exec("PASTE_HTML", [""]);
+              oEditors.getById["product_introduction"].exec("PASTE_HTML", ["${productDto.product_introduction}"]);
           },
           fCreator: "createSEditor2"
       });      
@@ -70,7 +70,7 @@ $(function(){
           }, 
           fOnAppLoad : function(){
               //기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
-              oEditors2.getById["product_delivery_policy"].exec("PASTE_HTML", [""]);
+              oEditors2.getById["product_delivery_policy"].exec("PASTE_HTML", ["${productDto.product_delivery_policy}"]);
           },
           fCreator: "createSEditor2"
       });
@@ -88,7 +88,7 @@ $(function(){
               }
           }, 
           fOnAppLoad : function(){              
-              oEditors3.getById["product_swap_policy"].exec("PASTE_HTML", [""]);
+              oEditors3.getById["product_swap_policy"].exec("PASTE_HTML", ["${productDto.product_swap_policy}"]);
           },
           fCreator: "createSEditor2"
       });
@@ -128,11 +128,17 @@ $(function(){
     			adminProduct.product_listImg.focus();
     			return false;
     		}
-    		if(document.adminProduct.product_introImg.value.length == 0) {
-    			alert("상품 이미지를 등록해주세요.");
-    			adminProduct.product_introImg.focus();
+    		if(document.adminProduct.delivery_policy_category.value.length == 0) {
+    			alert("배송 안내를 선택해주세요.");
+    			
     			return false;
     		}
+    		if(document.adminProduct.swap_policy_category.value.length == 0) {
+    			alert("교환 안내를 선택해주세요.");
+    			
+    			return false;
+    		}
+  
     		
           $("#fromsubmit").submit();
       });    
@@ -181,7 +187,7 @@ $(function(){
       <div>
         <b>상품소개글</b>
       </div>
-      <input style="width:850px; " value="${productDto.product_note}" name="product_note" class="form-control input-group"  type="text" placeholder="25자 이내로 소개글을 입력하세요.">      
+      <input style="width:850px; " value="${productDto.product_note}" name="product_note" class="form-control input-group"  type="text">      
       <div>
         <b>상품이미지</b>
       </div>
@@ -207,20 +213,20 @@ $(function(){
       </div>
       <div>
         <b>상품 상세 설명</b>         
-        <textarea name="product_delivery_policy" id="product_introduction" value="${productDto.product_introduction}" cols="126" rows="5"></textarea>    
+        <textarea name="product_introduction" id="product_introduction" value="" cols="126" rows="5"></textarea>    
       </div>        
       <div>
         <b>배송 안내</b>&nbsp;
         <%--radio 버튼 논의 필요 --%>
-        <input type="radio" name="product_delivery_policy_category" value="01">공통 배송 안내 노출&nbsp;
-        <input type="radio" name="product_delivery_policy_category" value="02">개별 배송 안내 작성        
-        <textarea name="product_delivery_policy" id="product_delivery_policy" value="${productDto.product_delivery_policy}" cols="126" rows="5"></textarea>        
+        <input type="radio" name="delivery_policy_category" value="01">공통 배송 안내 노출&nbsp;
+        <input type="radio" name="delivery_policy_category" value="02">개별 배송 안내 작성        
+        <textarea name="product_delivery_policy" id="product_delivery_policy" value="" cols="126" rows="5"></textarea>        
       </div>        
       <div>
         <b>교환 및 반품 안내</b>&nbsp;
-        <input type="radio" name="product_swap_policy_category" value="01">공통 교환 및 반품 안내 노출&nbsp;
-        <input type="radio" name="product_swap_policy_category" value="02">개별 교환 및 반품 안내 작성        
-        <textarea name="product_swap_policy" id="product_swap_policy" value="${productDto.product_swap_policy}" cols="126" rows="5"></textarea>        
+        <input type="radio" name="swap_policy_category" value="01">공통 교환 및 반품 안내 노출&nbsp;
+        <input type="radio" name="swap_policy_category" value="02">개별 교환 및 반품 안내 작성        
+        <textarea name="product_swap_policy" id="product_swap_policy" value="" cols="126" rows="5"></textarea>        
       </div>
       <div style="text-align: center;">
         <table>
@@ -230,10 +236,10 @@ $(function(){
           </tr>
           <tr>
             <td>
-              <textarea name="product_record" value="${productDto.product_record}" cols="60" rows="3"></textarea>
+              <textarea name="product_record" value="" cols="60" rows="3">${productDto.product_record}</textarea>
             </td>
             <td >
-              <textarea name="product_memo" value="${productDto.product_memo}" cols="60" rows="3"></textarea>
+              <textarea name="product_memo" value="" cols="60" rows="3">${productDto.product_memo}</textarea>
             </td>
           </tr>
         </table>

@@ -130,6 +130,17 @@ $(function(){
     			adminProduct.product_introImg.focus();
     			return false;
     		}
+    		if(document.adminProduct.delivery_policy_category.value.length == 0) {
+    			alert("배송 안내를 선택해주세요.");
+    			
+    			return false;
+    		}
+    		if(document.adminProduct.swap_policy_category.value.length == 0) {
+    			alert("교환 안내를 선택해주세요.");
+    			
+    			return false;
+    		}
+  
     		
           $("#fromsubmit").submit();
       });    

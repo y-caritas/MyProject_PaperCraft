@@ -357,6 +357,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 	            productDto.setProduct_category(product_category);
 	            productDto.setProduct_name(product_name);
 	            productDto.setProduct_price(product_price);
+	            productDto.setProduct_note(product_note);
 	            productDto.setProduct_listImg(product_listImg);
 	            productDto.setProduct_introImg(product_introImg);
 	            productDto.setProduct_introduction(product_introduction);
@@ -612,7 +613,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		try 
 		{
 			conn = DBConnection.getConnection();
-			String query = "UPDATE p_product SET ("					
+			String query = "UPDATE p_product SET "					
 					+ "product_category = ?, "
 					+ "product_name = ?, "
 					+ "product_price = ?, "
@@ -621,26 +622,27 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 					+ "product_introImg = ?, "
 					+ "product_introduction = ?, "
 					+ "product_delivery_policy = ?, "
-					+ "product_delivery_policy_category = ?, "
+					+ "delivery_policy_category = ?, "
 					+ "product_swap_policy = ?, "
-					+ "product_swap_policy_category = ?, "
-					+ "sysdate,"
+					+ "swap_policy_category = ?, "
+					+ "product_record = sysdate,"
 					+ "product_memo = ? "
-					+ "WHERE product_idx = ?)";			
-	        pstmt = conn.prepareStatement(query);
+					+ "WHERE product_idx = ?";
+			
+	        pstmt = conn.prepareStatement(query);        
 	        pstmt.setInt(1, Integer.parseInt(request.getParameter("product_category")));
 	        pstmt.setString(2, request.getParameter("product_name") );
 	        pstmt.setInt(3, Integer.parseInt(request.getParameter("product_price")));
 	        pstmt.setString(4, request.getParameter("product_note") );
 	        String product_listImg = savePath + request.getParameter("product_listImg").replace("C:\\fakepath\\", "/");
-	        pstmt.setString(5, product_listImg );
+	        pstmt.setString(5, product_listImg );	        
 	        String product_introImg = savePath + request.getParameter("product_introImg").replace("C:\\fakepath\\", "/");
 	        pstmt.setString(6, product_introImg );	        
 	        pstmt.setString(7, request.getParameter("product_introduction") );
 	        pstmt.setString(8, request.getParameter("product_delivery_policy") );
-	        pstmt.setInt(9, Integer.parseInt(request.getParameter("product_delivery_policy_category")));
+	        pstmt.setInt(9, Integer.parseInt(request.getParameter("delivery_policy_category")));
 	        pstmt.setString(10, request.getParameter("product_swap_policy") );	     
-	        pstmt.setInt(11, Integer.parseInt(request.getParameter("product_swap_policy_category")));
+	        pstmt.setInt(11, Integer.parseInt(request.getParameter("swap_policy_category")));
 	        pstmt.setString(12, request.getParameter("product_memo") );
 	        pstmt.setString(13, request.getParameter("product_idx") );
 	        
@@ -649,7 +651,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		}
 		catch(Exception e) 
 		{
-			System.out.println("productModify bug");
+			e.printStackTrace();
 		}
 		
 		return result;
@@ -663,14 +665,19 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		try 
 		{
 			conn = DBConnection.getConnection();
-			String query = "UPDATE p_option SET ("					
+			String query = "UPDATE p_option SET "					
 					+ "option_detail = ?, "
-					+ "option_price = ?, "
-					+ "WHERE option_idx = ?)";			
+					+ "option_price = ? "
+					+ "WHERE option_idx = ?";
+			System.out.println(query);
+			System.out.println(request.getParameter("option_detail"));
+			System.out.println(request.getParameter("option_price"));
+			System.out.println(request.getParameter("option_idx"));
 	        pstmt = conn.prepareStatement(query);
 	        pstmt.setString(1, request.getParameter("option_detail") );
 	        pstmt.setInt(2, Integer.parseInt(request.getParameter("option_price")));
 	        pstmt.setInt(3, Integer.parseInt(request.getParameter("option_idx")));
+	        
 	        
 			result = pstmt.executeUpdate();
 			
@@ -678,7 +685,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 			catch(Exception e)
 			
 			{
-				System.out.println("productModify_option bug");
+				e.printStackTrace();
 			}
 			
 			return result;

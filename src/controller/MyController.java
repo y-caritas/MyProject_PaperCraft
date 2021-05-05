@@ -245,7 +245,7 @@ public class MyController extends HttpServlet {
 			System.out.println("notice_title:"+notice_title);
 			System.out.println("notice_content:"+notice_content);
 			
-			NoticeDao.modify( notice_idx, notice_title, notice_content );
+
 			
 			response.sendRedirect("admin_notice_list.do");
 		}
@@ -823,13 +823,14 @@ public class MyController extends HttpServlet {
 			String product_idx = request.getParameter("product_idx");
 			
 			int result = ProductDao.productModify(request);
+			System.out.println("수정하기 = " + result);
 			if(result == 1) {
 				ProductDao.upload(request);
 			}
 			if(request.getParameter("option_idx") != null || request.getParameter("option_detail") != null) {				
 				int result_Option = ProductDao.productModify_option(request);
+				System.out.println("옵션 수정하기 = " + result_Option);
 			}
-			
 			
 			ProductDto productDto = ProductDao.detailview(product_idx);
 			OptionDto optionDto = ProductDao.detailview_option(product_idx);
