@@ -623,8 +623,9 @@ public class MyController extends HttpServlet {
 				
 		//검색 페이지
 		else if(command.equals("listviewsearch.do")) {
-			String product_category =  request.getParameter("product_category");
-			String search_name =  request.getParameter("search_name");
+			request.setCharacterEncoding("UTF-8");
+			int product_category = Integer.parseInt(request.getParameter("product_category"));
+			String search_name = "%" + request.getParameter("search_name") + "%";
 			System.out.println(product_category);
 			System.out.println(search_name);
 			
@@ -639,8 +640,9 @@ public class MyController extends HttpServlet {
 		
 		//검색 최신순
 		else if(command.equals("listviewsearchDate.do")) {
+			request.setCharacterEncoding("UTF-8");
 			String product_category =  request.getParameter("product_category");
-			String search_name =  request.getParameter("search_name");
+			String search_name = "%" + request.getParameter("search_name") + "%";
 			System.out.println(product_category);
 			System.out.println(search_name);
 			
@@ -653,8 +655,9 @@ public class MyController extends HttpServlet {
 		
 		//검색 높은가격순
 		else if(command.equals("listviewsearchDesc.do")) {
+			request.setCharacterEncoding("UTF-8");
 			String product_category =  request.getParameter("product_category");
-			String search_name =  request.getParameter("search_name");
+			String search_name = "%" + request.getParameter("search_name") + "%";
 			System.out.println(product_category);
 			System.out.println(search_name);
 			
@@ -667,8 +670,9 @@ public class MyController extends HttpServlet {
 		
 		//검색 낮은가격순
 		else if(command.equals("listviewsearchAsc.do")) {
+			request.setCharacterEncoding("UTF-8");
 			String product_category =  request.getParameter("product_category");
-			String search_name =  request.getParameter("search_name");
+			String search_name = "%" + request.getParameter("search_name") + "%";
 			System.out.println(product_category);
 			System.out.println(search_name);
 			
@@ -767,6 +771,18 @@ public class MyController extends HttpServlet {
 			dispatcher.forward(request, response);
 			
 		}
+		//장바구니 삭제
+		else if(command.equals("cartDelete.do")) {			
+			request.setCharacterEncoding("UTF-8");		
+			String[] cart_targets =  request.getParameterValues("cart_target[]");			
+			for (int i = 0; i < cart_targets.length; i++) {				
+				ProductDao.cartDelete(cart_targets[i]);
+			}
+			RequestDispatcher dispatcher = request.getRequestDispatcher("cart.do");
+			dispatcher.forward(request, response);
+			
+			
+		}
 		
 		//관리자 상품등록하기
 		else if(command.equals("productRegister.do")) {
@@ -825,7 +841,7 @@ public class MyController extends HttpServlet {
 			ProductDao.upload(request);			
 			request.setAttribute("message", "파일업로드에 성공 하였습니다.!");
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productlist.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("adminProductList.do");
 			dispatcher.forward(request, response);
 			
 		}
@@ -837,7 +853,7 @@ public class MyController extends HttpServlet {
 			ArrayList<ProductDto> product_list = ProductDao.adminProductList();
 	        request.setAttribute("product_list", product_list);	        
 	        
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productlist.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productList.jsp");
 			dispatcher.forward(request, response);
 			
 		}
@@ -845,25 +861,25 @@ public class MyController extends HttpServlet {
 		else if(command.equals("adminProductNameSearch.do")) {
 			
 			request.setCharacterEncoding("UTF-8");
-			String search_product_name = request.getParameter("product_name");			
+			String search_product_name = "%" + request.getParameter("product_name") + "%";			
 			
 			ArrayList<ProductDto> product_list = ProductDao.adminProductNameSearch(search_product_name);
 	        request.setAttribute("product_list", product_list);
 	        
-			jspPage = "admin_productList.jsp";
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productList.jsp");
+			dispatcher.forward(request, response);
 			
 		}
 		
 		//관리자 기본 상품리스트 상세검색 
 		else if(command.equals("adminProductDetailSearch.do")) {
 			
-			request.setCharacterEncoding("UTF-8");
-			String search_product_name = request.getParameter("product_name");			
+			request.setCharacterEncoding("UTF-8");					
 			
 			ArrayList<ProductDto> product_list = ProductDao.adminProductDetailSearch(request);
 	        request.setAttribute("product_list", product_list);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productlist.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productList.jsp");
 			dispatcher.forward(request, response);
 			
 		}
@@ -871,18 +887,18 @@ public class MyController extends HttpServlet {
 		//관리자 상품리스트 삭제기능
 		else if(command.equals("adminProductDelete.do")) {
 			
-			request.setCharacterEncoding("UTF-8");
-			String search_product_name = request.getParameter("product_name");			
+			request.setCharacterEncoding("UTF-8");						
 
 			int result = ProductDao.adminProductDelete(request);
 			
 			ArrayList<ProductDto> product_list = ProductDao.adminProductList();
 	        request.setAttribute("product_list", product_list);	
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productlist.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productList.jsp");
 			dispatcher.forward(request, response);
 			
 		}
+		
 		// 로그아웃
 		else if(command.equals("logout.do")) {
 			HttpSession session = request.getSession();
