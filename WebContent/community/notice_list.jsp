@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
   <c:import url="/header.jsp"></c:import>
   
@@ -24,9 +25,13 @@
       <tbody>
       <c:forEach var="dto" items="${ noticelist }">
         <tr style="text-align: center; border-bottom: 1px solid #f1f2f4">
-            <td style="height: 35px;">${dto.notice_idx}</td>
+          	<td style="height: 35px;">
+            	<c:if test="${ dto.notice_pin eq 1 }"><img src="<%= request.getContextPath() %>/img/adminListImportant.png"></c:if>
+            	<c:if test="${ dto.notice_pin ne 1 }">${dto.notice_idx}</c:if>
+            </td>
             <td class="notice_table_title" style="height: 35px;"><a href="notice_view.do?notice_idx=${dto.notice_idx}">${dto.notice_title}</a></td>  <!-- 앵커태그 notice_view.do?notice_idx=${dto.notice_idx} -->
-            <td style="height: 35px;">${dto.notice_date}</td>
+            <fmt:formatDate value="${dto.notice_date}" pattern="yyyy-MM-dd" var="reg" />
+            <td style="height: 35px;">${reg}</td>
         </tr>
         </c:forEach>
       </tbody>

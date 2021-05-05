@@ -27,7 +27,7 @@
 		<form id="fromsubmit" action="admin_notice_write.do" name="Join_form_submit" method="POST">
 		<input type="hidden" name="notice_idx" placeholder="제목을 입력해주세요."/>
 			<div>
-			<input type="checkbox" id="importchk" name="importchk" value="1"/>&nbsp;<label>중요 공지</label><br>
+			<input type="checkbox" id="importchk" name="notice_pin" value="1"/>&nbsp;<label>중요 공지</label><br>
 			
 			<input id="admin_notice_writeTitle" type="text" name="notice_title" placeholder="제목을 입력해주세요.">
 			

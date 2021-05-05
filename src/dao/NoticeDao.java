@@ -28,7 +28,7 @@ public class NoticeDao {
 			conn = DBConnection.getConnection();
 			stmt = conn.createStatement();
 			
-			String query = "select * from p_notice order by notice_idx desc";
+			String query = "select * from p_notice order by notice_pin, notice_idx desc";
 			rs = stmt.executeQuery(query);
 			
 			while( rs.next() ) {
@@ -73,7 +73,7 @@ public class NoticeDao {
 			e.printStackTrace();
 		}
 	}
-	// contentview
+	// 공지사항 컨텐츠뷰
 	public static NoticeDto contentView(String notice_idx) {
 		NoticeDto dto = null;
 		
@@ -109,6 +109,7 @@ public class NoticeDao {
 		
 		return dto;
 	}
+	// 공지사항 삭제버튼
 	public static void noticedelete(String notice_idx) {
 		Connection conn = null;    
         PreparedStatement pstmt = null;    //매개변수 입력 편하게 함. 
@@ -127,18 +128,19 @@ public class NoticeDao {
 		}
 	}
 	// 공지사항 글 수정
-	public static void modify( String notice_idx, String notice_title, String notice_content ) {
+	public static void notice_modify( String notice_idx, String notice_title, String notice_content, String notice_pin ) {
 
 		Connection conn = null;    
 		PreparedStatement pstmt = null;   
 		try {
 			conn = DBConnection.getConnection();
 			String query = "UPDATE p_notice SET notice_title=?, "
-				+ "notice_content=? WHERE notice_idx=?";       
+				+ "notice_content=?, notice_pin=? WHERE notice_idx=?";       
 			pstmt = conn.prepareStatement( query );
 			pstmt.setString(1, notice_title);
 			pstmt.setString(2, notice_content);
-			pstmt.setInt(3, Integer.parseInt( notice_idx ) );
+			pstmt.setInt(3, Integer.parseInt( notice_pin ) );
+			pstmt.setInt(4, Integer.parseInt( notice_idx ) );
 			
 			int result = pstmt.executeUpdate(); //insert, update, delete
 			System.out.println("update result:" + result); //0 결과없음 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
   <c:import url="/header.jsp"></c:import>
     
@@ -27,7 +28,8 @@
         </tr>
         <tr class="notice_border_bottom">
           <td class="background-footer" style="width: 30%; height: 35px;">날짜</td>
-          <td class="text_left" style="width: 70%;">${ dto.notice_date }</td> 
+          <fmt:formatDate value="${dto.notice_date}" pattern="yyyy-MM-dd" var="reg" />
+          <td class="text_left" style="width: 70%;">${ reg }</td>
         </tr>
         <tr class="notice_content_table_content">
           <td class="background-footer" style="width: 30%; height: 35px;">내용</td>

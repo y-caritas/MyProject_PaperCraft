@@ -146,15 +146,18 @@ CREATE SEQUENCE p_cart_seq;
 
 CREATE TABLE p_order (
 	order_idx               NUMBER(10) PRIMARY KEY,
-	order_statuse           VARCHAR2(20),
+	order_status            VARCHAR2(20),
 	order_date              DATE DEFAULT SYSDATE,
-	order_p_idx             NUMBER(10),
-	order_p_img             VARCHAR2(50),
 	order_p_name            VARCHAR2(50),
 	order_p_price           NUMBER(6),
-	order_p_count            NUMBER(2),
 	order_o_name            VARCHAR2(50),
 	order_o_price           NUMBER(6),
+	member_name             VARCHAR2(20),
+	member_id               VARCHAR2(20)
+	member_grade						NUMBER(6)
+	)
 	
-	member_id               VARCHAR2(20),
-
+	CREATE SEQUENCE p_order_seq;
+	
+	insert into p_order (order_idx, order_status, order_date, order_p_name, order_p_price, member_name, member_id, member_grade) 
+	VALUES (P_ORDER_SEQ.nextval, '배송준비중', sysdate, '상품명', 35000, '홍길동', 'hong', 1);

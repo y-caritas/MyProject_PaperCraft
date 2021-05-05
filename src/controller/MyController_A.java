@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.MemberDao;
 import dao.NoticeDao;
+import dao.OrderDao;
 import dto.NoticeDto;
+import dto.OrderDto;
 
 //@WebServlet(urlPatterns= {"*.do"})
 public class MyController_A extends HttpServlet {
@@ -111,21 +113,29 @@ public class MyController_A extends HttpServlet {
 			String notice_idx = request.getParameter("notice_idx");
 			String notice_title = request.getParameter("notice_title");
 			String notice_content = request.getParameter("notice_writeEditor");
+			String notice_pin = request.getParameter("notice_pin");
 			
+			if(notice_pin == null) {
+				notice_pin = "0";
+			}
 			System.out.println("notice_idx:"+notice_idx);
 			System.out.println("notice_title:"+notice_title);
 			System.out.println("notice_content:"+notice_content);
 			
-			NoticeDao.modify( notice_idx, notice_title, notice_content );
+			NoticeDao.notice_modify( notice_idx, notice_title, notice_content, notice_pin );
 			
 			response.sendRedirect("admin_notice_list.do");
 		}
-		// 관리자화면 글쓰기 버튼 클릭시 행동
+		// 관리자화면 공지사항 글쓰기 버튼 클릭시 행동
 		else if(command.equals("admin_notice_write.do")) {
 			
 			String notice_title = request.getParameter("notice_title");
 			String notice_content = request.getParameter("notice_writeEditor");
-			String notice_pin = request.getParameter("importchk");
+			String notice_pin = request.getParameter("notice_pin");
+			
+			if(notice_pin == null) {
+				notice_pin = "0";
+			}
 			
 			System.out.println("notice_title:"+notice_title);
 			System.out.println("notice_content:"+notice_content);
@@ -201,6 +211,98 @@ public class MyController_A extends HttpServlet {
 				response.getWriter().print("0");
 			}
 		}
+		// orderlist 리스트 출력
+	      else if(command.equals("admin_orderlist.do")) {
+		         ArrayList<OrderDto> list = OrderDao.orderlist();
+		         request.setAttribute("order_list", list);
+		         
+		         jspPage = "/admin/admin_orderList.jsp";
+	      }
+		
+		// orderlist 간편검색
+	      else if(command.equals("orderlist_simpleSearch.do")) {
+	    	 request.setCharacterEncoding("UTF-8");
+	         String order_status = request.getParameter("orderselect");
+	         System.out.println("주문상태 :"+order_status);
+	         ArrayList<OrderDto> list = OrderDao.simpleSearch(order_status);
+	         request.setAttribute("order_list", list);
+	         
+	         jspPage = "/admin/admin_orderList.jsp";
+	      }
+		
+		// orderlist 상세검색(제품명)
+	      else if(command.equals("det_p_name.do")) {
+		    	 request.setCharacterEncoding("UTF-8");
+		         String order_p_name = request.getParameter("p_name");
+		         System.out.println("제품명 :"+order_p_name);
+		         ArrayList<OrderDto> list = OrderDao.detSearch1(order_p_name);
+		         request.setAttribute("order_list", list);
+		         
+		         jspPage = "/admin/admin_orderList.jsp";
+	      }
+		// orderlist 상세검색(사용자 아이디)
+	      else if(command.equals("det_member_id.do")) {
+		    	 request.setCharacterEncoding("UTF-8");
+		         String member_id = request.getParameter("member_id");
+		         System.out.println("아이디 :"+member_id);
+		         ArrayList<OrderDto> list = OrderDao.detSearch2(member_id);
+		         request.setAttribute("order_list", list);
+		         
+		         jspPage = "/admin/admin_orderList.jsp";
+	      }
+		// orderlist 상세검색(회원 등급)
+	      else if(command.equals("det_member_grade.do")) {
+		    	 request.setCharacterEncoding("UTF-8");
+		         String member_grade = request.getParameter("member_grade");
+		         System.out.println("member_grade :"+member_grade);
+		         ArrayList<OrderDto> list = OrderDao.detSearch3(member_grade);
+		         request.setAttribute("order_list", list);
+		         
+		         jspPage = "/admin/admin_orderList.jsp";
+	      }
+		// orderlist 상세검색(회원 이름)
+	      else if(command.equals("det_member_name.do")) {
+		    	 request.setCharacterEncoding("UTF-8");
+		         String member_name = request.getParameter("member_name");
+		         System.out.println("member_name :"+member_name);
+		         ArrayList<OrderDto> list = OrderDao.detSearch4(member_name);
+		         request.setAttribute("order_list", list);
+		         
+		         jspPage = "/admin/admin_orderList.jsp";
+	      }
+		// orderlist 상세검색(구매금액)
+	      else if(command.equals("det_p_price.do")) {
+		    	 request.setCharacterEncoding("UTF-8");
+		         String p_price1 = request.getParameter("p_price1");
+		         String p_price2 = request.getParameter("p_price2");
+		         ArrayList<OrderDto> list = OrderDao.detSearch5(p_price1, p_price2);
+		         request.setAttribute("order_list", list);
+		         
+		         jspPage = "/admin/admin_orderList.jsp";
+	      }
+		// 주문상세보기
+			else if(command.equals("orderContentView.do")) {
+				String order_idx = request.getParameter("order_idx");
+				
+				// DTO 레코드 정보
+				OrderDto dto = OrderDao.orderModify( order_idx );
+				request.setAttribute("dto", dto);
+				
+				jspPage = "/admin/admin_orderModify.jsp";
+			}
+		// 주문상세화면 수정버튼 클릭시
+			else if(command.equals("order_modify.do")) { 
+				String order_idx = request.getParameter("order_idx");
+				String member_grade = request.getParameter("member_grade");
+				String order_status = request.getParameter("order_status");
+				System.out.println("번호: "+order_idx);
+				System.out.println("등급: "+member_grade);
+				System.out.println("배송상태: "+order_status);
+				
+				OrderDao.orderModifyDo( order_idx, member_grade, order_status );
+				
+				response.sendRedirect("admin_orderlist.do");
+			}
 		if( !jspPage.equals("") ) { //jsp페이지가 비어있지 않다면,
 			RequestDispatcher dispatcher = request.getRequestDispatcher( jspPage );
 			dispatcher.forward(request, response);
