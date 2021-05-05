@@ -7,7 +7,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -192,7 +192,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		return product_list;
 	}
 	//검색 페이지
-	public static ArrayList<ProductDto> listview_search(String product_category, String search_name) {
+	public static ArrayList<ProductDto> listview_search(int product_category, String search_name) {
 		ArrayList<ProductDto> product_list = new ArrayList<ProductDto>();
 		Connection conn = null; 
 		PreparedStatement pstmt = null; 
@@ -202,7 +202,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 			conn = DBConnection.getConnection();
 			String query = "SELECT * FROM p_product WHERE product_category=? and product_name LIKE ?";			
 	        pstmt = conn.prepareStatement(query);
-	        pstmt.setInt(1, Integer.parseInt( product_category ));
+	        pstmt.setInt(1, product_category);
 	        pstmt.setString(2, search_name);	        
 			rs = pstmt.executeQuery(); 
 			while( rs.next() ) 
@@ -219,7 +219,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		}
 		catch(Exception e) 
 		{
-			System.out.println("listview_search bug");
+			e.printStackTrace();
 		}
 		return product_list;
 	}
@@ -695,14 +695,15 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 			conn = DBConnection.getConnection(); //DB커넥션 객체
 			String query = "SELECT * FROM p_product";			
 	        pstmt = conn.prepareStatement(query);	        
+	        
 			rs = pstmt.executeQuery(); 
 			
 			while( rs.next() ) 
 			{
-	            int product_idx = rs.getInt("product_name");
-	            int product_category = rs.getInt("product_price");
-	            String product_name = rs.getString("product_note");
-	            int product_price = rs.getInt("product_listImg");
+	            int product_idx = rs.getInt("product_idx");
+	            int product_category = rs.getInt("product_category");
+	            String product_name = rs.getString("product_name");
+	            int product_price = rs.getInt("product_price");
 	            Date product_record = rs.getDate("product_record");
 	            
 	            //아이디 컬럼 가져오기. 미구현
@@ -720,7 +721,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		}
 		catch(Exception e) 
 		{
-			System.out.println("adminProductList bug");
+			e.printStackTrace();
 		}
 		return product_list;
 	}
@@ -741,10 +742,10 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 			
 			while( rs.next() ) 
 			{
-	            int product_idx = rs.getInt("product_name");
-	            int product_category = rs.getInt("product_price");
-	            String product_name = rs.getString("product_note");
-	            int product_price = rs.getInt("product_listImg");
+				int product_idx = rs.getInt("product_idx");
+	            int product_category = rs.getInt("product_category");
+	            String product_name = rs.getString("product_name");
+	            int product_price = rs.getInt("product_price");
 	            Date product_record = rs.getDate("product_record");
 	            
 	            //아이디 컬럼 가져오기. 미구현
@@ -772,30 +773,40 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		Connection conn = null; 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		int product_category_search = 0;
 		try 
 		{	
 			String query = "SELECT * FROM p_product WHERE product_idx is not null ";
 			
-			//쿼리질문 if or switch 효율적으로 하는거 질문하기.
-			
-			int product_category_search = Integer.parseInt(request.getParameter("product_category"));
-			String[] product_records =  request.getParameterValues("product_record[]");
+			if(request.getParameter("product_category") != "" ) {
+				product_category_search = Integer.parseInt(request.getParameter("product_category"));
+			}
 			String[] product_prices =  request.getParameterValues("product_price[]");
+			String[] product_records =  request.getParameterValues("product_record[]");					
 			
-			int totalLength = product_records.length + product_prices.length;			
+			System.out.println(product_prices[0]);
+			System.out.println(product_records[0]);
 			
-			if(product_category_search != 0) {
-				totalLength += 1;
-				query = query + "AND product_category = ?";
+			int totalLength = 0;
+			
+			if(product_category_search != 0) {				
+				totalLength += 1;								
+				query = query + " AND product_category = ?";				
 			}
-			if(product_records != null) {
-				query = query + "AND product_record >= ? AND product_record <= ?";
+			if(product_prices[0] != "") {
+				totalLength += 2;
+				query = query + " AND product_price >= ? AND product_price <= ?";
 			}
-			if(product_prices != null) {
-				query = query + "AND product_price >= ? AND product_price <= ?";
+			if(product_records[0] != "") {
+				totalLength += 2;
+				query = query + " AND product_record >= TO_DATE(?,'YYYY-MM-DD') AND product_record < TO_DATE(?,'YYYY-MM-DD')+1";
 			}
 			
 			//위에 if절 boolean 값이 null 일 경우 prestatement 쿼리 인덱스 개수가 바뀌는게 문제.
+			
+			
+			System.out.println(query);
+			System.out.println(totalLength);
 			
 			conn = DBConnection.getConnection();
 	        pstmt = conn.prepareStatement(query);
@@ -805,38 +816,38 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 	        	pstmt.setInt(1, product_category_search);
 	        	break;	        
 			case 2 : 
-				if(product_records != null) {
-		        	pstmt.setInt(1, Integer.parseInt(product_records[0]));
-			        pstmt.setInt(2, Integer.parseInt(product_records[1]));
-	        	}
-	        	if(product_records != null) {
+				if(product_prices[0] != "") {
 		        	pstmt.setInt(1, Integer.parseInt(product_prices[0]));
 			        pstmt.setInt(2, Integer.parseInt(product_prices[1]));
+	        	}
+	        	if(product_records[0] != "") {
+	        		pstmt.setString(1, product_records[0]);
+		        	pstmt.setString(2, product_records[1]);
 	        	}
 	        	break;
 			case 3 :
 				pstmt.setInt(1, product_category_search);
-	        	if(product_records != null) {
-		        	pstmt.setInt(2, Integer.parseInt(product_records[0]));
-			        pstmt.setInt(3, Integer.parseInt(product_records[1]));
-	        	}
-	        	if(product_prices != null) {
+				if(product_prices[0] != "") {
 		        	pstmt.setInt(2, Integer.parseInt(product_prices[0]));
 			        pstmt.setInt(3, Integer.parseInt(product_prices[1]));
 	        	}
+				if(product_records[0] != "") {
+					pstmt.setString(2, product_records[0]);
+		        	pstmt.setString(3, product_records[1]);			        
+	        	}
 	        	break;
 			case 4 :
-		        pstmt.setInt(1, Integer.parseInt(product_records[0]));
-		        pstmt.setInt(2, Integer.parseInt(product_records[1]));
-		        pstmt.setInt(3, Integer.parseInt(product_prices[0]));
-		        pstmt.setInt(4, Integer.parseInt(product_prices[1]));
+				pstmt.setInt(1, Integer.parseInt(product_prices[0]));
+				pstmt.setInt(2, Integer.parseInt(product_prices[1]));
+				pstmt.setString(3, product_records[0]);
+	        	pstmt.setString(4, product_records[1]);
 		        break;				
 			case 5 : 
 	        	pstmt.setInt(1, product_category_search);
-		        pstmt.setInt(2, Integer.parseInt(product_records[0]));
-		        pstmt.setInt(3, Integer.parseInt(product_records[1]));
-		        pstmt.setInt(4, Integer.parseInt(product_prices[0]));
-		        pstmt.setInt(5, Integer.parseInt(product_prices[1]));
+	        	pstmt.setInt(2, Integer.parseInt(product_prices[0]));
+	        	pstmt.setInt(3, Integer.parseInt(product_prices[1]));
+	        	pstmt.setString(4, product_records[0]);
+	        	pstmt.setString(5, product_records[1]);
 		        break;
 			default:
 				System.out.println("query error");
@@ -846,20 +857,14 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 			
 			while( rs.next() ) 
 			{
-	            int product_idx = rs.getInt("product_name");
+				int product_idx = rs.getInt("product_idx");
 	            int product_category = rs.getInt("product_category");
-	            String product_name = rs.getString("product_note");
-	            int product_price = rs.getInt("product_listImg");
+	            String product_name = rs.getString("product_name");
+	            int product_price = rs.getInt("product_price");
 	            Date product_record = rs.getDate("product_record");
 	            
 	            //아이디 컬럼 가져오기. 미구현
-	            //조회수 기능??
-	            
-	            System.out.println("product_idx"+product_idx);
-	            System.out.println("product_category"+product_category);
-	            System.out.println("product_name"+product_name);
-	            System.out.println("product_price"+product_price);
-	            System.out.println("product_record"+product_record);
+	            //조회수 기능?        
 	            
 	            ProductDto dto = new ProductDto(product_idx, product_category, product_name, product_price, product_record);
 	            product_list.add(dto);
@@ -867,7 +872,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		}
 		catch(Exception e) 
 		{
-			System.out.println("adminProductDetailSearch bug");
+			e.printStackTrace();
 		}
 		return product_list;
 	}
@@ -944,9 +949,30 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		}
 		catch(Exception e) 
 		{
-			System.out.println("listview bug");
+			System.out.println("cart bug");
 		}
 		return cart_list;
+	}
+
+	//장바구니 삭제
+	public static void cartDelete(String string) {
+		
+		Connection conn = null; 
+		PreparedStatement pstmt = null;		
+		String query = "DELETE FROM p_cart WHERE cart_idx = ?";		
+		try 
+		{
+			conn = DBConnection.getConnection();
+	        pstmt = conn.prepareStatement(query);
+	        pstmt.setInt(1, Integer.parseInt( string ));        
+	        pstmt.executeUpdate();
+		}
+			catch(Exception e)
+			
+			{
+				System.out.println("adminProductDelete bug");
+			}
+		
 	}
 
 

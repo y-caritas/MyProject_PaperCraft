@@ -181,7 +181,7 @@ width: 1000px;
       
       <c:forEach var="cart" items="${cartList}" varStatus="status">  		   
       <tr>
-      <td><input type="checkbox" name="cart_target[]" value="${cart.cart_p_idx}">${status.count}</td>
+      <td><input type="checkbox" name="cart_target[]" value="${cart.cart_idx}">${status.count}</td>
       <td>
         <div class="cart_titles">
           <img style="width:100px; height:100px;" class="" src="${cart.cart_p_img}" alt="">          
@@ -214,9 +214,10 @@ width: 1000px;
     <tr>
       
     <tr>
-      <td style="height: 100px;"><button type="button" onclick="#" class="btn btn-secondary">선택삭제</button></td>
+      <td style="height: 100px;"> <button type="submit" formaction="cartDelete.do"  class="btn btn-secondary"> 선택삭제 </button> </td>
       <td></td><td></td>
       <td>
+      <%--구매하기로 value값 넘길 name 설정하기 --%>
       <input name="" id="result_value" type="text" value=""> </td>
       <td>상품 총 금액</td>
       <td><h4 id="result"></h1></td>
