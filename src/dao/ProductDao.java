@@ -968,7 +968,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		
 		Connection conn = null; 
 		PreparedStatement pstmt = null;		
-		String query = "DELETE FROM p_cart WHERE cart_idx = ?";		
+		String query = "DELETE FROM p_cart WHERE cart_p_idx = ?";		
 		try 
 		{
 			conn = DBConnection.getConnection();

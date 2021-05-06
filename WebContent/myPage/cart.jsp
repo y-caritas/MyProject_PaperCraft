@@ -202,12 +202,12 @@ width: 1000px;
       
       <td>        
           <input type="button" value="-" id="minus" onclick="cartVAR.minus('${cart.cart_idx}')">
-          <input name="cart_p_count" style="text-align: center;" type="text" size="1" value="${cart.cart_p_count}" id="${cart.cart_idx}">
+          <input name="cart_p_count[]" style="text-align: center;" type="text" size="1" value="${cart.cart_p_count}" id="${cart.cart_idx}">
           <input type="button" value="+" id="plus" onclick="cartVAR.plus('${cart.cart_idx}')">        
       </td>
       <td>
         <input name="cart_p_price" type="text" value="${cart.cart_p_price}" id="${cart.cart_idx}_product_price" hidden="hidden"/>
-        <input type="text" class="total_price" value="${cart.cart_p_total_price}" id="${cart.cart_idx}_total_price" hidden="hidden" />
+        <input name="cart_p_total_price[]" type="text" class="total_price" value="${cart.cart_p_total_price}" id="${cart.cart_idx}_total_price" hidden="hidden" />
         <h5 id="${cart.cart_idx}_total_price_view">${cart.cart_p_total_price}</h5>        
       </td>
 		 </c:forEach>
@@ -219,14 +219,14 @@ width: 1000px;
       <td></td><td></td>
       <td>
       <%--구매하기로 value값 넘길 name 설정하기 --%>
-      <input name="" id="result_value" type="text" value=""> </td>
+      <input name="purchase_total_value" id="result_value" type="text" value=""> </td>
       <td>상품 총 금액</td>
       <td><h4 id="result"></h1></td>
     </tr>
     <tr>
       <td></td><td></td>
       <td style="padding-left: 100px; padding-top: 100px;">
-      <button type="button" type="submit" class="btn btn-dark">결제</button>&emsp;
+      <button type="submit" onclick="updateCart()" class="btn btn-dark">결제</button>&emsp;
       <button type="button" class="btn btn-secondary" onclick="history.back()">취소</button>
       </td><td></td><td></td><td></td>
     </tr>

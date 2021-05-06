@@ -743,22 +743,33 @@ public class MyController extends HttpServlet {
 			
 			request.setCharacterEncoding("UTF-8");
 			
-		
-					
+			//우선 테스트 데이터로 product_idx가 다른상품만 장바구니에 넣어서 테스트하기.
+			//같은 상품이 장바구니에 있을때 장바구니에 들어가지 않는 기능은 아직 미구현.
+			//cart_targets은 cart_p_idx (product index값)의 배열
+			//cart_counts은 각 상품의 수량의 배열
+			//cart_p_total_prices은 각 상품의 가격 * 수량
+
+			String[] cart_targets =  request.getParameterValues("cart_target[]");
+			String[] cart_counts =  request.getParameterValues("cart_p_count[]");
+			String[] cart_p_total_prices =  request.getParameterValues("cart_p_total_price[]");
+			int purchase_total_value = 0;
+			for (int i = 0; i < cart_p_total_prices.length; i++) {
+				purchase_total_value += Integer.parseInt(cart_p_total_prices[i]);
+			}
+			for (int i = 0; i < cart_targets.length; i++) {
+				String index = Integer.toString(i);
+				String result = "index = " + index + " 의 " + "cart_p_idx은 " + cart_targets[i] + " cart_p_count은 " +  cart_counts[i] + " cart_p_total_price은 " + cart_p_total_prices[i]; 
+				System.out.println(result);
+			}
+			System.out.println("총 가격은 "+ purchase_total_value);			
+			request.setAttribute("cart_targets", cart_targets);
+			request.setAttribute("cart_counts", cart_counts);
+			request.setAttribute("cart_p_total_prices", cart_p_total_prices);
+			request.setAttribute("purchase_total_value", purchase_total_value);
 			
-			//상품가격
-			String p_price = request.getParameter("cart_p_price");
-			//상품 개수
-			String p_count = request.getParameter("cart_p_count");
-			//총 가격
-			String p_total_price = request.getParameter("cart_p_total_price");
-			//product 테이블 인덱스
-			String p_idx = request.getParameter("cart_p_idx");
-			//이미지
-			String p_img = request.getParameter("cart_p_img");			
+			//포워딩 필요.
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/order/orderForm.jsp");
-			dispatcher.forward(request, response);
+			
 		}
 		
 		//장바구니 추가
@@ -777,7 +788,7 @@ public class MyController extends HttpServlet {
 			
 			request.setCharacterEncoding("UTF-8");
 			//세선에서 member_id 값 가져오기
-			String member_id = "abcde";		
+			String member_id = "abcde";
 			ArrayList<CartDto> cartList = ProductDao.cart(member_id);
 			
 			request.setAttribute("cartList", cartList);
