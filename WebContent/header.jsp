@@ -70,7 +70,7 @@
             <a href="logout.do">Logout</a>
           </span>
         </span>
-        <span><a href="#">Cart</a></span>
+        <span><a href="<%= request.getContextPath() %>/myPage/cart.do">Cart</a></span>
       </div>
     </c:if>
     <div id="logo">

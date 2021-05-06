@@ -18,6 +18,7 @@ import dao.InquiryAnswerDao;
 import dao.InquiryDao;
 import dao.MemberDao;
 import dao.NoticeDao;
+import dao.OrderDao;
 import dao.ProductDao;
 import dao.myPageDao;
 import dto.CartDto;
@@ -240,12 +241,17 @@ public class MyController extends HttpServlet {
 			String notice_idx = request.getParameter("notice_idx");
 			String notice_title = request.getParameter("notice_title");
 			String notice_content = request.getParameter("notice_writeEditor");
+			String notice_pin = request.getParameter("importchk");
+			
+			if(notice_pin == null) {
+				notice_pin = "3";
+			}
 			
 			System.out.println("notice_idx:"+notice_idx);
 			System.out.println("notice_title:"+notice_title);
 			System.out.println("notice_content:"+notice_content);
 			
-
+			NoticeDao.notice_modify( notice_idx, notice_title, notice_content, notice_pin );
 			
 			response.sendRedirect("admin_notice_list.do");
 		}
@@ -255,6 +261,10 @@ public class MyController extends HttpServlet {
 			String notice_title = request.getParameter("notice_title");
 			String notice_content = request.getParameter("notice_writeEditor");
 			String notice_pin = request.getParameter("importchk");
+			
+			if(notice_pin == null) {
+				notice_pin = "3";
+			}
 			
 			System.out.println("notice_title:"+notice_title);
 			System.out.println("notice_content:"+notice_content);
@@ -732,6 +742,10 @@ public class MyController extends HttpServlet {
 		else if(command.equals("purchase.do")) {
 			
 			request.setCharacterEncoding("UTF-8");
+			
+		
+					
+			
 			//상품가격
 			String p_price = request.getParameter("cart_p_price");
 			//상품 개수
@@ -909,6 +923,7 @@ public class MyController extends HttpServlet {
 		
 		
 		
+		
 		if(jspPage != "" ) {
 			System.out.println("jsp 호출됨:"+jspPage);
 			RequestDispatcher dispatcher = request.getRequestDispatcher(jspPage);
@@ -916,5 +931,7 @@ public class MyController extends HttpServlet {
 		}
 		
 	}
+	
+	
 
 }

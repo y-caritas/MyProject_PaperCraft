@@ -168,7 +168,7 @@ width: 1000px;
 <section id="inquiryListWrap">
 
 
-<form name="cart" action="" method="post">
+<form name="cart" action="purchase.do" method="post">
   <table id="inquiryListTable"  style="border-bottom: none;">
     <tr class="inquiryTr">
       <th style="width:10%">번호</th>
@@ -181,7 +181,7 @@ width: 1000px;
       
       <c:forEach var="cart" items="${cartList}" varStatus="status">  		   
       <tr>
-      <td><input type="checkbox" name="cart_target[]" value="${cart.cart_idx}">${status.count}</td>
+      <td><input type="checkbox" name="cart_target[]" value="${cart.cart_p_idx}">${status.count}</td>
       <td>
         <div class="cart_titles">
           <img style="width:100px; height:100px;" class="" src="${cart.cart_p_img}" alt="">          
@@ -212,6 +212,7 @@ width: 1000px;
       </td>
 		 </c:forEach>
     <tr>
+    
       
     <tr>
       <td style="height: 100px;"> <button type="submit" formaction="cartDelete.do"  class="btn btn-secondary"> 선택삭제 </button> </td>
