@@ -138,7 +138,6 @@ CREATE TABLE p_cart (
 	cart_p_price            NUMBER(6),
 	cart_p_total_price      NUMBER(6),
 	cart_p_count            NUMBER(2),	
-	cart_o_idx            	NUMBER(6),
 	member_id               VARCHAR2(20)
 	)
 	

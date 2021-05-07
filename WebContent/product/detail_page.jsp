@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% request.setCharacterEncoding("UTF-8");%>
 
+
   <c:import url="/header.jsp"></c:import>
   
     <script>    
@@ -57,9 +58,16 @@
             return false;
           }
         }
-    </script>
-
-  <section>
+    </script>    
+  	<%	  	 	
+  		if(request.getAttribute("confirm") != null){
+		int confirm = (int)request.getAttribute("confirm");
+		if(confirm == 0){			
+			out.println("<script>alert('장바구니에 존재하는 상품입니다.');</script>");
+		}
+  		}		
+ 	%> 	
+ <section>
     <div id="product_detail" class="row">
       <div style="text-align: center;" class="col-7">      	
         <img style="width: 100px;" src="${productDto.product_introImg}" alt="">
@@ -74,24 +82,14 @@
               <li>배송비 : <input name="" class="product_detail_text" type="text" disabled value="DB에 배송비 칼럼 없음"/></li>
               <li>수량 : &nbsp;<input class="product_detail_btn" type="button" value="-" id="minus" onclick="productVAR.minus('${productDto.product_name}')">
                   <input name="cart_p_count" style="text-align: center; border: none;" type="text" size="1" value="1" id="${productDto.product_name}">
-                  <input class="product_detail_btn" type="button" value="+" id="plus" onclick="productVAR.plus('${productDto.product_name}')"></li>
-              <li>옵션 :              
-                  <select name="cart_o_idx" style="width: 150px; border-radius: 5px;">
-                  	<option value="0">선택안함</option>
-                  	<c:set var="optionDto.option_idx" value= " ${optionDto.option_idx}" />
-                  	<c:choose>
-					<c:when test="${not empty optionDto.option_idx}">
-					<option value="${optionDto.option_idx}">${optionDto.option_detail} ${optionDto.option_price}원</option>
-					</c:when>
-					</c:choose> 
-                  </select>
-              </li>                
+                  <input class="product_detail_btn" type="button" value="+" id="plus" onclick="productVAR.plus('${productDto.product_name}')"></li>                                 
               <li>총 금액 : 
                   <input style="width: 60px;" class="product_detail_text"  id="${productDto.product_name}_total_price" style="font-weight: bold; border: none;" type="text" disabled value="${productDto.product_price}" />
                   <input name="cart_p_total_price" value="${productDto.product_price}" hidden="hidden"/>
                   <input type="text" value="${productDto.product_price}" id="${productDto.product_name}_product_price" hidden="hidden"/><b>원</b>
               </li>
               <li style="margin-top: 120px;">
+              	<input name="product_idx" value="${product_idx}" hidden="hidden">
               	<input name="cart_p_idx" value="${product_idx}" hidden="hidden">
               	<input name="cart_p_img" value="${productDto.product_introImg}" hidden="hidden">
     	        <%-- member_id 로그인 한 세션에서 값 가져오기 --%>

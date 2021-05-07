@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -18,7 +17,6 @@ import dao.InquiryAnswerDao;
 import dao.InquiryDao;
 import dao.MemberDao;
 import dao.NoticeDao;
-import dao.OrderDao;
 import dao.ProductDao;
 import dao.myPageDao;
 import dto.CartDto;
@@ -694,7 +692,8 @@ public class MyController extends HttpServlet {
 		}
 		
 		//detail_page.jsp 컨트롤러
-		else if(command.equals("detailview.do")) {
+		else if(command.equals("detailview.do")) {			
+			
 			String product_idx = request.getParameter("product_idx");
 			System.out.println(product_idx);
 			
@@ -776,11 +775,34 @@ public class MyController extends HttpServlet {
 		else if(command.equals("cartInsert.do")) {
 			
 			request.setCharacterEncoding("UTF-8");
-			String product_idx = request.getParameter("product_idx");
 			
-			int result = ProductDao.cartInsert(request);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("cart.do");
-			dispatcher.forward(request, response);
+			String member_id = request.getParameter("member_id");
+			String product_idx = request.getParameter("product_idx");
+			int confirm = ProductDao.cartConfirm(member_id, product_idx);
+			System.out.println("confirm = "+confirm);
+			request.setAttribute("confirm", confirm);
+			if(confirm != 0) {				
+				int result = ProductDao.cartInsert(request);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("cart.do");
+				dispatcher.forward(request, response);	
+			}else{				
+				ProductDto productDto = ProductDao.detailview(product_idx);
+				OptionDto optionDto = ProductDao.detailview_option(product_idx);
+				
+				ArrayList<ProductReviewDto> productReviewDto = ProductDao.review(product_idx);
+				ArrayList<ProductEnquiryDto> productEnquiryDto = ProductDao.enquiryList(product_idx);				
+
+				request.setAttribute("product_idx", product_idx);
+		        request.setAttribute("productDto", productDto);
+		        request.setAttribute("optionDto", optionDto);
+		        request.setAttribute("productReviewDto", productReviewDto);
+		        request.setAttribute("productEnquiryDto", productEnquiryDto);			
+		        
+		        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page.jsp");
+				dispatcher.forward(request, response);	
+			}
+			
+			
 			
 		}
 		//장바구니 보기
@@ -789,6 +811,9 @@ public class MyController extends HttpServlet {
 			request.setCharacterEncoding("UTF-8");
 			//세선에서 member_id 값 가져오기
 			String member_id = "abcde";
+			
+//			HttpSession session = request.getSession();
+//			String member_id = (String)session.getAttribute("member_id");
 			ArrayList<CartDto> cartList = ProductDao.cart(member_id);
 			
 			request.setAttribute("cartList", cartList);

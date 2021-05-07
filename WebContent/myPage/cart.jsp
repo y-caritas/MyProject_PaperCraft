@@ -189,11 +189,7 @@ width: 1000px;
       </td>
       <td>
         <div class="cart_btns">
-          <h5>${cart.cart_p_name}</h5>
-          <h6>${cart.cart_o_name} - ${cart.cart_o_price}</h6>        
-          <input name="cart_p_idx" value="${cart.cart_p_idx}" type="text" hidden="hidden"/>
-          <input name="cart_p_name" value="${cart.cart_p_name}" type="text" hidden="hidden"/>          
-          <input class="total_price" name="cart_o_price" value="${cart.cart_o_price}" type="text" hidden="hidden"/>
+          <h5>${cart.cart_p_name}</h5>          
         </div>
       </td>
       <td>       
