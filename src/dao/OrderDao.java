@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import controller.DBConnection;
-import dto.NoticeDto;
+import dto.MemberDto;
 import dto.OrderDto;
 
 public class OrderDao {
@@ -426,4 +426,43 @@ public class OrderDao {
 				}
 
 			}
+			
+			// 주문양식 주문자 정보
+			public static MemberDto memberInfo(String memberId) {
+				Connection conn = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				MemberDto memberDto = null;
+				
+				try {
+					conn = DBConnection.getConnection();
+					String query = "SELECT * FROM p_member WHERE member_id=?";
+					pstmt = conn.prepareStatement( query );
+					pstmt.setString(1, memberId);
+					rs = pstmt.executeQuery();
+					
+					while( rs.next() ) {
+						int member_idx = rs.getInt("member_idx");
+						String member_id = rs.getString("member_id");
+						String member_pw = rs.getString("member_pw");
+						String member_name = rs.getString("member_name");
+						String member_address = rs.getString("member_address");
+						String member_email = rs.getString("member_email");
+						String member_phone = rs.getString("member_phone");
+						String member_gender = rs.getString("member_gender");
+						int member_email_ad = rs.getInt("member_email_ad");
+						int member_grade = rs.getInt("member_grade");
+						Date member_date = rs.getTimestamp("member_date");
+						int member_purchase = rs.getInt("member_purchase");
+						
+						memberDto = new MemberDto(member_idx, member_id, member_pw, member_name, member_address, member_email, member_phone, member_gender, member_email_ad, member_grade, member_date, member_purchase);
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				return memberDto;
+			}
+			
 }
