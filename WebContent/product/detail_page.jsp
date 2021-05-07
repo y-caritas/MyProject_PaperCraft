@@ -73,7 +73,7 @@
         <img style="width: 100px;" src="${productDto.product_introImg}" alt="">
       </div>
       <div class="col-5">
-          <form name="cartForm" action="<%= request.getContextPath() %>/purchase.do" method="POST">
+          <form name="cartForm" action="<%= request.getContextPath() %>/productPurchase.do" method="POST">
           <ul>
               <li class="product_detail">제품명 : <input class="product_detail_text" type="text" disabled value="${productDto.product_name}"/>
               									  <input name="cart_p_name" hidden="hidden" type="text" value="${productDto.product_name}"/>	</li>

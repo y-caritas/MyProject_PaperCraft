@@ -741,43 +741,59 @@ public class MyController extends HttpServlet {
 		}
 		
 		//구매하기
-		else if(command.equals("purchase.do")) {
+		else if(command.equals("purchase.do") || command.equals("productPurchase.do")) {
 			
 			request.setCharacterEncoding("UTF-8");
-			
-			//우선 테스트 데이터로 product_idx가 다른상품만 장바구니에 넣어서 테스트하기.
-			//같은 상품이 장바구니에 있을때 장바구니에 들어가지 않는 기능은 아직 미구현.
-			//cart_targets은 cart_p_idx (product index값)의 배열
-			//cart_counts은 각 상품의 수량의 배열
-			//cart_p_total_prices은 각 상품의 가격 * 수량
+			if(command.equals("purchase.do")) {
+				//우선 테스트 데이터로 product_idx가 다른상품만 장바구니에 넣어서 테스트하기.
+				//같은 상품이 장바구니에 있을때 장바구니에 들어가지 않는 기능은 아직 미구현.
+				//cart_targets은 cart_p_idx (product index값)의 배열
+				//cart_counts은 각 상품의 수량의 배열
+				//cart_p_total_prices은 각 상품의 가격 * 수량
 
-			String[] cart_targets =  request.getParameterValues("cart_target[]");
-			String[] cart_counts =  request.getParameterValues("cart_p_count[]");
-			String[] cart_p_total_prices =  request.getParameterValues("cart_p_total_price[]");
-			String[] cart_p_img = request.getParameterValues("cart_p_img[]");
-			int productCount = 0;
-			int purchase_total_value = 0;
-			for (int i = 0; i < cart_targets.length; i++) {
-				request.setAttribute("product_idx"+(i+1), cart_targets[i]);
-				purchase_total_value += Integer.parseInt(cart_p_total_prices[i]);
-				request.setAttribute("p_total_price"+(i+1), cart_p_total_prices[i]);
-				request.setAttribute("product_idx"+(i+1)+"count", cart_counts[i]);
-				request.setAttribute("p_img"+(i+1), cart_p_img[i]);
-				System.out.println("cart_counts:"+cart_counts[i]);
-				String index = Integer.toString(i);
-				String result = "index = " + index + " 의 " + "cart_p_idx은 " + cart_targets[i] + " cart_p_count은 " +  cart_counts[i] + " cart_p_total_price은 " + cart_p_total_prices[i]; 
-				System.out.println(result);
-				productCount += 1;
+				String[] cart_targets =  request.getParameterValues("cart_target[]");
+				String[] cart_counts =  request.getParameterValues("cart_p_count[]");
+				String[] cart_p_total_prices =  request.getParameterValues("cart_p_total_price[]");
+				String[] cart_p_img = request.getParameterValues("cart_p_img[]");
+				int productCount = 0;
+				int purchase_total_value = 0;
+				for (int i = 0; i < cart_targets.length; i++) {
+					request.setAttribute("product_idx"+(i+1), cart_targets[i]);
+					purchase_total_value += Integer.parseInt(cart_p_total_prices[i]);
+					request.setAttribute("p_total_price"+(i+1), cart_p_total_prices[i]);
+					request.setAttribute("product_idx"+(i+1)+"count", cart_counts[i]);
+					request.setAttribute("p_img"+(i+1), cart_p_img[i]);
+					System.out.println("cart_counts:"+cart_counts[i]);
+					String index = Integer.toString(i);
+					String result = "index = " + index + " 의 " + "cart_p_idx은 " + cart_targets[i] + " cart_p_count은 " +  cart_counts[i] + " cart_p_total_price은 " + cart_p_total_prices[i]; 
+					System.out.println(result);
+					productCount += 1;
+				}
+				String p_name = "";
+				if(productCount > 1) {
+					p_name = request.getParameter("cart_p_name") + " 외 " + (productCount - 1) + "건";
+				} else if(productCount <= 1) {
+					p_name = request.getParameter("cart_p_name");
+				}
+				request.setAttribute("cart_p_total_prices", cart_p_total_prices);
+				request.setAttribute("purchase_total_value", purchase_total_value);
+				request.setAttribute("p_name", p_name);
+			} else if(command.equals("productPurchase.do")) {
+				String product_idx1 = request.getParameter("product_idx");
+				String p_name = request.getParameter("cart_p_name");
+				String p_img = request.getParameter("cart_p_img");
+				int product_idx_count1 = Integer.parseInt(request.getParameter("cart_p_count"));
+				int p_total_price = Integer.parseInt(request.getParameter("cart_p_price"));
+				int purchase_total_value = p_total_price * product_idx_count1;
+				
+				request.setAttribute("product_idx1", product_idx1);
+				request.setAttribute("p_name", p_name);
+				request.setAttribute("p_img1", p_img);
+				request.setAttribute("product_idx1count", product_idx_count1);
+				request.setAttribute("p_total_price1", p_total_price);
+				request.setAttribute("purchase_total_value", purchase_total_value);
 			}
-			String p_name = "";
-			if(productCount > 1) {
-				p_name = request.getParameter("cart_p_name") + " 외 " + (productCount - 1) + "건";
-			} else if(productCount <= 1) {
-				p_name = request.getParameter("cart_p_name");
-			}
-			request.setAttribute("cart_p_total_prices", cart_p_total_prices);
-			request.setAttribute("purchase_total_value", purchase_total_value);
-			request.setAttribute("p_name", p_name);
+			
 			
 			// 주문자 정보
 			HttpSession session = request.getSession();
