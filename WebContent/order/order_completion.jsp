@@ -14,74 +14,62 @@
   <p>주문번호 : <span></span></p>
   <table class="orderCompletionTable orderDetail">
     <tr>
-      <td class="background-footer" style="width:5%; text-align: center;">번호</td>
-      <td class="background-footer" style="width:70%; text-align: center;">상품 정보</td>
-      <td class="background-footer" style="width:5%; text-align: center;">수량</td>
-      <td class="background-footer" style="width:10%; text-align: center;">판매 가격</td>
-      <td class="background-footer" style="width:10%; text-align: center;">배송비</td>
+      <td class="background-footer" style="width:25%; text-align: center;">주문 번호</td>
+      <td class="background-footer" style="width:55%; text-align: center;">상품 정보</td>
+      <td class="background-footer" style="width:20%; text-align: center;">판매 가격</td>
     </tr>
-    <c:forEach var="dto" items="${ orderList }">
-      <c:set var="i" value="${ i+1 }" />
       <tr>
-        <td>${ i }</td>
+        <td style="text-align:center;">${ orderDto.order_idx }</td>
         <td>
           <div style="display: flex;">
-            <img src="${dto.img}" alt="상품 이미지">
-            <div style="margin-left: 10px;">
-              <span style="display: block;">${dto.productName}</span>
-              <span style="display: block;">${dto.optionName}</span>
-            </div>
-            <div style="margin: 0 10px 0 auto;">
-              <span style="display: block;">${dto.productPrice}</span>
-              <span style="display: block;">${dto.optionPrice}</span>
+            <img src="http://localhost:8081${ p_img }" alt="상품 이미지" style="width:200px; height:100px;">
+            <div style="margin-left: 10px; align-self: center;">
+              <span style="display: block;">${ orderDto.order_p_name }</span>
             </div>
           </div>
         </td>
-        <td>${dto.quantity}</td>
-        <td>${dto.totalPrice}</td>
-        <td>${dto.deliveryPrice}</td>
+        <td style="text-align:center;">${ orderDto.order_p_price }원</td>
       </tr>
-    </c:forEach>
   </table>
   <p>주문자 정보</p>
   <table class="orderCompletionTable orderInfo">
     <tr>
       <td class="background-footer">이름</td>
-      <td>${dto.member_name}</td>
+      <td>${ ordererName}</td>
     </tr>
     <tr>
       <td class="background-footer">연락처</td>
-      <td>${dto.member_phone}</td>
+      <td>${ ordererPhone }</td>
     </tr>
   </table>
   <p>배송 정보</p>
   <table class="orderCompletionTable recipientInfo">
     <tr>
       <td class="background-footer">이름(회사)</td>
-      <td>${dto.recipient_name}</td>
+      <td>${ orderDto.member_name }</td>
     </tr>
     <tr>
       <td class="background-footer">주소</td>
-      <td>${dto.recipient_address}</td>
+      <td>${ orderDto.member_address }</td>
     </tr>
     <tr>
       <td class="background-footer">휴대폰</td>
-      <td>${dto.recipient_phone}</td>
+      <td>${ orderDto.member_phone }</td>
     </tr>
     <tr>
       <td class="background-footer">요청사항</td>
-      <td>${dto.recipient_request}</td>
+      <td>${ orderDto.member_request }</td>
     </tr>
   </table>
   <p>결제 정보</p>
   <table class="orderCompletionTable paymentInfo">
     <tr>
       <td class="background-footer">결제 방법</td>
-      <td>${dto.paymentOption}</td>
+      <td>${ orderDto.paymentOption }</td>
     </tr>
     <tr>
       <td class="background-footer">결제 금액</td>
-      <td>${dto.payment}</td>
+      <td>${ orderDto.order_p_price }원</td>
     </tr>
   </table>
   <div id="orderCompletionBtn">

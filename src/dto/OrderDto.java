@@ -3,7 +3,7 @@ package dto;
 import java.util.*;
 
 public class OrderDto {
-	private int order_idx;
+	private String order_idx;
 	private String order_status;
 	private Date order_date;
 	private String order_p_name;
@@ -22,7 +22,7 @@ public class OrderDto {
 	
 	public OrderDto() {}
 
-	public OrderDto(int order_idx, String order_status, Date order_date, String order_p_name, int order_p_price,
+	public OrderDto(String order_idx, String order_status, Date order_date, String order_p_name, int order_p_price,
 			String product_idx1, String product_idx2, String product_idx3, String member_name, String member_id,
 			int member_grade, String member_address, String member_phone, String member_request, String paymentOption, String escrow) {
 		super();
@@ -43,12 +43,31 @@ public class OrderDto {
 		this.paymentOption = paymentOption;
 		this.escrow = escrow;
 	}
+	
+	public OrderDto( String order_idx, String order_status, Date order_date, String order_p_name, int order_p_price,
+			String product_idx1, String product_idx2, String product_idx3, String member_name2, String member_id,
+			int member_grade, String member_address, String member_phone, String member_request) {
+		this.order_idx = order_idx;
+		this.order_status = order_status;
+		this.order_date = order_date;
+		this.order_p_name = order_p_name;
+		this.order_p_price = order_p_price;
+		this.product_idx1 = product_idx1;
+		this.product_idx2 = product_idx2;
+		this.product_idx3 = product_idx3;
+		this.member_name = member_name2;
+		this.member_id = member_id;
+		this.member_grade = member_grade;
+		this.member_address = member_address;
+		this.member_phone = member_phone;
+		this.member_request = member_request;
+	}
 
-	public int getOrder_idx() {
+	public String getOrder_idx() {
 		return order_idx;
 	}
 
-	public void setOrder_idx(int order_idx) {
+	public void setOrder_idx(String order_idx) {
 		this.order_idx = order_idx;
 	}
 

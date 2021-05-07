@@ -138,14 +138,13 @@ CREATE TABLE p_cart (
 	cart_p_price            NUMBER(6),
 	cart_p_total_price      NUMBER(6),
 	cart_p_count            NUMBER(2),	
-	cart_o_idx            	NUMBER(6),
 	member_id               VARCHAR2(20)
 	)
 	
 CREATE SEQUENCE p_cart_seq;
 
 CREATE TABLE p_order (
-	order_idx               NUMBER(10) PRIMARY KEY,
+	order_idx               VARCHAR2(100) PRIMARY KEY,
 	order_status            VARCHAR2(20),
 	order_date              DATE DEFAULT SYSDATE,
 	order_p_name            VARCHAR2(50),
@@ -158,7 +157,9 @@ CREATE TABLE p_order (
 	member_grade			NUMBER(6),
 	member_address          VARCHAR2(100),
 	member_phone            VARCHAR2(40),
-	member_request          VARCHAR2(4000)
+	member_request          VARCHAR2(4000),
+	paymentoption           VARCHAR2(50),
+	escrow                  VARCHAR2(50)
 	);
 	
 	CREATE SEQUENCE p_order_seq;

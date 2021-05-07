@@ -1,8 +1,9 @@
 package controller;
 
 import java.io.IOException;
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -694,7 +695,8 @@ public class MyController extends HttpServlet {
 		}
 		
 		//detail_page.jsp 컨트롤러
-		else if(command.equals("detailview.do")) {
+		else if(command.equals("detailview.do")) {			
+			
 			String product_idx = request.getParameter("product_idx");
 			System.out.println(product_idx);
 			
@@ -752,25 +754,36 @@ public class MyController extends HttpServlet {
 			String[] cart_targets =  request.getParameterValues("cart_target[]");
 			String[] cart_counts =  request.getParameterValues("cart_p_count[]");
 			String[] cart_p_total_prices =  request.getParameterValues("cart_p_total_price[]");
+			String[] cart_p_img = request.getParameterValues("cart_p_img[]");
+			int productCount = 0;
 			int purchase_total_value = 0;
-			for (int i = 0; i < cart_p_total_prices.length; i++) {
-				purchase_total_value += Integer.parseInt(cart_p_total_prices[i]);
-			}
 			for (int i = 0; i < cart_targets.length; i++) {
+				request.setAttribute("product_idx"+(i+1), cart_targets[i]);
+				purchase_total_value += Integer.parseInt(cart_p_total_prices[i]);
+				request.setAttribute("p_total_price"+(i+1), cart_p_total_prices[i]);
+				request.setAttribute("product_idx"+(i+1)+"count", cart_counts[i]);
+				request.setAttribute("p_img"+(i+1), cart_p_img[i]);
+				System.out.println("cart_counts:"+cart_counts[i]);
 				String index = Integer.toString(i);
 				String result = "index = " + index + " 의 " + "cart_p_idx은 " + cart_targets[i] + " cart_p_count은 " +  cart_counts[i] + " cart_p_total_price은 " + cart_p_total_prices[i]; 
 				System.out.println(result);
+				productCount += 1;
 			}
-			System.out.println("총 가격은 "+ purchase_total_value);			
-			request.setAttribute("cart_targets", cart_targets);
-			request.setAttribute("cart_counts", cart_counts);
+			String p_name = "";
+			if(productCount > 1) {
+				p_name = request.getParameter("cart_p_name") + " 외 " + (productCount - 1) + "건";
+			} else if(productCount <= 1) {
+				p_name = request.getParameter("cart_p_name");
+			}
 			request.setAttribute("cart_p_total_prices", cart_p_total_prices);
 			request.setAttribute("purchase_total_value", purchase_total_value);
+			request.setAttribute("p_name", p_name);
 			
 			// 주문자 정보
 			HttpSession session = request.getSession();
 			String member_id = (String)session.getAttribute("member_id");
-			request.setAttribute("member_id", member_id);
+			MemberDto memberDto = OrderDao.memberInfo(member_id);
+			request.setAttribute("memberDto", memberDto);
 			
 			//포워딩 필요.
 			jspPage = "/order/orderForm.jsp";
@@ -782,11 +795,34 @@ public class MyController extends HttpServlet {
 		else if(command.equals("cartInsert.do")) {
 			
 			request.setCharacterEncoding("UTF-8");
-			String product_idx = request.getParameter("product_idx");
 			
-			int result = ProductDao.cartInsert(request);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("cart.do");
-			dispatcher.forward(request, response);
+			String member_id = request.getParameter("member_id");
+			String product_idx = request.getParameter("product_idx");
+			int confirm = ProductDao.cartConfirm(member_id, product_idx);
+			System.out.println("confirm = "+confirm);
+			request.setAttribute("confirm", confirm);
+			if(confirm != 0) {				
+				int result = ProductDao.cartInsert(request);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("cart.do");
+				dispatcher.forward(request, response);	
+			}else{				
+				ProductDto productDto = ProductDao.detailview(product_idx);
+				OptionDto optionDto = ProductDao.detailview_option(product_idx);
+				
+				ArrayList<ProductReviewDto> productReviewDto = ProductDao.review(product_idx);
+				ArrayList<ProductEnquiryDto> productEnquiryDto = ProductDao.enquiryList(product_idx);				
+
+				request.setAttribute("product_idx", product_idx);
+		        request.setAttribute("productDto", productDto);
+		        request.setAttribute("optionDto", optionDto);
+		        request.setAttribute("productReviewDto", productReviewDto);
+		        request.setAttribute("productEnquiryDto", productEnquiryDto);			
+		        
+		        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page.jsp");
+				dispatcher.forward(request, response);	
+			}
+			
+			
 			
 		}
 		//장바구니 보기
@@ -795,6 +831,9 @@ public class MyController extends HttpServlet {
 			request.setCharacterEncoding("UTF-8");
 			//세선에서 member_id 값 가져오기
 			String member_id = "abcde";
+			
+//			HttpSession session = request.getSession();
+//			String member_id = (String)session.getAttribute("member_id");
 			ArrayList<CartDto> cartList = ProductDao.cart(member_id);
 			
 			request.setAttribute("cartList", cartList);
@@ -937,6 +976,162 @@ public class MyController extends HttpServlet {
 			session.invalidate();
 			response.sendRedirect(request.getContextPath()+"/main.jsp");
 		}
+		
+		// orderlist 리스트 출력
+	      else if(command.equals("admin_orderlist.do")) {
+	    	  
+		         ArrayList<OrderDto> list = OrderDao.orderlist();
+		         request.setAttribute("order_list", list);
+		         
+		         jspPage = "/admin/admin_orderList.jsp";
+	      }
+		
+		// orderlist 간편검색
+	      else if(command.equals("orderlist_simpleSearch.do")) {
+	    	 request.setCharacterEncoding("UTF-8");
+	         String order_status = request.getParameter("orderselect");
+	         System.out.println("주문상태 :"+order_status);
+	         ArrayList<OrderDto> list = OrderDao.simpleSearch(order_status);
+	         request.setAttribute("order_list", list);
+	         
+	         jspPage = "/admin/admin_orderList.jsp";
+	      }
+		
+		// orderlist 상세검색(제품명)
+	      else if(command.equals("det_p_name.do")) {
+		    	 request.setCharacterEncoding("UTF-8");
+		         String order_p_name = request.getParameter("p_name");
+		         System.out.println("제품명 :"+order_p_name);
+		         ArrayList<OrderDto> list = OrderDao.detSearch1(order_p_name);
+		         request.setAttribute("order_list", list);
+		         
+		         jspPage = "/admin/admin_orderList.jsp";
+	      }
+		// orderlist 상세검색(사용자 아이디)
+	      else if(command.equals("det_member_id.do")) {
+		    	 request.setCharacterEncoding("UTF-8");
+		         String member_id = request.getParameter("member_id");
+		         System.out.println("아이디 :"+member_id);
+		         ArrayList<OrderDto> list = OrderDao.detSearch2(member_id);
+		         request.setAttribute("order_list", list);
+		         
+		         jspPage = "/admin/admin_orderList.jsp";
+	      }
+		// orderlist 상세검색(회원 등급)
+	      else if(command.equals("det_member_grade.do")) {
+		    	 request.setCharacterEncoding("UTF-8");
+		         String member_grade = request.getParameter("member_grade");
+		         System.out.println("member_grade :"+member_grade);
+		         ArrayList<OrderDto> list = OrderDao.detSearch3(member_grade);
+		         request.setAttribute("order_list", list);
+		         
+		         jspPage = "/admin/admin_orderList.jsp";
+	      }
+		// orderlist 상세검색(회원 이름)
+	      else if(command.equals("det_member_name.do")) {
+		    	 request.setCharacterEncoding("UTF-8");
+		         String member_name = request.getParameter("member_name");
+		         System.out.println("member_name :"+member_name);
+		         ArrayList<OrderDto> list = OrderDao.detSearch4(member_name);
+		         request.setAttribute("order_list", list);
+		         
+		         jspPage = "/admin/admin_orderList.jsp";
+	      }
+		// orderlist 상세검색(구매금액)
+	      else if(command.equals("det_p_price.do")) {
+		    	 request.setCharacterEncoding("UTF-8");
+		         String p_price1 = request.getParameter("p_price1");
+		         String p_price2 = request.getParameter("p_price2");
+		         ArrayList<OrderDto> list = OrderDao.detSearch5(p_price1, p_price2);
+		         request.setAttribute("order_list", list);
+		         
+		         jspPage = "/admin/admin_orderList.jsp";
+	      }
+		// 주문상세보기
+			else if(command.equals("orderContentView.do")) {
+				String order_idx = request.getParameter("order_idx");
+				
+				// DTO 레코드 정보
+				OrderDto dto = OrderDao.orderModify( order_idx );
+				request.setAttribute("dto", dto);
+				
+				jspPage = "/admin/admin_orderModify.jsp";
+			}
+		// 주문상세화면 수정버튼 클릭시
+			else if(command.equals("order_modify.do")) { 
+				String order_idx = request.getParameter("order_idx");
+				String member_grade = request.getParameter("member_grade");
+				String order_status = request.getParameter("order_status");
+				System.out.println("번호: "+order_idx);
+				System.out.println("등급: "+member_grade);
+				System.out.println("배송상태: "+order_status);
+				
+				OrderDao.orderModifyDo( order_idx, member_grade, order_status );
+				
+				response.sendRedirect("admin_orderlist.do");
+			}
+		
+		// 주문양식
+			else if(command.equals("orderForm.do")) {
+				String recipientName = request.getParameter("recipientName");
+				String recipientAddress1 = request.getParameter("recipientAddress1");
+				String recipientAddress2 = request.getParameter("recipientAddress2");
+				String recipientAddress3 = request.getParameter("recipientAddress3");
+				String recipientAddress4 = request.getParameter("recipientAddress4");
+				String recipientAddress =  recipientAddress1 + " " + recipientAddress2 + " " + recipientAddress3 + " " +recipientAddress4;
+				String recipientPhone = request.getParameter("recipientPhone");
+				String recipientRequest = request.getParameter("recipientRequest");
+				int member_grade = Integer.parseInt(request.getParameter("member_grade"));
+				String product_idx1 = request.getParameter("product_idx1");
+				String product_idx2 = request.getParameter("product_idx2");
+				String product_idx3 = request.getParameter("product_idx3");
+				int purchase_total_value = 0;
+				if(Integer.parseInt(request.getParameter("purchase_total_value")) < 50000) {
+					purchase_total_value = Integer.parseInt(request.getParameter("purchase_total_value")) + 3000;
+				} else if(Integer.parseInt(request.getParameter("purchase_total_value")) >= 50000) {
+					purchase_total_value = Integer.parseInt(request.getParameter("purchase_total_value"));
+				}
+				String paymentOption = request.getParameter("paymentOption");
+				String escrow = request.getParameter("escrow");
+				HttpSession session = request.getSession();
+				String member_id = (String)session.getAttribute("member_id");
+				String p_name = request.getParameter("p_name");
+				
+				String ordererPhone = request.getParameter("ordererPhone");
+				String ordererName = request.getParameter("ordererName");
+				String product_idx1count = request.getParameter("product_idx1count");
+				String product_idx2count = request.getParameter("product_idx2count");
+				String product_idx3count = request.getParameter("product_idx3count");
+				String p_total_price1 = request.getParameter("p_total_price1");
+				String p_total_price2 = request.getParameter("p_total_price2");
+				String p_total_price3 = request.getParameter("p_total_price3");
+				String p_img = request.getParameter("p_img");
+				
+				SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+				Date time = new Date();
+				String order_idx = member_id + format.format(time);
+				System.out.println(order_idx);
+				
+				
+				OrderDao.orderCompletion(order_idx, recipientName, recipientAddress, recipientPhone, recipientRequest, 
+						member_grade, product_idx1, product_idx2, product_idx3, purchase_total_value, paymentOption, escrow, member_id, p_name);
+				
+				OrderDto orderDto = OrderDao.orderInfo(order_idx);
+				
+				request.setAttribute("orderDto", orderDto);
+				request.setAttribute("ordererPhone", ordererPhone);
+				request.setAttribute("ordererName", ordererName);
+				request.setAttribute("product_idx_count1", product_idx1count);
+				request.setAttribute("product_idx_count2", product_idx2count);
+				request.setAttribute("product_idx_count3", product_idx3count);
+				request.setAttribute("p_total_price1", p_total_price1);
+				request.setAttribute("p_total_price2", p_total_price2);
+				request.setAttribute("p_total_price3", p_total_price3);
+				request.setAttribute("p_img", p_img);
+				
+				jspPage = "/order/order_completion.jsp";
+
+			}
 		
 		
 		

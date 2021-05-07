@@ -28,7 +28,12 @@
 		<form id="fromsubmit" action="admin_notice_modifyEdit.do" name="Join_form_submit" method="POST">
 		<input type="hidden" name="notice_idx" value="${dto.notice_idx}"/>
 			<div>
-			<input type="checkbox" name="notice_pin" value="1">&nbsp;<label>중요 공지</label><br>
+			<c:if test="${ dto.notice_pin eq 1 }">
+			<input type="checkbox" name="importchk" value="1" checked="checked">&nbsp;<label>중요 공지</label><br>
+			</c:if>
+			<c:if test="${ dto.notice_pin ne 1 }">
+			<input type="checkbox" name="importchk" value="1">&nbsp;<label>중요 공지</label><br>
+			</c:if>
 			<input id="admin_notice_writeTitle" type="text" name="notice_title" value="${ dto.notice_title }">
 			
 			<!-- 스마트에디터 -->

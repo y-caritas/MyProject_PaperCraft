@@ -9,20 +9,20 @@
     <h2>상품 주문</h2>
     <hr class="dividingLine">
   </div>
-  <form action="#" name="orderForm">
+  <form action="orderForm.do" name="orderForm" method="post">
     <div>
       <p>주문자 정보</p>
       <table class="orderFormTable" style="height:70px;">
         <tr>
           <td class="background-footer" style="width:170px;">이름</td>
           <td>
-            <span style="margin-left: 10px;">${member_id}</span>
+            <span style="margin-left: 10px;">${ memberDto.member_name }</span>
           </td>
         </tr>
         <tr>
-          <td class="background-footer" style="width:170px;">*연락처</td>
+          <td class="background-footer" style="width:170px;">연락처</td>
           <td>
-            <input type="text" name="ordererPhone" id="ordererPhone">
+            <span style="margin-left: 10px;" id="ordererPhone">${ memberDto.member_phone }</span>
           </td>
         </tr>
       </table>
@@ -39,11 +39,11 @@
         <tr>
           <td class="background-footer">*주소</td>
           <td>
-            <input type="text" id="postcode" placeholder="우편번호">
+            <input type="text" name="recipientAddress1" id="postcode" placeholder="우편번호">
             <input type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
-            <input type="text" name="recipientAddress" id="recipientAddress" placeholder="주소" style="margin-top: 3px; margin-bottom:3px;width:61.5%;"><br>
-            <input type="text" id="detailAddress" placeholder="상세주소" style="width:30%;">
-            <input type="text" id="extraAddress" placeholder="참고항목" style="width:30%; margin-left:0;">
+            <input type="text" name="recipientAddress2" id="recipientAddress" placeholder="주소" style="margin-top: 3px; margin-bottom:3px;width:61.5%;"><br>
+            <input type="text" name="recipientAddress3" id="detailAddress" placeholder="상세주소" style="width:30%;">
+            <input type="text" name="recipientAddress4" id="extraAddress" placeholder="참고항목" style="width:30%; margin-left:0;">
           </td>
         </tr>
         <tr>
@@ -66,36 +66,64 @@
       <table class="orderFormTable" style="height:200px;">
         <tr>
           <td class="background-footer">총 상품 가격</td>
-          <td><span style="margin-left: 10px;">0</span>원</td>
+          <td><span style="margin-left: 10px;">${ purchase_total_value }</span>원</td>
         </tr>
+        <c:if test="${ purchase_total_value >= 50000 }">
         <tr>
           <td class="background-footer">배송비</td>
-          <td><span style="margin-left: 10px;">0</span>원</td>
+          <td><span style="margin-left: 10px;">무료배송</span></td>
         </tr>
         <tr>
           <td class="background-footer">총 결제 가격</td>
-          <td><span style="margin-left: 10px;">0</span>원</td>
+          <td><span style="margin-left: 10px;">${ purchase_total_value }</span>원</td>
         </tr>
+        </c:if>
+        <c:if test="${ purchase_total_value < 50000 }">
+        <tr>
+          <td class="background-footer">배송비</td>
+          <td><span style="margin-left: 10px;">3000</span>원</td>
+        </tr>
+        <tr>
+          <td class="background-footer">총 결제 가격</td>
+          <td><span style="margin-left: 10px;">${ purchase_total_value + 3000 }</span>원</td>
+        </tr>
+        </c:if>
         <tr>
           <td class="background-footer">일반 결제</td>
           <td>
-            <input type="radio" name="paymentOption" value="1" id="">무통장 입금
-            <input type="radio" name="paymentOption" value="2" id="">카드 결제
-            <input type="radio" name="paymentOption" value="3" id="">계좌 이체
-            <input type="radio" name="paymentOption" value="4" id="">가상 계좌
-            <button type="button" class="deselectBtn" onclick="deselect()">선택해제</button>
-            
+            <div>
+              <input type="radio" name="paymentOption" value="무통장입금" id="deposit">무통장 입금
+              <input type="radio" name="paymentOption" value="신용카드" id="credit">카드 결제
+              <input type="radio" name="paymentOption" value="계좌이체" id="account">계좌 이체
+              <input type="radio" name="paymentOption" value="가상계좌" id="virtual">가상 계좌
+              <button type="button" class="deselectBtn" onclick="deselect()">선택해제</button>
+            </div>
           </td>
         </tr>
         <tr>
           <td class="background-footer">에스크로 결제</td>
           <td>
-            <input type="radio" name="escrow" id="">계좌 이체
-            <input type="radio" name="escrow" id="">가상 계좌
-            <button type="button" class="deselectBtn" onclick="deselect()">선택해제</button>
+            <input type="radio" name="escrow" value="escrowAccount">계좌 이체
+            <input type="radio" name="escrow" value="escrowVirtual">가상 계좌
+            <button type="button" class="deselectBtn" onclick="deselectEscrow()">선택해제</button>
           </td>
         </tr>
       </table>
+      <input type="hidden" name="product_idx1" value="${ product_idx1 }">
+      <input type="hidden" name="product_idx2" value="${ product_idx2 }">
+      <input type="hidden" name="product_idx3" value="${ product_idx3 }">
+      <input type="hidden" name="product_idx1count" value="${ product_idx1count }">
+      <input type="hidden" name="product_idx2count" value="${ product_idx2count }">
+      <input type="hidden" name="product_idx3count" value="${ product_idx3count }">
+      <input type="hidden" name="member_grade" value="${ memberDto.member_grade }">
+      <input type="hidden" name="p_name" value="${ p_name }">
+      <input type="hidden" name="p_total_price1" value="${ p_total_price1 }">
+      <input type="hidden" name="p_total_price2" value="${ p_total_price2 }">
+      <input type="hidden" name="p_total_price3" value="${ p_total_price3 }">
+      <input type="hidden" name="purchase_total_value" id="purchase_total_value" value="${ purchase_total_value }">
+      <input type="hidden" name="ordererName" value="${ memberDto.member_name }">
+      <input type="hidden" name="ordererPhone" value="${ memberDto.member_phone }">
+      <input type="hidden" name="p_img" value="${ p_img1 }">
     </div>
     <div id="orderFormBtn">
       <input type="submit" onclick="orderFormCheck(); return false;" value="결제하기">
@@ -148,13 +176,21 @@
 
   // radio 선택 해제
   function deselect() {
-    var payment = document.getElementsByName('payment');
-    for(var i = 0; i < payment.length; i++) {
-      if(payment[i].getAttribute('type') == 'radio') {
-        payment[i].checked = false;
+    var paymentOption = document.getElementsByName('paymentOption');
+    for(var i = 0; i < paymentOption.length; i++) {
+      if(paymentOption[i].getAttribute('type') == 'radio') {
+    	  paymentOption[i].checked = false;
       }
     }
   }
+  function deselectEscrow() {
+	    var escrow = document.getElementsByName('escrow');
+	    for(var i = 0; i < escrow.length; i++) {
+	      if(escrow[i].getAttribute('type') == 'radio') {
+	    	  escrow[i].checked = false;
+	      }
+	    }
+	  }
 
   // alert창
   function orderFormCheck() {
@@ -163,12 +199,9 @@
     var recipientPhone = document.getElementById('recipientPhone').value;
     var recipientAddress = document.getElementById('recipientAddress').value;
     var paymentOption = document.getElementsByName('paymentOption');
+    var escrow = document.getElementsByName('escrow');
 
-    if(ordererPhone == null || ordererPhone == "") {
-      alert("연락처를 입력해주세요.");
-      document.getElementById("ordererPhone").focus();
-      return false;
-    } else if( recipientName == null || recipientName == "") {
+    if( recipientName == null || recipientName == "") {
       alert("배송받는 분 이름을 입력해주세요.");
       document.getElementById('recipientName').focus();
       return false;
@@ -180,11 +213,15 @@
       alert("배송받는 분 연락처를 입력해주세요.");
       document.getElementById('recipientPhone').focus();
       return false;
+    } else if(paymentOption.value != null && escrow.value != null) {
+    	alert("결제방식을 하나만 선택해주세요.");
+    	return false;
     }
     
+    var purchaseTotalValue = document.getElementById('purchase_total_value').value;
     for(var i = 0; i < paymentOption.length; i++) {
-    	if(paymentOption[i].checked == true && paymentOption[i].value === "2") {
-    		window.open("/MyProject_PaperCraft/order/card_payment.jsp", "새창", "width=430, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+    	if(paymentOption[i].checked == true && paymentOption[i].value === "신용카드") {
+    		window.open("/MyProject_PaperCraft/order/card_payment.jsp?purchase_total_value="+purchaseTotalValue, "새창", "width=430, height=400, toolbar=no, menubar=no, scrollbars=no, resizable=yes");
     		return false;
     	}
     }

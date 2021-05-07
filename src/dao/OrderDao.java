@@ -44,26 +44,30 @@ public class OrderDao {
 	         
 	         String query = "select * from p_order order by order_idx desc";
 	         pstmt = conn.prepareStatement( query );
-	         
 	         rs = pstmt.executeQuery();
 	         
 	         while( rs.next() ) {
-	            int order_idx = rs.getInt("order_idx");
+	            String order_idx = rs.getString("order_idx");
 	            String order_status = rs.getString("order_status");
 	            Date order_date = rs.getTimestamp("order_date");
+	            String order_p_name = rs.getString("order_p_name");
 	            int order_p_price = rs.getInt("order_p_price");
-	            int order_o_price = rs.getInt("order_o_price");
-	            String order_o_name = rs.getString("order_o_name");
+	            String product_idx1 = rs.getString("product_idx1");
+	            String product_idx2 = rs.getString("product_idx2");
+	            String product_idx3 = rs.getString("product_idx3");
 	            String member_name2 = rs.getString("member_name");
 	            String member_id = rs.getString("member_id");
 	            int member_grade = rs.getInt("member_grade");
-	            String order_p_name = rs.getString("order_p_name");
+	            String member_address = rs.getString("member_address");
+	            String member_phone = rs.getString("member_phone");
+	            String member_request = rs.getString("member_request");
+	            
 	            
 	            System.out.println("order_idx: "+ order_idx);
 	            
-	            
-	            OrderDto dto = new OrderDto( order_idx,  order_status,  order_date,  order_p_name,  order_p_price,
-				 order_o_name,  order_o_price,  member_name2,  member_id,  member_grade);
+	            OrderDto dto = new OrderDto( order_idx, order_status, order_date, order_p_name, order_p_price,
+	        			product_idx1, product_idx2, product_idx3, member_name2, member_id,
+	        			member_grade, member_address, member_phone, member_request);
 	            
 	            simpleOrder.add(dto);
 	         }
@@ -94,22 +98,28 @@ public class OrderDao {
          
          
          while( rs.next() ) {
-            int order_idx = rs.getInt("order_idx");
-            String order_p_name = rs.getString("order_p_name");
-            Date order_date = rs.getTimestamp("order_date");
-            int order_p_price = rs.getInt("order_p_price");
-            int order_o_price = rs.getInt("order_o_price");
-            String order_o_name = rs.getString("order_o_name");
-            String member_name = rs.getString("member_name");
-            String member_id = rs.getString("member_id");
-            int member_grade = rs.getInt("member_grade");
+	            String order_idx = rs.getString("order_idx");
+	            String order_status2 = rs.getString("order_status");
+	            Date order_date = rs.getTimestamp("order_date");
+	            String order_p_name = rs.getString("order_p_name");
+	            int order_p_price = rs.getInt("order_p_price");
+	            String product_idx1 = rs.getString("product_idx1");
+	            String product_idx2 = rs.getString("product_idx2");
+	            String product_idx3 = rs.getString("product_idx3");
+	            String member_name2 = rs.getString("member_name");
+	            String member_id = rs.getString("member_id");
+	            int member_grade = rs.getInt("member_grade");
+	            String member_address = rs.getString("member_address");
+	            String member_phone = rs.getString("member_phone");
+	            String member_request = rs.getString("member_request");
             
             
             System.out.println("order_idx: "+ order_idx);
             
             
-            OrderDto dto = new OrderDto( order_idx,  order_status,  order_date,  order_p_name,  order_p_price,
-			 order_o_name,  order_o_price,  member_name,  member_id,  member_grade);
+            OrderDto dto = new OrderDto( order_idx, order_status2, order_date, order_p_name, order_p_price,
+        			product_idx1, product_idx2, product_idx3, member_name2, member_id,
+        			member_grade, member_address, member_phone, member_request);
             
             simpleOrder.add(dto);
          }
@@ -139,22 +149,27 @@ public class OrderDao {
 	         rs = pstmt.executeQuery();
 	         
 	         while( rs.next() ) {
-	            int order_idx = rs.getInt("order_idx");
-	            String order_status = rs.getString("order_status");
-	            Date order_date = rs.getTimestamp("order_date");
-	            int order_p_price = rs.getInt("order_p_price");
-	            int order_o_price = rs.getInt("order_o_price");
-	            String order_o_name = rs.getString("order_o_name");
-	            String member_name = rs.getString("member_name");
-	            String member_id = rs.getString("member_id");
-	            int member_grade = rs.getInt("member_grade");
-	            String order_p_name2 = rs.getString("order_p_name");
+		            String order_idx = rs.getString("order_idx");
+		            String order_status2 = rs.getString("order_status");
+		            Date order_date = rs.getTimestamp("order_date");
+		            String order_p_name2 = rs.getString("order_p_name");
+		            int order_p_price = rs.getInt("order_p_price");
+		            String product_idx1 = rs.getString("product_idx1");
+		            String product_idx2 = rs.getString("product_idx2");
+		            String product_idx3 = rs.getString("product_idx3");
+		            String member_name2 = rs.getString("member_name");
+		            String member_id = rs.getString("member_id");
+		            int member_grade = rs.getInt("member_grade");
+		            String member_address = rs.getString("member_address");
+		            String member_phone = rs.getString("member_phone");
+		            String member_request = rs.getString("member_request");
 	            
 	            System.out.println("order_idx: "+ order_idx);
 	            
 	            
-	            OrderDto dto = new OrderDto( order_idx,  order_status,  order_date,  order_p_name2,  order_p_price,
-				 order_o_name,  order_o_price,  member_name,  member_id,  member_grade);
+	            OrderDto dto = new OrderDto( order_idx, order_status2, order_date, order_p_name2, order_p_price,
+	        			product_idx1, product_idx2, product_idx3, member_name2, member_id,
+	        			member_grade, member_address, member_phone, member_request);
 	            
 	            simpleOrder.add(dto);
 	         }
@@ -184,22 +199,27 @@ public class OrderDao {
 		         rs = pstmt.executeQuery();
 		         
 		         while( rs.next() ) {
-		            int order_idx = rs.getInt("order_idx");
-		            String order_status = rs.getString("order_status");
-		            Date order_date = rs.getTimestamp("order_date");
-		            int order_p_price = rs.getInt("order_p_price");
-		            int order_o_price = rs.getInt("order_o_price");
-		            String order_o_name = rs.getString("order_o_name");
-		            String member_name = rs.getString("member_name");
-		            String member_id2 = rs.getString("member_id");
-		            int member_grade = rs.getInt("member_grade");
-		            String order_p_name = rs.getString("order_p_name");
+			            String order_idx = rs.getString("order_idx");
+			            String order_status2 = rs.getString("order_status");
+			            Date order_date = rs.getTimestamp("order_date");
+			            String order_p_name = rs.getString("order_p_name");
+			            int order_p_price = rs.getInt("order_p_price");
+			            String product_idx1 = rs.getString("product_idx1");
+			            String product_idx2 = rs.getString("product_idx2");
+			            String product_idx3 = rs.getString("product_idx3");
+			            String member_name = rs.getString("member_name");
+			            String member_id2 = rs.getString("member_id");
+			            int member_grade = rs.getInt("member_grade");
+			            String member_address = rs.getString("member_address");
+			            String member_phone = rs.getString("member_phone");
+			            String member_request = rs.getString("member_request");
 		            
 		            System.out.println("order_idx: "+ order_idx);
 		            
 		            
-		            OrderDto dto = new OrderDto( order_idx,  order_status,  order_date,  order_p_name,  order_p_price,
-					 order_o_name,  order_o_price,  member_name,  member_id2,  member_grade);
+		            OrderDto dto = new OrderDto( order_idx, order_status2, order_date, order_p_name, order_p_price,
+		        			product_idx1, product_idx2, product_idx3, member_name, member_id2,
+		        			member_grade, member_address, member_phone, member_request);
 		            
 		            simpleOrder.add(dto);
 		         }
@@ -228,22 +248,27 @@ public class OrderDao {
 		         rs = pstmt.executeQuery();
 		         
 		         while( rs.next() ) {
-		            int order_idx = rs.getInt("order_idx");
-		            String order_status = rs.getString("order_status");
-		            Date order_date = rs.getTimestamp("order_date");
-		            int order_p_price = rs.getInt("order_p_price");
-		            int order_o_price = rs.getInt("order_o_price");
-		            String order_o_name = rs.getString("order_o_name");
-		            String member_name = rs.getString("member_name");
-		            String member_id = rs.getString("member_id");
-		            int member_grade2 = rs.getInt("member_grade");
-		            String order_p_name = rs.getString("order_p_name");
+		        	    String order_idx = rs.getString("order_idx");
+			            String order_status2 = rs.getString("order_status");
+			            Date order_date = rs.getTimestamp("order_date");
+			            String order_p_name = rs.getString("order_p_name");
+			            int order_p_price = rs.getInt("order_p_price");
+			            String product_idx1 = rs.getString("product_idx1");
+			            String product_idx2 = rs.getString("product_idx2");
+			            String product_idx3 = rs.getString("product_idx3");
+			            String member_name = rs.getString("member_name");
+			            String member_id = rs.getString("member_id");
+			            int member_grade2 = rs.getInt("member_grade");
+			            String member_address = rs.getString("member_address");
+			            String member_phone = rs.getString("member_phone");
+			            String member_request = rs.getString("member_request");
 		            
 		            System.out.println("order_idx: "+ order_idx);
 		            
 		            
-		            OrderDto dto = new OrderDto( order_idx,  order_status,  order_date,  order_p_name,  order_p_price,
-					 order_o_name,  order_o_price,  member_name,  member_id,  member_grade2);
+		            OrderDto dto = new OrderDto( order_idx, order_status2, order_date, order_p_name, order_p_price,
+		        			product_idx1, product_idx2, product_idx3, member_name, member_id,
+		        			member_grade2, member_address, member_phone, member_request);
 		            
 		            simpleOrder.add(dto);
 		         }
@@ -272,22 +297,27 @@ public class OrderDao {
 		         rs = pstmt.executeQuery();
 		         
 		         while( rs.next() ) {
-		            int order_idx = rs.getInt("order_idx");
-		            String order_status = rs.getString("order_status");
-		            Date order_date = rs.getTimestamp("order_date");
-		            int order_p_price = rs.getInt("order_p_price");
-		            int order_o_price = rs.getInt("order_o_price");
-		            String order_o_name = rs.getString("order_o_name");
-		            String member_name2 = rs.getString("member_name");
-		            String member_id = rs.getString("member_id");
-		            int member_grade = rs.getInt("member_grade");
-		            String order_p_name = rs.getString("order_p_name");
+		        	    String order_idx = rs.getString("order_idx");
+			            String order_status2 = rs.getString("order_status");
+			            Date order_date = rs.getTimestamp("order_date");
+			            String order_p_name = rs.getString("order_p_name");
+			            int order_p_price = rs.getInt("order_p_price");
+			            String product_idx1 = rs.getString("product_idx1");
+			            String product_idx2 = rs.getString("product_idx2");
+			            String product_idx3 = rs.getString("product_idx3");
+			            String member_name2 = rs.getString("member_name");
+			            String member_id = rs.getString("member_id");
+			            int member_grade = rs.getInt("member_grade");
+			            String member_address = rs.getString("member_address");
+			            String member_phone = rs.getString("member_phone");
+			            String member_request = rs.getString("member_request");
 		            
 		            System.out.println("order_idx: "+ order_idx);
 		            
 		            
-		            OrderDto dto = new OrderDto( order_idx,  order_status,  order_date,  order_p_name,  order_p_price,
-					 order_o_name,  order_o_price,  member_name2,  member_id,  member_grade);
+		            OrderDto dto = new OrderDto( order_idx, order_status2, order_date, order_p_name, order_p_price,
+		        			product_idx1, product_idx2, product_idx3, member_name2, member_id,
+		        			member_grade, member_address, member_phone, member_request);
 		            
 		            simpleOrder.add(dto);
 		         }
@@ -339,20 +369,25 @@ public class OrderDao {
 
 		         
 		         while( rs.next() ) {
-		            int order_idx = rs.getInt("order_idx");
-		            String order_status = rs.getString("order_status");
-		            Date order_date = rs.getTimestamp("order_date");
-		            int order_p_price = rs.getInt("order_p_price");
-		            int order_o_price = rs.getInt("order_o_price");
-		            String order_o_name = rs.getString("order_o_name");
-		            String member_name = rs.getString("member_name");
-		            String member_id = rs.getString("member_id");
-		            int member_grade = rs.getInt("member_grade");
-		            String order_p_name = rs.getString("order_p_name");
+		        	 String order_idx = rs.getString("order_idx");
+			            String order_status2 = rs.getString("order_status");
+			            Date order_date = rs.getTimestamp("order_date");
+			            String order_p_name = rs.getString("order_p_name");
+			            int order_p_price = rs.getInt("order_p_price");
+			            String product_idx1 = rs.getString("product_idx1");
+			            String product_idx2 = rs.getString("product_idx2");
+			            String product_idx3 = rs.getString("product_idx3");
+			            String member_name = rs.getString("member_name");
+			            String member_id = rs.getString("member_id");
+			            int member_grade = rs.getInt("member_grade");
+			            String member_address = rs.getString("member_address");
+			            String member_phone = rs.getString("member_phone");
+			            String member_request = rs.getString("member_request");
 		            
 		            
-		            OrderDto dto = new OrderDto( order_idx,  order_status,  order_date,  order_p_name,  order_p_price,
-					 order_o_name,  order_o_price,  member_name,  member_id,  member_grade);
+		            OrderDto dto = new OrderDto( order_idx, order_status2, order_date, order_p_name, order_p_price,
+		        			product_idx1, product_idx2, product_idx3, member_name, member_id,
+		        			member_grade, member_address, member_phone, member_request);
 		            
 		            simpleOrder.add(dto);
 		         }
@@ -374,26 +409,31 @@ public class OrderDao {
 		        	conn = DBConnection.getConnection();
 		        	String query = "select * from p_order where order_idx=?";
 		        	pstmt = conn.prepareStatement( query );
-		        	pstmt.setInt(1, Integer.parseInt( order_idx ));
+		        	pstmt.setString(1, order_idx );
 		        	System.out.println("점검");
 		        	rs = pstmt.executeQuery();
 		        	
 		        	while( rs.next() ) {
-			            int order_idx2 = rs.getInt("order_idx");
+			            String order_idx2 = rs.getString("order_idx");
 			            String order_status = rs.getString("order_status");
 			            Date order_date = rs.getTimestamp("order_date");
+			            String order_p_name = rs.getString("order_p_name");
 			            int order_p_price = rs.getInt("order_p_price");
-			            int order_o_price = rs.getInt("order_o_price");
-			            String order_o_name = rs.getString("order_o_name");
+			            String product_idx1 = rs.getString("product_idx1");
+			            String product_idx2 = rs.getString("product_idx2");
+			            String product_idx3 = rs.getString("product_idx3");
 			            String member_name = rs.getString("member_name");
 			            String member_id = rs.getString("member_id");
 			            int member_grade = rs.getInt("member_grade");
-			            String order_p_name = rs.getString("order_p_name");
+			            String member_address = rs.getString("member_address");
+			            String member_phone = rs.getString("member_phone");
+			            String member_request = rs.getString("member_request");
 			            
 			            System.out.println(order_idx2);
 			            
-			            dto = new OrderDto( order_idx2,  order_status,  order_date,  order_p_name,  order_p_price,
-								 order_o_name,  order_o_price,  member_name,  member_id,  member_grade);
+			            dto = new OrderDto( order_idx2, order_status, order_date, order_p_name, order_p_price,
+			        			product_idx1, product_idx2, product_idx3, member_name, member_id,
+			        			member_grade, member_address, member_phone, member_request);
 			            
 		        		
 		        	}
@@ -463,6 +503,88 @@ public class OrderDao {
 				}
 				
 				return memberDto;
+			}
+			
+			// 주문완료
+			public static void orderCompletion(String orderIdx, String memberName, String memberAddress, String memberPhone, String memberRequest,
+					int memberGrade, String productIdx1, String productIdx2, String productIdx3, int orderPPrice, String paymentoption,
+					String Escrow, String memberId, String orderPName) {
+				Connection conn = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				System.out.println("주문완료 진입");
+				
+				try {
+					conn = DBConnection.getConnection();
+					String query = "INSERT INTO p_order(order_idx, order_status, order_date, order_p_name, order_p_price, product_idx1, product_idx2, product_idx3, member_name, member_id, member_grade, member_address, member_phone, member_request, paymentoption, escrow)"
+							+ "VALUES(?, '주문확인중', sysdate, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					pstmt = conn.prepareStatement(query);
+					pstmt.setString(1, orderIdx);
+					pstmt.setString(2, orderPName);
+					pstmt.setInt(3, orderPPrice);
+					pstmt.setString(4, productIdx1);
+					pstmt.setString(5, productIdx2);
+					pstmt.setString(6, productIdx3);
+					pstmt.setString(7, memberName);
+					pstmt.setString(8, memberId);
+					pstmt.setInt(9, memberGrade);
+					pstmt.setString(10, memberAddress);
+					pstmt.setString(11, memberPhone);
+					pstmt.setString(12, memberRequest);
+					pstmt.setString(13, paymentoption);
+					pstmt.setString(14, Escrow);
+					rs = pstmt.executeQuery();
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			
+			
+			// order 테이블 불러오기
+			public static OrderDto orderInfo(String orderIdx) {
+				Connection conn = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				OrderDto orderDto = null;
+				
+				try {
+					conn = DBConnection.getConnection();
+					String query = "SELECT * FROM p_order WHERE order_idx=?";
+					pstmt = conn.prepareStatement( query );
+					pstmt.setString(1, orderIdx);
+					rs = pstmt.executeQuery();
+					
+					while( rs.next() ) {
+						String order_idx = rs.getString("order_idx");
+						String order_status = rs.getString("order_status");
+						Date order_date = rs.getTimestamp("order_date");
+						String order_p_name = rs.getString("order_p_name");
+						int order_p_price = rs.getInt("order_p_price");
+						String product_idx1 = rs.getString("product_idx1");
+						String product_idx2 = rs.getString("product_idx2");
+						String product_idx3 = rs.getString("product_idx3");
+						String member_name = rs.getString("member_name");
+						String member_id = rs.getString("member_id");
+						int member_grade = rs.getInt("member_grade");
+						String member_address = rs.getString("member_address");
+						String member_phone = rs.getString("member_phone");
+						String member_request = rs.getString("member_request");
+						String paymentOption = rs.getString("paymentoption");
+						String escrow = rs.getString("escrow");
+						
+						orderDto = new OrderDto(order_idx, order_status, order_date, order_p_name, order_p_price,
+								product_idx1, product_idx2, product_idx3, member_name, member_id,
+								member_grade, member_address, member_phone, member_request, paymentOption, escrow);
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				return orderDto;
 			}
 			
 }

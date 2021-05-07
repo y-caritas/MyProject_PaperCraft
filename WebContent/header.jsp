@@ -86,9 +86,9 @@
       <span class="dropdown">Product
         <span class="dropdown_menu" style="width:170px;">
           <a href="<%= request.getContextPath() %>/product/listview.do?product_category=01&orderby=01">무드등</a>
-          <a href="<%= request.getContextPath() %>/product/listview.jsp?product_category=02&orderby=01">유리돔</a>
-          <a href="<%= request.getContextPath() %>/product/listview.jsp?product_category=03&orderby=01">카드/액자</a>
-          <a href="<%= request.getContextPath() %>/product/listview.jsp?product_category=04&orderby=01">도구</a>
+          <a href="<%= request.getContextPath() %>/product/listview.do?product_category=02&orderby=01">유리돔</a>
+          <a href="<%= request.getContextPath() %>/product/listview.do?product_category=03&orderby=01">카드/액자</a>
+          <a href="<%= request.getContextPath() %>/product/listview.do?product_category=04&orderby=01">도구</a>
         </span>
       </span>
       <span class="dropdown">Community

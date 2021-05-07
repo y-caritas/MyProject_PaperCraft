@@ -7,7 +7,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -508,14 +507,13 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		try 
 		{
 			conn = DBConnection.getConnection();
-			String query = "INSERT INTO p_cart values (p_cart_seq.nextval, sysdate, ?, ?, ?, ?, ?, ?, ?, ?)";			
+			String query = "INSERT INTO p_cart values (p_cart_seq.nextval, sysdate, ?, ?, ?, ?, ?, ?, ?)";			
 	        pstmt = conn.prepareStatement(query);
 	        System.out.println(request.getParameter("cart_p_idx"));
 	        System.out.println(request.getParameter("cart_p_img"));
 	        System.out.println(request.getParameter("cart_p_name"));
 	        System.out.println(request.getParameter("cart_p_price"));
-	        System.out.println(request.getParameter("cart_p_count"));
-	        System.out.println(request.getParameter("cart_o_idx"));
+	        System.out.println(request.getParameter("cart_p_count"));	        
 	        System.out.println(request.getParameter("member_id"));
 	        
 	        
@@ -524,9 +522,8 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 	        pstmt.setString(3, request.getParameter("cart_p_name") );
 	        pstmt.setInt(4, Integer.parseInt(request.getParameter("cart_p_price")));
 	        pstmt.setInt(5, Integer.parseInt(request.getParameter("cart_p_total_price")));
-	        pstmt.setInt(6, Integer.parseInt(request.getParameter("cart_p_count")));	        
-	        pstmt.setInt(7, Integer.parseInt(request.getParameter("cart_o_idx")));
-	        pstmt.setString(8, request.getParameter("member_id") );	        
+	        pstmt.setInt(6, Integer.parseInt(request.getParameter("cart_p_count")));       
+	        pstmt.setString(7, request.getParameter("member_id") );	        
 	        
 			result = pstmt.executeUpdate();
 			
@@ -935,25 +932,12 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 				String cart_p_name = rs.getString("cart_p_name");
 				int cart_p_price = rs.getInt("cart_p_price");
 				int cart_p_total_price = rs.getInt("cart_p_total_price");
-				int cart_p_count = rs.getInt("cart_p_count");
-				int cart_o_idx = rs.getInt("cart_o_idx");
+				int cart_p_count = rs.getInt("cart_p_count");				
 				String member_id2 = rs.getString("member_id");
 				
-				if(cart_o_idx != 0) {
-					OptionDto optionDto = detailview_option(Integer.toString(cart_p_idx));
-					String cart_o_name = optionDto.getOption_detail();
-					int cart_o_price = optionDto.getOption_price();
-					
-				CartDto dto = new CartDto( cart_idx,  cart_date,  cart_p_idx,  cart_p_img,  cart_p_name,
-						 cart_p_price,  cart_p_total_price,  cart_p_count,  cart_o_idx,  cart_o_name,
-						 cart_o_price,  member_id2);
+	            CartDto dto = new CartDto(cart_idx, cart_date, cart_p_idx, cart_p_img, cart_p_name, cart_p_price, cart_p_total_price, cart_p_count, member_id2);
 				cart_list.add(dto);
-				}
-				else {
-	           	            
-	            CartDto dto = new CartDto(cart_idx, cart_date, cart_p_idx, cart_p_img, cart_p_name, cart_p_price, cart_p_total_price, cart_p_count, cart_o_idx, member_id2);
-				cart_list.add(dto);
-				}	            
+					            
 	        }
 		}
 		catch(Exception e) 
@@ -982,6 +966,45 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 				System.out.println("adminProductDelete bug");
 			}
 		
+	}
+
+	public static int cartConfirm(String member_id, String product_idx) {
+		CartDto dto = new CartDto();
+		int confirmResult = 0; 
+		int confirmFail = 0;	
+		int confirmOK = 1;		
+		Connection conn = null; 
+		PreparedStatement pstmt = null; 
+		ResultSet rs = null; 
+		try 
+		{
+			conn = DBConnection.getConnection();
+			String query = "SELECT * FROM p_cart WHERE member_id = ? AND cart_p_idx = ?";			
+	        pstmt = conn.prepareStatement(query);
+	        pstmt.setString(1, member_id);
+	        pstmt.setInt(2, Integer.parseInt( product_idx ));
+	        System.out.println("member_id = "+ member_id);
+	        System.out.println("product_idx = " + product_idx);
+			rs = pstmt.executeQuery();
+			
+			while( rs.next() ) 
+			{					
+				int confirmCart = rs.getInt("cart_idx");				
+				dto.setCart_idx(confirmCart);
+				confirmResult = dto.getCart_idx();
+	        }
+		}
+		catch(Exception e) 
+		{
+			System.out.println("detail_page bug");
+		}
+	
+		if(confirmResult == 0) {
+			return confirmOK; 
+		}
+		else {
+			return confirmFail;
+		}			
 	}
 
 
