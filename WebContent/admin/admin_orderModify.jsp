@@ -95,12 +95,38 @@
       <tr>
         <td class="orderlistTitle">회원 등급</td>
         <td class="orderlistContent">
+        <c:if test="${ dto.member_grade eq 1 }">
           <select name="member_grade" id="membergrade">
-            <option value="1">1</option>
+            <option value="1" selected="selected">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
           </select>
+          </c:if>
+          <c:if test="${ dto.member_grade eq 2 }">
+          <select name="member_grade" id="membergrade">
+            <option value="1">1</option>
+            <option value="2" selected="selected">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+          </c:if>
+          <c:if test="${ dto.member_grade eq 3 }">
+          <select name="member_grade" id="membergrade">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3" selected="selected">3</option>
+            <option value="4">4</option>
+          </select>
+          </c:if>
+          <c:if test="${ dto.member_grade eq 4 }">
+          <select name="member_grade" id="membergrade">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4" selected="selected">4</option>
+          </select>
+          </c:if>
         </td>
       </tr>
       <tr>
@@ -114,10 +140,30 @@
       <tr>
         <td class="orderlistTitle">주문 상태</td>
         <td class="orderlistContent"><select name="order_status">
-           <option value="주문확인중">주문확인중</option>
+        <c:if test="${dto.order_status eq '주문확인중'}">
+           <option value="주문확인중" selected="selected">주문확인중</option>
            <option value="배송준비중">배송준비중</option>
            <option value="배송중">배송중</option>
            <option value="배송완료">배송완료</option>
+         </c:if>
+         <c:if test="${dto.order_status eq '배송준비중'}">
+           <option value="주문확인중">주문확인중</option>
+           <option value="배송준비중" selected="selected">배송준비중</option>
+           <option value="배송중">배송중</option>
+           <option value="배송완료">배송완료</option>
+         </c:if>
+         <c:if test="${dto.order_status eq '배송중'}">
+           <option value="주문확인중">주문확인중</option>
+           <option value="배송준비중">배송준비중</option>
+           <option value="배송중" selected="selected">배송중</option>
+           <option value="배송완료">배송완료</option>
+         </c:if>
+         <c:if test="${dto.order_status eq '배송완료'}">
+           <option value="주문확인중">주문확인중</option>
+           <option value="배송준비중">배송준비중</option>
+           <option value="배송중">배송중</option>
+           <option value="배송완료" selected="selected">배송완료</option>
+         </c:if>
         </select>
       </td>
       </tr>
