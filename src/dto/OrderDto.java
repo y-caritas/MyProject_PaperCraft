@@ -6,66 +6,40 @@ public class OrderDto {
 	private int order_idx;
 	private String order_status;
 	private Date order_date;
-	private int order_p_idx;
 	private String order_p_name;
 	private int order_p_price;
-	private String order_o_name;
-	private int order_o_price;
+	private String product_idx1;
+	private String product_idx2;
+	private String product_idx3;
 	private String member_name;
-	private String member_id;
+	private String memner_id;
 	private int member_grade;
+	private String member_address;
+	private String member_phone;
+	private String member_request;
 	
 	public OrderDto() {}
-	public OrderDto(int aaa) {}
 
 	public OrderDto(int order_idx, String order_status, Date order_date, String order_p_name, int order_p_price,
-			String order_o_name, int order_o_price, String member_name, String member_id, int member_grade) {
-
-		this.order_idx = order_idx;
-		this.order_status = order_status;
-		this.order_date = order_date;
-		this.order_p_name = order_p_name;
-		this.order_p_price = order_p_price;
-		this.order_o_name = order_o_name;
-		this.order_o_price = order_o_price;
-		this.member_name = member_name;
-		this.member_id = member_id;
-		this.member_grade = member_grade;
-	}
-
-
-
-	public OrderDto(int order_idx, String order_status, Date order_date, int order_p_idx, String order_p_name,
-			int order_p_price, String order_o_name, int order_o_price, String member_name, String member_id,
-			int member_grade) {
+			String product_idx1, String product_idx2, String product_idx3, String member_name, String memner_id,
+			int member_grade, String member_address, String member_phone, String member_request) {
 		super();
 		this.order_idx = order_idx;
 		this.order_status = order_status;
 		this.order_date = order_date;
-		this.order_p_idx = order_p_idx;
 		this.order_p_name = order_p_name;
 		this.order_p_price = order_p_price;
-		this.order_o_name = order_o_name;
-		this.order_o_price = order_o_price;
+		this.product_idx1 = product_idx1;
+		this.product_idx2 = product_idx2;
+		this.product_idx3 = product_idx3;
 		this.member_name = member_name;
-		this.member_id = member_id;
+		this.memner_id = memner_id;
 		this.member_grade = member_grade;
+		this.member_address = member_address;
+		this.member_phone = member_phone;
+		this.member_request = member_request;
 	}
-	public OrderDto(int order_idx2, String order_statuse, Date order_date2, int order_p_idx2, String order_p_img,
-			String order_p_name2, int order_p_price2, int order_p_count, String order_o_name2, int order_o_price2,
-			String member_id2) {
-		this.order_idx = order_idx;
-		this.order_status = order_status;
-		this.order_date = order_date;
-		this.order_p_idx = order_p_idx;
-		this.order_p_name = order_p_name;
-		this.order_p_price = order_p_price;
-		this.order_o_name = order_o_name;
-		this.order_o_price = order_o_price;
-		this.member_name = member_name;
-		this.member_id = member_id;
-		this.member_grade = member_grade;
-	}
+
 	public int getOrder_idx() {
 		return order_idx;
 	}
@@ -106,20 +80,28 @@ public class OrderDto {
 		this.order_p_price = order_p_price;
 	}
 
-	public String getOrder_o_name() {
-		return order_o_name;
+	public String getProduct_idx1() {
+		return product_idx1;
 	}
 
-	public void setOrder_o_name(String order_o_name) {
-		this.order_o_name = order_o_name;
+	public void setProduct_idx1(String product_idx1) {
+		this.product_idx1 = product_idx1;
 	}
 
-	public int getOrder_o_price() {
-		return order_o_price;
+	public String getProduct_idx2() {
+		return product_idx2;
 	}
 
-	public void setOrder_o_price(int order_o_price) {
-		this.order_o_price = order_o_price;
+	public void setProduct_idx2(String product_idx2) {
+		this.product_idx2 = product_idx2;
+	}
+
+	public String getProduct_idx3() {
+		return product_idx3;
+	}
+
+	public void setProduct_idx3(String product_idx3) {
+		this.product_idx3 = product_idx3;
 	}
 
 	public String getMember_name() {
@@ -130,12 +112,12 @@ public class OrderDto {
 		this.member_name = member_name;
 	}
 
-	public String getMember_id() {
-		return member_id;
+	public String getMemner_id() {
+		return memner_id;
 	}
 
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
+	public void setMemner_id(String memner_id) {
+		this.memner_id = memner_id;
 	}
 
 	public int getMember_grade() {
@@ -145,7 +127,29 @@ public class OrderDto {
 	public void setMember_grade(int member_grade) {
 		this.member_grade = member_grade;
 	}
-	
-	
+
+	public String getMember_address() {
+		return member_address;
+	}
+
+	public void setMember_address(String member_address) {
+		this.member_address = member_address;
+	}
+
+	public String getMember_phone() {
+		return member_phone;
+	}
+
+	public void setMember_phone(String member_phone) {
+		this.member_phone = member_phone;
+	}
+
+	public String getMember_request() {
+		return member_request;
+	}
+
+	public void setMember_request(String member_request) {
+		this.member_request = member_request;
+	}
 	
 }

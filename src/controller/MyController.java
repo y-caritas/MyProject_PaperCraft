@@ -767,7 +767,13 @@ public class MyController extends HttpServlet {
 			request.setAttribute("cart_p_total_prices", cart_p_total_prices);
 			request.setAttribute("purchase_total_value", purchase_total_value);
 			
+			// 주문자 정보
+			HttpSession session = request.getSession();
+			String member_id = (String)session.getAttribute("member_id");
+			request.setAttribute("member_id", member_id);
+			
 			//포워딩 필요.
+			jspPage = "/order/orderForm.jsp";
 			
 			
 		}

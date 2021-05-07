@@ -150,9 +150,6 @@ CREATE TABLE p_order (
 	order_date              DATE DEFAULT SYSDATE,
 	order_p_name            VARCHAR2(50),
 	order_p_price           NUMBER(6),
-	order_o_name            VARCHAR2(50),
-	order_o_price           NUMBER(6),
-	order_p_img             VARCHAR2(1000),
 	product_idx1            VARCHAR2(10),
 	product_idx2            VARCHAR2(10),
 	product_idx3            VARCHAR2(10),
@@ -161,7 +158,8 @@ CREATE TABLE p_order (
 	member_grade			NUMBER(6),
 	member_address          VARCHAR2(100),
 	member_phone            VARCHAR2(40),
-	)
+	member_request          VARCHAR2(4000)
+	);
 	
 	CREATE SEQUENCE p_order_seq;
 	
