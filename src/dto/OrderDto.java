@@ -12,7 +12,7 @@ public class OrderDto {
 	private String product_idx2;
 	private String product_idx3;
 	private String member_name;
-	private String memner_id;
+	private String member_id;
 	private int member_grade;
 	private String member_address;
 	private String member_phone;
@@ -21,7 +21,7 @@ public class OrderDto {
 	public OrderDto() {}
 
 	public OrderDto(int order_idx, String order_status, Date order_date, String order_p_name, int order_p_price,
-			String product_idx1, String product_idx2, String product_idx3, String member_name, String memner_id,
+			String product_idx1, String product_idx2, String product_idx3, String member_name, String member_id,
 			int member_grade, String member_address, String member_phone, String member_request) {
 		super();
 		this.order_idx = order_idx;
@@ -33,7 +33,7 @@ public class OrderDto {
 		this.product_idx2 = product_idx2;
 		this.product_idx3 = product_idx3;
 		this.member_name = member_name;
-		this.memner_id = memner_id;
+		this.member_id = member_id;
 		this.member_grade = member_grade;
 		this.member_address = member_address;
 		this.member_phone = member_phone;
@@ -112,12 +112,12 @@ public class OrderDto {
 		this.member_name = member_name;
 	}
 
-	public String getMemner_id() {
-		return memner_id;
+	public String getMember_id() {
+		return member_id;
 	}
 
-	public void setMemner_id(String memner_id) {
-		this.memner_id = memner_id;
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
 	}
 
 	public int getMember_grade() {
@@ -151,5 +151,7 @@ public class OrderDto {
 	public void setMember_request(String member_request) {
 		this.member_request = member_request;
 	}
+
+	
 	
 }
