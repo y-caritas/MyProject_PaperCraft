@@ -16,7 +16,7 @@
         <tr>
           <td class="background-footer" style="width:170px;">이름</td>
           <td>
-            <span style="margin-left: 10px;">${dto.member_name}</span>
+            <span style="margin-left: 10px;">${member_id}</span>
           </td>
         </tr>
         <tr>
