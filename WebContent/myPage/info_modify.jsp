@@ -122,7 +122,7 @@ width: 1000px;
       <hr class="dividingLine">
     </div>
 
-	<form method="post" action="MemberModifyAction.do" 
+	<form method="post" action="modifyAction.do" 
 				name="userInfo" onsubmit="return checkValue()">
 				
 				

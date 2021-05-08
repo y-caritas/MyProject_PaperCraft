@@ -14,7 +14,8 @@
         <h2 class="card-title text-center" style="color:#818181;">비밀번호 확인</h2>
       </div>
       <div class="card-body">
-        <form class="form-signin" method="POST"  action="check_pw.do" name="LoginMember" onSubmit="logincall();return false">
+        <form class="form-signin" method="POST"  action="check_pw.do" name="check_pw" onSubmit="logincall();return false">      
+         
           
           <input type="password" id="upw" name="member_pw" class=" form-control input-lg login-input"  placeholder="비밀번호를 입력하세요." required><br>
    

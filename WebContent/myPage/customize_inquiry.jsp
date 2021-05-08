@@ -140,7 +140,7 @@ width: 1000px;
       
       <!-- DB 연동용 -->
       <tr class="inquiryTr">
-        <c:forEach var="dto" items="${ inquiryList }">
+        <c:forEach var="dto" items="${ customizeList }">
           <td>${dto.inquiryIdx}</td>
           <td style="text-align: left;"><a href="customizeContent.do">${dto.inquiryTitle}</a></td>
           <td>${dto.inquiry_date}</td>
@@ -150,7 +150,7 @@ width: 1000px;
     </table>
 
  <div id="writeBtn">
-  <button type="button" onclick="location.href='<%= request.getContextPath() %>/community/inquiry_write.jsp'">문의글 쓰기</button>
+  <button onclick="location.href='<%= request.getContextPath() %>/myPage/myInquiry_write.jsp'">문의글 쓰기</button>
  </div>
       
 

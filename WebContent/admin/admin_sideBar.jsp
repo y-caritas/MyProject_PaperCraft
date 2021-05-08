@@ -14,7 +14,7 @@
         </div>
         <button class="sideBarDropBtn">회원 관리</button>
         <div class="sideBarDropdownContainer">
-          <a href="<%=request.getContextPath()%>/admin/admin_memberList.jsp">회원 목록</a>
+          <a href="adminMemberList.do">회원 목록</a>
           <a href="admin_orderlist.do">주문 목록</a>
         </div>
         <button class="sideBarDropBtn">상품 관리</button>
@@ -27,7 +27,7 @@
           <a href="admin_notice_list.do">공지사항</a>
           <a href="adminFaqList.do">자주하는 질문</a>
           <a href="adminInquiryList.do">주문 제작/문의</a>
-          <a href="<%=request.getContextPath()%>/admin/admin_productInquiryList.jsp">상품 문의</a>
+          <a href="pEnquiryList.do">상품 문의</a>
         </div>
     </td>
   </tr>

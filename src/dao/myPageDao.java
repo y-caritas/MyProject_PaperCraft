@@ -251,30 +251,19 @@ public class myPageDao {
 			try {
 				conn = DBConnection.getConnection();
 				String query = "UPDATE p_member SET ("					
-						+ "member_idx = ?, "
-						+ "member_id = ?, "
+						
 						+ "member_pw = ?, "
-						+ "member_name = ?, "
-						+ "member_address = ?, "
+				
 						+ "member_email = ?, "
-						+ "member_phone = ?, "
-						+ "member_gender = ?, "
-						+ "member_email_ad = ?, "
-						+ "member_grade = ?, "					
-						+ "sysdate,"						
-						+ "WHERE member_purchase = ?)";			
+						+ "WHERE member_phone = ?,) ";
+												
 		        pstmt = conn.prepareStatement(query);
-		        pstmt.setInt(1, Integer.parseInt(request.getParameter("member_idx")));
-		        pstmt.setString(2, request.getParameter("member_id") );
-		        pstmt.setString(3, request.getParameter("member_pw") );
-		        pstmt.setString(4, request.getParameter("member_name") );
-		        pstmt.setString(5, request.getParameter("member_address") );
-		        pstmt.setString(6, request.getParameter("member_email") );
-		        pstmt.setString(7, request.getParameter("member_phone") );
-		        pstmt.setString(8, request.getParameter("member_gender") );
-		        pstmt.setInt(9, Integer.parseInt(request.getParameter("member_email_ad")));
-		        pstmt.setInt(10, Integer.parseInt(request.getParameter("member_grade")));     		        
-		        pstmt.setString(11, request.getParameter("member_purchase") );
+
+		      
+		        pstmt.setString(1, request.getParameter("member_pw") );
+		        pstmt.setString(2, request.getParameter("member_email") );
+		        pstmt.setString(3, request.getParameter("member_phone") );
+		       
 		       			
 				rs=pstmt.executeQuery(query);
 				

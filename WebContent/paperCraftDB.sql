@@ -48,7 +48,7 @@ CREATE TABLE p_product_inquiry (
 	product_i_name			 VARCHAR2(50),
 	product_i_date           DATE DEFAULT SYSDATE,
 	member_id                VARCHAR2(20),
-	product_idx              NUMBER(10)
+	product_idx              NUMBER(10),
 	)
 	
 CREATE SEQUENCE p_product_inquiry_seq;
