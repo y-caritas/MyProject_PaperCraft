@@ -15,10 +15,6 @@
       .product_detail_btn{
         font-size: 10pt;
       }
-      details{ 
-        display: inline;
-        width: 200px;
-      }
       details > summary { background:#818181; color:#f1f3f4; padding:10px; outline:0; border-radius:5px; cursor:pointer; text-align:left; box-shadow: 1px 1px 2px gray;}
       details > summary::-webkit-details-marker { background:#444; color:#fff; background-size:contain; transform:rotate3d(0, 0, 1, 90deg); transition:transform 0.25s;}    
       details[open] > summary { background:#444;}        
@@ -42,3 +38,21 @@
       #details_2 td{
         padding-top: 30px;
       }     
+     .detail_tab li a {        
+        display: block;        
+        background: #c7c7c7;
+        width: 200px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        font-size: 16px;
+        color: #f1f3f4;
+        text-decoration: none;
+        border-radius: 5px;
+    } 
+    .clearbox{
+      list-style: none;
+    }
+    .clearbox > li{
+      display: inline-block;      
+    }

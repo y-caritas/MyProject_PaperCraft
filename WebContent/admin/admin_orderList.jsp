@@ -133,6 +133,9 @@
     a:hover {
       color: #bfbfbf;
     }
+    hr {
+    	margin-top: 10px;
+    }
 
 </style>
 </head>
@@ -212,9 +215,6 @@
     </div>
     <span>회원등급: 1. 일반회원 2. 우수회원 3. VIP회원 4. 관리자</span><br>
     <br>
-<!--     <div class="fontRight">
-      <span class="tabletitle">총 000건의 검색 결과가 있습니다.</span>
-    </div> -->
     <div id="checkboxsection">
     <table id="orderlistTable">
       <thead>
@@ -231,10 +231,10 @@
         </tr>
       </thead>
       <!-- while -->
-      <c:forEach var="dto" items="${ order_list }">
+      <c:forEach var="dto" items="${ order_list }" varStatus="status">
       <tr class="tableContent">
         <!-- <td><input type="checkbox" name="order_statuschk" id="order_statuschk" class="check_btn"></td> -->
-        <td>${dto.order_idx}</td>
+        <td>${status.count}</td>
         <fmt:formatDate value="${dto.order_date}" pattern="yyyy-MM-dd" var="reg" />
         <td style="height: 35px;">${reg}</td>
         <td>${dto.order_p_name}</td>
@@ -243,6 +243,11 @@
         <td><a href="orderContentView.do?order_idx=${dto.order_idx}">${dto.member_id}</a></td>
         <td>${dto.member_grade}</td>
         <td>${dto.order_status}</td>
+        <c:if test ="${ status.last }">
+     	    <div class="fontRight">
+    			  <span class="tabletitle">총 ${status.count} 건의 검색 결과가 있습니다.</span>
+   				 </div>
+        </c:if>
       </tr>
       </c:forEach>
     </table>
@@ -253,21 +258,5 @@
   </div>
       
    </div>
-   <script>
-/*       // 체크박스 전체선택 시
-      $("#check_all").click(function() {
-    	  var chk = $("#check_all").prop("checked");
-    	  if(chk) {
-    		  $(".check_btn").prop("checked", true);
-    	  }else {
-    		  $(".check_btn").prop("checked", false);
-    	  }
-      });
-      
-      //체크박스 개별선택 시
-      $(".check_btn").click(function() {
-    	  $("#check_all").prop("checked", false);
-      }); */
-   </script>
 </body>
 </html>

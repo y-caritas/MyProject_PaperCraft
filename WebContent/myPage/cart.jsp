@@ -168,7 +168,7 @@ width: 1000px;
 <section id="inquiryListWrap">
 
 
-<form name="cart" action="" method="post">
+<form name="cart" action="purchase.do" method="post">
   <table id="inquiryListTable"  style="border-bottom: none;">
     <tr class="inquiryTr">
       <th style="width:10%">번호</th>
@@ -181,19 +181,17 @@ width: 1000px;
       
       <c:forEach var="cart" items="${cartList}" varStatus="status">  		   
       <tr>
-      <td><input type="checkbox" name="cart_target[]" value="${cart.cart_idx}">${status.count}</td>
+      <td><input type="checkbox" name="cart_target[]" value="${cart.cart_p_idx}">${status.count}</td>
       <td>
         <div class="cart_titles">
-          <img style="width:100px; height:100px;" class="" src="${cart.cart_p_img}" alt="">          
+          <img style="width:100px; height:100px;" class="" src="${cart.cart_p_img}" alt="">
+          <input type="hidden" name="cart_p_img[]" value="${ cart.cart_p_img }">         
         </div>
       </td>
       <td>
         <div class="cart_btns">
-          <h5>${cart.cart_p_name}</h5>
-          <h6>${cart.cart_o_name} - ${cart.cart_o_price}</h6>        
-          <input name="cart_p_idx" value="${cart.cart_p_idx}" type="text" hidden="hidden"/>
-          <input name="cart_p_name" value="${cart.cart_p_name}" type="text" hidden="hidden"/>          
-          <input class="total_price" name="cart_o_price" value="${cart.cart_o_price}" type="text" hidden="hidden"/>
+          <h5>${cart.cart_p_name}</h5>       
+          <input type="hidden" name="cart_p_name" value="${ cart.cart_p_name }">
         </div>
       </td>
       <td>       
@@ -202,30 +200,31 @@ width: 1000px;
       
       <td>        
           <input type="button" value="-" id="minus" onclick="cartVAR.minus('${cart.cart_idx}')">
-          <input name="cart_p_count" style="text-align: center;" type="text" size="1" value="${cart.cart_p_count}" id="${cart.cart_idx}">
+          <input name="cart_p_count[]" style="text-align: center;" type="text" size="1" value="${cart.cart_p_count}" id="${cart.cart_idx}">
           <input type="button" value="+" id="plus" onclick="cartVAR.plus('${cart.cart_idx}')">        
       </td>
       <td>
         <input name="cart_p_price" type="text" value="${cart.cart_p_price}" id="${cart.cart_idx}_product_price" hidden="hidden"/>
-        <input type="text" class="total_price" value="${cart.cart_p_total_price}" id="${cart.cart_idx}_total_price" hidden="hidden" />
+        <input name="cart_p_total_price[]" type="text" class="total_price" value="${cart.cart_p_total_price}" id="${cart.cart_idx}_total_price" hidden="hidden" />
         <h5 id="${cart.cart_idx}_total_price_view">${cart.cart_p_total_price}</h5>        
       </td>
 		 </c:forEach>
     <tr>
+    
       
     <tr>
       <td style="height: 100px;"> <button type="submit" formaction="cartDelete.do"  class="btn btn-secondary"> 선택삭제 </button> </td>
       <td></td><td></td>
       <td>
       <%--구매하기로 value값 넘길 name 설정하기 --%>
-      <input name="" id="result_value" type="text" value=""> </td>
+      <input name="purchase_total_value" id="result_value" type="text" value=""> </td>
       <td>상품 총 금액</td>
       <td><h4 id="result"></h1></td>
     </tr>
     <tr>
       <td></td><td></td>
       <td style="padding-left: 100px; padding-top: 100px;">
-      <button type="button" type="submit" class="btn btn-dark">결제</button>&emsp;
+      <button type="submit" onclick="updateCart()" class="btn btn-dark">결제</button>&emsp;
       <button type="button" class="btn btn-secondary" onclick="history.back()">취소</button>
       </td><td></td><td></td><td></td>
     </tr>

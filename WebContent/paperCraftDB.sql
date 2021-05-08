@@ -41,7 +41,6 @@ CREATE SEQUENCE p_produc_review_seq;
 
 CREATE TABLE p_product_inquiry (
 	product_i_idx            NUMBER(10) PRIMARY KEY,
-	product_i_writer         VARCHAR2(20),
 	product_i_title			 VARCHAR2(100),
 	product_i_content        VARCHAR2(2000),
 	product_i_img			 VARCHAR2(50),
@@ -133,29 +132,34 @@ CREATE TABLE p_cart (
 	cart_idx                NUMBER(10) PRIMARY KEY,
 	cart_date               DATE DEFAULT SYSDATE,
 	cart_p_idx              NUMBER(10),
-	cart_p_img              VARCHAR2(50),
-	cart_p_name             VARCHAR2(50),
+	cart_p_img              VARCHAR2(1000),
+	cart_p_name             VARCHAR2(1000),
 	cart_p_price            NUMBER(6),
 	cart_p_total_price      NUMBER(6),
 	cart_p_count            NUMBER(2),	
-	cart_o_idx            	NUMBER(6),
 	member_id               VARCHAR2(20)
 	)
 	
 CREATE SEQUENCE p_cart_seq;
 
 CREATE TABLE p_order (
-	order_idx               NUMBER(10) PRIMARY KEY,
+	order_idx               VARCHAR2(100) PRIMARY KEY,
 	order_status            VARCHAR2(20),
 	order_date              DATE DEFAULT SYSDATE,
 	order_p_name            VARCHAR2(50),
 	order_p_price           NUMBER(6),
-	order_o_name            VARCHAR2(50),
-	order_o_price           NUMBER(6),
+	product_idx1            VARCHAR2(10),
+	product_idx2            VARCHAR2(10),
+	product_idx3            VARCHAR2(10),
 	member_name             VARCHAR2(20),
-	member_id               VARCHAR2(20)
-	member_grade						NUMBER(6)
-	)
+	member_id               VARCHAR2(20),
+	member_grade			NUMBER(6),
+	member_address          VARCHAR2(100),
+	member_phone            VARCHAR2(40),
+	member_request          VARCHAR2(4000),
+	paymentoption           VARCHAR2(50),
+	escrow                  VARCHAR2(50)
+	);
 	
 	CREATE SEQUENCE p_order_seq;
 	

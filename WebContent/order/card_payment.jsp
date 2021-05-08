@@ -72,41 +72,46 @@
        Date time = new Date();
        String nowTime = timeFormat.format(time); %>
       <div><span>가맹점명 :</span><span>PaperCraft</span></div>
-      <div><span>결제금액 :</span><span></span></div>
+      <c:if test="${ param.purchase_total_value < 50000}">
+      <div><span>결제금액 :</span><span>${ param.purchase_total_value + 3000}</span></div>
+      </c:if>
+      <c:if test="${ param.purchase_total_value >= 50000}">
+      <div><span>결제금액 :</span><span>${ param.purchase_total_value }</span></div>
+      </c:if>
       <div><span>결제일시 :</span><span><%= nowTime %></span></div>
     </div>
-    <form action="#" method="post">
+    <form action="orderForm.do" method="post" name="popupWin">
       <table id="cardInfo">
         <tr>
           <td style="width: 130px;"><span>명의자 성함</span></td>
-          <td class="cardInfoInput"><input type="text"></td>
+          <td class="cardInfoInput"><input name="creditOwner" type="text"></td>
         </tr>
         <tr>
           <td><span>카드 번호</span></td>
-          <td class="cardInfoInput"><input type="text"></td>
+          <td class="cardInfoInput"><input name="creditNumber" type="text"></td>
         </tr>
         <tr>
           <td><span>유효 기간</span></td>
-          <td class="cardInfoInput"><input type="text" style="width: 70px;">/<input type="text" style="width: 70px;"></td>
+          <td class="cardInfoInput"><input name="creditDate" type="text" style="width: 70px;">/<input type="text" style="width: 70px;"></td>
         </tr>
         <tr>
           <td><span>비밀번호</span><span style="margin:0; font-size: 0.7em;">(앞 2자리)</span></td>
-          <td class="cardInfoInput"><input type="password"></td>
+          <td class="cardInfoInput"><input name="creditPw" type="password"></td>
         </tr>
         <tr>
           <td><span>일시불/할부</span></td>
           <td class="cardInfoInput">
-            <select name="" id="" style="margin: auto 10px; height: 25px;">
-              <option value="">일시불</option>
-              <option value="">2개월</option>
-              <option value="">3개월</option>
-              <option value="">4개월</option>
-              <option value="">5개월</option>
-              <option value="">6개월</option>
-              <option value="">7개월</option>
-              <option value="">8개월</option>
-              <option value="">9개월</option>
-              <option value="">10개월</option>
+            <select name="installment" id="" style="margin: auto 10px; height: 25px;">
+              <option value="1">일시불</option>
+              <option value="2">2개월</option>
+              <option value="3">3개월</option>
+              <option value="4">4개월</option>
+              <option value="5">5개월</option>
+              <option value="6">6개월</option>
+              <option value="7">7개월</option>
+              <option value="8">8개월</option>
+              <option value="9">9개월</option>
+              <option value="10">10개월</option>
             </select>
           </td>
         </tr>
@@ -120,6 +125,10 @@
 </body>
 <script>
   function orderFormSubmit() {
+	  window.opener.name = "openWin";
+	  document.popupWin.target = "openWin";
+	  document.popupWin.action = "/orderForm.jsp";
+	  document.popupWin.submit();
 	  opener.document.orderForm.submit();
 	  self.close();
   }
