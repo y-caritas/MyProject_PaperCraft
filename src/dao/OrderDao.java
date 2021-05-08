@@ -61,13 +61,15 @@ public class OrderDao {
 	            String member_address = rs.getString("member_address");
 	            String member_phone = rs.getString("member_phone");
 	            String member_request = rs.getString("member_request");
+	            String paymentOption = rs.getString("paymentOption");
+	            String escrow = rs.getString("escrow");
 	            
 	            
 	            System.out.println("order_idx: "+ order_idx);
 	            
 	            OrderDto dto = new OrderDto( order_idx, order_status, order_date, order_p_name, order_p_price,
 	        			product_idx1, product_idx2, product_idx3, member_name2, member_id,
-	        			member_grade, member_address, member_phone, member_request);
+	        			member_grade, member_address, member_phone, member_request, paymentOption, escrow);
 	            
 	            simpleOrder.add(dto);
 	         }
@@ -112,6 +114,8 @@ public class OrderDao {
 	            String member_address = rs.getString("member_address");
 	            String member_phone = rs.getString("member_phone");
 	            String member_request = rs.getString("member_request");
+	            String paymentOption = rs.getString("paymentOption");
+	            String escrow = rs.getString("escrow");
             
             
             System.out.println("order_idx: "+ order_idx);
@@ -119,7 +123,7 @@ public class OrderDao {
             
             OrderDto dto = new OrderDto( order_idx, order_status2, order_date, order_p_name, order_p_price,
         			product_idx1, product_idx2, product_idx3, member_name2, member_id,
-        			member_grade, member_address, member_phone, member_request);
+        			member_grade, member_address, member_phone, member_request, paymentOption, escrow);
             
             simpleOrder.add(dto);
          }
@@ -163,13 +167,15 @@ public class OrderDao {
 		            String member_address = rs.getString("member_address");
 		            String member_phone = rs.getString("member_phone");
 		            String member_request = rs.getString("member_request");
+		            String paymentOption = rs.getString("paymentOption");
+		            String escrow = rs.getString("escrow");
 	            
 	            System.out.println("order_idx: "+ order_idx);
 	            
 	            
 	            OrderDto dto = new OrderDto( order_idx, order_status2, order_date, order_p_name2, order_p_price,
 	        			product_idx1, product_idx2, product_idx3, member_name2, member_id,
-	        			member_grade, member_address, member_phone, member_request);
+	        			member_grade, member_address, member_phone, member_request, paymentOption, escrow);
 	            
 	            simpleOrder.add(dto);
 	         }
@@ -213,13 +219,15 @@ public class OrderDao {
 			            String member_address = rs.getString("member_address");
 			            String member_phone = rs.getString("member_phone");
 			            String member_request = rs.getString("member_request");
+			            String paymentOption = rs.getString("paymentOption");
+			            String escrow = rs.getString("escrow");
 		            
 		            System.out.println("order_idx: "+ order_idx);
 		            
 		            
 		            OrderDto dto = new OrderDto( order_idx, order_status2, order_date, order_p_name, order_p_price,
 		        			product_idx1, product_idx2, product_idx3, member_name, member_id2,
-		        			member_grade, member_address, member_phone, member_request);
+		        			member_grade, member_address, member_phone, member_request, paymentOption, escrow);
 		            
 		            simpleOrder.add(dto);
 		         }
@@ -262,13 +270,15 @@ public class OrderDao {
 			            String member_address = rs.getString("member_address");
 			            String member_phone = rs.getString("member_phone");
 			            String member_request = rs.getString("member_request");
+			            String paymentOption = rs.getString("paymentOption");
+			            String escrow = rs.getString("escrow");
 		            
 		            System.out.println("order_idx: "+ order_idx);
 		            
 		            
 		            OrderDto dto = new OrderDto( order_idx, order_status2, order_date, order_p_name, order_p_price,
 		        			product_idx1, product_idx2, product_idx3, member_name, member_id,
-		        			member_grade2, member_address, member_phone, member_request);
+		        			member_grade2, member_address, member_phone, member_request, paymentOption, escrow);
 		            
 		            simpleOrder.add(dto);
 		         }
@@ -311,13 +321,15 @@ public class OrderDao {
 			            String member_address = rs.getString("member_address");
 			            String member_phone = rs.getString("member_phone");
 			            String member_request = rs.getString("member_request");
+			            String paymentOption = rs.getString("paymentOption");
+			            String escrow = rs.getString("escrow");
 		            
 		            System.out.println("order_idx: "+ order_idx);
 		            
 		            
 		            OrderDto dto = new OrderDto( order_idx, order_status2, order_date, order_p_name, order_p_price,
 		        			product_idx1, product_idx2, product_idx3, member_name2, member_id,
-		        			member_grade, member_address, member_phone, member_request);
+		        			member_grade, member_address, member_phone, member_request, paymentOption, escrow);
 		            
 		            simpleOrder.add(dto);
 		         }
@@ -383,11 +395,13 @@ public class OrderDao {
 			            String member_address = rs.getString("member_address");
 			            String member_phone = rs.getString("member_phone");
 			            String member_request = rs.getString("member_request");
+			            String paymentOption = rs.getString("paymentOption");
+			            String escrow = rs.getString("escrow");
 		            
 		            
 		            OrderDto dto = new OrderDto( order_idx, order_status2, order_date, order_p_name, order_p_price,
 		        			product_idx1, product_idx2, product_idx3, member_name, member_id,
-		        			member_grade, member_address, member_phone, member_request);
+		        			member_grade, member_address, member_phone, member_request, paymentOption, escrow);
 		            
 		            simpleOrder.add(dto);
 		         }
@@ -428,12 +442,14 @@ public class OrderDao {
 			            String member_address = rs.getString("member_address");
 			            String member_phone = rs.getString("member_phone");
 			            String member_request = rs.getString("member_request");
+			            String paymentOption = rs.getString("paymentOption");
+			            String escrow = rs.getString("escrow");
 			            
 			            System.out.println(order_idx2);
 			            
 			            dto = new OrderDto( order_idx2, order_status, order_date, order_p_name, order_p_price,
 			        			product_idx1, product_idx2, product_idx3, member_name, member_id,
-			        			member_grade, member_address, member_phone, member_request);
+			        			member_grade, member_address, member_phone, member_request, paymentOption, escrow);
 			            
 		        		
 		        	}

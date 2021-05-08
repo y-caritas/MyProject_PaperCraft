@@ -133,6 +133,9 @@
     a:hover {
       color: #bfbfbf;
     }
+    hr {
+    	margin-top: 10px;
+    }
 
 </style>
 </head>
