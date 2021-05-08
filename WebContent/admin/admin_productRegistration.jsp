@@ -178,9 +178,9 @@ $(function(){
           <td></td>
         </tr>
         <tr>
-          <th style="height: 60px; text-align: center;">옵션명</th>
-          <td style="text-align: center; "><input name="option_detail" type="text" placeholder="옵션명"></td>
-          <td style="text-align: center; "><input name="option_price" type="text" placeholder="가격"></td>          
+          <th style="height: 60px; text-align: center;" hidden="hidden">옵션명</th>
+          <td style="text-align: center; "><input name="option_detail" type="text" placeholder="옵션명" hidden="hidden"></td>
+          <td style="text-align: center; "><input name="option_price" type="text" placeholder="가격" hidden="hidden"></td>          
         </tr>        
       </table>
       <div>

@@ -149,7 +149,7 @@
          </tr>			
 		 </c:forEach>		 	  
           </table>
-          <br><hr><br>
+          <br><br>
           <form action="<%= request.getContextPath() %>/reviewinsert.do" method="POST">
             <div style="border:solid 1px #818181; margin-top: 80px;">
             <table>
