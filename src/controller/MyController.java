@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.IOException;
-
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -20,6 +20,7 @@ import dao.MemberDao;
 import dao.NoticeDao;
 import dao.ProductDao;
 import dao.myPageDao;
+import dto.CartDto;
 import dto.FaqDto;
 import dto.InquiryAnswerDto;
 import dto.InquiryDto;
@@ -239,12 +240,17 @@ public class MyController extends HttpServlet {
 			String notice_idx = request.getParameter("notice_idx");
 			String notice_title = request.getParameter("notice_title");
 			String notice_content = request.getParameter("notice_writeEditor");
+			String notice_pin = request.getParameter("notice_pin");
+			
+			if(notice_pin == null) {
+				notice_pin = "3";
+			}
 			
 			System.out.println("notice_idx:"+notice_idx);
 			System.out.println("notice_title:"+notice_title);
 			System.out.println("notice_content:"+notice_content);
 			
-			NoticeDao.modify( notice_idx, notice_title, notice_content );
+			NoticeDao.notice_modify( notice_idx, notice_title, notice_content, notice_pin  );
 			
 			response.sendRedirect("admin_notice_list.do");
 		}
@@ -347,6 +353,7 @@ public class MyController extends HttpServlet {
 					jspPage = "";
 					return;
 				} else {
+					System.out.println("진입");
 					jspPage = "/main.jsp";
 				}
 			} 
@@ -419,16 +426,18 @@ public class MyController extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/myPage/order_detail.jsp");
 			dispatcher.forward(request, response);
 		}
-        // 1:1 문의 목록 ( inquiry_category = 0 )
+        // 1:1 문의 목록 ( inquiry_category = 2 )
 		else if(command.equals("one_to_one_inquiry.do")) 
 		{
+			
 			ArrayList<InquiryDto> myInquiryList = null;
 			try {
 				myInquiryList = myPageDao.myInquiryList(request);
 			} catch (Exception e) {
-				
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 			request.setAttribute("myInquiryList", myInquiryList);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/myPage/one_to_one_inquiryList.jsp");
@@ -438,13 +447,18 @@ public class MyController extends HttpServlet {
 		else if(command.equals("myInquiryContent.do")) 
 		{
 			request.setCharacterEncoding("UTF-8");
+			InquiryDto dto = new InquiryDto();
 			
-			String inquiryTitle = request.getParameter("inquiryTitle");
-			InquiryDto dto = myPageDao.inquiryContent( inquiryTitle );
+			int myInquiryIdx = Integer.parseInt(request.getParameter("inquiry_idx"));
+			 dto = myPageDao.myInquiryContent( myInquiryIdx );
 			request.setAttribute("dto", dto);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/myPage/myInquiryContent.jsp");
 			dispatcher.forward(request, response);
+			
+			
         }
+		
+	
         //  주문 제작 목록  ( inquiry_category = 1 )
 		else if(command.equals("customizeList.do")) 
 		{
@@ -465,12 +479,20 @@ public class MyController extends HttpServlet {
 		{
 			request.setCharacterEncoding("UTF-8");
 			
-			String inquiryTitle = request.getParameter("inquiryTitle");
-			InquiryDto dto = myPageDao.inquiryContent( inquiryTitle );
+			int myInquiryIdx = Integer.parseInt(request.getParameter("inquiry_idx"));
+			InquiryDto dto = myPageDao.myInquiryContent( myInquiryIdx );
 			request.setAttribute("dto", dto);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/myPage/myInquiryContent.jsp");
 			dispatcher.forward(request, response);
         }
+		
+		// 문의글 쓰기
+		
+		else if(command.equals("myInquiryWrite.do")) {
+			InquiryDao.inquiryFileUpload(request);
+			
+			response.sendRedirect("one_to_one_inquiry.do");
+		}
 		// 비밀번호 확인 
 		else if (command.equals("check_pw.do")) {
 			request.setCharacterEncoding("UTF-8");
@@ -488,19 +510,31 @@ public class MyController extends HttpServlet {
 			}
 			if( result == 1) {
 				
+				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("modifyForm.do");
 				dispatcher.forward(request, response);
 			}else if(result == 2 || result == 0 ) {
-	
+				response.setContentType("text/html; charset=UTF-8");
+				 
+				PrintWriter out = response.getWriter();
+				 
+				out.println("<script>alert('비밀번호를 확인해주세요.');history.back();</script>");
+				 
+				out.flush();
+
 			}
 		}
 			//회원정보 수정 화면
 			
 			else if(command.equals("modifyForm.do")) { //회원정보수정 화면
-					MemberDto dto = null;
+				
+				MemberDto dto = new MemberDto();
+				HttpSession session = request.getSession();
+				String member_id = (String) session.getAttribute("member_id");	
+				System.out.println("member_id:"+ member_id);
 					try {
 				
-						dto = myPageDao.memberInfo(request.getParameter("member_id"));
+						dto = myPageDao. myPageInfo(member_id);
 					} catch (Exception e) {
 						
 						e.printStackTrace();
@@ -510,13 +544,44 @@ public class MyController extends HttpServlet {
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/myPage/info_modify.jsp");
 					dispatcher.forward(request, response);
 			}
+		
+		// 회원 정보 수정
+			else if(command.equals("myPageModify.do")) { //회원정보수정액션
+				request.setCharacterEncoding("UTF-8");
+
+				myPageDao.updateMember(request);
+				
+				response.sendRedirect("modifyForm.do"); //URI 리다이렉0트
+			}
 			// 정보 수정 액션 
 			else if(command.equals("modifyAction.do")) { //회원정보수정액션
 				request.setCharacterEncoding("UTF-8");
+				
 			
 				myPageDao.updateMember(request);
 
 				response.sendRedirect("MemberListForm"); //URI 리다이렉트
+			}
+		
+		//회원 탈퇴 액션 (회원)
+			else if(command.equals("deletemyPageMember.do")) { //회원삭제
+				MemberDto dto = null;
+			
+				try {
+			
+					dto = myPageDao.memberInfo(request.getParameter("member_idx"));
+					
+				} catch (Exception e) {
+			
+					e.printStackTrace();
+				}
+				request.setAttribute("dto", dto);
+				
+				myPageDao.deleteMember(dto.getMember_idx());
+				
+				HttpSession session = request.getSession();
+				session.invalidate();
+				response.sendRedirect(request.getContextPath()+"/main.jsp");
 			}
 	
 			// < -- 관리자 -- > 
@@ -537,10 +602,12 @@ public class MyController extends HttpServlet {
 			}
 			// 회원 정보 조회	
 				else if(command.equals("adminMemberInfo.do")) { //회원정보수정 화면
-						MemberDto dto = null;
+						MemberDto dto = new MemberDto();
+						
 						try {
-					
-							dto = myPageDao.memberInfo(request.getParameter("member_id"));
+							System.out.println("request_member_idx:"+ request.getParameter("member_idx"));
+							dto = myPageDao.memberInfo(request.getParameter("member_idx"));
+						
 						} catch (Exception e) {
 							
 							e.printStackTrace();
@@ -553,24 +620,25 @@ public class MyController extends HttpServlet {
 			// 회원 정보 수정
 				else if(command.equals("adminMemberModify.do")) { //회원정보수정액션
 					request.setCharacterEncoding("UTF-8");
-				
+
 					myPageDao.updateMember(request);
 					
-					response.sendRedirect("adminMemberInfo.do"); //URI 리다이렉0트
+					response.sendRedirect("adminMemberList.do"); //URI 리다이렉0트
 				}
-			//회원 탈퇴 액션 
+			//회원 탈퇴 액션 (관리자)
 				else if(command.equals("deleteMember.do")) { //회원삭제
 					MemberDto dto = null;
 					try {
 				
-						dto = myPageDao.memberInfo(request.getParameter("member_id"));
+						dto = myPageDao.memberInfo(request.getParameter("member_idx"));
+						
 					} catch (Exception e) {
 				
 						e.printStackTrace();
 					}
 					request.setAttribute("dto", dto);
 					
-					myPageDao.deleteMember(dto.getMember_id());
+					myPageDao.deleteMember(dto.getMember_idx());
 					
 					response.sendRedirect("adminMemberList.do"); //URI 리다이렉트
 				}
@@ -622,8 +690,9 @@ public class MyController extends HttpServlet {
 				
 		//검색 페이지
 		else if(command.equals("listviewsearch.do")) {
-			String product_category =  request.getParameter("product_category");
-			String search_name =  request.getParameter("search_name");
+			request.setCharacterEncoding("UTF-8");
+			int product_category = Integer.parseInt(request.getParameter("product_category"));
+			String search_name = "%" + request.getParameter("search_name") + "%";
 			System.out.println(product_category);
 			System.out.println(search_name);
 			
@@ -638,8 +707,9 @@ public class MyController extends HttpServlet {
 		
 		//검색 최신순
 		else if(command.equals("listviewsearchDate.do")) {
+			request.setCharacterEncoding("UTF-8");
 			String product_category =  request.getParameter("product_category");
-			String search_name =  request.getParameter("search_name");
+			String search_name = "%" + request.getParameter("search_name") + "%";
 			System.out.println(product_category);
 			System.out.println(search_name);
 			
@@ -652,8 +722,9 @@ public class MyController extends HttpServlet {
 		
 		//검색 높은가격순
 		else if(command.equals("listviewsearchDesc.do")) {
+			request.setCharacterEncoding("UTF-8");
 			String product_category =  request.getParameter("product_category");
-			String search_name =  request.getParameter("search_name");
+			String search_name = "%" + request.getParameter("search_name") + "%";
 			System.out.println(product_category);
 			System.out.println(search_name);
 			
@@ -666,8 +737,9 @@ public class MyController extends HttpServlet {
 		
 		//검색 낮은가격순
 		else if(command.equals("listviewsearchAsc.do")) {
+			request.setCharacterEncoding("UTF-8");
 			String product_category =  request.getParameter("product_category");
-			String search_name =  request.getParameter("search_name");
+			String search_name = "%" + request.getParameter("search_name") + "%";
 			System.out.println(product_category);
 			System.out.println(search_name);
 			
@@ -686,8 +758,8 @@ public class MyController extends HttpServlet {
 			ProductDto productDto = ProductDao.detailview(product_idx);
 			OptionDto optionDto = ProductDao.detailview_option(product_idx);
 			
-			ProductReviewDto productReviewDto = ProductDao.review(product_idx);
-			ProductEnquiryDto productEnquiryDto = ProductDao.enquiryList(product_idx);
+			ArrayList<ProductReviewDto> productReviewDto = ProductDao.review(product_idx);
+			ArrayList<ProductEnquiryDto> productEnquiryDto = ProductDao.enquiryList(product_idx);
 			
 			//테스트 필요.
 			request.setAttribute("product_idx", product_idx);
@@ -709,15 +781,15 @@ public class MyController extends HttpServlet {
 			
 			ProductDto productDto = ProductDao.detailview(product_idx);
 			OptionDto optionDto = ProductDao.detailview_option(product_idx);
-			ProductReviewDto productReviewDto = ProductDao.review(product_idx);
-			ProductEnquiryDto productEnquiryDto = ProductDao.enquiryList(product_idx);
+			ArrayList<ProductReviewDto> productReviewDto = ProductDao.review(product_idx);
+			ArrayList<ProductEnquiryDto> productEnquiryDto = ProductDao.enquiryList(product_idx);
 			
 			//테스트 필요.
 			request.setAttribute("product_idx", product_idx);
 	        request.setAttribute("productDto", productDto);
 	        request.setAttribute("optionDto", optionDto);
 	        request.setAttribute("productReviewDto", productReviewDto);
-	        request.setAttribute("productEnquiryDto", productEnquiryDto);			
+	        request.setAttribute("productEnquiryDto", productEnquiryDto);
 	        
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page.jsp");
 			dispatcher.forward(request, response);	
@@ -742,15 +814,40 @@ public class MyController extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 		
-		//장바구니
-		else if(command.equals("cart.do")) {
+		//장바구니 추가
+		else if(command.equals("cartInsert.do")) {
 			
 			request.setCharacterEncoding("UTF-8");
 			String product_idx = request.getParameter("product_idx");
 			
-			int result = ProductDao.cart(request);
+			int result = ProductDao.cartInsert(request);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("cart.do");
+			dispatcher.forward(request, response);
+			
+		}
+		//장바구니 보기
+		else if(command.equals("cart.do")) {
+			
+			request.setCharacterEncoding("UTF-8");
+			//세선에서 member_id 값 가져오기
+			String member_id = "abcde";		
+			ArrayList<CartDto> cartList = ProductDao.cart(member_id);
+			
+			request.setAttribute("cartList", cartList);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/myPage/cart.jsp");
 			dispatcher.forward(request, response);
+			
+		}
+		//장바구니 삭제
+		else if(command.equals("cartDelete.do")) {			
+			request.setCharacterEncoding("UTF-8");		
+			String[] cart_targets =  request.getParameterValues("cart_target[]");			
+			for (int i = 0; i < cart_targets.length; i++) {				
+				ProductDao.cartDelete(cart_targets[i]);
+			}
+			RequestDispatcher dispatcher = request.getRequestDispatcher("cart.do");
+			dispatcher.forward(request, response);
+			
 			
 		}
 		
@@ -811,7 +908,7 @@ public class MyController extends HttpServlet {
 			ProductDao.upload(request);			
 			request.setAttribute("message", "파일업로드에 성공 하였습니다.!");
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productlist.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("adminProductList.do");
 			dispatcher.forward(request, response);
 			
 		}
@@ -823,7 +920,7 @@ public class MyController extends HttpServlet {
 			ArrayList<ProductDto> product_list = ProductDao.adminProductList();
 	        request.setAttribute("product_list", product_list);	        
 	        
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productlist.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productList.jsp");
 			dispatcher.forward(request, response);
 			
 		}
@@ -831,25 +928,25 @@ public class MyController extends HttpServlet {
 		else if(command.equals("adminProductNameSearch.do")) {
 			
 			request.setCharacterEncoding("UTF-8");
-			String search_product_name = request.getParameter("product_name");			
+			String search_product_name = "%" + request.getParameter("product_name") + "%";			
 			
 			ArrayList<ProductDto> product_list = ProductDao.adminProductNameSearch(search_product_name);
 	        request.setAttribute("product_list", product_list);
 	        
-			jspPage = "admin_productList.jsp";
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productList.jsp");
+			dispatcher.forward(request, response);
 			
 		}
 		
 		//관리자 기본 상품리스트 상세검색 
 		else if(command.equals("adminProductDetailSearch.do")) {
 			
-			request.setCharacterEncoding("UTF-8");
-			String search_product_name = request.getParameter("product_name");			
+			request.setCharacterEncoding("UTF-8");					
 			
 			ArrayList<ProductDto> product_list = ProductDao.adminProductDetailSearch(request);
 	        request.setAttribute("product_list", product_list);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productlist.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productList.jsp");
 			dispatcher.forward(request, response);
 			
 		}
@@ -857,18 +954,18 @@ public class MyController extends HttpServlet {
 		//관리자 상품리스트 삭제기능
 		else if(command.equals("adminProductDelete.do")) {
 			
-			request.setCharacterEncoding("UTF-8");
-			String search_product_name = request.getParameter("product_name");			
+			request.setCharacterEncoding("UTF-8");						
 
 			int result = ProductDao.adminProductDelete(request);
 			
 			ArrayList<ProductDto> product_list = ProductDao.adminProductList();
 	        request.setAttribute("product_list", product_list);	
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productlist.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productList.jsp");
 			dispatcher.forward(request, response);
 			
 		}
+		
 		// 로그아웃
 		else if(command.equals("logout.do")) {
 			HttpSession session = request.getSession();

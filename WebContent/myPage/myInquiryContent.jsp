@@ -13,7 +13,7 @@
       <tr>
         <td class="background-footer">제목</td>
         <td>
-          <span>?${dto.inquiry_title}</span>
+          <span>${dto.inquiry_title}</span>
         </td>
       </tr>
       <tr>
@@ -22,7 +22,7 @@
           <c:if test="${dto.inquiry_category == 1}">
             <span>주문제작</span>
           </c:if>
-          <c:if test="${dto.inquiry_category == 0}">
+          <c:if test="${dto.inquiry_category == 2}">
             <span>1:1문의</span>
           </c:if>
          

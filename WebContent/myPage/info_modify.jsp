@@ -6,9 +6,7 @@
 
 <style>
 
-.categoryTitle {
-text-align: center;
-}
+
 
 #order-btn{
  border: none;}
@@ -65,6 +63,50 @@ width: 1000px;
       padding: 5px;
       cursor: pointer;
     }
+      .join_form_right{
+   width: auto;
+   }
+   .admin_modify {
+   width: 750px;
+   margin: auto;
+  
+   }
+   .modifyTitle {
+   margin: 0px;
+   text-align: center;	
+   
+   padding: 15px;
+   }
+   .modify_btn{
+   background-color:#e3e3e4;
+   border: none;
+   width: 60px;
+   height: 30px;
+   }
+   .modify_btn:focus {
+    outline: none; 
+   }
+
+   .modify_btn:hover {	
+   background-color: #c7c7c7;
+   color:white;
+ 	border:1px white;
+  
+   }
+   .modify_btn:active {
+   outline: none;
+
+   
+   }
+   
+   #modify_submitbtn{
+   margin: 30px auto;
+   text-align:center;
+   }
+   .modifyLine{
+  
+   }
+   
 </style>
 
 
@@ -116,93 +158,120 @@ width: 1000px;
 <div class="col-md-8  ">
 
 
-<div class = "section-wrap">
- <div class="categoryTitle">
-      <h2>회원 정보 수정 </h2>
-      <hr class="dividingLine">
+<div class = "admin_modify">
+ <div class="modifyTitle">
+      <h2>회원 정보 수정</h2>
+     <br>
+      <hr class="modifyLine">
     </div>
-
-	<form method="post" action="modifyAction.do" 
-				name="userInfo" onsubmit="return checkValue()">
-				
-				
-
- <table  id="inquiryContentTable"  style="border-left: none; border-right: none; border-bottom: none;" >
-      <tr>
-        <td class="background-footer">아이디</td>
-        <td  class="join_form_right join_form_border">
-          <span> hong123${dto.member_id}</span>
-        </td>
-      </tr>
-       <!-- 비밀번호 -->
+    <br>
+    
+	<!-- View + 데이터연동  View용 코드는 차후에 제거할 것 -->
+	
+	   <div id="join_wrapper">
+	   
+        <form action="myPageModify.do" onSubmit= "return checkValue()" name="userInfo" method="POST">
+         <input type="hidden" name="member_idx" value="${dto.member_idx }">
+            <table id="join_table" style="border-collapse: collapse;">
+                <!-- 아이디 -->
+                
                 <tr>
-                    <td class="join_form_left">새 비밀번호</td>
-                    <td class="join_form_right join_form_border"><input class="join_inputbox" type="password" id="join_pw" name="member_pw" maxlength="20" placeholder="비밀번호를 입력해주세요." onchange="isSame()">
-                    <label class="join_label">비밀번호는 영문자+숫자 조합으로 8~25자리를 사용해주세요.</label>
+                
+                    <td class="join_form_left">아이디</td>
+                    <td class="join_form_right join_form_border">${dto.member_id}
+                       
                     </td>
                 </tr>
+                <!-- 비밀번호 -->
                 <tr>
-                    <td class="join_form_left">비밀번호 확인</td>
-                    <td class="join_form_right join_form_border"><input class="join_inputbox" type="password" id="join_pw2" name="member_pw2" maxlength="20" placeholder="비밀번호를 다시입력해주세요." onchange="isSame()">&nbsp;<span id="join_same"></span></td>
+                    <td class="join_form_left">비밀번호</td>
+                    <td class="join_form_right join_form_border"><input class="join_inputbox" type="password" id="join_pw" name="member_pw" maxlength="20" placeholder="비밀번호를 입력해주세요." onchange="isSame()">
+                    <label class="join_label">영문자+숫자 조합으로 8~25자리를 사용해주세요.</label>
+                    </td>
                 </tr>
-      <!-- 이름 -->
+              
+                <!-- 이름 -->
                 <tr>
-                    <td class="join_form_left">이름</td>
-                    <td  class="join_form_right join_form_border" > <span> 홍길동${dto.member_name }</span> </td>
+                    <td class="join_form_left">이름 </td>
+                    <td class="join_form_right join_form_border"><input class="join_inputbox" type="text" id="join_name" name="member_name" maxlength="20" value="${dto.member_name}"></td>
                 </tr>
-    <tr>
+                <!-- 주소 -->
+                <tr>
+                    <td class="join_form_left" >주소</td>
+                    
+               
+               
+                    <td class="join_form_right"><input class="join_inputbox" type="text" id="join_address"  name="member_address" style=" width: 300px;"value="${dto.member_address}" >
+                        
+                        <span id="guide" style="color:#999;display:none"></span><br></td>
+                </tr>
+
+                <!-- 이메일 -->
+                <tr>
+                    <td class="join_form_left">이메일</td>
+                    <td class="join_form_right join_form_border"><input class="join_inputbox" type="text" id="join_email" name="member_email" maxlength="20" style="width: 200px;" value="${dto.member_email}">
+                        
+                   
+                    </td>
+                </tr>
+                <!-- 휴대폰 번호 -->
+                <tr>
                     <td class="join_form_left">휴대폰 번호</td>
                     <td class="join_form_right join_form_border">
-                        <select id="join_phone" class="join_inputbox" name="member_phone" style="width: 80px;">
-                            <option value="">-앞자리-</option>
-                            <option value="010">010</option>
-                            <option value="070">070</option>
-                            <option value="012">012</option>
-                            <option value="02">02</option>
-                        </select>
-                        <span>-</span>
-                        <input id="join_phone2" class="join_inputbox" type="text" name="member_phone2" id="join_phone" maxlength="4" style="width: 80px;">
-                        <span>-</span>
-                        <input id="join_phone3" class="join_inputbox" type="text" name="member_phone2" id="join_phone2" maxlength="4" style="width: 80px;">
-                    </td>
-                    
-     <tr>
-                    <td class="join_form_left">이메일</td>
-                    <td class="join_form_right join_form_border"><input class="join_inputbox" type="text" id="join_email" name="member_email" maxlength="20" placeholder="이메일을 입력해주세요">
-                        <span>@</span>
-                        <select class="join_inputbox" id="member_email2">
-                            <option value="">---이메일---</option>
-                            <option value="naver.com">naver.com</option>
-                            <option value="daum.net">daum.net</option>
-                            <option value="gmail.com">gmail.com</option>
-                            <option value="yahoo.com">yahoo.com</option>
-                        </select>
+         
+                        <input id="join_phone2" class="join_inputbox" type="text" name="member_phone" id="join_phone" maxlength="4" style="width: 200px;" value="${dto.member_phone}">
+                
+                      
                     </td>
                 </tr>
-                <tr style="border-bottom: none;" >
-					<td  style="border-bottom: none;" colspan="2" align="center" >
-	 <button type="button" type="submit" class="btn btn-secondary">수정</button>&emsp;
-      <button type="button" class="btn btn-outline-secondary" onclick="history.back()">취소</button>
-       <button type="button" class="btn btn-light" onclick="MemberDelete?member_id=${dto.member_id}"  style="float: right;">회원탈퇴</button>
-						
-					</td>
-				</tr>
-      
-    </table>
-    
-    </form>
-    
-	
+                <!-- 성별 -->
+                <tr>
+                    <td class="join_form_left">성별</td>
+                    <td class="join_form_right join_form_border">
+                        <input type="radio" name="member_gender" value="남성" checked="checked">&nbsp;남성 &nbsp;&nbsp;
+                        <input type="radio" name="member_gender" value="여성">&nbsp;여성
+                    </td>
+                </tr>
+                <!-- 이메일 수신동의 여부(1:동의, 2:미동의) -->
+                <tr>
+                    <td class="join_form_left">이메일 수신동의</td>
+                    <td class="join_form_right join_form_border">
+                        <input type="radio" name="member_email_ad" checked="checked" value="1">&nbsp;동의 &nbsp;&nbsp;
+                        <input type="radio" name="member_email_ad" value="2">&nbsp;미동의
+                    </td>
+                </tr>
+           <tr>
+                    <td class="join_form_left">가입일</td>
+                    <fmt:formatDate value="${dto.member_date}" pattern="yyyy-MM-dd" var="reg" />
+	     
+                    <td class="join_form_right join_form_border">${ reg }
+                       
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="join_form_left">구매금액</td>
+                    <td class="join_form_right join_form_border">${dto.member_purchase}
+                       
+                    </td>
+                </tr>
+            </table>
+            
+            <div id="modify_submitbtn">
+               <button type="button" class="modify_btn" style="visibility:hidden" > </button> 
+               <button type="button" class="modify_btn" onclick=''>취소</button>
+               <button type="submit" class="modify_btn" >수정</button>
+               <button type="button" class="modify_btn" onclick="confirm_event()" style="float:right">탈퇴</button>
+            </div>
+        </form>
 
-
-
-
-      
+      </div>
 
 </div>
 
 </div>
 <div class="col-md-2">
+
+
 </div>
 
 </div>
@@ -211,81 +280,46 @@ width: 1000px;
 
 
 
-<script> 
+	<script>
+	function checkValue(){
+		if(!document.userInfo.member_pw.value){
+			alert("비밀번호를 입력해주세요");
+			document.getElementById('join_pw').focus();
+			return false;
+		}
+		if(!document.userInfo.member_phone.value){
+			alert("전화번호를 입력해주세요");
+			document.getElementById('phone').focus();
+			return false;
+		}
+		if(!document.userInfo.member_address.value){
+			alert("주소를 입력해주세요");
+			document.getElementById('address').focus();
+			return false;
+		}
+		if(!document.userInfo.member_email.value){
+			alert("이메일을 입력해주세요");
+			document.getElementById('joindate').focus();
+			return false;
+		}
 
- function joinform_check() {
-       
-       var join_id = document.getElementById("join_id");
-       var join_pw = document.getElementById("join_pw");
-       var join_pw2 = document.getElementById("join_pw2");
-       var join_name = document.getElementById("join_name");
-       var join_email = document.getElementById("join_email");
-       var join_email2 = document.getElementById("join_email2");
-       var join_phone = document.getElementById("join_phone");
-       var join_phone2 = document.getElementById("join_phone2");
-       var join_phone3 = document.getElementById("join_phone3");
-       
+		alert("회원정보수정 완료되었습니다.")
+	}
+	
+	function confirm_event(){
+		if (confirm("정말 삭제하시겠습니까??"))
+		{
+		alert("삭제 확인"); 
+		location.href="deletemyPageMember.do?member_idx=${dto.member_idx}";
+		}
+		else{ alert("삭제취소"); 
+		
+		}
+		}
+	
 
-      
-       if( !/^[a-zA-Z0-9]{8,25}$/.test(join_pw.value) ) {
-          alert("비밀번호는 8자리 이상 25자리 영소,대문자 또는 숫자로 입력해주세요.")
-          join_pw.focus();
-          return false;
-       }
-       if( join_pw !== join_pw2 ) {
-           alert("비밀번호가 서로 다릅니다.");
-           join_pw.focus();
-           return false;
-    
-       }
-       if( join_email == "" ) {
-          alert("이메일을 입력해주세요.");
-          join_email.focus();
-          return false;
-       }
-       if( join_email2 == "" ) {
-          alert("이메일 주소를 선택해주세요.");
-          join_email2.focus();
-          return false;
-       }
-       if(join_phone == "" ) {
-    	   alert("휴대폰 번호 앞자리를 선택해주세요.")
-    	   join_phone2.focus();
-    	   return false;
-       }
-       
-       if(join_phone2 == "" || join_phone3 == "" ) {
-    	   alert("휴대폰 번호를 입력해주세요.")
-    	   join_phone2.focus();
-    	   return false;
-       }
-          document.Join_form_submit.submit();
-    }
-    
-    /* 비밀번호 실시간 확인 */
-    function isSame() {
-         var pw = document.getElementById( "join_pw" ).value;
-         if( pw.length < 8 || pw.length > 25 ) {
-            window.alert("비밀번호는 8자리 이상 25자리 미만으로 입력해주세요.");
-            document.getElementById( "join_pw" ).value = document.getElementById( "join_pw2" ).value="";
-            document.getElementById( "join_same" ).innerHTML = "";
-         }
-         
-       if( document.getElementById( "join_pw" ).value !="" && document.getElementById( "join_pw2" ).value !="") {
-          if( document.getElementById( "join_pw" ).value == document.getElementById( "join_pw2" ).value ) {
-             document.getElementById( "join_same" ).innerHTML = "비밀번호가 일치합니다.";
-             document.getElementById( "join_same" ).style.color="blue";
-          }else{
-             document.getElementById( "join_same" ).innerHTML = "비밀번호가 일치하지 않습니다.";
-             document.getElementById( "join_same" ).style.color="red";
-          }
-       }
-    }
-
-
-
-    </script>
-
+	
+	</script>
 
 
 

@@ -211,6 +211,12 @@
           join_id.focus();
           return false;
        }
+       if( join_id.value.search(/\W|\s/g) > -1 ){
+           alert( '특수문자 또는 공백을 입력할 수 없습니다.' );
+           join_id.value = "";
+           join_id.focus();
+           return false;
+        }
        if(idchk.value == "") {
     	   alert("아이디 중복확인을 눌러주세요.")
     	   join_id.focus();

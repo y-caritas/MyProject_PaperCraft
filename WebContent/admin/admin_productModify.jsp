@@ -145,11 +145,11 @@ $(function(){
 		<c:import url="./admin_sideBar.jsp"></c:import>	
 	
 	<div style="margin-left: 30px;">
-	  <form id="fromsubmit" name="adminProduct" action="productRegister.do" method="POST" enctype="multipart/form-data">      
+	  <form id="fromsubmit" name="adminProduct" action="adminProductModify.do" method="POST" enctype="multipart/form-data">      
       <div style="margin: 20px;">상품관리 > 상품수정
       </div>      
       <div>
-        <b>상품 정보 입력</b>
+        <b>상품 정보 입력</b> <h5>상품번호 = <%= product_idx %></h5>
       </div>
       
       <div class="input-group">

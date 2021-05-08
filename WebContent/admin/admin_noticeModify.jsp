@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -27,7 +28,7 @@
 		<form id="fromsubmit" action="admin_notice_modifyEdit.do" name="Join_form_submit" method="POST">
 		<input type="hidden" name="notice_idx" value="${dto.notice_idx}"/>
 			<div>
-			<input type="checkbox">&nbsp;<label>중요 공지</label><br>
+			<input type="checkbox" name="notice_pin" value="1">&nbsp;<label>중요 공지</label><br>
 			<input id="admin_notice_writeTitle" type="text" name="notice_title" value="${ dto.notice_title }">
 			
 			<!-- 스마트에디터 -->

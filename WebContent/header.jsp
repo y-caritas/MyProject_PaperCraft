@@ -66,7 +66,7 @@
             <a href="<%= request.getContextPath() %>/admin/adminFaqList.do">AdminPage</a>
             </c:if>
             <a href="#">OrderDetail</a>
-            <a href="<%= request.getContextPath() %>/myPage/customize_inquiry.jsp">MyPage</a>
+            <a href="one_to_one_inquiry.do">MyPage</a>
             <a href="logout.do">Logout</a>
           </span>
         </span>

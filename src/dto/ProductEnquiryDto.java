@@ -20,6 +20,7 @@ public class ProductEnquiryDto {
 		// TODO Auto-generated constructor stub
 	}
 
+
 	public ProductEnquiryDto(int product_i_idx, String product_i_writer, String product_i_title,
 			String product_i_content, String product_i_img, String product_i_category, String product_i_name,
 			Date product_i_date, String member_id, int product_idx ) {
@@ -34,6 +35,8 @@ public class ProductEnquiryDto {
 		this.product_i_date = product_i_date;
 		this.member_id = member_id;
 		this.product_idx = product_idx;
+
+	
 
 	}
 

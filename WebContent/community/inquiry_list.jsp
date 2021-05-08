@@ -15,7 +15,7 @@
         <th style="width:70%">제목</th>
         <th style="width:20%">작성자</th>
       </tr>
-      <c:forEach var="dto" items="${ inquiryList }">
+      <c:forEach var="dto" items="${inquiryList }">
       <tr class="inquiryTr">
         <td>${dto.inquiry_idx}</td>
         <td style="text-align: left; cursor: pointer;"><a onclick="comparePW(${ dto.inquiry_idx })">${dto.inquiry_title}</a></td>
@@ -35,10 +35,10 @@
     </script>
     <div id="inquiryBtn" style="width:1000px;">
       <c:if test="${ session.member_id != null }">
-        <button onclick="location.href='#'">나의 문의 보기</button>
+        <button onclick="location.href='one_to_one_inquiry.do'">나의 문의 보기</button>
       </c:if>
       <c:if test="${ session.member_id == null }">
-        <button onclick="location.href='#'">나의 문의 보기</button>
+        <button onclick="location.href='one_to_one_inquiry.do'">나의 문의 보기</button>
       </c:if>
       <button onclick="location.href='<%= request.getContextPath() %>/community/inquiry_write.jsp'">문의글 쓰기</button>
     </div>

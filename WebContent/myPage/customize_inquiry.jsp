@@ -121,32 +121,20 @@ width: 1000px;
         <th style="width:20%">작성일</th>
       </tr>
       
-      <!-- view용 -->
-      <tr class="inquiryTr">
-        <td>1</td>
-        <td style="text-align: left;"><a href="<%=request.getContextPath()%>/myPage/myPage_content.jsp">첨부 이미지로 상품제작 부탁드립니다.</a></td>
-        <td>2021-04-09</td>
-      </tr>
-       <tr class="inquiryTr">
-        <td>1</td>
-        <td style="text-align: left;"><a href="<%=request.getContextPath()%>/myPage/myPage_content.jsp">첨부 이미지로 상품제작 부탁드립니다.</a></td>
-        <td>2021-04-09</td>
-      </tr> <tr class="inquiryTr">
-        <td>1</td>
-        <td style="text-align: left;"><a href="<%=request.getContextPath()%>/myPage/myPage_content.jsp">첨부 이미지로 상품제작 부탁드립니다.</a></td>
-        <td>2021-04-09</td>
-      </tr>
-      
+
       
       <!-- DB 연동용 -->
+      <c:forEach var="dto" items="${ customizeList }">
       <tr class="inquiryTr">
-        <c:forEach var="dto" items="${ customizeList }">
-          <td>${dto.inquiryIdx}</td>
-          <td style="text-align: left;"><a href="customizeContent.do">${dto.inquiryTitle}</a></td>
+        
+         <c:if test="${dto.inquiry_category == 1 }">
+          <td><a href="customizeContent.do?inquiry_idx=${dto.inquiry_idx}">${dto.inquiry_idx}</a></td>
+          <td style="text-align: left;">${dto.inquiry_title}</td>
           <td>${dto.inquiry_date}</td>
-        </c:forEach>
+           </c:if>
+       
       </tr>
-      
+       </c:forEach>
     </table>
 
  <div id="writeBtn">

@@ -46,7 +46,7 @@ color: #818181;
 
 
 .section-wrap {
-margin-left: 30px;
+
 padding-left: 40px;
 text-align: center;
 
@@ -127,35 +127,20 @@ width: 1000px;
         <th style="width:20%">작성일</th>
       </tr>
       
-      <!-- view용 -->
-      <tr class="inquiryTr">
-        <td>1</td>
-        <td style="text-align: left;"><a href="<%=request.getContextPath()%>/myPage/myPage_content.jsp">목요일에 주문하면 이번 주 안에 받아볼 수 있나요?</a></td>
-        <td>2021-04-07</td>
-      </tr>
-      
-       <tr class="inquiryTr">
-        <td>1</td>
-        <td style="text-align: left;"><a href="<%=request.getContextPath()%>/myPage/myPage_content.jsp">목요일에 주문하면 이번 주 안에 받아볼 수 있나요?</a></td>
-        <td>2021-04-07</td>
-      </tr>
-       <tr class="inquiryTr">
-        <td>1</td>
-        <td style="text-align: left;"><a href="<%=request.getContextPath()%>/myPage/myPage_content.jsp">목요일에 주문하면 이번 주 안에 받아볼 수 있나요?</a></td>
-        <td>2021-04-07</td>
-      </tr>
+     
       
       <!-- EL 표현식 -->
+        <c:forEach var="dto" items="${myInquiryList}">
       <tr class="inquiryTr">
-        <c:forEach var="dto" items="${ myInquiryList }">
-        <c:if test="${dto.inquiryCategory == 1 }"> 
-          <td>${dto.inquiryIdx}</td>
-          <td style="text-align: left;"><a href="myInquiryContent.do">${dto.inquiryTitle}</a></td>
+      
+        <c:if test="${dto.inquiry_category == 2 }"> 
+          <td><a href="myInquiryContent.do?inquiry_idx=${dto.inquiry_idx}">${dto.inquiry_idx}</a></td>
+          <td style="text-align: left;">${dto.inquiry_title}</td>
           <td>${dto.inquiry_date}</td>
           </c:if>
-        </c:forEach>
-      </tr>
       
+      </tr>
+        </c:forEach>
     </table>
 
  <div id="writeBtn">

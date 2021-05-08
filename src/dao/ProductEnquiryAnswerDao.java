@@ -10,6 +10,7 @@ import dto.ProductEnquiryAnswerDto;
 
 public class ProductEnquiryAnswerDao {
 	
+	// 답변 view
 	public static ProductEnquiryAnswerDto pInquiryAnswer( String product_i_idx ) {
 		 Connection conn = null;
 		 PreparedStatement pstmt = null;
@@ -18,7 +19,7 @@ public class ProductEnquiryAnswerDao {
 		 
 		 try {
 			conn = DBConnection.getConnection();
-			String query = "SELECT * FROMp_product_inquiry_answer WHERE product_i_idx=?";
+			String query = "SELECT * FROM p_product_inquiry_answer WHERE product_i_idx=?";
 			pstmt = conn.prepareStatement( query );
 			pstmt.setInt(1, Integer.parseInt( product_i_idx ));
 			rs = pstmt.executeQuery();
@@ -42,5 +43,70 @@ public class ProductEnquiryAnswerDao {
 		 
 		 return dto;
 	 }
+	
+	//답변 등록 
+	
+	public static int pInquiryReply(String product_i_a_content, String product_i_idx) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			conn = DBConnection.getConnection();
+			String query = "INSERT INTO p_product_inquiry_answer (product_i_a_idx, product_i_a_content, product_i_a_date)"
+					+ "VALUES(p_product_inquiry_answer_seq.nextval, ?, sysdate)";
+			pstmt = conn.prepareStatement( query );
+			pstmt.setString(1, product_i_a_content);
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+		
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	//답변 수정
+	
+	public static void pInquiryReplyUpdate( String product_i_a_content, String product_i_idx ) {
+
+		Connection conn = null;    
+		PreparedStatement pstmt = null;   
+		try {
+			conn = DBConnection.getConnection();
+			String query = "UPDATE p_product_inquiry_answer SET  product_i_a_content=?,"
+				+ "WHERE product_i_idx=?";       
+			pstmt = conn.prepareStatement( query );
+			pstmt.setString(1, product_i_a_content);
+			
+			pstmt.setInt(2, Integer.parseInt( product_i_idx ) );
+			
+			
+			int result = pstmt.executeUpdate(); 
+			System.out.println("update result:" + result);  
+			                                      
+		
+		} catch (Exception e) {
+		e.printStackTrace();
+		}
+
+	}
+	
+	// 답변 삭제 
+	public static void pInquiryReply_delete(int product_i_a_idx) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = DBConnection.getConnection();
+			String query = "DELETE FROM p_product_inquiry_answer WHERE product_i_a_idx=?";
+			pstmt = conn.prepareStatement( query );
+			pstmt.setInt(1, product_i_a_idx);
+			int result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }

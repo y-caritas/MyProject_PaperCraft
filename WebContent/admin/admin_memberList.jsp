@@ -49,62 +49,38 @@
         <th style="width:25%">이메일</th>
          <th style="width:10%">등급</th>
         
+        
+        
       </tr>
       
-      <!-- view용 -->
       
-      <tr class="inquiryTr">
-        <td>1</td>
-        <td> 김정우</td>
-        <td><a href="<%=request.getContextPath()%>/admin/admin_memberModify.jsp">kimjwoo123</a></td>
-        <td>010-2543-2266</td>
-        <td>jungwooKim@naver.com</td>
-        <td>A	</td>
-      </tr>
-      
-       <tr class="inquiryTr">
-        <td>2</td>
-        <td> 박승진</td>
-        <td><a href="<%=request.getContextPath()%>/admin/admin_memberModify.jsp">promote33</a></td>
-        <td>010-7855-6343</td>
-        <td>aobod22@gmail.com</td>
-        <td>B	</td>
-      </tr>
-       <tr class="inquiryTr">
-        <td>3</td>
-       <td> 이미연</td>
-        <td><a href="<%=request.getContextPath()%>/admin/admin_memberModify.jsp">minyeon2442</a></td>
-        <td>010-6235-7586</td>
-        <td>lee55mi@naver.com</td>
-        <td>C	</td>
-      </tr>
-      
-      <!-- EL 표현식 -->
-      
-      <tr class="inquiryTr">
-        <c:forEach var="dto" items="${ memberList }">
-          <td><a href="#">${dto.member_idx}</a></td>
+       <c:forEach var="dto" items="${ memberList }">
+          <tr class="inquiryTr">
+       
+          <td><a href="adminMemberInfo.do?member_idx=${dto.member_idx}">${dto.member_idx}</a></td>
           <td>${dto.member_name}</td>
-          <td><a href="admin_memberModify?member_id=${dto.member_id}">${dto.member_id}</a></td>
+          <td>${dto.member_id}</td>
           <td>${dto.member_phone}</td>
           <td>${dto.member_email}</td>
            <c:choose>
-                <c:when test="${dto.member_grade eq 'S'}">
+                <c:when test="${dto.member_grade == S}">
 		        	<td>관리자</td>
 		        </c:when>
-		        <c:when test="${dto.member_grade eq 'A'}">
+		        <c:when test="${dto.member_grade == A}">
 		        	<td>VIP</td>
 		        </c:when>
-		        <c:when test="${dto.member_grade eq 'B'}">
+		        <c:when test="${dto.member_grade == B}">
 		        	<td>우수회원</td>
 		        </c:when>
-		        	<c:when test="${dto.member_grade eq 'C'}">
+		        	<c:when test="${dto.member_grade == C}">
 		        <td>일반회원</td>
 		        </c:when>
 		        
 	        </c:choose>
-        </c:forEach>
+     
       </tr>
+         </c:forEach>
+
       
     </table>
 

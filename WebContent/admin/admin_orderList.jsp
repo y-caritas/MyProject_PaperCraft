@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -26,6 +27,7 @@
     #detsearchflex {
       display: flex;
       flex-direction: row;
+      padding-top: 15px;
     }
     .detsearch {
       width: 495px;
@@ -81,7 +83,7 @@
     .flexboxtitle {
       display: flex;
       flex-direction: column;
-      width: 200px;
+      width: 150px;
       text-align: center;
     }
     .flexboxtitle span {
@@ -91,9 +93,15 @@
       display: flex;
       flex-direction: column;
       text-align: center;
+      margin-bottom: 15px;
     }
     .flexboxContent input, .flexboxContent1 input {
       margin-bottom: 5px;
+    }
+    .flexboxContent button {
+       margin-bottom: 7px;
+       width: 70px;
+       margin-left: 15px;
     }
     thead {
       border-top: 2px solid #bfbfbf;
@@ -129,10 +137,10 @@
 </style>
 </head>
 <body>
-	<div id="sideBarContainer">
-		<c:import url="./admin_sideBar.jsp"></c:import>
-		
-		  <div id="ordersection">
+   <div id="sideBarContainer">
+      <c:import url="./admin_sideBar.jsp"></c:import>
+      
+        <div id="ordersection">
     <div id="orderlisthead">
       <h3>| 주문 관리</h3>
       <hr>
@@ -140,13 +148,13 @@
     <div id="ordersearchbox">
       <div id="orderlistsection">
         <span>간편검색</span>
-        <form action="">
+        <form action="orderlist_simpleSearch.do">
           <div id="order1search">
-            <select name="" id="orderselect" style="height: 26px;">
-              <option value="0">주문 확인중</option>
-              <option value="1">배송 준비중</option>
-              <option value="2">배송중</option>
-              <option value="3">배송완료</option>
+            <select name="orderselect" id="orderselect" style="height: 26px;">
+              <option value="주문확인중">주문 확인중</option>
+              <option value="배송준비중">배송 준비중</option>
+              <option value="배송중">배송중</option>
+              <option value="배송완료">배송완료</option>
             </select>
             <button type="submit">검 색</button>
           </div>
@@ -157,6 +165,7 @@
       </div>
       <!-- 상세검색 -->
       <div>
+      <form>
         <div id="detsearchflex">
           <div class="detsearch">
             <div class="flexboxtitle">
@@ -165,15 +174,23 @@
               <span>회원 등급</span>
             </div>
             <div class="flexboxContent">
-              <input type="text">
-              <input type="text">
-              <select name="" id="membergrade">
+              <input type="text" name="p_name">
+              <input type="text" name="member_id">
+              <select name="member_grade" id="membergrade">
+              	<option value="">선택</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
               </select>
             </div>
+            <div class="flexboxContent">
+               <button formaction="det_p_name.do">검 색</button>
+               <button formaction="det_member_id.do">검 색</button>
+               <button formaction="det_member_grade.do">검 색</button>
+            </div>
+            <script>
+            </script>
             </div>
             <div class="detsearch">
               <div class="flexboxtitle">
@@ -181,25 +198,28 @@
                 <span>구매 금액</span>
               </div>
               <div class="flexboxContent1">
-                <input type="text"><br>
-                <input type="text"><span>원 ~ </span><input type="text"><span>원</span>
+                <input type="text" name="member_name"><br>
+                <input type="text" name="p_price1" id="p_price1"><span>원 ~ </span><input type="text" name="p_price2" id="p_price1"><span>원</span>
               </div>
+              <div class="flexboxContent">
+               <button formaction="det_member_name.do">검 색</button>
+               <button formaction="det_p_price.do">검 색</button>
+            	</div>
           </div>
         </div>
-        <div class="detsearchBtn">
-          <button>상세검색</button>
-        </div>
+        </form>
       </div>
     </div>
     <span>회원등급: 1. 일반회원 2. 우수회원 3. VIP회원 4. 관리자</span><br>
     <br>
-    <div class="fontRight">
+<!--     <div class="fontRight">
       <span class="tabletitle">총 000건의 검색 결과가 있습니다.</span>
-    </div>
+    </div> -->
+    <div id="checkboxsection">
     <table id="orderlistTable">
       <thead>
-        <tr>
-          <td>선택</td>
+        <tr class="allCheck">
+          <!-- <td><input type="checkbox" name="check_all" id="check_all"></td> -->
           <td>번호</td>
           <td>주문 날짜</td>
           <td>상품 이름</td>
@@ -210,23 +230,44 @@
           <td>주문 상태</td>
         </tr>
       </thead>
+      <!-- while -->
+      <c:forEach var="dto" items="${ order_list }">
       <tr class="tableContent">
-        <td><input type="checkbox"></td>
-        <td>1</td>
-        <td>2020</td>
-        <td>이름</td>
-        <td>20000</td>
-        <td><a href="./admin_orderModify.jsp">홍길동</a></td>
-        <td><a href="./admin_orderModify.jsp">hong</a></td>
-        <td>1</td>
-        <td>배송확인중</td>
+        <!-- <td><input type="checkbox" name="order_statuschk" id="order_statuschk" class="check_btn"></td> -->
+        <td>${dto.order_idx}</td>
+        <fmt:formatDate value="${dto.order_date}" pattern="yyyy-MM-dd" var="reg" />
+        <td style="height: 35px;">${reg}</td>
+        <td>${dto.order_p_name}</td>
+        <td>${dto.order_p_price}</td>
+        <td><a href="orderContentView.do?order_idx=${dto.order_idx}">${dto.member_name}</a></td>
+        <td><a href="orderContentView.do?order_idx=${dto.order_idx}">${dto.member_id}</a></td>
+        <td>${dto.member_grade}</td>
+        <td>${dto.order_status}</td>
       </tr>
+      </c:forEach>
     </table>
-    <div id="orderconfirmBtn">
-      <button type="button">주문 확인 처리</button>
     </div>
+    <!-- <div id="orderconfirmBtn">
+      <button type="button" onclick="location.href='orderstatusCH.do'">주문 확인 처리</button>
+    </div> -->
   </div>
-		
-	</div>
+      
+   </div>
+   <script>
+/*       // 체크박스 전체선택 시
+      $("#check_all").click(function() {
+    	  var chk = $("#check_all").prop("checked");
+    	  if(chk) {
+    		  $(".check_btn").prop("checked", true);
+    	  }else {
+    		  $(".check_btn").prop("checked", false);
+    	  }
+      });
+      
+      //체크박스 개별선택 시
+      $(".check_btn").click(function() {
+    	  $("#check_all").prop("checked", false);
+      }); */
+   </script>
 </body>
 </html>

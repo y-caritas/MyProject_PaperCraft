@@ -19,31 +19,19 @@
 
 
  <%// 실제 데이터용   %>
+
  <div class="accordian">
-  <c:forEach var="dto" items="${ faq_list }">
-  <input type="checkbox" id="answer01">
-  <label for="answer01"> Q.  ${dto.faq_title} ? <em>  </em></label>
+
+    <c:forEach var="dto" items="${ faq_list }">
+    <c:set var="i" value="${i+1 }" />
+  <input type="checkbox" id="answer${i+1}">
+
+  <label for="answer${i+1 }""> Q.  ${dto.faq_title}  <em>  </em></label>
   <div><p> ${dto.faq_content} </p></div> 
-  </c:forEach>
+    </c:forEach>
    </div>
+
   
-  
- <%// view 용 컨텐츠  %> 
-   <div class="accordian">
-    <input type="checkbox" id="answer02">
-    <label for="answer02"> 컨텐츠 제목 <em>  </em></label>
-    <div><p> 컨텐츠 내용 </p></div> 
-     </div>
-     <div class="accordian">
-      <input type="checkbox" id="answer03">
-      <label for="answer03"> 컨텐츠 제목 <em>  </em></label>
-      <div><p> 컨텐츠 내용 </p></div> 
-       </div>
-       
-        <div class="accordian">
-    <input type="checkbox" id="answer04">
-    <label for="answer04"> 컨텐츠 제목 <em>  </em></label>
-    <div><p> 컨텐츠 내용 </p></div> 
-     </div>
+ 
 
   <c:import url="/footer.jsp"></c:import>

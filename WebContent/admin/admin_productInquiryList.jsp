@@ -115,10 +115,10 @@
 
 <div id ="prodInq_chkbox">
 
-<input type="checkbox" name="productInq"  onclick='getCheckboxValue()'> <small>답변 없는 문의만 보기</small>
 
-<form action = "" method="post" style="float:right" >
-<input type="text"> <button class="goProBtn" type = "submit">검색 </button>
+
+<form action = "pInquirySearch.do" method="post" style="float:right" >
+<input type="text" name ="pInquirySearch"> <button class="goProBtn" type = "submit">검색 </button>
 </form>
 </div>
 
@@ -139,7 +139,7 @@
 	<tr class="inquiryTr">     
           <td>1</td>
           <td><img src="http://placehold.it/100" /> </td>         
-           <td style="text-align: left;"><div class="ProdInqCatg"><small><b>상품 카테고리 > 상품명</b></small> <button class ="goProBtn" onclick="location.href='#' "><small>제품 보기</small></button></div> 
+           <td style="text-align: left;"><div class="ProdInqCatg"><small><b>상품 카테고리 > 상품명</b></small></div> 
            <br>  
         <b> Q. 이 옷은 어떻게 세탁을 하면 되나요?</b></td>
           <td>hong123</td>
@@ -202,31 +202,29 @@
 	<tr class="inquiryTr">     
           <td>${dto.product_i_idx}</td>
           <td>${dto.product_i_img}</td>         
-           <td style="text-align: left;"><div class="ProdInqCatg"><small><b>${dto.product_i_category} > ${dto.product_i_name}</b></small> <button class ="goProBtn" onclick="location.href='#' "><small>제품 보기</small></button></div> 
+           <td style="text-align: left;"><div class="ProdInqCatg"><small><b>${dto.product_i_category} > ${dto.product_i_name}</b></small></div> 
            <br>  
         <b> ${dto.product_i_title}</b></td>
           <td>${dto.product_i_writer}</td>
           <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${dto.product_i_date}"/></td>
-          <td><div id="dropDown"  onclick="location.href='pInquiryAnswer.do?dto.product_i_idx=${dto.product_i_idx }';" ><span class="ico_ar">▼</span></div></td>
+          <td><div id="dropDown"  onclick="location.href='pInquiryAnswerView.do?dto.product_i_idx=${dto.product_i_idx }';" ><span class="ico_ar">▼</span></div></td>
       </tr>
       
 		 </c:forEach>		
       </table>					
-  
+       
 				<div id="dropContent">
 				<table id ="InqDropTab">
 				
-				
-				  <colgroup>
+
+			 <colgroup>
             <col width="10%" />
             <col width="90%" />
-					</colgroup>
-				
-						<c:choose>
-				
+			</colgroup>
+							
+			<c:choose>
 				<c:when test="${dto.inquiry_a_content != null }" >
-											
-			
+													
 				<tr class="dropTr" style="background-color:#f1f3f4;" > 
 				<td>  <b>A.</b></td>
 				<td> ${dto.inquiry_a_content}</td>
@@ -237,7 +235,7 @@
 				<div id ="ProWriteBtn">
 				<button class ="goProBtn"  onclick="ProdInqWrite()" >답변하기</button>
 				<button class ="goProBtn"  onclick="location.href='pInquiryModify.do?dto.product_i_idx=${dto.inquiry_a_idx}';" >수정</button>
-				<button class ="goProBtn"  onclick="del(${dto.inquiry_a_idx})" >삭제 </button>
+				<button class ="goProBtn"  onclick="del(${dto.product_i_a_idx})" >삭제 </button>
 				
 				</div>
 				</td>
@@ -247,7 +245,7 @@
 				
 				<c:otherwise> 등록된 답변이 없습니다. </c:otherwise>
 				</c:choose>
-				
+			
 				</table>
 
 
@@ -296,7 +294,7 @@ $(function(){
         function del(seq) {
     		var chk = confirm("정말 삭제하시겠습니까?");
     		if (chk) {
-    			location.href='deletePIA.do?seq='+seq;
+    			location.href='pInquiryReplydelete.do?seq='+seq;
     		}
     	}	
 

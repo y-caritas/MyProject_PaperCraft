@@ -129,6 +129,7 @@ public class MemberDao {
 		String member_id = request.getParameter("member_id");                                                                        
 		String member_pw = request.getParameter("member_pw"); 
 		 
+		System.out.println("member_id:"+ member_id);
 		conn = DBConnection.getConnection(); 
 		String query = "SELECT * FROM p_member WHERE member_id = ? AND member_pw = ?"; 
 		pstmt = conn.prepareStatement( query ); 

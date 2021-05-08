@@ -23,11 +23,11 @@
       </div>
     
       <div class="card-body">
-        <form class="form-signin" method="POST"  action="LoginAction" name="LoginMember" onSubmit="logincall();return false">      
+        <form class="form-signin" method="POST"  action="pwFind.do" name="LoginMember" onSubmit="logincall();return false">      
         
          
-          <input type="text" id="uid" class="form-control input-lg login-input"  placeholder="아이디를 입력하세요." required autofocus><BR>
-          <input type="password" id="upw" class=" form-control input-lg login-input"  placeholder="이메일을 입력하세요." required><br>
+          <input type="text" id="uid" name="member_id" class="form-control input-lg login-input"  placeholder="아이디를 입력하세요." required autofocus><BR>
+          <input type="text" id="upw" name="member_email" class=" form-control input-lg login-input"  placeholder="이메일을 입력하세요." required><br>
           
          
           <button id="btn-Yes" class="btn btn-lg btn-primary btn-block" type="submit">확인</button>
