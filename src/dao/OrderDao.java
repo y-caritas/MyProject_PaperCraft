@@ -63,13 +63,17 @@ public class OrderDao {
 	            String member_request = rs.getString("member_request");
 	            String paymentOption = rs.getString("paymentOption");
 	            String escrow = rs.getString("escrow");
+	            String order_p_img = rs.getString("order_p_img");
+	            String order_p_count1 = rs.getString("order_p_count1");
+	            String order_p_count2 = rs.getString("order_p_count2");
+	            String order_p_count3 = rs.getString("order_p_count3");
 	            
 	            
 	            System.out.println("order_idx: "+ order_idx);
 	            
 	            OrderDto dto = new OrderDto( order_idx, order_status, order_date, order_p_name, order_p_price,
-	        			product_idx1, product_idx2, product_idx3, member_name2, member_id,
-	        			member_grade, member_address, member_phone, member_request, paymentOption, escrow);
+	        			product_idx1, product_idx2, product_idx3, member_name2, member_id, member_grade, member_address, 
+	        			member_phone, member_request, paymentOption, escrow, order_p_img, order_p_count1, order_p_count2, order_p_count3);
 	            
 	            simpleOrder.add(dto);
 	         }
@@ -116,14 +120,18 @@ public class OrderDao {
 	            String member_request = rs.getString("member_request");
 	            String paymentOption = rs.getString("paymentOption");
 	            String escrow = rs.getString("escrow");
+	            String order_p_img = rs.getString("order_p_img");
+	            String order_p_count1 = rs.getString("order_p_count1");
+	            String order_p_count2 = rs.getString("order_p_count2");
+	            String order_p_count3 = rs.getString("order_p_count3");
             
             
             System.out.println("order_idx: "+ order_idx);
             
             
             OrderDto dto = new OrderDto( order_idx, order_status2, order_date, order_p_name, order_p_price,
-        			product_idx1, product_idx2, product_idx3, member_name2, member_id,
-        			member_grade, member_address, member_phone, member_request, paymentOption, escrow);
+        			product_idx1, product_idx2, product_idx3, member_name2, member_id, member_grade, member_address, member_phone, 
+        			member_request, paymentOption, escrow, order_p_img, order_p_count1, order_p_count2, order_p_count3);
             
             simpleOrder.add(dto);
          }
@@ -169,13 +177,17 @@ public class OrderDao {
 		            String member_request = rs.getString("member_request");
 		            String paymentOption = rs.getString("paymentOption");
 		            String escrow = rs.getString("escrow");
+		            String order_p_img = rs.getString("order_p_img");
+		            String order_p_count1 = rs.getString("order_p_count1");
+		            String order_p_count2 = rs.getString("order_p_count2");
+		            String order_p_count3 = rs.getString("order_p_count3");
 	            
 	            System.out.println("order_idx: "+ order_idx);
 	            
 	            
 	            OrderDto dto = new OrderDto( order_idx, order_status2, order_date, order_p_name2, order_p_price,
-	        			product_idx1, product_idx2, product_idx3, member_name2, member_id,
-	        			member_grade, member_address, member_phone, member_request, paymentOption, escrow);
+	        			product_idx1, product_idx2, product_idx3, member_name2, member_id, member_grade, member_address, member_phone, 
+	        			member_request, paymentOption, escrow, order_p_img, order_p_count1, order_p_count2, order_p_count3);
 	            
 	            simpleOrder.add(dto);
 	         }
@@ -221,13 +233,17 @@ public class OrderDao {
 			            String member_request = rs.getString("member_request");
 			            String paymentOption = rs.getString("paymentOption");
 			            String escrow = rs.getString("escrow");
+			            String order_p_img = rs.getString("order_p_img");
+			            String order_p_count1 = rs.getString("order_p_count1");
+			            String order_p_count2 = rs.getString("order_p_count2");
+			            String order_p_count3 = rs.getString("order_p_count3");
 		            
 		            System.out.println("order_idx: "+ order_idx);
 		            
 		            
-		            OrderDto dto = new OrderDto( order_idx, order_status2, order_date, order_p_name, order_p_price,
-		        			product_idx1, product_idx2, product_idx3, member_name, member_id2,
-		        			member_grade, member_address, member_phone, member_request, paymentOption, escrow);
+		            OrderDto dto = new OrderDto(order_idx, order_status2, order_date, order_p_name, order_p_price,
+		        			product_idx1, product_idx2, product_idx3, member_name, member_id2, member_grade, member_address, member_phone, 
+		        			member_request, paymentOption, escrow, order_p_img, order_p_count1, order_p_count2, order_p_count3);
 		            
 		            simpleOrder.add(dto);
 		         }
@@ -272,13 +288,17 @@ public class OrderDao {
 			            String member_request = rs.getString("member_request");
 			            String paymentOption = rs.getString("paymentOption");
 			            String escrow = rs.getString("escrow");
+			            String order_p_img = rs.getString("order_p_img");
+			            String order_p_count1 = rs.getString("order_p_count1");
+			            String order_p_count2 = rs.getString("order_p_count2");
+			            String order_p_count3 = rs.getString("order_p_count3");
 		            
 		            System.out.println("order_idx: "+ order_idx);
 		            
 		            
 		            OrderDto dto = new OrderDto( order_idx, order_status2, order_date, order_p_name, order_p_price,
-		        			product_idx1, product_idx2, product_idx3, member_name, member_id,
-		        			member_grade2, member_address, member_phone, member_request, paymentOption, escrow);
+		        			product_idx1, product_idx2, product_idx3, member_name, member_id, member_grade2, member_address, member_phone, 
+		        			member_request, paymentOption, escrow, order_p_img, order_p_count1, order_p_count2, order_p_count3);
 		            
 		            simpleOrder.add(dto);
 		         }
@@ -323,13 +343,17 @@ public class OrderDao {
 			            String member_request = rs.getString("member_request");
 			            String paymentOption = rs.getString("paymentOption");
 			            String escrow = rs.getString("escrow");
+			            String order_p_img = rs.getString("order_p_img");
+			            String order_p_count1 = rs.getString("order_p_count1");
+			            String order_p_count2 = rs.getString("order_p_count2");
+			            String order_p_count3 = rs.getString("order_p_count3");
 		            
 		            System.out.println("order_idx: "+ order_idx);
 		            
 		            
 		            OrderDto dto = new OrderDto( order_idx, order_status2, order_date, order_p_name, order_p_price,
-		        			product_idx1, product_idx2, product_idx3, member_name2, member_id,
-		        			member_grade, member_address, member_phone, member_request, paymentOption, escrow);
+		        			product_idx1, product_idx2, product_idx3, member_name2, member_id, member_grade, member_address, member_phone, 
+		        			member_request, paymentOption, escrow, order_p_img, order_p_count1, order_p_count2, order_p_count3);
 		            
 		            simpleOrder.add(dto);
 		         }
@@ -397,11 +421,15 @@ public class OrderDao {
 			            String member_request = rs.getString("member_request");
 			            String paymentOption = rs.getString("paymentOption");
 			            String escrow = rs.getString("escrow");
+			            String order_p_img = rs.getString("order_p_img");
+			            String order_p_count1 = rs.getString("order_p_count1");
+			            String order_p_count2 = rs.getString("order_p_count2");
+			            String order_p_count3 = rs.getString("order_p_count3");
 		            
 		            
 		            OrderDto dto = new OrderDto( order_idx, order_status2, order_date, order_p_name, order_p_price,
-		        			product_idx1, product_idx2, product_idx3, member_name, member_id,
-		        			member_grade, member_address, member_phone, member_request, paymentOption, escrow);
+		        			product_idx1, product_idx2, product_idx3, member_name, member_id, member_grade, member_address, member_phone, 
+		        			member_request, paymentOption, escrow, order_p_img, order_p_count1, order_p_count2, order_p_count3);
 		            
 		            simpleOrder.add(dto);
 		         }
@@ -444,12 +472,16 @@ public class OrderDao {
 			            String member_request = rs.getString("member_request");
 			            String paymentOption = rs.getString("paymentOption");
 			            String escrow = rs.getString("escrow");
+			            String order_p_img = rs.getString("order_p_img");
+			            String order_p_count1 = rs.getString("order_p_count1");
+			            String order_p_count2 = rs.getString("order_p_count2");
+			            String order_p_count3 = rs.getString("order_p_count3");
 			            
 			            System.out.println(order_idx2);
 			            
 			            dto = new OrderDto( order_idx2, order_status, order_date, order_p_name, order_p_price,
-			        			product_idx1, product_idx2, product_idx3, member_name, member_id,
-			        			member_grade, member_address, member_phone, member_request, paymentOption, escrow);
+			        			product_idx1, product_idx2, product_idx3, member_name, member_id, member_grade, member_address, member_phone, 
+			        			member_request, paymentOption, escrow, order_p_img, order_p_count1, order_p_count2, order_p_count3);
 			            
 		        		
 		        	}
@@ -514,7 +546,6 @@ public class OrderDao {
 						memberDto = new MemberDto(member_idx, member_id, member_pw, member_name, member_address, member_email, member_phone, member_gender, member_email_ad, member_grade, member_date, member_purchase);
 					}
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
@@ -524,16 +555,17 @@ public class OrderDao {
 			// 주문완료
 			public static void orderCompletion(String orderIdx, String memberName, String memberAddress, String memberPhone, String memberRequest,
 					int memberGrade, String productIdx1, String productIdx2, String productIdx3, int orderPPrice, String paymentoption,
-					String Escrow, String memberId, String orderPName) {
+					String Escrow, String memberId, String orderPName, String orderPImg, String orderPCount1, String orderPCount2, String orderPCount3) {
 				Connection conn = null;
 				PreparedStatement pstmt = null;
-				ResultSet rs = null;
 				System.out.println("주문완료 진입");
 				
 				try {
 					conn = DBConnection.getConnection();
-					String query = "INSERT INTO p_order(order_idx, order_status, order_date, order_p_name, order_p_price, product_idx1, product_idx2, product_idx3, member_name, member_id, member_grade, member_address, member_phone, member_request, paymentoption, escrow)"
-							+ "VALUES(?, '주문확인중', sysdate, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					String query = "INSERT INTO p_order(order_idx, order_status, order_date, order_p_name, order_p_price, product_idx1, "
+							+ "product_idx2, product_idx3, member_name, member_id, member_grade, member_address, member_phone, member_request, "
+							+ "paymentoption, escrow, order_p_img, order_p_count1, order_p_count2, order_p_count3)"
+							+ "VALUES(?, '주문확인중', sysdate, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 					pstmt = conn.prepareStatement(query);
 					pstmt.setString(1, orderIdx);
 					pstmt.setString(2, orderPName);
@@ -549,10 +581,13 @@ public class OrderDao {
 					pstmt.setString(12, memberRequest);
 					pstmt.setString(13, paymentoption);
 					pstmt.setString(14, Escrow);
-					rs = pstmt.executeQuery();
+					pstmt.setString(15, orderPImg);
+					pstmt.setString(16, orderPCount1);
+					pstmt.setString(17, orderPCount2);
+					pstmt.setString(18, orderPCount3);
+					int result = pstmt.executeUpdate();
 					
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
@@ -590,13 +625,16 @@ public class OrderDao {
 						String member_request = rs.getString("member_request");
 						String paymentOption = rs.getString("paymentoption");
 						String escrow = rs.getString("escrow");
+						String order_p_img = rs.getString("order_p_img");
+						String order_p_count1 = rs.getString("order_p_count1");
+			            String order_p_count2 = rs.getString("order_p_count2");
+			            String order_p_count3 = rs.getString("order_p_count3");
 						
 						orderDto = new OrderDto(order_idx, order_status, order_date, order_p_name, order_p_price,
-								product_idx1, product_idx2, product_idx3, member_name, member_id,
-								member_grade, member_address, member_phone, member_request, paymentOption, escrow);
+								product_idx1, product_idx2, product_idx3, member_name, member_id, member_grade, member_address, member_phone, 
+								member_request, paymentOption, escrow, order_p_img, order_p_count1, order_p_count2, order_p_count3);
 					}
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				

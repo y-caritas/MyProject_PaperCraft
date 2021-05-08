@@ -521,12 +521,6 @@ public class MyController extends HttpServlet {
 				dispatcher.forward(request, response);
 			}else if(result == 2 || result == 0 ) {
 				response.setContentType("text/html; charset=UTF-8");
-				 
-				PrintWriter out = response.getWriter();
-				 
-				out.println("<script>alert('비밀번호를 확인해주세요.');history.back();</script>");
-				 
-				out.flush();
 
 			}
 		}
@@ -1177,9 +1171,9 @@ public class MyController extends HttpServlet {
 				
 				String ordererPhone = request.getParameter("ordererPhone");
 				String ordererName = request.getParameter("ordererName");
-				String product_idx1count = request.getParameter("product_idx1count");
-				String product_idx2count = request.getParameter("product_idx2count");
-				String product_idx3count = request.getParameter("product_idx3count");
+				String product_count1 = request.getParameter("product_idx1count");
+				String product_count2 = request.getParameter("product_idx2count");
+				String product_count3 = request.getParameter("product_idx3count");
 				String p_total_price1 = request.getParameter("p_total_price1");
 				String p_total_price2 = request.getParameter("p_total_price2");
 				String p_total_price3 = request.getParameter("p_total_price3");
@@ -1191,17 +1185,18 @@ public class MyController extends HttpServlet {
 				System.out.println(order_idx);
 				
 				
-				OrderDao.orderCompletion(order_idx, recipientName, recipientAddress, recipientPhone, recipientRequest, 
-						member_grade, product_idx1, product_idx2, product_idx3, purchase_total_value, paymentOption, escrow, member_id, p_name);
+				OrderDao.orderCompletion(order_idx, recipientName, recipientAddress, recipientPhone, recipientRequest, member_grade, product_idx1, 
+						product_idx2, product_idx3, purchase_total_value, paymentOption, escrow, member_id, p_name, p_img, product_count1, 
+						product_count2, product_count3);
 				
 				OrderDto orderDto = OrderDao.orderInfo(order_idx);
 				
 				request.setAttribute("orderDto", orderDto);
 				request.setAttribute("ordererPhone", ordererPhone);
 				request.setAttribute("ordererName", ordererName);
-				request.setAttribute("product_idx_count1", product_idx1count);
-				request.setAttribute("product_idx_count2", product_idx2count);
-				request.setAttribute("product_idx_count3", product_idx3count);
+				request.setAttribute("product_count1", product_count1);
+				request.setAttribute("product_count2", product_count2);
+				request.setAttribute("product_count3", product_count3);
 				request.setAttribute("p_total_price1", p_total_price1);
 				request.setAttribute("p_total_price2", p_total_price2);
 				request.setAttribute("p_total_price3", p_total_price3);

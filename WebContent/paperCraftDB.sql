@@ -158,7 +158,11 @@ CREATE TABLE p_order (
 	member_phone            VARCHAR2(40),
 	member_request          VARCHAR2(4000),
 	paymentoption           VARCHAR2(50),
-	escrow                  VARCHAR2(50)
+	escrow                  VARCHAR2(50),
+	order_p_img             VARCHAR2(1000),
+	order_p_count1          VARCHAR2(10),
+	order_p_count2          VARCHAR2(10),
+	order_p_count3          VARCHAR2(10)
 	);
 	
 	CREATE SEQUENCE p_order_seq;
