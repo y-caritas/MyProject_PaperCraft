@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -41,6 +42,8 @@
     }
     #orderBtn {
       text-align: center;
+      margin-top: 20px;
+      padding-right: 30px;
     }
     #orderBtn button {
       width: 60px;
@@ -65,27 +68,25 @@
     <div>
       <h3>| 주문 수정</h3>
     </div>
-    <form action="">
+    <form>
     <table>
       <tr>
         <td class="orderlistTitle">아이디</td>
-        <td class="orderlistContent">user</td>
+        <td class="orderlistContent">${ dto.member_id }</td>
+        <input type="hidden" name="order_idx" value="${dto.order_idx}">
       </tr>
       <tr>
         <td class="orderlistTitle">주문날짜</td>
-        <td class="orderlistContent">2020-08-26-14시</td>
+        <fmt:formatDate value="${dto.order_date}" pattern="yyyy-MM-dd" var="reg" />
+        <td class="orderlistContent">${reg}</td>
       </tr>
       <tr>
         <td class="orderlistTitle">상품 이름</td>
-        <td class="orderlistContent">DIY 카드 패키지</td>
-      </tr>
-      <tr>
-        <td class="orderlistTitle">상품 금액</td>
-        <td class="orderlistContent">65,000</td>
+        <td class="orderlistContent">${ dto.order_p_name }</td>
       </tr>
       <tr>
         <td class="orderlistTitle"d>이름</td>
-        <td class="orderlistContent">홍길동</td>
+        <td class="orderlistContent">${ dto.member_name }</td>
       </tr>
       <tr>
         <td class="orderlistTitle">주소</td>
@@ -94,21 +95,43 @@
       <tr>
         <td class="orderlistTitle">회원 등급</td>
         <td class="orderlistContent">
-          <select name="membergrade" id="membergrade">
-            <option value="1">1</option>
+        <c:if test="${ dto.member_grade eq 1 }">
+          <select name="member_grade" id="membergrade">
+            <option value="1" selected="selected">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
           </select>
+          </c:if>
+          <c:if test="${ dto.member_grade eq 2 }">
+          <select name="member_grade" id="membergrade">
+            <option value="1">1</option>
+            <option value="2" selected="selected">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+          </c:if>
+          <c:if test="${ dto.member_grade eq 3 }">
+          <select name="member_grade" id="membergrade">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3" selected="selected">3</option>
+            <option value="4">4</option>
+          </select>
+          </c:if>
+          <c:if test="${ dto.member_grade eq 4 }">
+          <select name="member_grade" id="membergrade">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4" selected="selected">4</option>
+          </select>
+          </c:if>
         </td>
       </tr>
       <tr>
-        <td class="orderlistTitle">성별</td>
-        <td class="orderlistContent"><input type="checkbox">남성 <input type="checkbox">여성</td>
-      </tr>
-      <tr>
-        <td class="orderlistTitle">구매 금액</td>
-        <td class="orderlistContent">user</td>
+        <td class="orderlistTitle">상품 금액</td>
+        <td class="orderlistContent">${ dto.order_p_price }</td>
       </tr>
       <tr>
         <td class="orderlistTitle">결제 방법</td>
@@ -116,20 +139,44 @@
       </tr>
       <tr>
         <td class="orderlistTitle">주문 상태</td>
-        <td class="orderlistContent"><select name="order" id="">
-          <option value="1">주문 확인중</option>
-          <option value="2">배송 준비중</option>
+        <td class="orderlistContent"><select name="order_status">
+        <c:if test="${dto.order_status eq '주문확인중'}">
+           <option value="주문확인중" selected="selected">주문확인중</option>
+           <option value="배송준비중">배송준비중</option>
+           <option value="배송중">배송중</option>
+           <option value="배송완료">배송완료</option>
+         </c:if>
+         <c:if test="${dto.order_status eq '배송준비중'}">
+           <option value="주문확인중">주문확인중</option>
+           <option value="배송준비중" selected="selected">배송준비중</option>
+           <option value="배송중">배송중</option>
+           <option value="배송완료">배송완료</option>
+         </c:if>
+         <c:if test="${dto.order_status eq '배송중'}">
+           <option value="주문확인중">주문확인중</option>
+           <option value="배송준비중">배송준비중</option>
+           <option value="배송중" selected="selected">배송중</option>
+           <option value="배송완료">배송완료</option>
+         </c:if>
+         <c:if test="${dto.order_status eq '배송완료'}">
+           <option value="주문확인중">주문확인중</option>
+           <option value="배송준비중">배송준비중</option>
+           <option value="배송중">배송중</option>
+           <option value="배송완료" selected="selected">배송완료</option>
+         </c:if>
         </select>
       </td>
       </tr>
     </table>
     <div id="orderBtn">
-      <button type="submit">수정</button>
-      <button type="button" onclick="location.href='./admin_orderList.jsp'">목록</button>
+      <button onclick="submitbtn()" formaction="order_modify.do">수정</button>
+      <button type="button" onclick="location.href='admin_orderlist.do'">목록</button>
     </div>
-  </form>
-  </div>
-		
-	</div>
+    </form>
+  <script>
+  	function submitbtn() {
+  		alert("수정되었습니다.");
+  	}
+  </script>
 </body>
 </html>

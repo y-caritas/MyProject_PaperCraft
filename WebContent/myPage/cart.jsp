@@ -99,37 +99,7 @@ width: 1000px;
       updateCart();
     }
   }
-  var cartOptionVAR = {
-    option_price : null,
-    total_price : null,
-    total_price_view : null,
 
-    convert : function (arg) {
-      this.option_price = arg + "_price";      
-      this.total_price = arg + "_total_price";
-      this.total_price_view = arg + "_total_price_view";
-    },
-    plus : function (arg) {      
-      this.convert(arg);
-      var count = document.getElementById(arg).value;
-      count++;
-      document.getElementById(arg).value = count;
-      document.getElementById(cartOptionVAR.total_price).value = document.getElementById(cartOptionVAR.option_price).value * count;
-      document.getElementById(cartOptionVAR.total_price_view).innerText = document.getElementById(cartOptionVAR.total_price).value;
-      updateCart();
-    },
-    minus : function (arg) {    
-      this.convert(arg);
-      var count = document.getElementById(arg).value;
-      if (count > 1) {
-      count--;
-      document.getElementById(arg).value = count;
-      document.getElementById(cartOptionVAR.total_price).value = document.getElementById(cartOptionVAR.option_price).value * count;
-      document.getElementById(cartOptionVAR.total_price_view).innerText = document.getElementById(cartOptionVAR.total_price).value;
-    }
-      updateCart();
-    }
-  }
 
   function updateCart(){
     var result = 0;
@@ -137,10 +107,11 @@ width: 1000px;
     for(var i=0; i<cartTables.length; i++){
       result += parseInt(cartTables[i].value);
     }    
-    document.getElementById('result').innerText = "$"+result;
+    document.getElementById('result').innerText = result+"원";
+    document.getElementById('result_value').value = result;
   }
   window.onload = () => {
-    updateCart();
+	    updateCart();
   }
   </script>
 <div class="container-fluid">
@@ -197,7 +168,7 @@ width: 1000px;
 <section id="inquiryListWrap">
 
 
-<form action="">
+<form name="cart" action="purchase.do" method="post">
   <table id="inquiryListTable"  style="border-bottom: none;">
     <tr class="inquiryTr">
       <th style="width:10%">번호</th>
@@ -207,133 +178,53 @@ width: 1000px;
       <th style="width:10%">수량</th>
       <th style="width:10%">합계금액</th>
     </tr>
-      <!-- 장바구니 기능구현시 장바구니 테이블과 오더 테이블과 테스트 필요. -->
-      <!-- <c:forEach var="cart" items="${cart_list}" varStatus="status">  		   
+      
+      <c:forEach var="cart" items="${cartList}" varStatus="status">  		   
       <tr>
-      <td><input type="checkbox" name="cart_target" id="">${status.count}</td>
+      <td><input type="checkbox" name="cart_target[]" value="${cart.cart_p_idx}">${status.count}</td>
       <td>
         <div class="cart_titles">
-          <img class="" src="{cart.cart_p_img}" alt="">          
+          <img style="width:100px; height:100px;" class="" src="${cart.cart_p_img}" alt="">
+          <input type="hidden" name="cart_p_img[]" value="${ cart.cart_p_img }">         
         </div>
       </td>
       <td>
         <div class="cart_btns">
-          <h5>{cart.cart_p_name}</h5>
-          <h5>{cart.cart_o_name}</h5>
-          <input name="cart_p_idx" value="{cart.cart_p_idx}" type="text" hidden="hidden"/>
-          <input name="cart_p_name" value="{cart.cart_p_name}" type="text" hidden="hidden"/>
-          <input name="cart_o_name" value="{cart.cart_o_name}" type="text" hidden="hidden"/>
-          <input name="cart_o_price" value="{cart.cart_o_price}" type="text" hidden="hidden"/>
+          <h5>${cart.cart_p_name}</h5>       
+          <input type="hidden" name="cart_p_name" value="${ cart.cart_p_name }">
         </div>
       </td>
       <td>       
-        <h5 id="{cart.cart_p_name}_price">{cart.cart_p_price}</h5>
+        <h5 id="${cart.cart_idx}_price">${cart.cart_p_price}</h5>
       </td>
+      
       <td>        
-          <input type="button" value="-" id="minus" onclick="cartVAR.minus('{cart.cart_p_name}')">
-          <input name="cart_p_count" style="text-align: center;" type="text" size="1" value="1" id="{cart.cart_p_name}">
-          <input type="button" value="+" id="plus" onclick="cartVAR.plus('{cart.cart_p_name}')">        
+          <input type="button" value="-" id="minus" onclick="cartVAR.minus('${cart.cart_idx}')">
+          <input name="cart_p_count[]" style="text-align: center;" type="text" size="1" value="${cart.cart_p_count}" id="${cart.cart_idx}">
+          <input type="button" value="+" id="plus" onclick="cartVAR.plus('${cart.cart_idx}')">        
       </td>
       <td>
-        <input name="cart_p_price" type="text" value="{cart.cart_p_price}" id="{cart.cart_p_name}_product_price" hidden="hidden"/>
-        <input type="text" class="total_price" value="{cart.cart_p_price}" id="{cart.cart_p_name}_total_price" hidden="hidden" />
-        <h5 id="{cart.cart_p_name}_total_price_view">{cart.cart_p_price}</h5>        
+        <input name="cart_p_price" type="text" value="${cart.cart_p_price}" id="${cart.cart_idx}_product_price" hidden="hidden"/>
+        <input name="cart_p_total_price[]" type="text" class="total_price" value="${cart.cart_p_total_price}" id="${cart.cart_idx}_total_price" hidden="hidden" />
+        <h5 id="${cart.cart_idx}_total_price_view">${cart.cart_p_total_price}</h5>        
       </td>
-		 </c:forEach> -->
+		 </c:forEach>
     <tr>
-      <td><input type="checkbox" name="cart_target" id="">&nbsp;1</td>
-      <td>
-        <div class="cart_titles">
-          <img class="" src="http://via.placeholder.com/100?text=Sample" alt="">          
-        </div>
-      </td>
-      <td>
-        <div class="cart_btns">
-          <h5>PRODUCT_NAME A</h5>          
-          <h6>옵션 : {옵션내용}</h6>
-        </div>
-      </td>
-      <td>       
-        <h5 id="A_price">500</h5>
-      </td>
-      <td>        
-          <input type="button" value="-" id="minus" onclick="cartVAR.minus('A')">
-          <input style="text-align: center;" type="text" size="1" value="1" id="A">
-          <input type="button" value="+" id="plus" onclick="cartVAR.plus('A')">        
-      </td>
-      <td>          
-        <input type="text" value="500" id="A_product_price" hidden="hidden"/>
-        <input type="text" class="total_price" value="500" id="A_total_price" hidden="hidden" />
-        <h5 id="A_total_price_view">500</h5>        
-      </td>
-    </tr>
-
-    <tr id="B_row">
-      <td><input type="checkbox" name="cart_target" id="">&nbsp;2</td>
-      <td>
-        <div class="cart_titles">
-          <img class="" src="http://via.placeholder.com/100?text=Sample" alt="">          
-        </div>
-      </td>
-      <td>
-        <div class="cart_btns">
-          <h5>PRODUCT_NAME B</h5>          
-          <h6>옵션 : {옵션내용}</h6>
-        </div>
-      </td>
-      <td>        
-        <h5 id="B_price">500</h5>
-      </td>
-      <td>
-          <input type="button" value="-" id="minus" onclick="cartVAR.minus('B')">
-          <input style="text-align: center;" type="text" size="1" value="1" id="B">
-          <input type="button" value="+" id="plus" onclick="cartVAR.plus('B')">
-      </td>
-      <td>
-        <input type="text" value="500" id="B_product_price" hidden="hidden"/>
-        <input type="text" class="total_price" value="500" id="B_total_price" hidden="hidden"/>
-        <h5 id="B_total_price_view">500</h5>
-      </td>
-    </tr>
-
-    <tr id="C_row">
-      <td><input type="checkbox" name="cart_target" id="">&nbsp;3</td>
-      <td>
-        <div class="cart_titles">
-          <img class="" src="http://via.placeholder.com/100?text=Sample" alt="">          
-        </div>
-      </td>
-      <td>
-        <div class="cart_btns">
-          <h5>PRODUCT_NAME C</h5>
-          <h6>옵션 : {옵션내용}</h6>        
-        </div>
-      </td>
-      <td>
-        <input type="text" value="500" id="C_product_price" hidden="hidden"/>
-        <input type="text" class="total_price" value="500" id="C_total_price" hidden="hidden" />
-        <h5 id="C_price">500</h5>
-      </td>
-      <td>
-          <input type="button" value="-" id="minus" onclick="cartVAR.minus('C')">
-          <input style="text-align: center;" type="text" size="1" value="1" id="C">
-          <input type="button" value="+" id="plus" onclick="cartVAR.plus('C')">
-      </td>
-      <td>
-        <h5 id="C_total_price_view">500</h5>
-      </td>
-    </tr>
-
+    
+      
     <tr>
-      <td style="height: 100px;"><button type="button" onclick="#" class="btn btn-secondary">선택삭제</button></td>
-      <td></td><td></td><td></td>
+      <td style="height: 100px;"> <button type="submit" formaction="cartDelete.do"  class="btn btn-secondary"> 선택삭제 </button> </td>
+      <td></td><td></td>
+      <td>
+      <%--구매하기로 value값 넘길 name 설정하기 --%>
+      <input name="purchase_total_value" id="result_value" type="text" value=""> </td>
       <td>상품 총 금액</td>
       <td><h4 id="result"></h1></td>
     </tr>
     <tr>
       <td></td><td></td>
       <td style="padding-left: 100px; padding-top: 100px;">
-      <button type="button" type="submit" class="btn btn-dark">결제</button>&emsp;
+      <button type="submit" onclick="updateCart()" class="btn btn-dark">결제</button>&emsp;
       <button type="button" class="btn btn-secondary" onclick="history.back()">취소</button>
       </td><td></td><td></td><td></td>
     </tr>

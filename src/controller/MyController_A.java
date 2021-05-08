@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.MemberDao;
 import dao.NoticeDao;
+import dao.OrderDao;
 import dto.NoticeDto;
+import dto.OrderDto;
 
 //@WebServlet(urlPatterns= {"*.do"})
 public class MyController_A extends HttpServlet {
@@ -111,21 +113,29 @@ public class MyController_A extends HttpServlet {
 			String notice_idx = request.getParameter("notice_idx");
 			String notice_title = request.getParameter("notice_title");
 			String notice_content = request.getParameter("notice_writeEditor");
+			String notice_pin = request.getParameter("notice_pin");
 			
+			if(notice_pin == null) {
+				notice_pin = "0";
+			}
 			System.out.println("notice_idx:"+notice_idx);
 			System.out.println("notice_title:"+notice_title);
 			System.out.println("notice_content:"+notice_content);
 			
-			NoticeDao.modify( notice_idx, notice_title, notice_content );
+			NoticeDao.notice_modify( notice_idx, notice_title, notice_content, notice_pin );
 			
 			response.sendRedirect("admin_notice_list.do");
 		}
-		// 관리자화면 글쓰기 버튼 클릭시 행동
+		// 관리자화면 공지사항 글쓰기 버튼 클릭시 행동
 		else if(command.equals("admin_notice_write.do")) {
 			
 			String notice_title = request.getParameter("notice_title");
 			String notice_content = request.getParameter("notice_writeEditor");
-			String notice_pin = request.getParameter("importchk");
+			String notice_pin = request.getParameter("notice_pin");
+			
+			if(notice_pin == null) {
+				notice_pin = "0";
+			}
 			
 			System.out.println("notice_title:"+notice_title);
 			System.out.println("notice_content:"+notice_content);
@@ -201,12 +211,8 @@ public class MyController_A extends HttpServlet {
 				response.getWriter().print("0");
 			}
 		}
-		if( !jspPage.equals("") ) { //jsp페이지가 비어있지 않다면,
-			RequestDispatcher dispatcher = request.getRequestDispatcher( jspPage );
-			dispatcher.forward(request, response);
-		}
-		
+
+	
+	
 	}
-	
-	
 }

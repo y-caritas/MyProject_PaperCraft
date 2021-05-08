@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% request.setCharacterEncoding("UTF-8");%>
 
+
   <c:import url="/header.jsp"></c:import>
   
     <script>    
@@ -18,7 +19,8 @@
         var count = document.getElementById(arg).value;
         count++;
         document.getElementById(arg).value = count;
-        document.getElementById(productVAR.total_price).value = "$" + document.getElementById(productVAR.product_price).value * count;        
+        document.getElementById(productVAR.total_price).value = document.getElementById(productVAR.product_price).value * count;
+        document.cartForm.cart_p_total_price.value = document.getElementById(productVAR.total_price).value;
       },
       minus : function (arg) {    
         this.convert(arg);
@@ -26,7 +28,8 @@
         if (count > 1) {
         count--;
         document.getElementById(arg).value = count;
-        document.getElementById(productVAR.total_price).value = "$" + document.getElementById(productVAR.product_price).value * count;        
+        document.getElementById(productVAR.total_price).value = document.getElementById(productVAR.product_price).value * count;
+        document.cartForm.cart_p_total_price.value = document.getElementById(productVAR.total_price).value;
         }        
       }
     }
@@ -55,40 +58,43 @@
             return false;
           }
         }
-    </script>
-
-  <section>
+    </script>    
+  	<%	  	 	
+  		if(request.getAttribute("confirm") != null){
+		int confirm = (int)request.getAttribute("confirm");
+		if(confirm == 0){			
+			out.println("<script>alert('장바구니에 존재하는 상품입니다.');</script>");
+		}
+  		}		
+ 	%> 	
+ <section>
     <div id="product_detail" class="row">
-      <div style="text-align: center;" class="col-7">
-      	<!-- src="${productDto.product_introImg}"  추가 -->
-        <img src="http://via.placeholder.com/400?text=Sample" alt="">
+      <div style="text-align: center;" class="col-7">      	
+        <img style="width: 100px;" src="${productDto.product_introImg}" alt="">
       </div>
       <div class="col-5">
-          <form action="<%= request.getContextPath() %>/purchase.do">
+          <form name="cartForm" action="<%= request.getContextPath() %>/productPurchase.do" method="POST">
           <ul>
-              <li class="product_detail">제품명 : <input name="cart_p_name" class="product_detail_text" type="text" disabled value="${productDto.product_name}"/></li>
-              <li>가격 : <input name="cart_p_price" class="product_detail_text" type="text" disabled value="${productDto.product_price}"/></li>
+              <li class="product_detail">제품명 : <input class="product_detail_text" type="text" disabled value="${productDto.product_name}"/>
+              									  <input name="cart_p_name" hidden="hidden" type="text" value="${productDto.product_name}"/>	</li>
+              <li>가격 : <input style="width: 60px;" class="product_detail_text" type="text" disabled value="${productDto.product_price}"/>
+               			 <input name="cart_p_price" hidden="hidden" type="text" value="${productDto.product_price}"/><b>원</b></li>
               <li>배송비 : <input name="" class="product_detail_text" type="text" disabled value="DB에 배송비 칼럼 없음"/></li>
               <li>수량 : &nbsp;<input class="product_detail_btn" type="button" value="-" id="minus" onclick="productVAR.minus('${productDto.product_name}')">
                   <input name="cart_p_count" style="text-align: center; border: none;" type="text" size="1" value="1" id="${productDto.product_name}">
-                  <input class="product_detail_btn" type="button" value="+" id="plus" onclick="productVAR.plus('${productDto.product_name}')"></li>
-              <li>옵션 :              
-                  <select name="" style="width: 150px; border-radius: 5px;">
-			          	<c:forEach var="optionDto" items="${optionDto}">
-			          		<%-- Option DB에 index, detail, price 값중 어떤값을 가져올지 논의필요 --%>				          
-							<option name="" value="">{optionDto.option_datail} - {optionDto.option_price} </option>			
-					    </c:forEach>                    
-                  </select>
-              </li>                
+                  <input class="product_detail_btn" type="button" value="+" id="plus" onclick="productVAR.plus('${productDto.product_name}')"></li>                                 
               <li>총 금액 : 
-                  <input name="cart_p_total_price" class="product_detail_text"  id="${productDto.product_name}_total_price" style="font-weight: bold; border: none;" type="text" disabled value="${productDto.product_price}" name=""/>
-                  <input type="text" value="${productDto.product_price}" id="${productDto.product_name}_product_price" hidden="hidden"/>
+                  <input style="width: 60px;" class="product_detail_text"  id="${productDto.product_name}_total_price" style="font-weight: bold; border: none;" type="text" disabled value="${productDto.product_price}" />
+                  <input name="cart_p_total_price" value="${productDto.product_price}" hidden="hidden"/>
+                  <input type="text" value="${productDto.product_price}" id="${productDto.product_name}_product_price" hidden="hidden"/><b>원</b>
               </li>
               <li style="margin-top: 120px;">
+              	<input name="product_idx" value="${product_idx}" hidden="hidden">
               	<input name="cart_p_idx" value="${product_idx}" hidden="hidden">
               	<input name="cart_p_img" value="${productDto.product_introImg}" hidden="hidden">
-              	<input name="member_id" value="#" hidden="hidden">
-                <button type="submit" formaction="<%= request.getContextPath() %>/cart.do" onclick="return confirmCart()" class="btn btn-secondary">장바구니</button>&emsp;
+    	        <%-- member_id 로그인 한 세션에서 값 가져오기 --%>
+              	<input name="member_id" value="abcde" hidden="hidden">
+                <button type="submit" formaction="<%= request.getContextPath() %>/cartInsert.do" onclick="return confirmCart()" class="btn btn-secondary">장바구니</button>&emsp;
                 <button type="submit" class="btn btn-dark">구매하기</button>
               </li>
           </ul>  
@@ -105,41 +111,46 @@
         <summary>상품평</summary>
         <div id="details_2">          
           <table>
-          <%--  	<c:forEach var="productReviewDto" items="${productReviewDto}">  		   
+		  <colgroup>
+		    <col width="10%"/>
+		    <col width="30%"/>
+		    <col width="50%"/>
+		    <col width="10%"/>
+		  </colgroup>
+          <c:forEach var="productReviewDto" items="${productReviewDto}">  		   
           <tr>
-            <td>{productReviewDto.product_r_idx}</td>
-            <td><div><img class="" src="{productReviewDto.product_r_img}" alt=""></div></td>
+            <td>${productReviewDto.product_r_idx}</td>
+            <td><div><img style="width:100px; height:100px;" src="${productReviewDto.product_r_img}"></div></td>
             <td style="width: 500px;">
               <div>                  
-                <h5>{productReviewDto.product_r_content}</h5>                  
+                <h5>${productReviewDto.product_r_content}</h5>                  
               </div>
-            </td>
-            <td>{productReviewDto.product_r_grade}</td>
-          </tr>			
-   </c:forEach> --%>
-            <tr>
-              <td>index</td>
-              <td><div><img class="" src="http://via.placeholder.com/100?text=Sample" alt=""></div></td>
-              <td style="width: 500px;">
-                <div>                  
-                  <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum quia maxime, inventore ipsam quisquam, necessitatibus, veniam facere magni ea voluptatem ullam dolor perferendis tempore rem fugit officiis non beatae perspiciatis?</h5>                  
-                </div>
-              </td>
-              <td>{만족도}</td>
-            </tr>
-            <tr>
-              <td>index</td>
-              <td><div><img class="" src="http://via.placeholder.com/100?text=Sample" alt=""></div></td>
-              <td>
-                <div>                  
-                  <h5>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum quia maxime, inventore ipsam quisquam, necessitatibus, veniam facere magni ea voluptatem ullam dolor perferendis tempore rem fugit officiis non beatae perspiciatis?</h5>                  
-                </div>
-              </td>
-              <td>{만족도}</td> 
-            </tr>
+            </td>            
+            <td>
+		        <c:set var="product_r_grade" value= "${productReviewDto.product_r_grade}" />
+				<c:choose>
+				<c:when test="${ product_r_grade eq '01' }">
+				☆   
+				</c:when>
+				<c:when test="${ product_r_grade eq '02' }">
+				☆ ☆
+				</c:when>
+				<c:when test="${ product_r_grade eq '03' }">
+				☆ ☆ ☆
+				</c:when>
+				<c:when test="${ product_r_grade eq '04' }">
+				☆ ☆ ☆ ☆
+				</c:when>
+				<c:when test="${ product_r_grade eq '05' }">
+				☆ ☆ ☆ ☆ ☆
+				</c:when>				
+				</c:choose>
+			</td>
+         </tr>			
+		 </c:forEach>		 	  
           </table>
-          <br><hr><br>
-          <form action="<%= request.getContextPath() %>/reviewinsert.do">
+          <br><br>
+          <form action="<%= request.getContextPath() %>/reviewinsert.do" method="POST">
             <div style="border:solid 1px #818181; margin-top: 80px;">
             <table>
               <tr>
@@ -158,7 +169,7 @@
           <input name="product_idx" value="${product_idx}" hidden="hidden">
           <input name="product_r_img" value="${productDto.product_introImg}" hidden="hidden">
           <%-- member_id 로그인 한 세션에서 값 가져오기 --%>
-          <input name="member_id" value="#" hidden="hidden">
+          <input name="member_id" value="abcde" hidden="hidden">
           <button style="width: 100px; height: 60px;" type="submit" class="btn btn-secondary">등록</button>
           </form>        
         </div>
@@ -173,14 +184,14 @@
             <th style="padding-top: 50px; width: 200px;">작성자</th>
             <th style="padding-top: 50px; width: 200px;">작성일</th>
           </tr>
-          <%-- <c:forEach var="productEnquiryDto" items="${productEnquiryDto}">  		   
+          <c:forEach var="productEnquiryDto" items="${productEnquiryDto}">  		   
           <tr>
           <th style="padding-top: 50px;">{productEnquiryDto.product_i_idx}</th>
           <th style="padding-top: 50px;"> <a href="#"> {productEnquiryDto.product_i_content} 상품문의글 링크코드 및 글자 수 제한 기능 추가</a></th>
           <th style="padding-top: 50px;">{productEnquiryDto.product_i_writer}</th>
           <th style="padding-top: 50px;">{productEnquiryDto.product_i_date}</th>
           </tr>			
-   				</c:forEach>  --%>
+   		  </c:forEach>
           <tr>
             <th style="padding-top: 50px;">2</th>
             <th style="padding-top: 50px;"> <a href="#"> 이용자 문의글 상단 30자씩 1줄 표기</a></th>
@@ -199,21 +210,13 @@
       <details onclick="closeAll(thisindex(this))">
         <summary>배송안내</summary>
         <div id="details_4">
-          ${productDto.product_delivery_policy}
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, delectus ipsa! Incidunt impedit magnam ea enim voluptatum sapiente sed tempore magni esse hic eius quae vero, libero placeat voluptates ex.
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque asperiores hic ea, nulla modi optio, veritatis, aspernatur iure beatae libero ut odit itaque perspiciatis excepturi magni esse. Sint, aspernatur ipsa.
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga dicta asperiores inventore. Temporibus, ut! Voluptate tempore rerum tenetur reprehenderit, magnam nisi at dignissimos repellat ea. Ab soluta enim esse ipsum.
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni distinctio repellendus, quasi vero provident magnam velit, corporis animi quisquam expedita, nesciunt qui recusandae omnis corrupti maiores? Nostrum vel sed provident?
+          ${productDto.product_delivery_policy}          
         </div>
       </details>
       <details onclick="closeAll(thisindex(this))">
         <summary>교환 및 반품</summary>
         <div id="details_5">
-          ${productDto.product_swap_policy}
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum, delectus ipsa! Incidunt impedit magnam ea enim voluptatum sapiente sed tempore magni esse hic eius quae vero, libero placeat voluptates ex.
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque asperiores hic ea, nulla modi optio, veritatis, aspernatur iure beatae libero ut odit itaque perspiciatis excepturi magni esse. Sint, aspernatur ipsa.
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga dicta asperiores inventore. Temporibus, ut! Voluptate tempore rerum tenetur reprehenderit, magnam nisi at dignissimos repellat ea. Ab soluta enim esse ipsum.
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni distinctio repellendus, quasi vero provident magnam velit, corporis animi quisquam expedita, nesciunt qui recusandae omnis corrupti maiores? Nostrum vel sed provident?
+          ${productDto.product_swap_policy}          
         </div>
       </details>
       </div>

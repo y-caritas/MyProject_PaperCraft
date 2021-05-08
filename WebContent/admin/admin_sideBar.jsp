@@ -15,12 +15,12 @@
         <button class="sideBarDropBtn">회원 관리</button>
         <div class="sideBarDropdownContainer">
           <a href="adminMemberList.do">회원 목록</a>
-          <a href="">주문 목록</a>
+          <a href="admin_orderlist.do">주문 목록</a>
         </div>
         <button class="sideBarDropBtn">상품 관리</button>
         <div class="sideBarDropdownContainer">
           <a href="<%=request.getContextPath()%>/admin/admin_productRegistration.jsp">상품 등록</a>
-          <a href="adminProductNameSearch.do">상품 목록</a>
+          <a href="adminProductList.do">상품 목록</a>
         </div>
         <button class="sideBarDropBtn">게시판 관리</button>
         <div class="sideBarDropdownContainer">

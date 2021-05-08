@@ -130,6 +130,17 @@ $(function(){
     			adminProduct.product_introImg.focus();
     			return false;
     		}
+    		if(document.adminProduct.delivery_policy_category.value.length == 0) {
+    			alert("배송 안내를 선택해주세요.");
+    			
+    			return false;
+    		}
+    		if(document.adminProduct.swap_policy_category.value.length == 0) {
+    			alert("교환 안내를 선택해주세요.");
+    			
+    			return false;
+    		}
+  
     		
           $("#fromsubmit").submit();
       });    
@@ -167,9 +178,9 @@ $(function(){
           <td></td>
         </tr>
         <tr>
-          <th style="height: 60px; text-align: center;">옵션명</th>
-          <td style="text-align: center; "><input name="option_detail" type="text" placeholder="옵션명"></td>
-          <td style="text-align: center; "><input name="option_price" type="text" placeholder="가격"></td>          
+          <th style="height: 60px; text-align: center;" hidden="hidden">옵션명</th>
+          <td style="text-align: center; "><input name="option_detail" type="text" placeholder="옵션명" hidden="hidden"></td>
+          <td style="text-align: center; "><input name="option_price" type="text" placeholder="가격" hidden="hidden"></td>          
         </tr>        
       </table>
       <div>

@@ -46,7 +46,7 @@ public class myPageDao {
 			{
 				
 			int      order_idx = rs.getInt("order_idx");        
-			String   order_statuse  = rs.getString("order_statuse");       
+			String   order_statuse  = rs.getString("order_status");       
 			Date     order_date = rs.getDate("order_date");              
 		    int      order_p_idx  = rs.getInt("order_p_idx");           
 		    String   order_p_img   = rs.getString("order_p_img");          

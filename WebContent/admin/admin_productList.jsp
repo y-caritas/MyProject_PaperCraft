@@ -161,7 +161,7 @@
             <form action="adminProductDetailSearch.do" method="POST">
             <div class="flexboxContent">
               <select name="product_category">
-              <option value="" selected disabled>카테고리 선택</option>
+              <option value="" selected>선택안함</option>
               <option value="01">무드등</option>
               <option value="02">유리돔</option>
               <option value="03">카드/액자</option>
@@ -187,62 +187,54 @@
         </form>
       </div>
     </div>    
-    <br>
-    <div class="fontRight">
-      <span class="tabletitle">총 000건의 검색 결과가 있습니다.</span>
-    </div>
-    <form action="adminProductDelete.do" method="get">
+    <br>    
+    <form action="adminProductDelete.do" method="POST">
     <table id="orderlistTable">
       <thead>
         <tr>
           <td>선택</td>
           <td>번호</td>
           <td>카테고리와 상품명</td>
-          <td>판매가격 (적립금)</td>
+          <td>판매가격</td>
           <td>등록일 (수정일)</td>          
-          <td>아이디</td>
-          <td>조회수</td>
           <td>수정</td>          
         </tr>
       </thead>
-	  <%-- <c:forEach var="productList" items="${product_list}" varStatus="status">	 
+	  <c:forEach var="productList" items="${product_list}" varStatus="status">	 
       <tr class="tableContent">
-        <td><input type="checkbox" name="product_idx[]" value="productList.product_idx" id=""></td>
-        <td>${status.count}</td>
+        <td><input type="checkbox" name="product_idx[]" value="${productList.product_idx}" id=""></td>
+        <td>${productList.product_idx}</td>
         <td>
-        <span>[productList.product_category]</span>
-        <span>productList.product_name</span>
+    	<c:set var="product_category" value= "${productList.product_category}" />
+		<c:choose>
+		<c:when test="${ product_category eq '01' }">
+		<span>[무드등]</span>
+		</c:when>
+		<c:when test="${ product_category eq '02' }">
+		<span>[유리돔]</span>
+		</c:when>
+		<c:when test="${ product_category eq '03' }">
+		<span>[카드/액자]</span>
+		</c:when>
+		<c:when test="${ product_category eq '04' }">
+		<span>[도구]</span>
+		</c:when>			
+		</c:choose>
+        <span>${productList.product_name}</span>
 		</td>
         <td>
-        <span>productList.product_price</span>
-        <span>[적립금]</span>
+        <span>${productList.product_price}</span>        
         </td>
-        <td>productList.product_record</td>
-        <td>[아이디]</td>
-        <td>[조회수]</td>        
-        <td><button type="button" onclick="productModify.do?product_idx=productList.product_idx" class="btn btn-secondary">수정</button></td>        
+        <td>${productList.product_record}</td>        
+        <td><button type="button" onclick="javascript:location.href='adminProductView.do?product_idx=${productList.product_idx}'" class="btn btn-secondary">수정</button></td>        
       </tr>
-      </c:forEach>--%> 
-        <tr class="tableContent">
-        <td><input type="checkbox" name="product_idx[]" value="productList.product_idx" id=""></td>
-        <td>${status.count}</td>
-        <td>
-        <span>[productList.product_category]</span>
-        <span>productList.product_name</span>
-		</td>
-        <td>
-        <span>productList.product_price</span>
-        <h5>[적립금]</h5>
-        </td>
-        <td>productList.product_record</td>
-        <td>[아이디]</td>
-        <td>[조회수]</td>        
-        <td><button type="button" onclick=" location.href='adminProductView.do?product_idx=productList.product_idx' " class="btn btn-secondary">수정</button></td>        
-      </tr>
-    </table>
-    <div>
+      </c:forEach>
+    <tr>
+    <td><div>
       <button type="submit">삭제</button>
-    </div>
+    </div></td>
+    </tr>
+    </table>    
     </form>
   </div>		
 </div>
