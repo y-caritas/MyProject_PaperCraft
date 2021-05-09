@@ -48,7 +48,7 @@
   	  <div id="LoG">
   		<c:forEach var="product" items="${product_list}">  		   
 		   <div class="items">
-		   <img src="${product.product_listImg}"  onclick="javascript:location.href='detailview.do?product_idx=${product.product_idx}'">
+		   <img src="${product.product_listImg}"  onclick="javascript:location.href='detailview.do?product_category=<%= product_category %>&product_idx=${product.product_idx}'">
 		   <h5>${product.product_name}</h5>
 		   <h5>${product.product_price}</h5>
 		   <h5>${product.product_note}</h5>

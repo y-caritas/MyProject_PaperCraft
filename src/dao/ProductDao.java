@@ -371,7 +371,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		}
 		catch(Exception e) 
 		{
-			System.out.println("detail_page bug");
+			e.printStackTrace();
 		}
 		return productDto;
 
@@ -403,7 +403,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		}
 		catch(Exception e) 
 		{
-			System.out.println("detail_page_option bug");
+			e.printStackTrace();
 		}
 		return optionDto;
 }
@@ -457,11 +457,11 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 			{	
 				
 				int product_i_idx = rs.getInt("product_i_idx");
-				String product_i_content = rs.getString("product_i_content");
+				String product_i_content = rs.getString("product_i_title");
 				Date product_i_date = rs.getDate("product_i_date");
-	            String product_i_writer = rs.getString("product_i_writer");
+	            String member_id = rs.getString("member_id");
 	            
-	            ProductEnquiryDto dto = new ProductEnquiryDto(product_i_idx, product_i_content, product_i_date, product_i_writer);
+	            ProductEnquiryDto dto = new ProductEnquiryDto(product_i_idx, product_i_content, product_i_date, member_id);
 	            enquiry_list.add(dto);
 	        }
 		}
@@ -996,7 +996,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		}
 		catch(Exception e) 
 		{
-			System.out.println("detail_page bug");
+			e.printStackTrace();
 		}
 	
 		if(confirmResult == 0) {
@@ -1005,6 +1005,33 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		else {
 			return confirmFail;
 		}			
+	}
+
+	public static int productEnquiry(HttpServletRequest request) {
+		Connection conn = null; 
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try 
+		{
+			conn = DBConnection.getConnection();
+			String query = "INSERT INTO p_product_inquiry values (p_product_inquiry_seq.nextval, ?, ?, ?, ?, ?, sysdate, ?, ?)";			
+	        pstmt = conn.prepareStatement(query);	    	
+	    	
+	        pstmt.setString(1, request.getParameter("product_i_title") );
+	        pstmt.setString(2, request.getParameter("product_i_content") );
+	        pstmt.setString(3, request.getParameter("product_i_img") );	        
+	        pstmt.setInt(4, Integer.parseInt(request.getParameter("product_i_category")));
+	        pstmt.setString(5, request.getParameter("product_i_name"));
+	        pstmt.setString(6, request.getParameter("member_id") );
+	        pstmt.setInt(7, Integer.parseInt(request.getParameter("product_idx")));	        
+			result = pstmt.executeUpdate();			
+		}
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 

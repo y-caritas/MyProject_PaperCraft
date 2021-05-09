@@ -73,6 +73,44 @@
       function focus05 (){
     	  document.getElementById('product_swap_policy').scrollIntoView();
 		}
+      function openBlankFrame( frameName, width, height ) {
+    	  var winprops = "";
+    	  var left    = (screen.width - winWidth)/2;
+    	  var top     = (screen.height- winHeight)/2;
+    	  winprops    += "toolbar=no,menubar=no,scrollbars=yes,statusbar=no,resizable=yes";
+    	  winprops    += ",top="+top+",left="+left+",width="+width+",height="+height;
+    	  window.open( "", frameName, winprops );
+    	 }
+    	 function go() {
+	   	  var doc = document.getElementById("frm");
+    	             openBlankFrame("reuseF","940","720"); 
+    	             doc.action= "S070202050.do?form_reuse=1";
+    	             doc.ServiceName.value = "S070202050-service";
+    	             doc.submit();
+
+    	  }
+
+    	 
+      function goSubmit()
+      {
+          var popupWidth = 750;
+          var popupHeight = 380;
+          var popupX = (window.screen.width / 2) - (popupWidth / 2);
+          var popupY = (window.screen.height / 2) - (popupHeight / 2);
+          var gsWin = window.open("about:blank", "winName", "width=750, height=430, left="+ popupX +", top="+ popupY +",toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+          var frm = document.writeEnquiry;          
+          frm.target="winName";
+          frm.submit();
+      }
+      function go()
+      {
+          var popupWidth = 750;
+          var popupHeight = 380;
+          var popupX = (window.screen.width / 2) - (popupWidth / 2);
+          var popupY = (window.screen.height / 2) - (popupHeight / 2);
+          var gsWin = window.open("product_enquiry_answer.jsp", "winName", "width=750, height=630, left="+ popupX +", top="+ popupY +",toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+      }
+      
     </script>    
   	<%	  	 	
   		if(request.getAttribute("confirm") != null){
@@ -88,7 +126,7 @@
         <img style="width: 100px;" src="${productDto.product_introImg}" alt="">
       </div>
       <div class="col-5">
-          <form name="cartForm" action="<%= request.getContextPath() %>/productPurchase.do" method="POST">
+          <form name="cartForm" action="<%= request.getContextPath() %>/product/productPurchase.do" method="POST">
           <ul>
               <li class="product_detail">제품명 : <input class="product_detail_text" type="text" disabled value="${productDto.product_name}"/>
               									  <input name="cart_p_name" hidden="hidden" type="text" value="${productDto.product_name}"/>	</li>
@@ -206,35 +244,28 @@
     <table style="display: inline-block; margin-top: 50px;">
       <tr>
         <th style="padding-top: 50px; width: 100px;">번호</th>
-        <th style="padding-top: 50px; width: 600px;">문의 내용</th>
+        <th style="padding-top: 50px; width: 600px;">문의 제목</th>
         <th style="padding-top: 50px; width: 200px;">작성자</th>
         <th style="padding-top: 50px; width: 200px;">작성일</th>
       </tr>
-      <c:forEach var="productEnquiryDto" items="${productEnquiryDto}">  		   
+      <c:forEach var="productEnquiryDto" items="${productEnquiryDto}" varStatus="status">  		   
       <tr>
-      <th style="padding-top: 50px;">{productEnquiryDto.product_i_idx}</th>
-      <th style="padding-top: 50px;"> <a href="#"> {productEnquiryDto.product_i_content} 상품문의글 링크코드 및 글자 수 제한 기능 추가</a></th>
-      <th style="padding-top: 50px;">{productEnquiryDto.product_i_writer}</th>
-      <th style="padding-top: 50px;">{productEnquiryDto.product_i_date}</th>
+      <th style="padding-top: 50px;">${status.count}</th>      
+      <th style="padding-top: 50px;"><a href="javascript:void();" onClick="go();"> ${productEnquiryDto.product_i_title}</a></th>
+      <th style="padding-top: 50px;">${productEnquiryDto.member_id}</th>
+      <th style="padding-top: 50px;">${productEnquiryDto.product_i_date}</th>
       </tr>			
-     </c:forEach>
-      <tr>
-        <th style="padding-top: 50px;">2</th>
-        <th style="padding-top: 50px;"> <a href="#"> 이용자 문의글 상단 30자씩 1줄 표기</a></th>
-        <th style="padding-top: 50px;">홍길동</th>
-        <th style="padding-top: 50px;">2021-04-06</th>
-      </tr>
-      <tr>
-        <th style="padding-top: 50px;">1</th>
-        <th style="padding-top: 50px;"> <a href="#"> 다른 디자인은 없는 것인가요? 새로운 디자인의 제품을 구매...</a></th>
-        <th style="padding-top: 50px;">홍길동</th>
-        <th style="padding-top: 50px;">2021-04-06</th>
-      </tr>
+     </c:forEach>      
       <tr>
         <td></td><td></td><td></td>
         <td style="padding-top: 50px;">
-          <form action>
-          <button style="width: 100px;" type="submit" class="btn btn-secondary">글쓰기</button>
+          <form name="writeEnquiry" method="POST" action="product_enquiry.jsp">
+          <input name="product_idx" value="<%= request.getParameter("product_idx") %>" hidden="hidden">
+          <input name="product_i_category" value="<%= request.getParameter("product_category") %>" hidden="hidden">
+          <input name="product_i_name" value="${productDto.product_name}" hidden="hidden">          
+          <input name="product_i_img" value="${productDto.product_introImg}" hidden="hidden">
+          <input name="member_id" value="abcde" hidden="hidden">
+          <button style="width: 100px;" type="button" onclick="goSubmit();" class="btn btn-secondary">글쓰기</button>
           </form>
         </td>
       </tr>
