@@ -18,56 +18,99 @@ import dto.OrderDto;
 
 
 
+
+
 public class myPageDao {
 
 	// 주문목록 
 	
-	public static ArrayList<OrderDto> order_detail(HttpServletRequest request) throws Exception 
+	public static ArrayList<OrderDto> myPageOrder(HttpServletRequest request) throws Exception 
 	{ 
 	
-		ArrayList<OrderDto> list = new ArrayList<OrderDto>();
+		
 		Connection conn = null;
-		PreparedStatement pstmt = null; 
+		Statement stmt = null; 
 		ResultSet rs = null; 
+		ArrayList<OrderDto> myPageOrder = new ArrayList<OrderDto>();
 		
 		HttpSession session = request.getSession();
 		String order_member = (String)session.getAttribute("member_id");
+		System.out.println("order_id:"+order_member);
 		
 		try 
 		{		
 			conn = DBConnection.getConnection();
-			String query = "select * from p_order where member_id =?";
-	        pstmt = conn.prepareStatement(query);
-	        pstmt.setString(1, order_member);
-	        
-			rs = pstmt.executeQuery(); 
+			String query = "select * from p_order where member_id ='"+order_member+"'";
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery( query );
 					
-			while( rs.next() ) 
-			{
+					
+			while( rs.next() ) {
 				
-			int      order_idx = rs.getInt("order_idx");        
-			String   order_statuse  = rs.getString("order_status");       
-			Date     order_date = rs.getDate("order_date");              
-		    int      order_p_idx  = rs.getInt("order_p_idx");           
-		    String   order_p_img   = rs.getString("order_p_img");          
-			String   order_p_name  = rs.getString("order_p_name");           
-			int      order_p_price  = rs.getInt("order_p_price");        
-		    int      order_p_count  = rs.getInt("order_p_count");         
-			String   order_o_name  = rs.getString("order_o_name");          
-		    int      order_o_price  = rs.getInt("order_o_price");    
-		    String   member_id    = rs.getString(" member_id");
-		    String   member_name    = rs.getString(" member_id");
-		    int   member_grade    = rs.getInt("member_grade"); 
+			String   order_idx = rs.getString("order_idx");      
+			System.out.println("order_idx:"+order_idx);
+			String   order_status  = rs.getString("order_status");      		 
+			System.out.println("order_status:"+order_status);
+			Date     order_date = rs.getTimestamp("order_date");    
+			System.out.println("order_date:"+order_date);
+			String   order_p_name  = rs.getString("order_p_name");  
+			System.out.println("order_p_name:"+order_p_name);			
+			int      order_p_price  = rs.getInt("order_p_price"); 
+			System.out.println("order_p_price:"+order_p_price);    
+            
+		    String   product_idx1  = rs.getString("product_idx1"); 
+		    System.out.println("product_idx1:"+product_idx1);
+		    String   product_idx2  = rs.getString("product_idx2");
+		    System.out.println("product_idx2:"+product_idx2);
+		    String   product_idx3  = rs.getString("product_idx3");
+		    System.out.println("product_idx3:"+product_idx3);
+			String   member_name  = rs.getString("member_name");
+			 System.out.println("member_name:"+member_name);
+			String   member_id  = rs.getString("member_id");
+			 System.out.println("member_id:"+member_id); 
+			 
+			int      member_grade    = rs.getInt("member_grade");
+			  System.out.println("member_grade:"+member_grade);
+			String   member_address   = rs.getString("member_address"); 
+			 System.out.println("member_address:"+member_address);
+			String   member_phone   = rs.getString("member_phone");
+			  System.out.println("member_phone:"+member_phone);
+			String   member_request   = rs.getString("member_request");
+			   System.out.println("member_request:"+member_request);
+			String   paymentOption   = rs.getString("paymentOption");
+			String   escrow 		  = rs.getString("escrow");
+			String   order_p_img     = rs.getString("order_p_img");
+			
+		    String   order_p_count1  = rs.getString("order_p_count1");
+		    String   order_p_count2  = rs.getString("order_p_count2");
+		    String   order_p_count3  = rs.getString("order_p_count3");
+		   
+		   
+		  
+		   
+		  
+		 
+		    System.out.println("paymentOption:"+paymentOption);
+		    System.out.println("escrow:"+escrow);
+		    System.out.println("order_p_img:"+order_p_img);
+		    System.out.println("order_p_count1:"+order_p_count1);
+		    System.out.println("order_p_count2:"+order_p_count2);
+		    System.out.println("order_p_count3:"+order_p_count3);
+			
+			
+			       
+		   
 		    
-		    OrderDto dto = new OrderDto( order_idx, order_statuse, order_p_img, order_date, order_p_idx,  order_p_count, order_p_name, order_p_price ,order_o_name, order_o_price, member_name,  member_id, member_grade);
-	            list.add(dto);
+		    
+		    OrderDto dto = new OrderDto(order_idx, order_status, order_date ,order_p_name, order_p_price, product_idx1, product_idx2,product_idx3, member_name,member_id,member_grade, member_address,member_phone,member_request,paymentOption,escrow,order_p_img,order_p_count1, order_p_count2, order_p_count3);
+		    myPageOrder.add(dto);
 	        }
 		}
 		catch(Exception e) 
 		{
 			System.out.println("정보를 불러오지 못했습니다.");
 		}
-		return list;
+		return myPageOrder;
 	}
 	
 	// 1 : 1  문의 리스트

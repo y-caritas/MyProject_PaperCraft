@@ -187,8 +187,8 @@ public class MyController_B extends HttpServlet{
 					request.setCharacterEncoding("UTF-8");
 					
 					String inquiryTitle = request.getParameter("inquiryTitle");
-					InquiryDto dto = myPageDao.inquiryContent( inquiryTitle );
-					request.setAttribute("dto", dto);
+		//			InquiryDto dto = myPageDao.inquiryContent( inquiryTitle );
+			//		request.setAttribute("dto", dto);
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/myPage/myInquiryContent.jsp");
 					dispatcher.forward(request, response);
 		
@@ -220,8 +220,8 @@ public class MyController_B extends HttpServlet{
 					request.setCharacterEncoding("UTF-8");
 					
 					String inquiryTitle = request.getParameter("inquiryTitle");
-					InquiryDto dto = myPageDao.inquiryContent( inquiryTitle );
-					request.setAttribute("dto", dto);
+			//		InquiryDto dto = myPageDao.inquiryContent( inquiryTitle );
+			//		request.setAttribute("dto", dto);
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/myPage/myInquiryContent.jsp");
 					dispatcher.forward(request, response);
 		
@@ -348,7 +348,7 @@ public class MyController_B extends HttpServlet{
 						}
 						request.setAttribute("dto", dto);
 						
-						myPageDao.deleteMember(dto.getMember_id());
+				//		myPageDao.deleteMember(dto.getMember_id());
 						
 			            out.println("<script>alert('회원 탈퇴가 완료되었습니다.');</script>"); 
 			            out.flush(); 

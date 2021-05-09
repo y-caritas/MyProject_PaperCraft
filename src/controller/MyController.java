@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -420,14 +421,14 @@ public class MyController extends HttpServlet {
 		//주문 목록
 		else if(command.equals("order_detail.do")) 
 		{
-			ArrayList<OrderDto> order_detail = null;
+			ArrayList<OrderDto> myPageOrder = null;
 			try {
-				order_detail = myPageDao.order_detail(request);
+				myPageOrder = myPageDao.myPageOrder(request);
 			} catch (Exception e) {
 				
 				e.printStackTrace();
 			}
-			request.setAttribute("order_detail", order_detail);
+			request.setAttribute("myPageOrder",myPageOrder);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/myPage/order_detail.jsp");
 			dispatcher.forward(request, response);
@@ -520,7 +521,15 @@ public class MyController extends HttpServlet {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("modifyForm.do");
 				dispatcher.forward(request, response);
 			}else if(result == 2 || result == 0 ) {
+				
 				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				 
+				out.println("<script>alert('비밀번호를 확인해주세요.');history.back();</script>");
+				 
+				out.flush();
+				 
+			
 
 			}
 		}

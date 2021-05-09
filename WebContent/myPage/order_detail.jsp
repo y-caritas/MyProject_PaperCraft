@@ -8,7 +8,8 @@
 <c:import url="/header.jsp"></c:import>
 <style>
 #order-btn{
- border: none;}
+ border: none;
+ }
 #order-chk{
 margin-top:10px;
 padding-top:10px;
@@ -62,6 +63,18 @@ width: 1000px;
       padding: 5px;
       cursor: pointer;
     }
+    
+ a {
+
+text-decoration: none;
+color: #818181;
+}
+
+a:hover{
+text-decoration: none;
+color: #818181;
+}
+  
 </style>
 
 
@@ -129,71 +142,31 @@ width: 1000px;
         <th style="width:10%">주문현황</th>
       </tr>
       
-      <%-- view 용 --%>
-      
-          <tr class="inquiryTr">     
-          <td>2021-03-21</td>
-          <td><img src="http://placehold.it/150" /> </td>         
-           <td style="text-align: left;"><a href="#"><h6><b>취미박스 DIY 키트 페이퍼커팅 조명 만들기 [normal ver.]</b></h6></a>          
-          <small>공예커터칼날 (+3,000)</small> </td>
-          <td>${dto.order_p_count}1</td>
-          <td>25,500</td>
-          <td><div>배송중</div></td>
-      </tr>
-       <tr class="inquiryTr">     
-          <td>2021-03-21</td>
-          <td> <img src="http://placehold.it/150" /></td>         
-            <td style="text-align: left;"><a href="#"><h6><b>취미박스 DIY 키트 페이퍼커팅 조명 만들기 [normal ver.]</b></h6></a>          
-         
-          <td>${dto.order_p_count}1</td>
-          <td>22,500</td>
-          <td>
-          <div id ="order-chk">주문확인중<br>	
-          
-           <button id="order-btn" onclick="order_delete.do">주문취소 </button></div>
-          </td>
-      </tr>
-       <tr class="inquiryTr">     
-          <td>2021-03-21</td>
-          <td> <img src="http://placehold.it/150" /></td>         
-            <td style="text-align: left;"><h6><a href="#"> <b>취미박스 DIY 키트 페이퍼커팅 조명 만들기 [normal ver.]</b></a></h6>          
-          
-          <td>${dto.order_p_count}1</td>
-          <td>22,500</td>
-          <td><div>배송완료</div></td>
-      </tr>
+    
       
       <%-- EL 표현식 --%>   
-      
+      <c:forEach var="dto" items="${ myPageOrder }">
        <tr class="inquiryTr">
-          <c:forEach var="dto" items="${ orderList }">
+          
         
           <td> <fmt:formatDate value="${dto.order_date}" pattern="yyyy-MM-dd" /></td>
           <td> ${dto.order_p_img}</td>          
-          <td style="text-align: left;"><div><a href="#">${dto.order_p_name}</a></div></td>
-         							    <div>${dto.order_o_name}</div>
-          <td><div>${dto.order_p_count}</div></td>
+          <td id="proName" style="text-align: left;"><div><h6><a href="#">${dto.order_p_name}</a></h6></div>
+           <c:choose>
+         	<c:when test ="${dto.product_idx3 != null && dto.product_idx3 == null  }">  <div>외 1건 </div> </c:when>
+         	<c:when test ="${dto.product_idx3 != null }">  <div><small>외 2건</small> </div> </c:when> 
+         	</c:choose>
+          </td>
+         
+          <td><div>${dto.order_p_count1}</div></td>
           
-           <td><fmt:formatNumber value="${dto.order_total }" pattern="#,###원" /></td>                                       
-          <td>
-          <c:choose>
-    	<c:when test="${dto.order_statuse == 0}">
-    		<b>주문확인중</b>
-    	    <p> <button style="border:none" onclick="order_delete.do">주문취소 </button></p>
-    	</c:when>
-    	<c:when test="${dto.order_statuse == 1}">
-    		<b>배송중</b>
-    	</c:when>
-    	<c:when test="${dto.order_statuse == 2}">
-    		<b>배송완료</b>
-    	</c:when>  	
-        <c:otherwise>
-       		<b>관리자에게 문의하세요</b>
-		</c:otherwise>
-    </c:choose>
+           <td><fmt:formatNumber value="${dto.order_p_price }" pattern="#,###원" /></td>                                       
+          <td>${dto.order_status}    </td>
+          
                   
-        </c:forEach>
+    
       </tr>
+          </c:forEach>
       </table>
       </section>
    </div>
