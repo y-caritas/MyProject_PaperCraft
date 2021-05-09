@@ -73,23 +73,6 @@
       function focus05 (){
     	  document.getElementById('product_swap_policy').scrollIntoView();
 		}
-      function openBlankFrame( frameName, width, height ) {
-    	  var winprops = "";
-    	  var left    = (screen.width - winWidth)/2;
-    	  var top     = (screen.height- winHeight)/2;
-    	  winprops    += "toolbar=no,menubar=no,scrollbars=yes,statusbar=no,resizable=yes";
-    	  winprops    += ",top="+top+",left="+left+",width="+width+",height="+height;
-    	  window.open( "", frameName, winprops );
-    	 }
-    	 function go() {
-	   	  var doc = document.getElementById("frm");
-    	             openBlankFrame("reuseF","940","720"); 
-    	             doc.action= "S070202050.do?form_reuse=1";
-    	             doc.ServiceName.value = "S070202050-service";
-    	             doc.submit();
-
-    	  }
-
     	 
       function goSubmit()
       {
@@ -102,13 +85,13 @@
           frm.target="winName";
           frm.submit();
       }
-      function go()
+      function go(product_i_idx)
       {
           var popupWidth = 750;
           var popupHeight = 380;
           var popupX = (window.screen.width / 2) - (popupWidth / 2);
           var popupY = (window.screen.height / 2) - (popupHeight / 2);
-          var gsWin = window.open("product_enquiry_answer.jsp", "winName", "width=750, height=630, left="+ popupX +", top="+ popupY +",toolbar=no, menubar=no, scrollbars=no, resizable=yes");
+          var gsWin = window.open("productEnquiryAnswer.do?product_i_idx="+product_i_idx, "winName", "width=750, height=630, left="+ popupX +", top="+ popupY +",toolbar=no, menubar=no, scrollbars=no, resizable=yes");
       }
       
     </script>    
@@ -251,7 +234,7 @@
       <c:forEach var="productEnquiryDto" items="${productEnquiryDto}" varStatus="status">  		   
       <tr>
       <th style="padding-top: 50px;">${status.count}</th>      
-      <th style="padding-top: 50px;"><a href="javascript:void();" onClick="go();"> ${productEnquiryDto.product_i_title}</a></th>
+      <th style="padding-top: 50px;"><a href="javascript:void();" onClick="go('${productEnquiryDto.product_i_idx}');"> ${productEnquiryDto.product_i_title}</a></th>
       <th style="padding-top: 50px;">${productEnquiryDto.member_id}</th>
       <th style="padding-top: 50px;">${productEnquiryDto.product_i_date}</th>
       </tr>			

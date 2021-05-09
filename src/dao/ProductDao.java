@@ -457,11 +457,11 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 			{	
 				
 				int product_i_idx = rs.getInt("product_i_idx");
-				String product_i_content = rs.getString("product_i_title");
+				String product_i_title = rs.getString("product_i_title");
 				Date product_i_date = rs.getDate("product_i_date");
 	            String member_id = rs.getString("member_id");
 	            
-	            ProductEnquiryDto dto = new ProductEnquiryDto(product_i_idx, product_i_content, product_i_date, member_id);
+	            ProductEnquiryDto dto = new ProductEnquiryDto(product_i_idx, product_i_title, product_i_date, member_id);
 	            enquiry_list.add(dto);
 	        }
 		}
@@ -561,10 +561,10 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 	        String product_introImg = savePath + request.getParameter("product_introImg").replace("C:\\fakepath\\", "/");
 	        System.out.println(product_introImg);
 	        pstmt.setString(6, product_introImg );	        
-	        pstmt.setString(7, request.getParameter("product_introduction") );
-	        pstmt.setString(8, request.getParameter("product_delivery_policy") );
+	        pstmt.setString(7, removeTag(request.getParameter("product_introduction")) );
+	        pstmt.setString(8, removeTag(request.getParameter("product_delivery_policy"))  );
 	        pstmt.setInt(9, Integer.parseInt(request.getParameter("delivery_policy_category")));
-	        pstmt.setString(10, request.getParameter("product_swap_policy") );	     
+	        pstmt.setString(10, removeTag(request.getParameter("product_swap_policy")));	     
 	        pstmt.setInt(11, Integer.parseInt(request.getParameter("swap_policy_category")));
 	        pstmt.setString(12, request.getParameter("product_memo") );
 	        
@@ -1034,5 +1034,50 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 		return result;
 	}
 
+	public static ProductEnquiryDto productEnquiryView(String product_i_idx) {
+		
+		ProductEnquiryDto productEnquiryDto = new ProductEnquiryDto();
+		productEnquiryDto.setProduct_i_idx(Integer.parseInt(product_i_idx));
+		Connection conn = null; 
+		PreparedStatement pstmt = null; 
+		ResultSet rs = null; 
+		try 
+		{
+			conn = DBConnection.getConnection();
+			String query = "SELECT * FROM p_product_inquiry WHERE product_i_idx=?";			
+	        pstmt = conn.prepareStatement(query);
+	        pstmt.setInt(1, Integer.parseInt(product_i_idx));	        
+			rs = pstmt.executeQuery();
+			
+			while( rs.next() ) 
+			{				
+				String product_i_title = rs.getString("product_i_title");
+				String product_i_content = removeTag(rs.getString("product_i_content"));
+				String product_i_img = rs.getString("product_i_img");
+				String product_i_category = rs.getString("product_i_category");
+				String product_i_name = rs.getString("product_i_name");
+	            Date product_i_date = rs.getDate("product_i_date");
+	            String member_id = rs.getString("member_id");
+	            int product_idx = rs.getInt("product_idx");
+	            
+	            productEnquiryDto.setProduct_i_title(product_i_title);
+	            productEnquiryDto.setProduct_i_content(product_i_content);
+	            productEnquiryDto.setProduct_i_img(product_i_img);
+	            productEnquiryDto.setProduct_i_category(product_i_category);
+	            productEnquiryDto.setProduct_i_name(product_i_name);
+	            productEnquiryDto.setProduct_i_date(product_i_date);
+	            productEnquiryDto.setMember_id(member_id);
+	            productEnquiryDto.setProduct_idx(product_idx);	            
+	        }
+		}
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return productEnquiryDto;
+	}
+	public static String removeTag(String html) throws Exception {
+		return html.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+	}
 
 }

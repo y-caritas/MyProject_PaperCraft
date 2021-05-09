@@ -750,7 +750,7 @@ public class MyController extends HttpServlet {
 			dispatcher.forward(request, response);			
 		}
 		
-		//detail_page.jsp 컨트롤러
+		//detail_page_ver2.jsp 컨트롤러
 		else if(command.equals("detailview.do")) {			
 			
 			String product_idx = request.getParameter("product_idx");
@@ -769,7 +769,7 @@ public class MyController extends HttpServlet {
 	        request.setAttribute("productReviewDto", productReviewDto);
 	        request.setAttribute("productEnquiryDto", productEnquiryDto);			
 	        
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page.jsp");
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page_ver2.jsp");
 			dispatcher.forward(request, response);			
 		}
 		
@@ -792,7 +792,7 @@ public class MyController extends HttpServlet {
 	        request.setAttribute("productReviewDto", productReviewDto);
 	        request.setAttribute("productEnquiryDto", productEnquiryDto);
 	        
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page.jsp");
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page_ver2.jsp");
 			dispatcher.forward(request, response);	
 		}
 		
@@ -890,7 +890,7 @@ public class MyController extends HttpServlet {
 		        request.setAttribute("productReviewDto", productReviewDto);
 		        request.setAttribute("productEnquiryDto", productEnquiryDto);			
 		        
-		        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page.jsp");
+		        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page_ver2.jsp");
 				dispatcher.forward(request, response);	
 			}
 			
@@ -1038,6 +1038,32 @@ public class MyController extends HttpServlet {
 	        request.setAttribute("product_list", product_list);	
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productList.jsp");
+			dispatcher.forward(request, response);
+			
+		}
+		//상품문의 등록
+		else if(command.equals("productEnquiry.do")) {
+			
+			request.setCharacterEncoding("UTF-8");
+			int result = ProductDao.productEnquiry(request);
+			
+			request.setAttribute("confirm", result);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/product/product_enquiry.jsp");
+			dispatcher.forward(request, response);
+			
+		}
+		//상품문의 등록
+		else if(command.equals("productEnquiryAnswer.do")) {
+			
+			request.setCharacterEncoding("UTF-8");
+			String product_i_idx = request.getParameter("product_i_idx");
+			System.out.println(product_i_idx);
+			ProductEnquiryDto productEnquiryDto = ProductDao.productEnquiryView(product_i_idx);
+			//답변등록 미구현
+			
+			request.setAttribute("productEnquiryDto", productEnquiryDto);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/product/product_enquiry_answer.jsp");
 			dispatcher.forward(request, response);
 			
 		}

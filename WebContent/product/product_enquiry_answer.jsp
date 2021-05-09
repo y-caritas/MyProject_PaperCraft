@@ -9,7 +9,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Document</title>  
   <script type="text/javascript" src="<%= request.getContextPath() %>/smarteditor2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
   <style>
     * {
@@ -61,17 +61,18 @@
   <div id="inquiryAnswerWrap">    
       <div id="inquiryAnswerInputbox">      	
       	<br><br><br>        
-        <h5>상품문의</h5><input style="width:100%;" name="product_i_title" type="text" value="" disabled>
+        <h5>상품문의</h5><input style="width:100%;" name="product_i_title" type="text" value="${productEnquiryDto.product_i_title}" disabled>
         <h5>내용</h5>
-        <textarea name="product_i_content" id="product_inquiry_content" cols="100" rows="10" style="width:100%; resize: none;" disabled></textarea>
+        <textarea name="product_i_content" id="product_inquiry_content" cols="100" rows="10" style="width:100%; resize: none;" disabled>${productEnquiryDto.product_i_content}</textarea>
       </div>
       <br>
       <div id="inquiryAnswerInputbox">        
         <h5>답변</h5>
         <textarea name="product_i_content" id="product_inquiry_content" cols="100" rows="10" style="width:100%; resize: none; background-color: white" disabled></textarea>
-      </div>       
-    
-
+      </div>
+      <div style="text-align: center;"><br>
+      <button type="button" onclick="window.close();">확인</button>
+      </div>
   </div>
 </body>
 </html>

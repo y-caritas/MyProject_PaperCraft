@@ -4,8 +4,7 @@ import java.util.Date;
 
 public class ProductEnquiryDto {
 	
-	private int product_i_idx;
-	private String product_i_writer;
+	private int product_i_idx;	
 	private String product_i_title;
 	private String product_i_content;
 	private String product_i_img;
@@ -20,11 +19,11 @@ public class ProductEnquiryDto {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ProductEnquiryDto(int product_i_idx2, String product_i_content2, Date product_i_date2, String product_i_writer2) {
+	public ProductEnquiryDto(int product_i_idx2, String product_i_title2, Date product_i_date2, String member_id2) {
 		this.product_i_idx = product_i_idx2;
-		this.product_i_content = product_i_content2;
+		this.product_i_title = product_i_title2;
 		this.product_i_date = product_i_date2;
-		this.product_i_writer = product_i_writer2;
+		this.member_id = member_id2;
 	}
 
 	public int getProduct_i_idx() {
@@ -33,14 +32,6 @@ public class ProductEnquiryDto {
 
 	public void setProduct_i_idx(int product_i_idx) {
 		this.product_i_idx = product_i_idx;
-	}
-
-	public String getProduct_i_writer() {
-		return product_i_writer;
-	}
-
-	public void setProduct_i_writer(String product_i_writer) {
-		this.product_i_writer = product_i_writer;
 	}
 
 	public String getProduct_i_title() {
