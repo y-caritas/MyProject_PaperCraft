@@ -113,6 +113,26 @@ width: 1000px;
   window.onload = () => {
 	    updateCart();
   }
+  function CheckForm(Join){
+      
+      var isCartChk = false;
+      var arr_Cart = document.getElementsByName("cart_target[]");
+      for(var i=0;i<arr_Cart.length;i++){
+          if(arr_Cart[i].checked == true) {
+        	  isCartChk = true;
+              break;
+          }
+      }
+  
+      if(!isCartChk){
+          alert("상품을 한개 이상 선택해주세요.");
+          return false;
+      }
+
+  }
+
+
+
   </script>
 <div class="container-fluid">
   <div class="row flex-nowrap">
@@ -168,7 +188,7 @@ width: 1000px;
 <section id="inquiryListWrap">
 
 
-<form name="cart" action="purchase.do" method="post">
+<form name="cart" action="purchase.do" method="post" onSubmit="return CheckForm(this)">
   <table id="inquiryListTable"  style="border-bottom: none;">
     <tr class="inquiryTr">
       <th style="width:10%">번호</th>
