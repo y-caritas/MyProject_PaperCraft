@@ -63,16 +63,16 @@
           <td>${dto.member_phone}</td>
           <td>${dto.member_email}</td>
            <c:choose>
-                <c:when test="${dto.member_grade == S}">
+                <c:when test="${dto.member_grade == 4}">
 		        	<td>관리자</td>
 		        </c:when>
-		        <c:when test="${dto.member_grade == A}">
+		        <c:when test="${dto.member_grade == 3}">
 		        	<td>VIP</td>
 		        </c:when>
-		        <c:when test="${dto.member_grade == B}">
+		        <c:when test="${dto.member_grade == 2}">
 		        	<td>우수회원</td>
 		        </c:when>
-		        	<c:when test="${dto.member_grade == C}">
+		        	<c:when test="${dto.member_grade == 1}">
 		        <td>일반회원</td>
 		        </c:when>
 		        

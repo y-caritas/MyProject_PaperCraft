@@ -95,7 +95,7 @@
                 <!-- 비밀번호 -->
                 <tr>
                     <td class="join_form_left">비밀번호</td>
-                    <td class="join_form_right join_form_border"><input class="join_inputbox" type="password" id="join_pw" name="member_pw" maxlength="20" placeholder="비밀번호를 입력해주세요." onchange="isSame()">
+                    <td class="join_form_right join_form_border"><input class="join_inputbox" type="password" id="join_pw" name="member_pw" maxlength="20" value="${dto.member_pw}" onchange="isSame()">
                     <label class="join_label">영문자+숫자 조합으로 8~25자리를 사용해주세요.</label>
                     </td>
                 </tr>
