@@ -89,11 +89,11 @@
         <td class="orderlistContent">${ dto.order_p_name }</td>
       </tr>
       <tr>
-        <td class="orderlistTitle"d>이름</td>
+        <td class="orderlistTitle">이름</td>
         <td class="orderlistContent">${ dto.member_name }</td>
       </tr>
       <tr>
-        <td class="orderlistTitle"d>휴대폰 번호</td>
+        <td class="orderlistTitle">휴대폰 번호</td>
         <td class="orderlistContent">${ dto.member_phone }</td>
       </tr>
       <tr>

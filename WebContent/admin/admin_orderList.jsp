@@ -250,6 +250,9 @@
         </c:if>
       </tr>
       </c:forEach>
+        <c:if test="${empty order_list}">
+        		<td colspan="8" style="text-align: center; padding-top: 15px;">검색된 결과가 없습니다.</td>
+        </c:if>
     </table>
     </div>
     <!-- <div id="orderconfirmBtn">
