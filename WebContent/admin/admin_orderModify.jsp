@@ -90,7 +90,7 @@
       </tr>
       <tr>
         <td class="orderlistTitle">주소</td>
-        <td class="orderlistContent">서울시 노원구 상계3동</td>
+        <td class="orderlistContent">${ dto.member_address }</td>
       </tr>
       <tr>
         <td class="orderlistTitle">회원 등급</td>

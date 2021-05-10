@@ -504,7 +504,7 @@ public class OrderDao {
 					pstmt = conn.prepareStatement( query );
 					pstmt.setString(1, member_grade);
 					pstmt.setString(2, order_status);
-					pstmt.setInt(3, Integer.parseInt( order_idx ) );
+					pstmt.setString(3, order_idx );
 					
 					int result = pstmt.executeUpdate(); //insert, update, delete
 					System.out.println("update result:" + result); //0 결과없음 
