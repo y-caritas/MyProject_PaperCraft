@@ -130,6 +130,36 @@ width: 1000px;
       }
 
   }
+  function submitCart(){
+	  
+	  updateCart();
+      var frm = document.cart;
+      var arr_Cart = document.getElementsByName("cart_target[]");
+      var arr_Cart_idx = document.getElementsByName("cart_idx[]");
+      var arr_Cart_p_img = document.getElementsByName("cart_p_img[]");
+      var arr_Cart_p_count = document.getElementsByName("cart_p_count[]");
+      var arr_Cart_p_total = document.getElementsByName("cart_p_total_price[]");
+      
+      var checked_idx = [];
+      var checked_p_img = [];
+      var checked_p_count = [];
+      var checked_p_total = [];
+
+      for(var i=0;i<arr_Cart.length;i++){
+          if(arr_Cart[i].checked == true) {
+          checked_idx.push(arr_Cart_idx[i].value);
+    	  checked_p_img.push(arr_Cart_p_img[i].value);
+    	  checked_p_count.push(arr_Cart_p_count[i].value);
+    	  checked_p_total.push(arr_Cart_p_total[i].value);
+          }
+      }
+      frm.checked_idx.value = checked_idx;
+      frm.checked_p_img.value = checked_p_img;
+      frm.checked_p_count.value = checked_p_count;
+      frm.checked_p_total.value = checked_p_total;
+      frm.submit();
+  }
+  
 
 
 
@@ -205,6 +235,7 @@ width: 1000px;
       <td>
         <div class="cart_titles">
           <img style="width:100px; height:100px;" class="" src="${cart.cart_p_img}" alt="">
+          <input type="hidden" name="cart_idx[]" value="${ cart.cart_idx }">
           <input type="hidden" name="cart_p_img[]" value="${ cart.cart_p_img }">         
         </div>
       </td>
@@ -244,7 +275,11 @@ width: 1000px;
     <tr>
       <td></td><td></td>
       <td style="padding-left: 100px; padding-top: 100px;">
-      <button type="submit" onclick="updateCart()" class="btn btn-dark">결제</button>&emsp;
+      <input type="hidden" name="checked_idx"/>
+      <input type="hidden" name="checked_p_img"/>
+      <input type="hidden" name="checked_p_count"/>
+      <input type="hidden" name="checked_p_total"/>
+      <button type="button" onclick="submitCart()" class="btn btn-dark">결제</button>&emsp;
       <button type="button" class="btn btn-secondary" onclick="history.back()">취소</button>
       </td><td></td><td></td><td></td>
     </tr>
