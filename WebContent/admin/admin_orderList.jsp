@@ -127,7 +127,7 @@
       height: 35px;
     }
     a {
-      color: black;
+      color: #818181;
       text-decoration: none;
     }
     a:hover {
@@ -202,7 +202,7 @@
               </div>
               <div class="flexboxContent1">
                 <input type="text" name="member_name"><br>
-                <input type="text" name="p_price1" id="p_price1"><span>원 ~ </span><input type="text" name="p_price2" id="p_price1"><span>원</span>
+                <input type="text" name="p_price1" id="p_price1"><span>원 ~ </span><input type="text" name="p_price2" id="p_price2"><span>원</span>
               </div>
               <div class="flexboxContent">
                <button formaction="det_member_name.do">검 색</button>

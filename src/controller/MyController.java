@@ -804,7 +804,7 @@ public class MyController extends HttpServlet {
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page_ver2.jsp");
 			dispatcher.forward(request, response);	
 		}
-		
+	
 		//구매하기
 		else if(command.equals("purchase.do") || command.equals("productPurchase.do")) {
 			
@@ -1169,11 +1169,12 @@ public class MyController extends HttpServlet {
 				String order_idx = request.getParameter("order_idx");
 				String member_grade = request.getParameter("member_grade");
 				String order_status = request.getParameter("order_status");
+				String member_address = request.getParameter("member_address");
 				System.out.println("번호: "+order_idx);
 				System.out.println("등급: "+member_grade);
 				System.out.println("배송상태: "+order_status);
 				
-				OrderDao.orderModifyDo( order_idx, member_grade, order_status );
+				OrderDao.orderModifyDo( order_idx, member_grade, order_status, member_address );
 				
 				response.sendRedirect("admin_orderlist.do");
 			}

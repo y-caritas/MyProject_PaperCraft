@@ -57,6 +57,10 @@
       background-color: #bfbfbf;
       color: white;
     }
+    #member_address {
+    	width: 90%;
+    	height: 25px;
+    }
 
 </style>
 </head>
@@ -89,10 +93,15 @@
         <td class="orderlistContent">${ dto.member_name }</td>
       </tr>
       <tr>
-        <td class="orderlistTitle">주소</td>
-        <td class="orderlistContent">서울시 노원구 상계3동</td>
+        <td class="orderlistTitle"d>휴대폰 번호</td>
+        <td class="orderlistContent">${ dto.member_phone }</td>
       </tr>
       <tr>
+        <td class="orderlistTitle">주소</td>
+        <td class="orderlistContent"><input type="text" maxlength="100" id="member_address" name="member_address" value="${ dto.member_address }"></td>
+      </tr>
+      <tr>
+      <!-- 회원등급 표시 -->
         <td class="orderlistTitle">회원 등급</td>
         <td class="orderlistContent">
         <c:if test="${ dto.member_grade eq 1 }">
@@ -135,7 +144,7 @@
       </tr>
       <tr>
         <td class="orderlistTitle">결제 방법</td>
-        <td class="orderlistContent">카드결제</td>
+        <td class="orderlistContent">${ dto.paymentOption }</td>
       </tr>
       <tr>
         <td class="orderlistTitle">주문 상태</td>

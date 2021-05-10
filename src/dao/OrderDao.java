@@ -492,19 +492,20 @@ public class OrderDao {
 				
 				return dto;
 			}
-			// 공지사항 글 수정
-			public static void orderModifyDo( String order_idx, String member_grade, String order_status ) {
+			// 주문상세화면 글 수정버튼 클릭시
+			public static void orderModifyDo( String order_idx, String member_grade, String order_status, String member_address ) {
 
 				Connection conn = null;    
 				PreparedStatement pstmt = null;   
 				try {
 					conn = DBConnection.getConnection();
 					String query = "UPDATE p_order SET member_grade=?, "
-						+ "order_status=? WHERE order_idx=?";       
+						+ "order_status=?, member_address=? WHERE order_idx=?";       
 					pstmt = conn.prepareStatement( query );
 					pstmt.setString(1, member_grade);
 					pstmt.setString(2, order_status);
-					pstmt.setInt(3, Integer.parseInt( order_idx ) );
+					pstmt.setString(3, member_address);
+					pstmt.setString(4, order_idx );
 					
 					int result = pstmt.executeUpdate(); //insert, update, delete
 					System.out.println("update result:" + result); //0 결과없음 
