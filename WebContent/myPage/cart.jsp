@@ -120,13 +120,13 @@ width: 1000px;
       for(var i=0;i<arr_Cart.length;i++){
           if(arr_Cart[i].checked == true) {
         	  isCartChk = true;
-              break;
+              return isCartChk;
           }
       }
   
       if(!isCartChk){
           alert("상품을 한개 이상 선택해주세요.");
-          return false;
+          return isCartChk;
       }
 
   }
@@ -134,6 +134,7 @@ width: 1000px;
 	  
 	  updateCart();
       var frm = document.cart;
+	  if(CheckForm(frm) === true){
       var arr_Cart = document.getElementsByName("cart_target[]");
       var arr_Cart_idx = document.getElementsByName("cart_idx[]");
       var arr_Cart_p_img = document.getElementsByName("cart_p_img[]");
@@ -141,6 +142,7 @@ width: 1000px;
       var arr_Cart_p_total = document.getElementsByName("cart_p_total_price[]");
       
       var checked_idx = [];
+      var checked_p_idx = [];
       var checked_p_img = [];
       var checked_p_count = [];
       var checked_p_total = [];
@@ -148,16 +150,19 @@ width: 1000px;
       for(var i=0;i<arr_Cart.length;i++){
           if(arr_Cart[i].checked == true) {
           checked_idx.push(arr_Cart_idx[i].value);
+          checked_p_idx.push(arr_Cart[i].value);
     	  checked_p_img.push(arr_Cart_p_img[i].value);
     	  checked_p_count.push(arr_Cart_p_count[i].value);
     	  checked_p_total.push(arr_Cart_p_total[i].value);
           }
       }
       frm.checked_idx.value = checked_idx;
+      frm.checked_p_idx.value = checked_p_idx;
       frm.checked_p_img.value = checked_p_img;
       frm.checked_p_count.value = checked_p_count;
       frm.checked_p_total.value = checked_p_total;
       frm.submit();
+	  }
   }
   
 
@@ -218,7 +223,7 @@ width: 1000px;
 <section id="inquiryListWrap">
 
 
-<form name="cart" action="purchase.do" method="post" onSubmit="return CheckForm(this)">
+<form name="cart" action="purchase.do" method="post">
   <table id="inquiryListTable"  style="border-bottom: none;">
     <tr class="inquiryTr">
       <th style="width:10%">번호</th>
@@ -276,6 +281,7 @@ width: 1000px;
       <td></td><td></td>
       <td style="padding-left: 100px; padding-top: 100px;">
       <input type="hidden" name="checked_idx"/>
+      <input type="hidden" name="checked_p_idx"/>
       <input type="hidden" name="checked_p_img"/>
       <input type="hidden" name="checked_p_count"/>
       <input type="hidden" name="checked_p_total"/>

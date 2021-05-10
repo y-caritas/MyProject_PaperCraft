@@ -93,7 +93,7 @@
               	<input name="cart_p_idx" value="${product_idx}" hidden="hidden">
               	<input name="cart_p_img" value="${productDto.product_introImg}" hidden="hidden">
     	        <%-- member_id 로그인 한 세션에서 값 가져오기 --%>
-              	<input name="member_id" value="abcde" hidden="hidden">
+              	<input name="member_id" value="${member_id}" hidden="hidden">
                 <button type="submit" formaction="<%= request.getContextPath() %>/cartInsert.do" onclick="return confirmCart()" class="btn btn-secondary">장바구니</button>&emsp;
                 <button type="submit" class="btn btn-dark">구매하기</button>
               </li>
@@ -169,7 +169,7 @@
           <input name="product_idx" value="${product_idx}" hidden="hidden">
           <input name="product_r_img" value="${productDto.product_introImg}" hidden="hidden">
           <%-- member_id 로그인 한 세션에서 값 가져오기 --%>
-          <input name="member_id" value="abcde" hidden="hidden">
+          <input name="member_id" value="${member_id}" hidden="hidden">
           <button style="width: 100px; height: 60px;" type="submit" class="btn btn-secondary">등록</button>
           </form>        
         </div>
