@@ -134,6 +134,11 @@
                       
                     </td>
                 </tr>
+                 <!-- 회원등급 -->
+                <tr>
+                    <td class="join_form_left">회원등급 </td>
+                    <td class="join_form_right join_form_border"><input class="join_inputbox" type="text" id="join_name" name="member_grade" maxlength="" value="${dto.member_grade}"></td>
+                </tr>
                 <!-- 성별 -->
                 <tr>
                     <td class="join_form_left">성별</td>

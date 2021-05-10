@@ -337,6 +337,7 @@ public class myPageDao {
 			String member_address = request.getParameter("member_address");
 			String member_email = request.getParameter("member_email");
 			String member_phone = request.getParameter("member_phone");
+			String member_grade = request.getParameter("member_grade");
 			System.out.println("member+pw:"+member_pw );
 			System.out.println("member_name:"+member_name );
 			System.out.println("member_address:"+member_address );
@@ -352,7 +353,7 @@ public class myPageDao {
 				
 				String query = "UPDATE p_member SET"+" member_pw='"+member_pw+"',member_name ='"
 						+member_name+"', member_address ='"+member_address+"',  member_email='"+member_email+"',member_phone='"+member_phone+
-						"' where member_idx="+member_idx;
+						"',member_grade='"+member_grade+"' where member_idx="+member_idx;
 				stmt=conn.createStatement();
 				
 				System.out.println(query);
