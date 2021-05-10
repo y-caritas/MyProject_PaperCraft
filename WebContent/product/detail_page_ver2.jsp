@@ -106,21 +106,21 @@
  <section>
     <div id="product_detail" class="row">
       <div style="text-align: center;" class="col-7">      	
-        <img style="width: 100px;" src="${productDto.product_introImg}" alt="">
+        <img style="margin-left: 250px; width: 400px; height: 400px" src="${productDto.product_introImg}" alt="">
       </div>
       <div class="col-5">
           <form name="cartForm" action="<%= request.getContextPath() %>/product/productPurchase.do" method="POST">
           <ul>
               <li class="product_detail">제품명 : <input class="product_detail_text" type="text" disabled value="${productDto.product_name}"/>
               									  <input name="cart_p_name" hidden="hidden" type="text" value="${productDto.product_name}"/>	</li>
-              <li>가격 : <input style="width: 60px;" class="product_detail_text" type="text" disabled value="${productDto.product_price}"/>
+              <li>가격 : <input style="width: 50px;" class="product_detail_text" type="text" disabled value="${productDto.product_price}"/>
                			 <input name="cart_p_price" hidden="hidden" type="text" value="${productDto.product_price}"/><b>원</b></li>
-              <li>배송비 : <input name="" class="product_detail_text" type="text" disabled value="DB에 배송비 칼럼 없음"/></li>
+              <li>배송비 : <input name="" class="product_detail_text" type="text" disabled value="3000 원"/></li>
               <li>수량 : &nbsp;<input class="product_detail_btn" type="button" value="-" id="minus" onclick="productVAR.minus('${productDto.product_name}')">
                   <input name="cart_p_count" style="text-align: center; border: none;" type="text" size="1" value="1" id="${productDto.product_name}">
                   <input class="product_detail_btn" type="button" value="+" id="plus" onclick="productVAR.plus('${productDto.product_name}')"></li>                                 
               <li>총 금액 : 
-                  <input style="width: 60px;" class="product_detail_text"  id="${productDto.product_name}_total_price" style="font-weight: bold; border: none;" type="text" disabled value="${productDto.product_price}" />
+                  <input style="width: 50px;" class="product_detail_text"  id="${productDto.product_name}_total_price" style="font-weight: bold; border: none;" type="text" disabled value="${productDto.product_price}" />
                   <input name="cart_p_total_price" value="${productDto.product_price}" hidden="hidden"/>
                   <input type="text" value="${productDto.product_price}" id="${productDto.product_name}_product_price" hidden="hidden"/><b>원</b>
               </li>
@@ -242,7 +242,7 @@
       <tr>
         <td></td><td></td><td></td>
         <td style="padding-top: 50px;">
-          <form name="writeEnquiry" method="POST" action="product_enquiry.jsp">
+          <form name="writeEnquiry" method="POST" action="<%= request.getContextPath() %>/product/product_enquiry.jsp">
           <input name="product_idx" value="<%= request.getParameter("product_idx") %>" hidden="hidden">
           <input name="product_i_category" value="<%= request.getParameter("product_category") %>" hidden="hidden">
           <input name="product_i_name" value="${productDto.product_name}" hidden="hidden">          

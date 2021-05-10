@@ -37,7 +37,7 @@ CREATE TABLE p_product_review (
 	product_idx               NUMBER(10)
 	)
 	
-CREATE SEQUENCE p_produc_review_seq;
+CREATE SEQUENCE p_product_review_seq;
 
 CREATE TABLE p_product_inquiry (
 	product_i_idx            NUMBER(10) PRIMARY KEY,

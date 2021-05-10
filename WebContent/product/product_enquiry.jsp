@@ -49,6 +49,7 @@
 		int confirm = (int)request.getAttribute("confirm");
 		if(confirm == 1){			
 			out.println("<script>alert('등록되었습니다.');</script>");
+			out.println("<script>window.opener.location.reload();</script>");
 			out.println("<script>window.close();</script>");			
 		}else{
 			out.println("<script>alert('오류가 발생했습니다.');</script>");
@@ -66,7 +67,7 @@
     <form id="adminInquiryForm" action="productEnquiry.do" method="post">      
       <div id="inquiryAnswerInputbox">        
         <input name="product_i_title" type="text" placeholder="제목을 입력하세요."><br>
-        <span style="margin-bottom:5px; font-size:0.7em;">작성자 아이디 : ${ session.memberId }</span>
+        <span style="margin-bottom:5px; font-size:0.7em;">작성자 아이디 : ${member_id}</span>
         <textarea name="product_i_content" id="product_inquiry_content" cols="100" rows="10" style="width:100%;"></textarea>
         <script type="text/javascript">
 		  var oEditors = [];
@@ -91,7 +92,7 @@
          <input name="product_i_category" value="<%= request.getParameter("product_i_category") %>" hidden="hidden">
          <input name="product_i_name" value="<%= request.getParameter("product_i_name") %>" hidden="hidden">          
          <input name="product_i_img" value="<%= request.getParameter("product_i_img") %>" hidden="hidden">
-         <input name="member_id" value="${ session.memberId }" hidden="hidden">
+         <input name="member_id" value="${ member_id }" hidden="hidden">
         <input class="inquiryAnswerBtn" type="submit" value="완료" onclick="answerTitle(); return false;">
         <button type="button" onclick="inquiryAnswerConfirm()" class="inquiryAnswerBtn">취소</button>
       </div>

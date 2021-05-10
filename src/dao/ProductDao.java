@@ -16,6 +16,7 @@ import controller.DBConnection;
 import dto.CartDto;
 import dto.OptionDto;
 import dto.ProductDto;
+import dto.ProductEnquiryAnswerDto;
 import dto.ProductEnquiryDto;
 import dto.ProductReviewDto;
 
@@ -1017,6 +1018,15 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 			String query = "INSERT INTO p_product_inquiry values (p_product_inquiry_seq.nextval, ?, ?, ?, ?, ?, sysdate, ?, ?)";			
 	        pstmt = conn.prepareStatement(query);	    	
 	    	
+	        System.out.println(request.getParameter("product_i_title"));
+	        System.out.println(request.getParameter("product_i_content"));
+	        System.out.println(request.getParameter("product_i_img"));
+	        System.out.println(request.getParameter("product_i_category"));
+	        System.out.println(request.getParameter("product_i_name"));
+	        System.out.println(request.getParameter("member_id"));
+	        System.out.println(request.getParameter("product_idx"));
+	        
+	        
 	        pstmt.setString(1, request.getParameter("product_i_title") );
 	        pstmt.setString(2, request.getParameter("product_i_content") );
 	        pstmt.setString(3, request.getParameter("product_i_img") );	        
@@ -1078,6 +1088,47 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 	}
 	public static String removeTag(String html) throws Exception {
 		return html.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+	}
+
+	public static ProductEnquiryAnswerDto EnquiryAnswerView(String product_i_idx) {
+		ProductEnquiryAnswerDto answerDto = new ProductEnquiryAnswerDto();
+		Connection conn = null; 
+		PreparedStatement pstmt = null; 
+		ResultSet rs = null; 
+		try 
+		{
+			conn = DBConnection.getConnection();
+			String query = "SELECT * FROM p_product_inquiry_answer WHERE product_i_idx=?";			
+	        pstmt = conn.prepareStatement(query);
+	        pstmt.setInt(1, Integer.parseInt( product_i_idx ));	        
+			rs = pstmt.executeQuery();
+			
+			while( rs.next() ) 
+			{				
+				
+				int product_i_a_idx = rs.getInt("product_i_a_idx");
+				String product_i_a_title = rs.getString("product_i_a_title");
+				String product_i_a_content = rs.getString("product_i_a_content");
+				Date product_i_a_date = rs.getDate("product_i_a_date");
+	            int product_i_idx2 = rs.getInt("product_i_idx");
+	                   
+	            answerDto.setProduct_i_a_idx(product_i_a_idx);
+	            answerDto.setProduct_i_a_title(product_i_a_title);
+	            answerDto.setProduct_i_a_content(product_i_a_content);
+	            answerDto.setProduct_i_a_date(product_i_a_date);
+	            answerDto.setProduct_i_idx(product_i_idx2);	            
+	            
+	        }
+		}
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		return answerDto;
 	}
 
 }

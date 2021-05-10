@@ -44,18 +44,6 @@
       cursor: pointer;
     }
   </style>
-    	<%	  	 	
-  		if(request.getAttribute("confirm") != null){
-		int confirm = (int)request.getAttribute("confirm");
-		if(confirm == 1){			
-			out.println("<script>alert('등록되었습니다.');</script>");
-			out.println("<script>window.close();</script>");			
-		}else{
-			out.println("<script>alert('오류가 발생했습니다.');</script>");
-			out.println("<script>window.close();</script>");
-		}
-  		}		
- 	%> 	
 </head>
 <body>
   <div id="inquiryAnswerWrap">    
@@ -68,7 +56,7 @@
       <br>
       <div id="inquiryAnswerInputbox">        
         <h5>답변</h5>
-        <textarea name="product_i_content" id="product_inquiry_content" cols="100" rows="10" style="width:100%; resize: none; background-color: white" disabled></textarea>
+        <textarea name="product_i_content" id="product_inquiry_content" cols="100" rows="10" style="width:100%; resize: none; background-color: white" disabled>${answerDto.product_i_a_content}</textarea>
       </div>
       <div style="text-align: center;"><br>
       <button type="button" onclick="window.close();">확인</button>

@@ -896,6 +896,7 @@ public class MyController extends HttpServlet {
 		else if(command.equals("detailview.do")) {			
 			
 			String product_idx = request.getParameter("product_idx");
+			String product_category = request.getParameter("product_category");
 			System.out.println(product_idx);
 			
 			ProductDto productDto = ProductDao.detailview(product_idx);
@@ -906,6 +907,7 @@ public class MyController extends HttpServlet {
 			
 			//테스트 필요.
 			request.setAttribute("product_idx", product_idx);
+			request.setAttribute("product_category", product_category);
 	        request.setAttribute("productDto", productDto);
 	        request.setAttribute("optionDto", optionDto);
 	        request.setAttribute("productReviewDto", productReviewDto);
@@ -1204,16 +1206,17 @@ public class MyController extends HttpServlet {
 			dispatcher.forward(request, response);
 			
 		}
-		//상품문의 등록
+		//상품문의 답변보기
 		else if(command.equals("productEnquiryAnswer.do")) {
 			
 			request.setCharacterEncoding("UTF-8");
 			String product_i_idx = request.getParameter("product_i_idx");
 			System.out.println(product_i_idx);
 			ProductEnquiryDto productEnquiryDto = ProductDao.productEnquiryView(product_i_idx);
-			//답변등록 미구현
+			ProductEnquiryAnswerDto answerDto = ProductDao.EnquiryAnswerView(product_i_idx);
 			
 			request.setAttribute("productEnquiryDto", productEnquiryDto);
+			request.setAttribute("answerDto", answerDto);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/product/product_enquiry_answer.jsp");
 			dispatcher.forward(request, response);
