@@ -19,17 +19,17 @@ public class OrderDto {
 	private String member_request;
 	private String paymentOption;
 	private String escrow;
-	private String order_p_img;
+	private String order_p_img;	
 	private String order_p_count1;
 	private String order_p_count2;
 	private String order_p_count3;
 	
 	public OrderDto() {}
 
-	public OrderDto(String order_idx, String order_status, Date order_date, String order_p_name, int order_p_price, String product_idx1, 
-			String product_idx2, String product_idx3, String member_name, String member_id, int member_grade, String member_address, 
-			String member_phone, String member_request, String paymentOption, String escrow, String order_p_img, String order_p_count1,
-			String order_p_count2, String order_p_count3) {
+	public OrderDto(String order_idx, String order_status, Date order_date, String order_p_name, int order_p_price,
+			String product_idx1, String product_idx2, String product_idx3, String member_name, String member_id,
+			int member_grade, String member_address, String member_phone, String member_request, String paymentOption,
+			String escrow, String order_p_img, String order_p_count1, String order_p_count2, String order_p_count3) {
 		super();
 		this.order_idx = order_idx;
 		this.order_status = order_status;
@@ -52,25 +52,6 @@ public class OrderDto {
 		this.order_p_count2 = order_p_count2;
 		this.order_p_count3 = order_p_count3;
 	}
-	
-	public OrderDto( String order_idx, String order_status, Date order_date, String order_p_name, int order_p_price,
-			String product_idx1, String product_idx2, String product_idx3, String member_name2, String member_id,
-			int member_grade, String member_address, String member_phone, String member_request) {
-		this.order_idx = order_idx;
-		this.order_status = order_status;
-		this.order_date = order_date;
-		this.order_p_name = order_p_name;
-		this.order_p_price = order_p_price;
-		this.product_idx1 = product_idx1;
-		this.product_idx2 = product_idx2;
-		this.product_idx3 = product_idx3;
-		this.member_name = member_name2;
-		this.member_id = member_id;
-		this.member_grade = member_grade;
-		this.member_address = member_address;
-		this.member_phone = member_phone;
-		this.member_request = member_request;
-	}
 
 	public String getOrder_idx() {
 		return order_idx;
@@ -80,29 +61,12 @@ public class OrderDto {
 		this.order_idx = order_idx;
 	}
 
-
-
-
 	public String getOrder_status() {
 		return order_status;
 	}
 
-
-
-
 	public void setOrder_status(String order_status) {
 		this.order_status = order_status;
-	}
-
-
-
-
-	public String getOrder_p_img() {
-		return order_p_img;
-	}
-
-	public void setOrder_p_img(String order_p_img) {
-		this.order_p_img = order_p_img;
 	}
 
 	public Date getOrder_date() {
@@ -111,30 +75,6 @@ public class OrderDto {
 
 	public void setOrder_date(Date order_date) {
 		this.order_date = order_date;
-	}
-
-	public String getOrder_p_count1() {
-		return order_p_count1;
-	}
-
-	public void setOrder_p_count1(String order_p_count1) {
-		this.order_p_count1 = order_p_count1;
-	}
-
-	public String getOrder_p_count2() {
-		return order_p_count2;
-	}
-
-	public void setOrder_p_count2(String order_p_count2) {
-		this.order_p_count2 = order_p_count2;
-	}
-
-	public String getOrder_p_count3() {
-		return order_p_count3;
-	}
-
-	public void setOrder_p_count3(String order_p_count3) {
-		this.order_p_count3 = order_p_count3;
 	}
 
 	public String getOrder_p_name() {
@@ -240,6 +180,40 @@ public class OrderDto {
 	public void setEscrow(String escrow) {
 		this.escrow = escrow;
 	}
+
+	public String getOrder_p_img() {
+		return order_p_img;
+	}
+
+	public void setOrder_p_img(String order_p_img) {
+		this.order_p_img = order_p_img;
+	}
+
+	public String getOrder_p_count1() {
+		return order_p_count1;
+	}
+
+	public void setOrder_p_count1(String order_p_count1) {
+		this.order_p_count1 = order_p_count1;
+	}
+
+	public String getOrder_p_count2() {
+		return order_p_count2;
+	}
+
+	public void setOrder_p_count2(String order_p_count2) {
+		this.order_p_count2 = order_p_count2;
+	}
+
+	public String getOrder_p_count3() {
+		return order_p_count3;
+	}
+
+	public void setOrder_p_count3(String order_p_count3) {
+		this.order_p_count3 = order_p_count3;
+	}
+
+	
 	
 	
 }

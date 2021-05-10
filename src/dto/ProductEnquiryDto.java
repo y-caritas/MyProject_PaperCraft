@@ -19,12 +19,30 @@ public class ProductEnquiryDto {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
 	public ProductEnquiryDto(int product_i_idx2, String product_i_title2, Date product_i_date2, String member_id2) {
 		this.product_i_idx = product_i_idx2;
 		this.product_i_title = product_i_title2;
 		this.product_i_date = product_i_date2;
 		this.member_id = member_id2;
 	}
+	
+	
+
+	public ProductEnquiryDto(int product_i_idx, String product_i_title, String product_i_content, String product_i_img,
+			String product_i_category, String product_i_name, Date product_i_date, String member_id, int product_idx) {
+		super();
+		this.product_i_idx = product_i_idx;
+		this.product_i_title = product_i_title;
+		this.product_i_content = product_i_content;
+		this.product_i_img = product_i_img;
+		this.product_i_category = product_i_category;
+		this.product_i_name = product_i_name;
+		this.product_i_date = product_i_date;
+		this.member_id = member_id;
+		this.product_idx = product_idx;
+	}
+
 
 	public int getProduct_i_idx() {
 		return product_i_idx;

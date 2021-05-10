@@ -122,64 +122,6 @@
 </form>
 </div>
 
-<!--   View 용  -->	
-
-<div id="accordian">
-
-	
-	<table id="inquiryListTable">
-      <tr class="inquiryTr">
-        <th style="width:10%"></th>
-        <th style="width:10%"></th>
-        <th style="width:40%">문의 상품</th>
-        <th style="width:10%">작성자</th>
-        <th style="width:10%">작성일시</th>
-        <th style="width:10%">답변보기</th>
-      </tr>
-	<tr class="inquiryTr">     
-          <td>1</td>
-          <td><img src="http://placehold.it/100" /> </td>         
-           <td style="text-align: left;"><div class="ProdInqCatg"><small><b>상품 카테고리 > 상품명</b></small></div> 
-           <br>  
-        <b> Q. 이 옷은 어떻게 세탁을 하면 되나요?</b></td>
-          <td>hong123</td>
-          <td>2021-03-21</td>
-          <td><div id="dropDown"><span class="ico_ar">▼</span></div></td>
-      </tr>
-      
-      </table>					
-  
-				<div id="dropContent">
-				<table id ="InqDropTab">
-				  <colgroup>
-            <col width="10%" />
-            <col width="90%" />
-					</colgroup>
-				
-	
-				
-				<tr class="dropTr" style="background-color:#f1f3f4;" > 
-				<td> <b>A.</b></td>
-				<td> 답변 내용 </td>
-				</tr>
-				<tr style="background-color:#f1f3f4; text-align:right;" > 
-				<td></td>
-				<td>
-				<div id ="ProWriteBtn">
-				<button class ="goProBtn" onclick="ProdInqWrite()" style="background-color:#818181; color:white; ">답변하기</button>
-				<button class ="goProBtn" onclick="ProdInqModify()">수정</button>
-				<button class ="goProBtn" onclick="del(${dto.inquiry_a_idx})">삭제</button>
-				
-				</div>
-				</td>
-				
-				
-				</table>
-
-
-	</div>
-
-</div>	
 
 
 <!--   @@@  Data 용  @@@		 		 -->
@@ -188,7 +130,7 @@
 
 	
 	<table id="inquiryListTable">
-	<!--  
+	
       <tr class="inquiryTr">
         <th style="width:10%"></th>
         <th style="width:10%"></th>
@@ -196,21 +138,27 @@
         <th style="width:10%">작성자</th>
         <th style="width:10%">작성일시</th>
         <th style="width:10%">답변보기</th>
-      </tr>   -->
+      </tr>   
       
-     <c:forEach var="dto" items="${pEnquiry_list}">  
+      
+      
+     <c:forEach var="dto" items="${pInquiryList}" varStatus="status">  
+     
+     
 	<tr class="inquiryTr">     
           <td>${dto.product_i_idx}</td>
-          <td>${dto.product_i_img}</td>         
+          <td><img src="http://placehold.it/100" />${dto.product_i_img}</td>         
            <td style="text-align: left;"><div class="ProdInqCatg"><small><b>${dto.product_i_category} > ${dto.product_i_name}</b></small></div> 
            <br>  
         <b> ${dto.product_i_title}</b></td>
-          <td>${dto.product_i_writer}</td>
+          <td>${dto.member_id}</td>
           <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${dto.product_i_date}"/></td>
-          <td><div id="dropDown"  onclick="location.href='pInquiryAnswerView.do?dto.product_i_idx=${dto.product_i_idx }';" ><span class="ico_ar">▼</span></div></td>
+          <td><div id="dropDown" ><span class="ico_ar">▼</span></div></td>
       </tr>
       
-		 </c:forEach>		
+      
+      
+		 
       </table>					
        
 				<div id="dropContent">
@@ -222,33 +170,51 @@
             <col width="90%" />
 			</colgroup>
 							
-			<c:choose>
-				<c:when test="${dto.inquiry_a_content != null }" >
+	 
 													
 				<tr class="dropTr" style="background-color:#f1f3f4;" > 
 				<td>  <b>A.</b></td>
-				<td> ${dto.inquiry_a_content}</td>
+						
+				<c:forEach  var="dto_answer" items="${answerList}" varStatus="status2">
+
+					<%-- <td><c:if test="${status.index eq status2.index}"> 
+					
+					${dto_answer.product_i_a_content}
+					<c:set var="found" value="success" />
+					 </c:if></td> --%>
+			
+			 	</c:forEach>
+						
+				 <c:if test="${found ne 'success'}">
+				    <td>등록된 답변이 없습니다</td>
+				</c:if>
+				
+				
+				
+			
 				</tr>
 				<tr style="background-color:#f1f3f4; text-align:right;" > 
 				<td></td>
+				
+				
 				<td>
 				<div id ="ProWriteBtn">
 				<button class ="goProBtn"  onclick="ProdInqWrite()" >답변하기</button>
-				<button class ="goProBtn"  onclick="location.href='pInquiryModify.do?dto.product_i_idx=${dto.inquiry_a_idx}';" >수정</button>
-				<button class ="goProBtn"  onclick="del(${dto.product_i_a_idx})" >삭제 </button>
+				<button class ="goProBtn"  onclick="location.href='pInquiryModify.do?dto.product_i_idx=${answerDto.product_i_a_idx}';" >수정</button>
+				<button class ="goProBtn"  onclick="del(${answerDto.product_i_a_idx})" >삭제 </button>
 				
 				</div>
 				</td>
 				</tr>
 				
-				</c:when>	
+					
 				
-				<c:otherwise> 등록된 답변이 없습니다. </c:otherwise>
-				</c:choose>
+			
+				
 			
 				</table>
 
-
+</c:forEach>		
 	</div>
 
 </div>

@@ -22,6 +22,8 @@ import dao.MemberDao;
 import dao.NoticeDao;
 import dao.OrderDao;
 import dao.ProductDao;
+import dao.ProductEnquiryAnswerDao;
+import dao.ProductEnquiryDao;
 import dao.myPageDao;
 import dto.CartDto;
 import dto.FaqDto;
@@ -32,6 +34,7 @@ import dto.NoticeDto;
 import dto.OptionDto;
 import dto.OrderDto;
 import dto.ProductDto;
+import dto.ProductEnquiryAnswerDto;
 import dto.ProductEnquiryDto;
 import dto.ProductReviewDto;
 
@@ -346,6 +349,10 @@ public class MyController extends HttpServlet {
 		// 로그인 
 		else if(command.equals("Login.do"))
 		{
+			request.setCharacterEncoding("UTF-8");
+			response.setCharacterEncoding("UTF-8"); 
+			response.setContentType("text/html; charset=UTF-8");
+			
 			String member_id = request.getParameter("member_id");
 			String member_pw = request.getParameter("member_pw");
 			
@@ -355,11 +362,24 @@ public class MyController extends HttpServlet {
 			try 
 			{
 				String result = MemberDao.Login(request);
-				if(result.equals("admin")) {
+				
+				System.out.println("result:"+result);
+				
+				if(result == null) {
+								
+						PrintWriter out = response.getWriter();
+						 
+						out.println("<script>alert('아이디와 비밀번호를 확인해주세요.');history.back();</script>");
+						 
+						out.flush();										
+					
+				}
+				else if(result.equals("admin")) {
 					response.sendRedirect(request.getContextPath()+"/admin/adminFaqList.do");
 					jspPage = "";
 					return;
-				} else {
+				}
+				else{					
 					System.out.println("진입");
 					jspPage = "/main.jsp";
 				}
@@ -653,6 +673,119 @@ public class MyController extends HttpServlet {
 				}
 
 		
+		//  상품문의 목록 view
+		
+				else if(command.equals("pEnquiryList.do")) 
+				{
+					ArrayList<ProductEnquiryDto> pInquiryList = null;
+					try {
+						pInquiryList = ProductEnquiryDao.pInquiryList();
+					} catch (Exception e) {
+						
+						e.printStackTrace();
+					}
+					
+					
+					request.setAttribute("pInquiryList", pInquiryList);
+					
+					ArrayList<ProductEnquiryAnswerDto> answerList = new ArrayList<ProductEnquiryAnswerDto>();
+					
+					
+					int i_index = 0;
+					
+					for(int i=0; i<pInquiryList.size(); i++) {
+						
+						ProductEnquiryDto dto = pInquiryList.get(i);
+						i_index = dto.getProduct_i_idx();
+						
+						try {
+							
+							ProductEnquiryAnswerDto answerDto = ProductEnquiryAnswerDao.pInquiryAnswer(String.valueOf(i_index));
+						System.out.println("answerDto:"+answerDto.getProduct_i_a_content());
+							answerList.add(answerDto);
+						} catch (Exception e) {
+							
+							e.printStackTrace();
+						}
+						
+					}
+					
+					 
+					request.setAttribute("answerList", answerList);
+					
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productInquiryList.jsp");
+					dispatcher.forward(request, response);
+				}
+	
+	// 상품문의 답변 view
+	
+	else if(command.equals("pInquiryAnswerView.do")) {
+		
+		 ProductEnquiryAnswerDto answerDto = new  ProductEnquiryAnswerDto();
+		 try {
+				System.out.println("product_i_idx:"+ request.getParameter("product_i_idx"));
+				answerDto = ProductEnquiryAnswerDao.pInquiryAnswer(request.getParameter("product_i_idx"));
+			
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+	
+		 
+		request.setAttribute("answerDto", answerDto);		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("pEnquiryList.do");
+		dispatcher.forward(request, response);
+	}
+	
+	//상품 문의 답변 등록 
+	
+	else if(command.equals("pInquiryAnswer.do")) {
+		String product_i_a_content = request.getParameter("product_i_a_content");
+		String product_i_idx = request.getParameter("product_i_idx");
+		
+		ProductEnquiryAnswerDao.pInquiryReply(product_i_a_content,product_i_idx);
+		
+		response.sendRedirect("pEnquiryList.do? product_i_idx="+product_i_idx);
+		
+	}
+	
+	
+	// 상품 문의 답변 수정 
+	
+	else if(command.equals("pInquiryReplyModify.do")) {
+		
+		String product_i_a_content = request.getParameter("product_i_a_content");
+		String product_i_idx = request.getParameter("product_i_idx");
+		
+		ProductEnquiryAnswerDao.pInquiryReplyUpdate(product_i_a_content, product_i_idx);
+		
+		response.sendRedirect("pEnquiryList.do? product_i_idx="+product_i_idx);
+		
+	}
+	
+	
+	
+	// 상품 문의 답변 삭제 
+	
+	else if(command.equals("pInquiryReplydelete.do")) { 
+	
+		int product_i_idx = Integer.parseInt(request.getParameter("product_i_idx"));
+		int product_i_a_idx = Integer.parseInt(request.getParameter("product_i_a_idx"));
+		ProductEnquiryAnswerDao.pInquiryReply_delete( product_i_a_idx );
+		
+		response.sendRedirect("content_view.do?product_i_idx="+product_i_idx);
+	}
+	
+	// 상품 문의 검색
+	else if(command.equals("pInquirySearch.do")) {
+			
+			String productInquirySearch = request.getParameter("pInquirySearch");
+			ArrayList<ProductEnquiryDto> pInquiryList = ProductEnquiryDao.pInquirySearch(productInquirySearch);
+			
+			request.setAttribute("pInquiryList", pInquiryList);				
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productInquiryList.jsp");
+			dispatcher.forward(request, response);
+		}
 		
 		
 		

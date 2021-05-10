@@ -158,8 +158,9 @@ public class MemberDao {
 				}
 				else 
 				{
-					System.out.println("로그인 실패");
 					
+					System.out.println("로그인 실패");
+				
 				}        
 			}
 
@@ -167,8 +168,9 @@ public class MemberDao {
 		catch(Exception e)
 		{
 			System.out.println("로그인 에러");
+			
 		}
-		
+		System.out.println("result:"+result);
 		return result;
 	}
 	

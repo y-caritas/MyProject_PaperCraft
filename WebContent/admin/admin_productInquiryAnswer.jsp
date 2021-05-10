@@ -53,9 +53,10 @@
       <h5>|상품 문의 답변</h5>
       <hr>
     </div>
-    <form action="adminPI.do" method="post">
+    <form action="pInquiryAnswer.do" method="post">
       <div id="faqWriteInputbox">
-        <textarea name="adminPI_content" id="adminPI_content" cols="100" rows="10"></textarea>
+      <input type = "hidden" name="product_i_idx" value= " " >
+        <textarea name="product_i_a_content" id="adminPI_content" cols="100" rows="10"></textarea>
         <script type="text/javascript">
 		  var oEditors = [];
 		  nhn.husky.EZCreator.createInIFrame({

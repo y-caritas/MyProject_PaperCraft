@@ -151,7 +151,7 @@ public class MyController_B extends HttpServlet{
 				{
 					ArrayList<OrderDto> order_detail = null;
 					try {
-						order_detail = myPageDao.order_detail(request);
+					//	order_detail = myPageDao.order_detail(request);
 					} catch (Exception e) {
 						
 						e.printStackTrace();
@@ -373,7 +373,7 @@ public class MyController_B extends HttpServlet{
 					{
 						ArrayList<ProductEnquiryDto> pEnquiry_list = null;
 						try {
-							pEnquiry_list = ProductEnquiryDao.pEnquiry_list();
+				//			pEnquiry_list = ProductEnquiryDao.pEnquiry_list();
 						} catch (Exception e) {
 							
 							e.printStackTrace();

@@ -15,13 +15,14 @@ public class ProductEnquiryAnswerDao {
 		 Connection conn = null;
 		 PreparedStatement pstmt = null;
 		 ResultSet rs = null;
-		 ProductEnquiryAnswerDto dto = new ProductEnquiryAnswerDto();
+		 ProductEnquiryAnswerDto answerDto = new ProductEnquiryAnswerDto();
 		 
+		 System.out.println("productidx:"+ product_i_idx);
 		 try {
 			conn = DBConnection.getConnection();
 			String query = "SELECT * FROM p_product_inquiry_answer WHERE product_i_idx=?";
 			pstmt = conn.prepareStatement( query );
-			pstmt.setInt(1, Integer.parseInt( product_i_idx ));
+			pstmt.setInt(1, Integer.parseInt(product_i_idx));
 			rs = pstmt.executeQuery();
 			
 			while( rs.next() ) {
@@ -30,18 +31,18 @@ public class ProductEnquiryAnswerDao {
 				 int product_i_a_idx= rs.getInt("product_i_a_idx");         
 				 String product_i_a_title = rs.getString("product_i_a_title");      
 				 String product_i_a_content = rs.getString("product_i_a_content"); 
-				 Date product_i_a_date = rs.getDate("product_i_a_date");    
+				 Date product_i_a_date = rs.getTimestamp("product_i_a_date");    
 				 int product_i_idx1 = rs.getInt("product_i_idx");        
-				
+				 System.out.println("product_i_a_content:"+ product_i_a_content);
 		        
-				 dto = new ProductEnquiryAnswerDto(product_i_a_idx, product_i_a_title,product_i_a_content,product_i_a_date,product_i_idx1);
+				 answerDto = new ProductEnquiryAnswerDto(product_i_a_idx, product_i_a_title,product_i_a_content,product_i_a_date,product_i_idx1);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		 
-		 return dto;
+		 return answerDto;
 	 }
 	
 	//답변 등록 
