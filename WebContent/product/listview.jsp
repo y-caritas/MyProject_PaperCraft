@@ -49,9 +49,7 @@
   		<c:forEach var="product" items="${product_list}">  		   
 		   <div class="items">
 		   <img src="${product.product_listImg}" style="width:300px; height:300px;" onclick="javascript:location.href='detailview.do?product_category=<%= product_category %>&product_idx=${product.product_idx}'">
-		   <h5>${product.product_name}</h5>
-		   <h5>${product.product_price}</h5>
-		   <h5>${product.product_note}</h5>
+		   <br><br><h5>${product.product_name}</h5>		   
 		   </div>			
 		 </c:forEach>
 

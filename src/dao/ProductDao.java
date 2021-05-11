@@ -24,6 +24,9 @@ import dto.ProductReviewDto;
 public class ProductDao {
 
 	private static final String SAVE_DIR = "upload";
+	//배송안내 교환안내 경로 입력필요.
+	private static final String PRODUCT_DELIVERY_POLICY = "임의경로";	
+	private static final String PRODUCT_SWAP_POLICY = "임의경로";
 		
 	// 파일 업로드
 public static int upload(HttpServletRequest request) throws IOException, ServletException {
@@ -556,16 +559,22 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 	        pstmt.setString(2, request.getParameter("product_name") );
 	        pstmt.setInt(3, Integer.parseInt(request.getParameter("product_price")));
 	        pstmt.setString(4, request.getParameter("product_note") );
+	        
 	        String product_listImg = savePath + request.getParameter("product_listImg").replace("C:\\fakepath\\", "/");
 	        pstmt.setString(5, product_listImg );
 	        System.out.println(product_listImg);
+	        
 	        String product_introImg = savePath + request.getParameter("product_introImg").replace("C:\\fakepath\\", "/");
 	        System.out.println(product_introImg);
-	        pstmt.setString(6, product_introImg );	        
-	        pstmt.setString(7, removeTag(request.getParameter("product_introduction")) );
-	        pstmt.setString(8, removeTag(request.getParameter("product_delivery_policy"))  );
+	        pstmt.setString(6, product_introImg );	
+	        
+	        String product_introduction = savePath + request.getParameter("product_introImg").replace("C:\\fakepath\\", "/");
+	        System.out.println(product_introImg);
+	        pstmt.setString(7, product_introduction );
+	        
+	        pstmt.setString(8, PRODUCT_DELIVERY_POLICY );
 	        pstmt.setInt(9, Integer.parseInt(request.getParameter("delivery_policy_category")));
-	        pstmt.setString(10, removeTag(request.getParameter("product_swap_policy")));	     
+	        pstmt.setString(10, PRODUCT_SWAP_POLICY);	     
 	        pstmt.setInt(11, Integer.parseInt(request.getParameter("swap_policy_category")));
 	        pstmt.setString(12, request.getParameter("product_memo") );
 	        
@@ -637,11 +646,12 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 	        String product_listImg = savePath + request.getParameter("product_listImg").replace("C:\\fakepath\\", "/");
 	        pstmt.setString(5, product_listImg );	        
 	        String product_introImg = savePath + request.getParameter("product_introImg").replace("C:\\fakepath\\", "/");
-	        pstmt.setString(6, product_introImg );	        
-	        pstmt.setString(7, request.getParameter("product_introduction") );
-	        pstmt.setString(8, request.getParameter("product_delivery_policy") );
+	        pstmt.setString(6, product_introImg );
+	        String product_introduction = savePath + request.getParameter("product_introduction").replace("C:\\fakepath\\", "/");	        
+	        pstmt.setString(7, product_introduction );
+	        pstmt.setString(8, PRODUCT_DELIVERY_POLICY );
 	        pstmt.setInt(9, Integer.parseInt(request.getParameter("delivery_policy_category")));
-	        pstmt.setString(10, request.getParameter("product_swap_policy") );	     
+	        pstmt.setString(10, PRODUCT_SWAP_POLICY );	     
 	        pstmt.setInt(11, Integer.parseInt(request.getParameter("swap_policy_category")));
 	        pstmt.setString(12, request.getParameter("product_memo") );
 	        pstmt.setString(13, request.getParameter("product_idx") );
