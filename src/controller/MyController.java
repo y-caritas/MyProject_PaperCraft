@@ -896,7 +896,7 @@ public class MyController extends HttpServlet {
 			dispatcher.forward(request, response);			
 		}
 		
-		//detail_page_ver2.jsp 컨트롤러
+		//detail_page.jsp 컨트롤러
 		else if(command.equals("detailview.do")) {			
 			
 			String product_idx = request.getParameter("product_idx");
@@ -917,7 +917,7 @@ public class MyController extends HttpServlet {
 	        request.setAttribute("productReviewDto", productReviewDto);
 	        request.setAttribute("productEnquiryDto", productEnquiryDto);			
 	        
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page_ver2.jsp");
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page.jsp");
 			dispatcher.forward(request, response);			
 		}
 		
@@ -940,7 +940,7 @@ public class MyController extends HttpServlet {
 	        request.setAttribute("productReviewDto", productReviewDto);
 	        request.setAttribute("productEnquiryDto", productEnquiryDto);
 	        
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page_ver2.jsp");
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page.jsp");
 			dispatcher.forward(request, response);	
 		}
 	
@@ -1049,7 +1049,7 @@ public class MyController extends HttpServlet {
 		        request.setAttribute("productReviewDto", productReviewDto);
 		        request.setAttribute("productEnquiryDto", productEnquiryDto);			
 		        
-		        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page_ver2.jsp");
+		        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/detail_page.jsp");
 				dispatcher.forward(request, response);	
 			}
 			
@@ -1232,11 +1232,9 @@ public class MyController extends HttpServlet {
 			String product_i_idx = request.getParameter("product_i_idx");
 			System.out.println(product_i_idx);
 			ProductEnquiryDto productEnquiryDto = ProductDao.productEnquiryView(product_i_idx);
-			ProductEnquiryAnswerDto answerDto = ProductDao.EnquiryAnswerView(product_i_idx);
 			
-			request.setAttribute("productEnquiryDto", productEnquiryDto);
-			request.setAttribute("answerDto", answerDto);
-			
+			request.setAttribute("productEnquiryDto", productEnquiryDto);			
+
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/product/product_enquiry_answer.jsp");
 			dispatcher.forward(request, response);
 			

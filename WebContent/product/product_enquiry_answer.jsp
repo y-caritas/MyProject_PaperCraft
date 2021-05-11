@@ -56,7 +56,7 @@
       <br>
       <div id="inquiryAnswerInputbox">        
         <h5>답변</h5>
-        <textarea name="product_i_content" id="product_inquiry_content" cols="100" rows="10" style="width:100%; resize: none; background-color: white" disabled>${answerDto.product_i_a_content}</textarea>
+        <textarea name="product_i_content" id="product_inquiry_content" cols="100" rows="10" style="width:100%; resize: none; background-color: white" disabled>${productEnquiryDto.product_i_a_content}</textarea>
       </div>
       <div style="text-align: center;"><br>
       <button type="button" onclick="window.close();">확인</button>
