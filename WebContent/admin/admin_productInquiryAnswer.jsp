@@ -53,22 +53,22 @@
       <h5>|상품 문의 답변</h5>
       <hr>
     </div>
+    
+        <%
+      if(request.getAttribute("result") != null) {
+    	  %><script>
+    	  opener.location.reload();
+    	  self.close();
+    	  </script><%      }
+    %>
     <form action="pInquiryAnswer.do" method="post">
       <div id="faqWriteInputbox">
-      <input type = "hidden" name="product_i_idx" value= " " >
+      <input type = "hidden" name="product_i_idx" value="${param.idx}" >
         <textarea name="product_i_a_content" id="adminPI_content" cols="100" rows="10"></textarea>
-        <script type="text/javascript">
-		  var oEditors = [];
-		  nhn.husky.EZCreator.createInIFrame({
-		   oAppRef: oEditors,
-		   elPlaceHolder: "adminPI_content",
-		   sSkinURI: "../smarteditor2/SmartEditor2Skin.html",
-		   fCreator: "createSEditor2"
-		  });
-		</script>
+
       </div>
       <div id="faqWriteBtnWrap">
-        <input class="faqWriteBtn" type="button" value="완료">
+        <input class="faqWriteBtn" type="submit" value="완료">
         <button type="button" onclick="faqConfirm()" class="faqWriteBtn">취소</button>
       </div>
       <script>

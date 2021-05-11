@@ -353,7 +353,7 @@ public class myPageDao {
 				
 				String query = "UPDATE p_member SET"+" member_pw='"+member_pw+"',member_name ='"
 						+member_name+"', member_address ='"+member_address+"',  member_email='"+member_email+"',member_phone='"+member_phone+
-						"',member_grade='"+member_grade+"' where member_idx="+member_idx;
+						"',member_grade='"+member_email+"' where member_idx="+member_idx;
 				stmt=conn.createStatement();
 				
 				System.out.println(query);
