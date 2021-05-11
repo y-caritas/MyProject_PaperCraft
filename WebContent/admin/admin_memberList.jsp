@@ -58,8 +58,8 @@
           <tr class="inquiryTr">
        
           <td><a href="adminMemberInfo.do?member_idx=${dto.member_idx}">${dto.member_idx}</a></td>
-          <td>${dto.member_name}</td>
-          <td>${dto.member_id}</td>
+          <td><a href="adminMemberInfo.do?member_idx=${dto.member_idx}">${dto.member_name}</a></td>
+          <td><a href="adminMemberInfo.do?member_idx=${dto.member_idx}">${dto.member_id}</a></td>
           <td>${dto.member_phone}</td>
           <td>${dto.member_email}</td>
            <c:choose>
