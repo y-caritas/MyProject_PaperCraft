@@ -832,19 +832,32 @@ public class MyController extends HttpServlet {
 				
 		//검색 페이지
 		else if(command.equals("listviewsearch.do")) {
+		
 			request.setCharacterEncoding("UTF-8");
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=utf-8");
+			
 			int product_category = Integer.parseInt(request.getParameter("product_category"));
 			String search_name = "%" + request.getParameter("search_name") + "%";
 			System.out.println(product_category);
 			System.out.println(search_name);
 			
 			ArrayList<ProductDto> product_list = ProductDao.listview_search(product_category, search_name);
+			if(product_list.size() == 0) {
+				
+				PrintWriter out = response.getWriter();
+				 
+				out.println("<script>alert('검색된 상품이 없습니다.');history.back();</script>");
+				 
+				out.flush();										
+			
+			}else {
 	        request.setAttribute("product_list", product_list);
 	        request.setAttribute("product_category", product_category);
 	        request.setAttribute("search_name", search_name);
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("/product/listview.jsp");
 			dispatcher.forward(request, response);
-			
+			}
 		}
 		
 		//검색 최신순
@@ -1082,16 +1095,33 @@ public class MyController extends HttpServlet {
 		
 		//관리자 상품등록하기
 		else if(command.equals("productRegister.do")) {
+									
+			request.setCharacterEncoding("UTF-8");
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=utf-8");
 			
-			request.setCharacterEncoding("UTF-8");			
 			int result = ProductDao.productRegister(request);			
 			System.out.println("관리자 상품 등록하기 = " + result );
 			if(result == 1) {
 			ProductDao.upload(request);
 			request.setAttribute("message", "파일업로드에 성공 하였습니다.!");
+			PrintWriter out = response.getWriter();			
+			
+			String targethref = request.getContextPath()+"/admin/admin_productRegistration.jsp";
+			String sucessStr = "<script>alert('상품 등록이 성공하였습니다.');location.href = '"+targethref+"';</script>";
+			
+			out.println(sucessStr);
+			 
+			out.flush();			
+			
+			}else {
+			PrintWriter out = response.getWriter();
+				 
+			out.println("<script>alert('상품 등록이 실패하였습니다.');history.back();</script>");
+				 
+			out.flush();	
 			}
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productRegistration.jsp");
-			dispatcher.forward(request, response);
+			
 		}
 		
 		//Modify view용
@@ -1134,8 +1164,6 @@ public class MyController extends HttpServlet {
 	        request.setAttribute("productDto", productDto);
 	        request.setAttribute("optionDto", optionDto);			
 				
-			
-			ProductDao.upload(request);			
 			request.setAttribute("message", "파일업로드에 성공 하였습니다.!");
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("adminProductList.do");

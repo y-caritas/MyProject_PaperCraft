@@ -236,7 +236,7 @@ $(function(){
           </tr>
           <tr>
             <td>
-              <textarea name="product_record" value="" cols="60" rows="3">${productDto.product_record}</textarea>
+              <textarea name="product_record" value="" cols="60" rows="3" disabled>${productDto.product_record}</textarea>
             </td>
             <td >
               <textarea name="product_memo" value="" cols="60" rows="3">${productDto.product_memo}</textarea>

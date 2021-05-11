@@ -193,7 +193,7 @@ $(function(){
       <div class="file_input">
         <table class="input-group">
           <tr>
-            <th style="text-align: center;">상품 목록 이미지<br>000*000</th>
+            <th style="text-align: center;">상품 목록 이미지</th>
             <td>              
               <input name="product_listImg" type="text" readonly="readonly" title="File Route" id="file_route1" value="">
               <label>찾아보기<input type="file" name="imgfile" onchange="javascript:document.getElementById('file_route1').value=this.value">
@@ -201,7 +201,7 @@ $(function(){
             </td>
           </tr>
           <tr>
-            <th style="text-align: center;">상품 대표 이미지<br>000*000</th>
+            <th style="text-align: center;">상품 대표 이미지</th>
             <td>
               <input name="product_introImg" type="text" readonly="readonly" title="File Route" id="file_route2" value="">
               <label>찾아보기<input type="file" name="imgfile" onchange="javascript:document.getElementById('file_route2').value=this.value">
@@ -235,7 +235,7 @@ $(function(){
           </tr>
           <tr>
             <td>
-              <textarea name="product_record" cols="60" rows="4"></textarea>
+              <textarea name="product_record" cols="60" rows="4" disabled></textarea>
             </td>
             <td>
               <textarea name="product_memo"  cols="60" rows="4"></textarea>
