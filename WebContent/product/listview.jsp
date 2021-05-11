@@ -49,7 +49,7 @@
   		<c:forEach var="product" items="${product_list}">  		   
 		   <div class="items">
 		   <img src="${product.product_listImg}" style="width:300px; height:300px;" onclick="javascript:location.href='detailview.do?product_category=<%= product_category %>&product_idx=${product.product_idx}'">
-		   <br><br><h5>${product.product_name}</h5>		   
+		   <br><br><div style="text-align: center;"><b style="font-size: 18pt;">${product.product_name}</b></div><h5 style="font-size: 12pt;">${product.product_price}원</h5>		   
 		   </div>			
 		 </c:forEach>
 
