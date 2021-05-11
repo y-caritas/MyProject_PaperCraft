@@ -38,6 +38,7 @@ import dto.ProductEnquiryAnswerDto;
 import dto.ProductEnquiryDto;
 import dto.ProductReviewDto;
 
+
 @WebServlet(urlPatterns= {"*.do"})
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, 
 					maxFileSize = 1024 * 1024 * 50, 
@@ -688,30 +689,29 @@ public class MyController extends HttpServlet {
 					
 					request.setAttribute("pInquiryList", pInquiryList);
 					
-					ArrayList<ProductEnquiryAnswerDto> answerList = new ArrayList<ProductEnquiryAnswerDto>();
-					
-					
-					int i_index = 0;
-					
-					for(int i=0; i<pInquiryList.size(); i++) {
-						
-						ProductEnquiryDto dto = pInquiryList.get(i);
-						i_index = dto.getProduct_i_idx();
-						
-						try {
-							
-							ProductEnquiryAnswerDto answerDto = ProductEnquiryAnswerDao.pInquiryAnswer(String.valueOf(i_index));
-						System.out.println("answerDto:"+answerDto.getProduct_i_a_content());
-							answerList.add(answerDto);
-						} catch (Exception e) {
-							
-							e.printStackTrace();
-						}
-						
-					}
-					
-					 
-					request.setAttribute("answerList", answerList);
+					/*
+					 * ArrayList<ProductEnquiryAnswerDto> answerList = new
+					 * ArrayList<ProductEnquiryAnswerDto>();
+					 * 
+					 * 
+					 * int i_index = 0;
+					 * 
+					 * for(int i=0; i<pInquiryList.size(); i++) {
+					 * 
+					 * ProductEnquiryDto dto = pInquiryList.get(i); i_index =
+					 * dto.getProduct_i_idx();
+					 * 
+					 * try {
+					 * 
+					 * ProductEnquiryAnswerDto answerDto =
+					 * ProductEnquiryAnswerDao.pInquiryAnswer(String.valueOf(i_index));
+					 * System.out.println("answerDto:"+answerDto.getProduct_i_a_content());
+					 * answerList.add(answerDto); } catch (Exception e) {
+					 * 
+					 * e.printStackTrace(); }
+					 * 
+					 * } request.setAttribute("answerList", answerList);
+					 */
 					
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productInquiryList.jsp");
 					dispatcher.forward(request, response);
@@ -740,12 +740,12 @@ public class MyController extends HttpServlet {
 	//상품 문의 답변 등록 
 	
 	else if(command.equals("pInquiryAnswer.do")) {
-		String product_i_a_content = request.getParameter("product_i_a_content");
-		String product_i_idx = request.getParameter("product_i_idx");
 		
-		ProductEnquiryAnswerDao.pInquiryReply(product_i_a_content,product_i_idx);
-		
-		response.sendRedirect("pEnquiryList.do? product_i_idx="+product_i_idx);
+		int result = ProductEnquiryAnswerDao.pInquiryReply(request);
+		request.setAttribute("result",result);				
+		RequestDispatcher dispatcher = request.getRequestDispatcher("admin_productInquiryAnswer.jsp");
+		dispatcher.forward(request, response);
+	
 		
 	}
 	
@@ -776,16 +776,7 @@ public class MyController extends HttpServlet {
 		response.sendRedirect("content_view.do?product_i_idx="+product_i_idx);
 	}
 	
-	// 상품 문의 검색
-	else if(command.equals("pInquirySearch.do")) {
-			
-			String productInquirySearch = request.getParameter("pInquirySearch");
-			ArrayList<ProductEnquiryDto> pInquiryList = ProductEnquiryDao.pInquirySearch(productInquirySearch);
-			
-			request.setAttribute("pInquiryList", pInquiryList);				
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productInquiryList.jsp");
-			dispatcher.forward(request, response);
-		}
+	
 		
 		
 		

@@ -402,7 +402,7 @@ public class MyController_B extends HttpServlet{
 			String product_i_a_content = request.getParameter("product_i_a_content");
 			String product_i_idx = request.getParameter("product_i_idx");
 			
-			ProductEnquiryAnswerDao.pInquiryReply(product_i_a_content,product_i_idx);
+			//ProductEnquiryAnswerDao.pInquiryReply(product_i_a_content,product_i_idx);
 			
 			response.sendRedirect("pEnquiryList.do? product_i_idx="+product_i_idx);
 			
@@ -435,16 +435,7 @@ public class MyController_B extends HttpServlet{
 			response.sendRedirect("content_view.do?product_i_idx="+product_i_idx);
 		}
 		
-		// 상품 문의 검색
-		else if(command.equals("pInquirySearch.do")) {
-				
-				String productInquirySearch = request.getParameter("pInquirySearch");
-				ArrayList<ProductEnquiryDto> pInquiryList = ProductEnquiryDao.pInquirySearch(productInquirySearch);
-				
-				request.setAttribute("pInquiryList", pInquiryList);				
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productInquiryList.jsp");
-				dispatcher.forward(request, response);
-			}
+		
 		
  } 
 	
