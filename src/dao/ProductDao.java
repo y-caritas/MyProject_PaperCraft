@@ -568,7 +568,7 @@ public static int upload(HttpServletRequest request) throws IOException, Servlet
 	        System.out.println(product_introImg);
 	        pstmt.setString(6, product_introImg );	
 	        
-	        String product_introduction = savePath + request.getParameter("product_introImg").replace("C:\\fakepath\\", "/");
+	        String product_introduction = savePath + request.getParameter("product_introduction").replace("C:\\fakepath\\", "/");
 	        System.out.println(product_introImg);
 	        pstmt.setString(7, product_introduction );
 	        

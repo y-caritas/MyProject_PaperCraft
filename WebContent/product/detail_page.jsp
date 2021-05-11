@@ -145,7 +145,7 @@
       <li><a href="javascript:focus04();" class="detail_tab">배송안내</a></li>
       <li><a href="javascript:focus05();" class="detail_tab">고객 및 반품</a></li>
     </ul>
-    <div  style="margin: 50px 10px;">${productDto.product_introduction}</div>
+    <img style="margin-top:100px; width:800px;" src="${productDto.product_introduction}">    
   </div>
   <div id="product_review" style="text-align: center; padding-top: 50px;">
       <ul class="detail_tab clearbox">
