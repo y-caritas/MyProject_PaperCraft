@@ -20,7 +20,6 @@ import dto.FaqDto;
 import dto.InquiryDto;
 import dto.MemberDto;
 import dto.OrderDto;
-import dto.ProductEnquiryAnswerDto;
 import dto.ProductEnquiryDto;
 
 
@@ -384,17 +383,7 @@ public class MyController_B extends HttpServlet{
 						RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productInquiryList.jsp");
 						dispatcher.forward(request, response);
 					}
-		
-		// 상품문의 답변 view
-		
-		else if(command.equals("pInquiryAnswerView.do")) {
-			String product_i_idx = request.getParameter("product_i_idx");
-			 ProductEnquiryAnswerDto dto = ProductEnquiryAnswerDao.pInquiryAnswer(product_i_idx);
-			request.setAttribute("dto", dto);
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/admin/admin_productInquiryList");
-			dispatcher.forward(request, response);
-		}
+
 		
 		//상품 문의 답변 등록 
 		
@@ -408,34 +397,35 @@ public class MyController_B extends HttpServlet{
 			
 		}
 		
-		
-		// 상품 문의 답변 수정 
-		
-		else if(command.equals("pInquiryReplyModify.do")) {
-			
-			String product_i_a_content = request.getParameter("product_i_a_content");
-			String product_i_idx = request.getParameter("product_i_idx");
-			
-			ProductEnquiryAnswerDao.pInquiryReplyUpdate(product_i_a_content, product_i_idx);
-			
-			response.sendRedirect("pEnquiryList.do? product_i_idx="+product_i_idx);
-			
-		}
-		
-		
-		
-		// 상품 문의 답변 삭제 
-		
-		else if(command.equals("pInquiryReplydelete.do")) { 
-		
-			int product_i_idx = Integer.parseInt(request.getParameter("product_i_idx"));
-			int product_i_a_idx = Integer.parseInt(request.getParameter("product_i_a_idx"));
-			ProductEnquiryAnswerDao.pInquiryReply_delete( product_i_a_idx );
-			
-			response.sendRedirect("content_view.do?product_i_idx="+product_i_idx);
-		}
-		
-		
+		/*
+		 * // 상품 문의 답변 수정
+		 * 
+		 * else if(command.equals("pInquiryReplyModify.do")) {
+		 * 
+		 * String product_i_a_content = request.getParameter("product_i_a_content");
+		 * String product_i_idx = request.getParameter("product_i_idx");
+		 * 
+		 * ProductEnquiryAnswerDao.pInquiryReplyUpdate(product_i_a_content,
+		 * product_i_idx);
+		 * 
+		 * response.sendRedirect("pEnquiryList.do? product_i_idx="+product_i_idx);
+		 * 
+		 * }
+		 * 
+		 * 
+		 * 
+		 * // 상품 문의 답변 삭제
+		 * 
+		 * else if(command.equals("pInquiryReplydelete.do")) {
+		 * 
+		 * int product_i_idx = Integer.parseInt(request.getParameter("product_i_idx"));
+		 * int product_i_a_idx =
+		 * Integer.parseInt(request.getParameter("product_i_a_idx"));
+		 * ProductEnquiryAnswerDao.pInquiryReply_delete( product_i_a_idx );
+		 * 
+		 * response.sendRedirect("content_view.do?product_i_idx="+product_i_idx); }
+		 * 
+		 */
 		
  } 
 	

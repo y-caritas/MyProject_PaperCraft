@@ -34,7 +34,6 @@ import dto.NoticeDto;
 import dto.OptionDto;
 import dto.OrderDto;
 import dto.ProductDto;
-import dto.ProductEnquiryAnswerDto;
 import dto.ProductEnquiryDto;
 import dto.ProductReviewDto;
 
@@ -456,18 +455,15 @@ public class MyController extends HttpServlet {
 		}
         // 1:1 문의 목록 ( inquiry_category = 2 )
 		else if(command.equals("one_to_one_inquiry.do")) 
-		{
-			
+		{			
 			ArrayList<InquiryDto> myInquiryList = null;
 			try {
 				myInquiryList = myPageDao.myInquiryList(request);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			
-			request.setAttribute("myInquiryList", myInquiryList);
-			
+			}			
+			request.setAttribute("myInquiryList", myInquiryList);			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/myPage/one_to_one_inquiryList.jsp");
 			dispatcher.forward(request, response);
          }
@@ -481,9 +477,7 @@ public class MyController extends HttpServlet {
 			 dto = myPageDao.myInquiryContent( myInquiryIdx );
 			request.setAttribute("dto", dto);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/myPage/myInquiryContent.jsp");
-			dispatcher.forward(request, response);
-			
-			
+			dispatcher.forward(request, response);			
         }
 		
 	
@@ -717,25 +711,7 @@ public class MyController extends HttpServlet {
 					dispatcher.forward(request, response);
 				}
 	
-	// 상품문의 답변 view
-	
-	else if(command.equals("pInquiryAnswerView.do")) {
-		
-		 ProductEnquiryAnswerDto answerDto = new  ProductEnquiryAnswerDto();
-		 try {
-				System.out.println("product_i_idx:"+ request.getParameter("product_i_idx"));
-				answerDto = ProductEnquiryAnswerDao.pInquiryAnswer(request.getParameter("product_i_idx"));
-			
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-			}
-	
-		 
-		request.setAttribute("answerDto", answerDto);		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("pEnquiryList.do");
-		dispatcher.forward(request, response);
-	}
+
 	
 	//상품 문의 답변 등록 
 	
@@ -749,35 +725,6 @@ public class MyController extends HttpServlet {
 		
 	}
 	
-	
-	// 상품 문의 답변 수정 
-	
-	else if(command.equals("pInquiryReplyModify.do")) {
-		
-		String product_i_a_content = request.getParameter("product_i_a_content");
-		String product_i_idx = request.getParameter("product_i_idx");
-		
-		ProductEnquiryAnswerDao.pInquiryReplyUpdate(product_i_a_content, product_i_idx);
-		
-		response.sendRedirect("pEnquiryList.do? product_i_idx="+product_i_idx);
-		
-	}
-	
-	
-	
-	// 상품 문의 답변 삭제 
-	
-	else if(command.equals("pInquiryReplydelete.do")) { 
-	
-		int product_i_idx = Integer.parseInt(request.getParameter("product_i_idx"));
-		int product_i_a_idx = Integer.parseInt(request.getParameter("product_i_a_idx"));
-		ProductEnquiryAnswerDao.pInquiryReply_delete( product_i_a_idx );
-		
-		response.sendRedirect("content_view.do?product_i_idx="+product_i_idx);
-	}
-	
-	
-		
 		
 		
 		//상품리스트

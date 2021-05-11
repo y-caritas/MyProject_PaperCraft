@@ -135,7 +135,7 @@ width: 1000px;
       
         <c:if test="${dto.inquiry_category == 2 }"> 
           <td><a href="myInquiryContent.do?inquiry_idx=${dto.inquiry_idx}">${dto.inquiry_idx}</a></td>
-          <td style="text-align: left;">${dto.inquiry_title}</td>
+          <td style="text-align: left;"><a href="myInquiryContent.do?inquiry_idx=${dto.inquiry_idx}">${dto.inquiry_title}</a></td>
           <td>${dto.inquiry_date}</td>
           </c:if>
       
