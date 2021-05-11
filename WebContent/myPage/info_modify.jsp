@@ -248,6 +248,27 @@ width: 1000px;
                        
                     </td>
                 </tr>
+                 <!-- 회원등급 -->
+                <tr>
+                    <td class="join_form_left">회원등급 </td>
+                    <td class="join_form_right join_form_border">
+                <c:choose>
+                <c:when test="${dto.member_grade == 4}">
+		        	관리자
+		        </c:when>
+		        <c:when test="${dto.member_grade == 3}">
+		        	VIP
+		        </c:when>
+		        <c:when test="${dto.member_grade == 2}">
+		        	우수회원
+		        </c:when>
+		        	<c:when test="${dto.member_grade == 1}">
+		        일반회원
+		        </c:when>
+		        
+	        </c:choose>
+					</td>
+                </tr>
                  <tr>
                     <td class="join_form_left">구매금액</td>
                     <td class="join_form_right join_form_border">${dto.member_purchase}
