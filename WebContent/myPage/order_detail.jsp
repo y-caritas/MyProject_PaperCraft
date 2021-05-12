@@ -150,7 +150,7 @@ color: #818181;
           
         
           <td> <fmt:formatDate value="${dto.order_date}" pattern="yyyy-MM-dd" /></td>
-          <td> ${dto.order_p_img}<img src="http://placehold.it/100" /></td>          
+          <td><img src="${dto.order_p_img}" style="width:150px; height:100px;" /></td>          
           <td id="proName" style="text-align: left;"><div><h6><b><a href="#">${dto.order_p_name}</a></b></h6></div>
            <c:choose>
          	<c:when test ="${dto.product_idx3 != null && dto.product_idx3 == null  }">  <div>외 1건 </div> </c:when>

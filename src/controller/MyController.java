@@ -896,26 +896,27 @@ public class MyController extends HttpServlet {
 			
 			request.setCharacterEncoding("UTF-8");
 			
-			String pre_cart_targets =  request.getParameter("checked_p_idx");
-			String pre_cart_idxes =  request.getParameter("checked_idx");
-			String pre_cart_counts =  request.getParameter("checked_p_count");
-			String pre_cart_p_total_prices =  request.getParameter("checked_p_total");
-			String pre_cart_p_img = request.getParameter("checked_p_img");
-			
-			// p_cart 테이블 기준 cart_p_idx 값
-			String[] cart_targets = pre_cart_targets.split(",");
-			// p_cart 테이블 기준 cart_idx 값
-			String[] cart_idxes = pre_cart_idxes.split(",");
-			String[] cart_counts = pre_cart_counts.split(",");
-			String[] cart_p_total_prices = pre_cart_p_total_prices.split(",");
-			String[] cart_p_img = pre_cart_p_img.split(",");
-			
 			if(command.equals("purchase.do")) {
 				//우선 테스트 데이터로 product_idx가 다른상품만 장바구니에 넣어서 테스트하기.
 				//같은 상품이 장바구니에 있을때 장바구니에 들어가지 않는 기능은 아직 미구현.
 				//cart_targets은 cart_p_idx (product index값)의 배열
 				//cart_counts은 각 상품의 수량의 배열
 				//cart_p_total_prices은 각 상품의 가격 * 수량
+				
+				String pre_cart_targets =  request.getParameter("checked_p_idx");
+				String pre_cart_idxes =  request.getParameter("checked_idx");
+				String pre_cart_counts =  request.getParameter("checked_p_count");
+				String pre_cart_p_total_prices =  request.getParameter("checked_p_total");
+				String pre_cart_p_img = request.getParameter("checked_p_img");
+				
+				// p_cart 테이블 기준 cart_p_idx 값
+				String[] cart_targets = pre_cart_targets.split(",");
+				// p_cart 테이블 기준 cart_idx 값
+				String[] cart_idxes = pre_cart_idxes.split(",");
+				String[] cart_counts = pre_cart_counts.split(",");
+				String[] cart_p_total_prices = pre_cart_p_total_prices.split(",");
+				String[] cart_p_img = pre_cart_p_img.split(",");
+				
 
 				int productCount = 0;
 				int purchase_total_value = 0;

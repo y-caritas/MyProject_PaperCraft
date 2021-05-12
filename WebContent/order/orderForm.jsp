@@ -130,7 +130,7 @@
     </div>
     <div id="orderFormBtn">
       <input type="submit" onclick="orderFormCheck(); return false;" value="결제하기">
-      <button type="button" onclick="">취소</button>
+      <button type="button" onclick="javascript:window.history.back()">취소</button>
     </div>
   </form>
 </section>
