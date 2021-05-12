@@ -47,7 +47,7 @@
 	
 	 <div class="idr-body">
     
-    회원님께서 가입하신 이메일로 임시 비밀번호를 보내드렸습니다.    
+    회원님의 비밀번호는 ${member_pw}
     </div>
     
       <div class="idr-footer">

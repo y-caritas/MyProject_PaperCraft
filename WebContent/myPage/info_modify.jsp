@@ -328,12 +328,12 @@ width: 1000px;
 	}
 	
 	function confirm_event(){
-		if (confirm("정말 삭제하시겠습니까??"))
+		if (confirm("정말 탈퇴하시겠습니까??"))
 		{
-		alert("삭제 확인"); 
+		alert("탈퇴 확인"); 
 		location.href="deletemyPageMember.do?member_idx=${dto.member_idx}";
 		}
-		else{ alert("삭제취소"); 
+		else{ alert("탈퇴취소"); 
 		
 		}
 		}
