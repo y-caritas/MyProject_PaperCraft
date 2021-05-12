@@ -22,7 +22,7 @@
         <td style="text-align:center;">${ orderDto.order_idx }</td>
         <td>
           <div style="display: flex;">
-            <img src="http://localhost:8081${ p_img }" alt="상품 이미지" style="width:200px; height:100px;">
+            <img src="http://localhost:8090${ p_img }" alt="상품 이미지" style="width:200px; height:100px;">
             <div style="margin-left: 10px; align-self: center;">
               <span style="display: block;">${ orderDto.order_p_name }</span>
             </div>

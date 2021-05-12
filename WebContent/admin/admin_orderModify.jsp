@@ -180,11 +180,19 @@
     <div id="orderBtn">
       <button onclick="submitbtn()" formaction="order_modify.do">수정</button>
       <button type="button" onclick="location.href='admin_orderlist.do'">목록</button>
+    	<button type="button" onclick="deletebtn();">삭제</button>
     </div>
     </form>
   <script>
   	function submitbtn() {
   		alert("수정되었습니다.");
+  	}
+  	function deletebtn() {
+  		if (!confirm("정말 삭제하시겠습니까?")) {
+  			return false;
+  		} else {
+  			location.href="admin_orderDelete.do?order_idx=${dto.order_idx}";
+  		}
   	}
   </script>
 </body>

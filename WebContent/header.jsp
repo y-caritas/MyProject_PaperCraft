@@ -63,10 +63,10 @@
         <span class="dropdown"><a>Account</a>
           <span class="dropdown_menu" style="width:60px; margin: 0;">
             <c:if test="${ member_id == 'admin' }">
-            <a href="<%= request.getContextPath() %>/admin/adminFaqList.do">AdminPage</a>
+            <a href="<%= request.getContextPath() %>/admin/adminMemberList.do">AdminPage</a>
             </c:if>
-            <a href="#">OrderDetail</a>
-            <a href="one_to_one_inquiry.do">MyPage</a>
+            <a href="order_detail.do">OrderDetail</a>
+            <a href="order_detail.do">MyPage</a>
             <a href="logout.do">Logout</a>
           </span>
         </span>

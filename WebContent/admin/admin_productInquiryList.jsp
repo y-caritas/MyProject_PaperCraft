@@ -191,9 +191,9 @@ input[id*="answer"]:checked + label + div {
 		  <td id ="tdid" width="50px" >${dto.product_i_idx}</td>
 		 <td width="170px"><img style="width:150px; height:100px;" src="${dto.product_i_img}" /></td>         
 		 <td style="text-align: left;" width="490px">
-		 	<div class="ProdInqCatg"><small><b>${dto.product_i_category} > ${dto.product_i_name}</b></small></div> 
+		 	<div class="ProdInqCatg"><span>Q.</span> <b> ${dto.product_i_title}</b></div> 
 		   <br>  
-		   <b> ${dto.product_i_title}</b>
+		   <b> ${dto.product_i_content}</b>
 		 </td>
 		 <td width="100px">${dto.member_id}</td>
 		 <td width="150px"><fmt:formatDate pattern="yyyy-MM-dd " value="${dto.product_i_date}"/></td>          

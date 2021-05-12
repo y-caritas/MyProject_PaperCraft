@@ -322,50 +322,34 @@ public class myPageDao {
 				return dto;
 			}
 			
-		
-		// 회원정보 수정 액션
-		
-		public static void updateMember(HttpServletRequest request) {
-			
-			Connection conn=null;
-			ResultSet rs =null;
-			Statement stmt = null;
-			
-			int member_idx = Integer.parseInt(request.getParameter("member_idx"));			
-			String member_pw = request.getParameter("member_pw");
-			String member_name = request.getParameter("member_name");
-			String member_address = request.getParameter("member_address");
-			String member_email = request.getParameter("member_email");
-			String member_phone = request.getParameter("member_phone");
-			int member_grade = Integer.parseInt(request.getParameter("member_grade"));
-			System.out.println("member+pw:"+member_pw );
-			System.out.println("member_name:"+member_name );
-			System.out.println("member_address:"+member_address );
-			System.out.println("member+pw:"+member_email );
-			System.out.println("member+pw:"+member_phone );
-			
-			try {
-								
-				conn = DBConnection.getConnection();
-				
-				
-			
-				
-				String query = "UPDATE p_member SET"+" member_pw='"+member_pw+"',member_name ='"
-						+member_name+"', member_address ='"+member_address+"',  member_email='"+member_email+"',member_phone='"+member_phone
-						+"', member_grade='"+member_grade+"' where member_idx="+member_idx;
-				stmt=conn.createStatement();
-				
-				System.out.println(query);
-				
-				rs=stmt.executeQuery(query);
-				
-			}catch (Exception e) {
-				System.out.println("업데이트 에러");
+			public static void updateMember(HttpServletRequest request) {
+				Connection conn=null;
+				ResultSet rs =null;
+				Statement stmt = null;
+				int member_idx = Integer.parseInt(request.getParameter("member_idx"));			
+				String member_pw = request.getParameter("member_pw");
+				String member_name = request.getParameter("member_name");
+				String member_address = request.getParameter("member_address");
+				String member_email = request.getParameter("member_email");
+				String member_phone = request.getParameter("member_phone");
+				int member_grade = Integer.parseInt(request.getParameter("member_grade"));
+				System.out.println("member+pw:"+member_pw );
+				System.out.println("member_name:"+member_name );
+				System.out.println("member_address:"+member_address );
+				System.out.println("member+pw:"+member_email );
+				System.out.println("member+pw:"+member_phone );
+				try {
+					conn = DBConnection.getConnection();
+					String query = "UPDATE p_member SET"+" member_pw='"+member_pw+"',member_name ='"
+							+member_name+"', member_address ='"+member_address+"',  member_email='"+member_email+"',member_phone='"+member_phone
+							+"', member_grade='"+member_grade+"' where member_idx="+member_idx;
+					stmt=conn.createStatement();
+					System.out.println(query);
+					rs=stmt.executeQuery(query);
+				}catch (Exception e) {
+					System.out.println("업데이트 에러");
+				}
 			}
-		}
-		
-
 		
 		// 관리자 
 		

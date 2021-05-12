@@ -273,7 +273,7 @@ width: 1000px;
       <td></td><td></td>
       <td>
       <%--구매하기로 value값 넘길 name 설정하기 --%>
-      <input name="purchase_total_value" id="result_value" type="text" value=""> </td>
+      <input name="purchase_total_value" id="result_value" type="text" value="" hidden="hidden"> </td>
       <td>상품 총 금액</td>
       <td><h4 id="result"></h1></td>
     </tr>

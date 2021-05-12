@@ -84,12 +84,18 @@ public class MyController extends HttpServlet {
 				jspPage = "admin_inquiryList.jsp";
 			}
 		}
-		// inquiry 상세 페이지
-		else if(command.equals("inquiryContent.do") ) {
+		// inquiry, 관리자 inquiry 상세 페이지
+		else if(command.equals("inquiryContent.do") || command.equals("adminInquiryContent.do")) {
 			int inquiryIdx = Integer.parseInt(request.getParameter("inquiry_idx"));
 			InquiryDto dto = InquiryDao.inquiryContent( inquiryIdx );
+			InquiryAnswerDto answerDto = InquiryAnswerDao.inquiryAnswerContent(inquiryIdx);
 			request.setAttribute("dto", dto);
-		    jspPage = "inquiry_content.jsp";
+			request.setAttribute("answerDto", answerDto);
+			if(command.equals("adminInquiryContent.do")) {
+				jspPage = "admin_inquiryContentView.jsp";
+			} else if(command.equals("inquiryContent.do")) {
+				jspPage = "inquiry_content.jsp";
+			}
 		}
 		// inquiry 비밀번호 확인
 		else if(command.equals("inquiryComparePW.do")) {
@@ -121,15 +127,6 @@ public class MyController extends HttpServlet {
 			ArrayList<InquiryDto> inquiryList = InquiryDao.adminInquirySearch(searchCategory, searchContent);
 			request.setAttribute("inquiryList", inquiryList);
 			jspPage = "admin_inquiryList.jsp";
-		}
-		// inquiry 관리자 페이지 상세 페이지
-		else if(command.equals("adminInquiryContent.do")) {
-			int inquiryIdx = Integer.parseInt(request.getParameter("inquiry_idx"));
-			InquiryDto dto = InquiryDao.inquiryContent( inquiryIdx );
-			InquiryAnswerDto answerDto = InquiryAnswerDao.inquiryAnswerContent( inquiryIdx );
-			request.setAttribute("dto", dto);
-			request.setAttribute("answerDto", answerDto);
-		    jspPage = "admin_inquiryContentView.jsp";
 		}
 		// inquiry 답변 등록
 		else if(command.equals("adminInquiryAnswerWrite.do")) {
@@ -375,7 +372,7 @@ public class MyController extends HttpServlet {
 					
 				}
 				else if(result.equals("admin")) {
-					response.sendRedirect(request.getContextPath()+"/admin/adminFaqList.do");
+					response.sendRedirect(request.getContextPath()+"/admin/adminMemberList.do");
 					jspPage = "";
 					return;
 				}
@@ -847,10 +844,10 @@ public class MyController extends HttpServlet {
 		else if(command.equals("detailview.do")) {			
 			
 			String product_idx = request.getParameter("product_idx");
-			String product_category = request.getParameter("product_category");
 			System.out.println(product_idx);
 			
 			ProductDto productDto = ProductDao.detailview(product_idx);
+			String product_category = Integer.toString(productDto.getProduct_category()); 
 			OptionDto optionDto = ProductDao.detailview_option(product_idx);
 			
 			ArrayList<ProductReviewDto> productReviewDto = ProductDao.review(product_idx);
@@ -916,7 +913,6 @@ public class MyController extends HttpServlet {
 				String[] cart_counts = pre_cart_counts.split(",");
 				String[] cart_p_total_prices = pre_cart_p_total_prices.split(",");
 				String[] cart_p_img = pre_cart_p_img.split(",");
-				
 
 				int productCount = 0;
 				int purchase_total_value = 0;
@@ -1373,6 +1369,12 @@ public class MyController extends HttpServlet {
 				
 				response.sendRedirect(request.getContextPath()+"/main.jsp");
 			}
+		// 주문상세화면 삭제버튼 클릭시
+			else if(command.equals("admin_orderDelete.do")) { 
+			String order_idx = request.getParameter("order_idx");
+			OrderDao.orderDeleteDo(order_idx);
+			response.sendRedirect("admin_orderlist.do");
+		}
 		
 		
 		

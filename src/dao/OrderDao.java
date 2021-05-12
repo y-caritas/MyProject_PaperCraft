@@ -641,6 +641,21 @@ public class OrderDao {
 				
 				return orderDto;
 			}
+			// 주문상세화면 글 수정버튼 클릭시
+			public static void orderDeleteDo( String order_idx ) {
+				Connection conn = null;    
+				PreparedStatement pstmt = null;   
+				try {
+					conn = DBConnection.getConnection();
+					String query = "DELETE p_order WHERE order_idx=?";       
+					pstmt = conn.prepareStatement( query );
+					pstmt.setString(1, order_idx );
+					int result = pstmt.executeUpdate(); //insert, update, delete
+					System.out.println("update result:" + result); //0 결과없음 
+				} catch (Exception e) {
+				e.printStackTrace();
+				}
+			}
 			
 			// 주문완료(장바구니 삭제)
 			public static void cartIdxDelete(String cartIdx) {

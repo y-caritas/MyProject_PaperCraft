@@ -96,13 +96,13 @@
             <option value="03">카드/액자</option>
             <option value="04">도구</option>
           </select>&emsp;
-        <input name="product_name" type="text" placeholder="상품을 입력하세요" class="form-control" >
+        <input name="product_name" type="text" placeholder="상품을 입력하세요" value="${productDto.product_name}" class="form-control" >
       </div>
 
       <table class="input-group">
         <tr>
           <th style="height: 60px; text-align: center;">판매가격</th>
-          <td style="text-align: center; "><input name="product_price" type="text" placeholder="가격"></td>
+          <td style="text-align: center; "><input name="product_price" value="${productDto.product_price}" type="text" placeholder="가격"></td>
           <td></td>
         </tr>
         <tr>

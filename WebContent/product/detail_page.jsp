@@ -163,9 +163,9 @@
             <col width="50%"/>
             <col width="10%"/>
           </colgroup>
-              <c:forEach var="productReviewDto" items="${productReviewDto}">  		   
+              <c:forEach var="productReviewDto" items="${productReviewDto}" varStatus="status">  		   
               <tr>
-                <td>${productReviewDto.product_r_idx}</td>
+                <td>${status.count}</td>
                 <td><div><img style="width:100px; height:100px;" src="${productReviewDto.product_r_img}"></div></td>
                 <td style="width: 500px;">
                   <div>                  
@@ -263,7 +263,7 @@
       <li><a href="javascript:focus04();" class="detail_tab" style="background-color: #818181;">배송안내</a></li>
       <li><a href="javascript:focus05();" class="detail_tab">고객 및 반품</a></li>
     </ul>
-    <div  style="margin: 50px 10px;">${productDto.product_delivery_policy}</div>
+    <div style="padding-left: 46px; padding-top:20px; text-align: center;"><img  src="<%= request.getContextPath() %>/img/delivery.jpg" alt=""></div>
   </div>
   <div id="product_swap_policy" style="text-align: center; padding-top: 50px;">
     <ul class="detail_tab clearbox">
@@ -273,7 +273,7 @@
       <li><a href="javascript:focus04();" class="detail_tab">배송안내</a></li>
       <li><a href="javascript:focus05();" class="detail_tab"  style="background-color: #818181;">고객 및 반품</a></li>
     </ul>
-    <div  style="margin: 50px 10px;">${productDto.product_swap_policy}</div>
+    <div style="margin:0 auto; text-align: center;"><img style="width:800px" src="<%= request.getContextPath() %>/img/swap.jpg" alt=""></div>
   </div>
   </section>  
 <c:import url="/footer.jsp"></c:import>

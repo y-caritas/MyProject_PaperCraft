@@ -170,7 +170,7 @@
     	var user_id = $('#join_id').val();
     	
     	$.ajax({
-    		url : 'http://localhost:8081/MyProject_PaperCraft/member/idCheckAjax.do?member_id='+ user_id,
+    		url : 'http://localhost:8090/MyProject_PaperCraft/member/idCheckAjax.do?member_id='+ user_id,
     		type : 'get',
     		success : function(data) {
     			console.log("결과값: "+data+" (0: 사용가능, 1:사용불가)");
