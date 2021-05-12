@@ -172,6 +172,7 @@ width: 1000px;
 	   
         <form action="myPageModify.do" onSubmit= "return checkValue()" name="userInfo" method="POST">
          <input type="hidden" name="member_idx" value="${dto.member_idx }">
+          <input type="hidden" name="member_grade" value="${dto.member_grade }">
             <table id="join_table" style="border-collapse: collapse;">
                 <!-- 아이디 -->
                 
@@ -201,7 +202,7 @@ width: 1000px;
                     
                
                
-                    <td class="join_form_right"><input class="join_inputbox" type="text" id="join_address"  name="member_address" style=" width: 300px;"value="${dto.member_address}" >
+                    <td class="join_form_right"><input class="join_inputbox" type="text" id="join_address"  name="member_address" style=" width: 500px;"value="${dto.member_address}" >
                         
                         <span id="guide" style="color:#999;display:none"></span><br></td>
                 </tr>
@@ -249,7 +250,9 @@ width: 1000px;
                     </td>
                 </tr>
                  <!-- 회원등급 -->
+                 
                 <tr>
+                
                     <td class="join_form_left">회원등급 </td>
                     <td class="join_form_right join_form_border">
                 <c:choose>
