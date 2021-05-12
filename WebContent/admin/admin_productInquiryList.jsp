@@ -189,7 +189,7 @@ input[id*="answer"]:checked + label + div {
 		<!-- 질문 -->
 		<tr class="inquiryTr">     
 		  <td id ="tdid" width="50px" >${dto.product_i_idx}</td>
-		 <td width="170px"><img src="http://placehold.it/100" />${dto.product_i_img}</td>         
+		 <td width="170px"><img style="width:150px; height:100px;" src="${dto.product_i_img}" /></td>         
 		 <td style="text-align: left;" width="490px">
 		 	<div class="ProdInqCatg"><small><b>${dto.product_i_category} > ${dto.product_i_name}</b></small></div> 
 		   <br>  

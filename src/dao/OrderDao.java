@@ -642,4 +642,24 @@ public class OrderDao {
 				return orderDto;
 			}
 			
+			// 주문완료(장바구니 삭제)
+			public static void cartIdxDelete(String cartIdx) {
+				Connection conn = null;
+				PreparedStatement pstmt = null;
+				int intCartIdx = Integer.parseInt(cartIdx);
+				
+				try {
+					conn = DBConnection.getConnection();
+					String query = "DELETE FROM p_cart WHERE cart_idx=?";
+					pstmt = conn.prepareStatement(query);
+					pstmt.setInt(1, intCartIdx);
+					int result = pstmt.executeUpdate();
+					System.out.println("result:"+result);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			
 }

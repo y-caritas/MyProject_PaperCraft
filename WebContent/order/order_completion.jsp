@@ -72,9 +72,14 @@
       <td>${ orderDto.order_p_price }원</td>
     </tr>
   </table>
-  <div id="orderCompletionBtn">
-    <button onclick="location.href='<%= request.getContextPath()%>/main.jsp'">확인</button>
-  </div>
+  <form action="orderCompletion.do" method="post">
+    <div id="orderCompletionBtn">
+      <input type="hidden" name="cart_idx1" value="${ cart_idx1 }">
+      <input type="hidden" name="cart_idx2" value="${ cart_idx2 }">
+      <input type="hidden" name="cart_idx3" value="${ cart_idx3 }">
+      <button type="submit">확인</button>
+    </div>
+  </form>
 </section>
 
 <c:import url="/footer.jsp"></c:import>

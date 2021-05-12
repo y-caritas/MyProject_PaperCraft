@@ -925,6 +925,8 @@ public class MyController extends HttpServlet {
 					request.setAttribute("p_total_price"+(i+1), cart_p_total_prices[i]);
 					request.setAttribute("product_idx"+(i+1)+"count", cart_counts[i]);
 					request.setAttribute("p_img"+(i+1), cart_p_img[i]);
+					request.setAttribute("cart_idx"+(i+1), cart_idxes[i]);
+					System.out.println("cart_idx:"+cart_idxes[i]);
 					System.out.println("cart_counts:"+cart_counts[i]);
 					String index = Integer.toString(i);
 					String result = "index = " + index + " 의 " + "cart_p_idx은 " + cart_targets[i] + " cart_p_count은 " +  cart_counts[i] + " cart_p_total_price은 " + cart_p_total_prices[i]; 
@@ -1325,6 +1327,7 @@ public class MyController extends HttpServlet {
 				String p_total_price3 = request.getParameter("p_total_price3");
 				String p_img = request.getParameter("p_img");
 				
+				
 				SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
 				Date time = new Date();
 				String order_idx = member_id + format.format(time);
@@ -1336,6 +1339,9 @@ public class MyController extends HttpServlet {
 						product_count2, product_count3);
 				
 				OrderDto orderDto = OrderDao.orderInfo(order_idx);
+				String cart_idx1 = request.getParameter("cart_idx1");
+				String cart_idx2 = request.getParameter("cart_idx2");
+				String cart_idx3 = request.getParameter("cart_idx3");
 				
 				request.setAttribute("orderDto", orderDto);
 				request.setAttribute("ordererPhone", ordererPhone);
@@ -1347,9 +1353,24 @@ public class MyController extends HttpServlet {
 				request.setAttribute("p_total_price2", p_total_price2);
 				request.setAttribute("p_total_price3", p_total_price3);
 				request.setAttribute("p_img", p_img);
+				request.setAttribute("cart_idx1", cart_idx1);
+				request.setAttribute("cart_idx2", cart_idx2);
+				request.setAttribute("cart_idx3", cart_idx3);
 				
 				jspPage = "/order/order_completion.jsp";
 
+			}
+		// 주문완료(장바구니 삭제)
+			else if(command.equals("orderCompletion.do")) {
+				String cart_idx = null;
+				for(int i = 1; i <= 3; i++) {
+					if(request.getParameter("cart_idx"+i) != null && request.getParameter("cart_idx"+i) != "") {
+						cart_idx = request.getParameter("cart_idx"+i);
+						OrderDao.cartIdxDelete(cart_idx);
+					}
+				}
+				
+				response.sendRedirect(request.getContextPath()+"/main.jsp");
 			}
 		
 		

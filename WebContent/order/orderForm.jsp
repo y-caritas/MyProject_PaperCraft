@@ -124,6 +124,9 @@
       <input type="hidden" name="ordererName" value="${ memberDto.member_name }">
       <input type="hidden" name="ordererPhone" value="${ memberDto.member_phone }">
       <input type="hidden" name="p_img" value="${ p_img1 }">
+      <input type="hidden" name="cart_idx1" value="${ cart_idx1 }">
+      <input type="hidden" name="cart_idx2" value="${ cart_idx2 }">
+      <input type="hidden" name="cart_idx3" value="${ cart_idx3 }">
     </div>
     <div id="orderFormBtn">
       <input type="submit" onclick="orderFormCheck(); return false;" value="결제하기">
